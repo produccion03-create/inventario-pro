@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escáner</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<div class="app">
+    <h1>📷 Escanear código</h1>
+
+    <div id="lector"></div>
+
+    <h2 id="resultado">Esperando código...</h2>
+
+    <button onclick="location.href='index.html'">
+        ⬅ Volver
+    </button>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script type="module" src="JS/scanner.js"></script>
+
+</body>
+</html>
