@@ -1,51 +1,66 @@
-let productos = JSON.parse(localStorage.getItem("productos")) || [];
+import {
+    db,
+    collection,
+    getDocs,
+    query,
+    where
+} from "./firebase.js";
 
-
-function encontrado(codigo){
+async function encontrado(codigo) {
 
     console.log("Código leído:", codigo);
 
+    const resultado = document.getElementById("resultado");
 
-    let producto = productos.find(function(p){
+    try {
 
-        return p.codigo == codigo;
+        const consulta = query(
+            collection(db, "productos"),
+            where("codigo", "==", codigo)
+        );
 
-    });
+        const datos = await getDocs(consulta);
 
+        if (datos.empty) {
 
-    let resultado = document.getElementById("resultado");
+            resultado.innerHTML = `
+            ❌ Producto no encontrado<br>
+            Código: ${codigo}
+            `;
 
+            return;
+        }
 
-    if(producto){
+        datos.forEach((doc) => {
 
-        resultado.innerHTML = 
-        `
-        📦 ${producto.nombre}<br>
-        Código: ${producto.codigo}<br>
-        Stock: ${producto.stock}<br>
-        Ubicación: ${producto.ubicacion}
-        `;
+            const p = doc.data();
 
-    } else {
+            resultado.innerHTML = `
+            📦 <b>${p.nombre}</b><br>
+            Código: ${p.codigo}<br>
+            Stock: ${p.stock}<br>
+            Ubicación: ${p.ubicacion}<br>
+            Precio: ${p.precio} €
+            `;
 
-        resultado.innerHTML =
-        `
-        ❌ No encontrado<br>
-        Código leído: ${codigo}
-        `;
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        resultado.innerHTML = "❌ Error al consultar Firebase";
 
     }
 
 }
 
-
-let scanner = new Html5QrcodeScanner(
+const scanner = new Html5QrcodeScanner(
     "lector",
     {
         fps: 10,
-        qrbox: 300
+        qrbox: 250
     }
 );
-
 
 scanner.render(encontrado);
