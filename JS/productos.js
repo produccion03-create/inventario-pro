@@ -1,3 +1,5 @@
+console.log("PRODUCTOS.JS CARGADO");
+
 import { db, collection, addDoc, getDocs } from "./firebase.js";
 
 async function guardarProducto() {
