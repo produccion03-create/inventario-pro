@@ -1,6 +1,6 @@
-let productos = JSON.parse(localStorage.getItem("productos")) || [];
+import { db, collection, addDoc, getDocs } from "./firebase.js";
 
-function guardarProducto() {
+async function guardarProducto() {
 
     let codigo = document.getElementById("codigo").value.trim();
     let nombre = document.getElementById("nombre").value.trim();
@@ -8,41 +8,51 @@ function guardarProducto() {
     let ubicacion = document.getElementById("ubicacion").value.trim();
     let precio = document.getElementById("precio").value.trim();
 
-    if (codigo == "" || nombre == "") {
-        alert("Debes introducir al menos el código y el nombre.");
+    if (codigo === "" || nombre === "") {
+        alert("Introduce al menos el código y el nombre.");
         return;
     }
 
-    let producto = {
-        codigo: codigo,
-        nombre: nombre,
-        stock: stock,
-        ubicacion: ubicacion,
-        precio: precio
-    };
+    try {
 
-    productos.push(producto);
+        await addDoc(collection(db, "productos"), {
+            codigo,
+            nombre,
+            stock: Number(stock),
+            ubicacion,
+            precio: Number(precio)
+        });
 
-    localStorage.setItem("productos", JSON.stringify(productos));
+        alert("✅ Producto guardado en Firebase");
 
-    mostrarProductos();
+        document.getElementById("codigo").value = "";
+        document.getElementById("nombre").value = "";
+        document.getElementById("stock").value = "";
+        document.getElementById("ubicacion").value = "";
+        document.getElementById("precio").value = "";
 
-    document.getElementById("codigo").value = "";
-    document.getElementById("nombre").value = "";
-    document.getElementById("stock").value = "";
-    document.getElementById("ubicacion").value = "";
-    document.getElementById("precio").value = "";
+        mostrarProductos();
 
-    alert("Producto guardado correctamente");
+    } catch (error) {
+
+        console.error(error);
+        alert("Error al guardar el producto");
+
+    }
+
 }
 
-function mostrarProductos() {
+async function mostrarProductos() {
 
     let lista = document.getElementById("lista");
 
     lista.innerHTML = "";
 
-    productos.forEach(function (p) {
+    const querySnapshot = await getDocs(collection(db, "productos"));
+
+    querySnapshot.forEach((doc) => {
+
+        const p = doc.data();
 
         lista.innerHTML += `
         <div>
@@ -58,5 +68,7 @@ function mostrarProductos() {
     });
 
 }
+
+window.guardarProducto = guardarProducto;
 
 mostrarProductos();
