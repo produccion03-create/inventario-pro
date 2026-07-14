@@ -9,6 +9,7 @@ import {
 async function encontrado(codigo) {
 
     console.log("Código leído:", codigo);
+    alert("Código leído: " + codigo);
 
     const resultado = document.getElementById("resultado");
 
