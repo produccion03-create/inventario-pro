@@ -6,10 +6,12 @@ import {
     where
 } from "./firebase.js";
 
-async function encontrado(codigo) {
+async function encontrado(decodedText, decodedResult) {
+
+    const codigo = decodedText;
 
     console.log("Código leído:", codigo);
-    alert("Código leído: " + codigo);
+    
 
     const resultado = document.getElementById("resultado");
 
