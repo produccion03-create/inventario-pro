@@ -6,7 +6,10 @@ import {
     addDoc,
     getDocs,
     query,
-    where
+    where,
+    doc,
+    updateDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -28,5 +31,7 @@ export {
     addDoc,
     getDocs,
     query,
-    where
+    where,
+    doc,
+    updateDoc
 };
