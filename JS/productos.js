@@ -56,6 +56,18 @@ async function mostrarProductos() {
 
         const p = doc.data();
 
+const texto = document
+    .getElementById("buscar")
+    .value
+    .toLowerCase();
+
+if (
+    !p.nombre.toLowerCase().includes(texto) &&
+    !p.codigo.toLowerCase().includes(texto)
+) {
+    return;
+}
+
         lista.innerHTML += `
         <div>
             📦 <b>${p.nombre}</b><br>
@@ -74,3 +86,7 @@ async function mostrarProductos() {
 window.guardarProducto = guardarProducto;
 
 mostrarProductos();
+
+document
+    .getElementById("buscar")
+    .addEventListener("input", mostrarProductos);
