@@ -6,7 +6,8 @@ import {
     addDoc,
     getDocs,
     doc,
-    updateDoc
+    updateDoc,
+    deleteDoc
 } from "./firebase.js";
 
 async function guardarProducto() {
@@ -59,61 +60,62 @@ async function mostrarProductos() {
 
     const querySnapshot = await getDocs(collection(db, "productos"));
 
-    querySnapshot.forEach((doc) => {
+    const texto = document
+        .getElementById("buscar")
+        .value
+        .toLowerCase();
 
-        const p = doc.data();
+    querySnapshot.forEach((documento) => {
 
-const texto = document
-    .getElementById("buscar")
-    .value
-    .toLowerCase();
+        const p = documento.data();
 
-if (
-    !p.nombre.toLowerCase().includes(texto) &&
-    !p.codigo.toLowerCase().includes(texto)
-) {
-    return;
-}
+        if (
+            !p.nombre.toLowerCase().includes(texto) &&
+            !p.codigo.toLowerCase().includes(texto)
+        ) {
+            return;
+        }
 
-lista.innerHTML += `
-<div class="movimiento">
+        lista.innerHTML += `
+        <div class="movimiento">
 
-    <h3>📦 ${p.nombre}</h3>
+            <h3>📦 ${p.nombre}</h3>
 
-    <p><b>Código:</b> ${p.codigo}</p>
+            <p><b>Código:</b> ${p.codigo}</p>
 
-    <p><b>Stock:</b> ${p.stock}</p>
+            <p><b>Stock:</b> ${p.stock}</p>
 
-    <p><b>Ubicación:</b> ${p.ubicacion}</p>
+            <p><b>Ubicación:</b> ${p.ubicacion}</p>
 
-    <p><b>Precio:</b> ${p.precio} €</p>
+            <p><b>Precio:</b> ${p.precio} €</p>
 
-    <button onclick="editarProducto('${doc.id}')">
-        ✏️ Editar
-    </button>
+            <button onclick="editarProducto('${documento.id}')">
+                ✏️ Editar
+            </button>
 
-</div>
-`;
+            <button onclick="eliminarProducto('${documento.id}')">
+                🗑️ Eliminar
+            </button>
+
+        </div>
+        `;
 
     });
 
 }
+
 async function editarProducto(id) {
 
     const nombre = prompt("Nuevo nombre:");
-
     if (nombre === null) return;
 
     const stock = prompt("Nuevo stock:");
-
     if (stock === null) return;
 
     const ubicacion = prompt("Nueva ubicación:");
-
     if (ubicacion === null) return;
 
     const precio = prompt("Nuevo precio:");
-
     if (precio === null) return;
 
     try {
@@ -134,15 +136,38 @@ async function editarProducto(id) {
     } catch (error) {
 
         console.error(error);
-
         alert("Error al actualizar");
 
     }
 
 }
 
-window.editarProducto = editarProducto;
+async function eliminarProducto(id) {
+
+    const confirmar = confirm("¿Seguro que quieres eliminar este producto?");
+
+    if (!confirmar) return;
+
+    try {
+
+        await deleteDoc(doc(db, "productos", id));
+
+        alert("🗑️ Producto eliminado");
+
+        mostrarProductos();
+
+    } catch (error) {
+
+        console.error(error);
+        alert("Error al eliminar el producto");
+
+    }
+
+}
+
 window.guardarProducto = guardarProducto;
+window.editarProducto = editarProducto;
+window.eliminarProducto = eliminarProducto;
 
 mostrarProductos();
 
