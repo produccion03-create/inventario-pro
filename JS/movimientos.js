@@ -36,25 +36,23 @@ const datos = await getDocs(consulta);
             fecha = m.fecha.toDate().toLocaleString();
         }
 
-        lista.innerHTML += `
-            <div class="producto">
+lista.innerHTML += `
+<div class="movimiento">
 
-                <b>${m.producto}</b><br>
+    <h3>📦 ${m.producto}</h3>
 
-                Código: ${m.codigo}<br>
+    <p><b>🏷 Código:</b> ${m.codigo}</p>
 
-                Tipo: ${m.tipo}<br>
+    <p><b>${m.tipo === "Entrada" ? "📥 Entrada" : "📤 Salida"}</b></p>
 
-                Cantidad: ${m.cantidad}<br>
+    <p><b>📦 Cantidad:</b> ${m.cantidad}</p>
 
-                Stock final: ${m.stockFinal}<br>
+    <p><b>📊 Stock final:</b> ${m.stockFinal}</p>
 
-                Fecha: ${fecha}
+    <p><b>🕒 Fecha:</b> ${fecha}</p>
 
-                <hr>
-
-            </div>
-        `;
+</div>
+`;
 
     });
 
