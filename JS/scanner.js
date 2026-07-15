@@ -7,7 +7,7 @@ import {
     where,
     doc,
     updateDoc,
-    serverTimestamp
+    
 } from "./firebase.js";
 
 async function encontrado(decodedText) {
@@ -94,7 +94,7 @@ async function encontrado(decodedText) {
                         tipo: "Entrada",
                         cantidad: cantidad,
                         stockFinal: nuevoStock,
-                        fecha: serverTimestamp()
+                        fecha: new Date()
                     }
                 );
 
@@ -149,7 +149,7 @@ async function encontrado(decodedText) {
                         tipo: "Salida",
                         cantidad: cantidad,
                         stockFinal: nuevoStock,
-                        fecha: serverTimestamp()
+                       fecha: new Date()
                     }
                 );
 
