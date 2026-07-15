@@ -1,6 +1,13 @@
 console.log("PRODUCTOS.JS CARGADO");
 
-import { db, collection, addDoc, getDocs } from "./firebase.js";
+import {
+    db,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    updateDoc
+} from "./firebase.js";
 
 async function guardarProducto() {
 
@@ -68,21 +75,73 @@ if (
     return;
 }
 
-        lista.innerHTML += `
-        <div>
-            📦 <b>${p.nombre}</b><br>
-            Código: ${p.codigo}<br>
-            Stock: ${p.stock}<br>
-            Ubicación: ${p.ubicacion}<br>
-            Precio: ${p.precio} €
-            <hr>
-        </div>
-        `;
+lista.innerHTML += `
+<div class="movimiento">
+
+    <h3>📦 ${p.nombre}</h3>
+
+    <p><b>Código:</b> ${p.codigo}</p>
+
+    <p><b>Stock:</b> ${p.stock}</p>
+
+    <p><b>Ubicación:</b> ${p.ubicacion}</p>
+
+    <p><b>Precio:</b> ${p.precio} €</p>
+
+    <button onclick="editarProducto('${doc.id}')">
+        ✏️ Editar
+    </button>
+
+</div>
+`;
 
     });
 
 }
+async function editarProducto(id) {
 
+    const nombre = prompt("Nuevo nombre:");
+
+    if (nombre === null) return;
+
+    const stock = prompt("Nuevo stock:");
+
+    if (stock === null) return;
+
+    const ubicacion = prompt("Nueva ubicación:");
+
+    if (ubicacion === null) return;
+
+    const precio = prompt("Nuevo precio:");
+
+    if (precio === null) return;
+
+    try {
+
+        await updateDoc(doc(db, "productos", id), {
+
+            nombre: nombre,
+            stock: Number(stock),
+            ubicacion: ubicacion,
+            precio: Number(precio)
+
+        });
+
+        alert("✅ Producto actualizado");
+
+        mostrarProductos();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Error al actualizar");
+
+    }
+
+}
+
+window.editarProducto = editarProducto;
 window.guardarProducto = guardarProducto;
 
 mostrarProductos();
