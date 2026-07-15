@@ -1,7 +1,9 @@
 import {
     db,
     collection,
-    getDocs
+    getDocs,
+    query,
+    orderBy
 } from "./firebase.js";
 
 async function cargarMovimientos() {
@@ -10,7 +12,12 @@ async function cargarMovimientos() {
 
     lista.innerHTML = "";
 
-    const datos = await getDocs(collection(db, "movimientos"));
+    const consulta = query(
+    collection(db, "movimientos"),
+    orderBy("fecha", "desc")
+);
+
+const datos = await getDocs(consulta);
 
     if (datos.empty) {
 
