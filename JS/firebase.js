@@ -10,6 +10,8 @@ import {
     orderBy,
     doc,
     updateDoc,
+    deleteDoc,
+    setDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -36,5 +38,7 @@ export {
     orderBy,
     doc,
     updateDoc,
+    deleteDoc,
+    setDoc,
     serverTimestamp
 };
