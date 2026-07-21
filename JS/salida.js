@@ -9,44 +9,35 @@ import {
 } from "./firebase.js";
 
 
-const selectorProducto = document.getElementById("producto");
-const stockActual = document.getElementById("stockActual");
-const cantidad = document.getElementById("cantidad");
-const boton = document.getElementById("guardarSalida");
+const selectorProducto =
+document.getElementById("producto");
+
+const stockActual =
+document.getElementById("stockActual");
+
+const cantidad =
+document.getElementById("cantidad");
+
+const boton =
+document.getElementById("guardarSalida");
 
 
 let productos = [];
+
 let productoSeleccionado = null;
 
 
 
-async function cargarProductos() {
+async function cargarProductos(){
 
 
-    try {
+    try{
 
 
-        const datos = await getDocs(
-            collection(db, "productos")
+        const datos =
+        await getDocs(
+            collection(db,"productos")
         );
-
-
-        productos = [];
-
-
-        datos.forEach((documento)=>{
-
-
-            productos.push({
-
-                id: documento.id,
-
-                ...documento.data()
-
-            });
-
-
-        });
 
 
 
@@ -55,14 +46,28 @@ async function cargarProductos() {
 
 
 
-        productos.forEach((p)=>{
+        datos.forEach((documento)=>{
+
+
+            const p = documento.data();
+
+
+            productos.push({
+
+                id:documento.id,
+
+                ...p
+
+            });
+
 
 
             const opcion =
             document.createElement("option");
 
 
-            opcion.value = p.id;
+            opcion.value =
+            documento.id;
 
 
             opcion.textContent =
@@ -78,17 +83,12 @@ async function cargarProductos() {
 
 
 
-    } catch(error) {
+    }catch(error){
 
 
         console.error(
             "Error cargando productos:",
             error
-        );
-
-
-        alert(
-            "Error cargando productos"
         );
 
 
@@ -109,6 +109,7 @@ function actualizarStock(){
     );
 
 
+
     if(productoSeleccionado){
 
 
@@ -116,7 +117,7 @@ function actualizarStock(){
         productoSeleccionado.stock;
 
 
-    } else {
+    }else{
 
 
         stockActual.textContent = 0;
@@ -126,6 +127,7 @@ function actualizarStock(){
 
 
 }
+
 
 
 
@@ -145,6 +147,7 @@ async()=>{
 
     if(!productoSeleccionado){
 
+
         alert(
         "Selecciona un producto"
         );
@@ -160,14 +163,8 @@ async()=>{
 
 
 
-    const nuevoStock =
-    Number(productoSeleccionado.stock)
-    -
-    cantidadSalida;
-
-
-
     if(cantidadSalida <= 0){
+
 
         alert(
         "Cantidad incorrecta"
@@ -179,10 +176,18 @@ async()=>{
 
 
 
+    const nuevoStock =
+    Number(productoSeleccionado.stock)
+    -
+    cantidadSalida;
+
+
+
     if(nuevoStock < 0){
 
+
         alert(
-        "❌ Stock insuficiente"
+        "❌ No hay suficiente stock"
         );
 
         return;
@@ -240,7 +245,9 @@ async()=>{
     location.reload();
 
 
+
 });
+
 
 
 
