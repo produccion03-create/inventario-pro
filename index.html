@@ -24,8 +24,6 @@
 
 
 
-<!-- DASHBOARD -->
-
 <div class="dashboard">
 
 
@@ -81,8 +79,6 @@
 
 
 
-<!-- ALERTA STOCK -->
-
 <div class="panel">
 
     <h2>⚠️ Productos con stock bajo</h2>
@@ -98,64 +94,53 @@
 
 
 
+<div class="panel">
 
-<!-- MENU -->
+    <h2>📊 Estadísticas inventario</h2>
+
+    <canvas id="graficoInventario"></canvas>
+
+</div>
+
+
+
+
 
 <div class="menu">
 
 
 <button onclick="location.href='productos.html'">
-
 📦 Productos
-
 </button>
-
 
 
 <button onclick="location.href='scanner.html'">
-
 📷 Escanear
-
 </button>
-
 
 
 <button onclick="location.href='movimientos.html'">
-
-📋 Historial de movimientos
-
+📋 Historial movimientos
 </button>
 
 
-
 <button>
-
 ➕ Entrada
-
 </button>
 
 
-
 <button>
-
 ➖ Salida
-
 </button>
 
 
-
 <button>
-
 📊 Informes
-
 </button>
-
 
 
 <button>
-
 ⚙ Configuración
-
 </button>
 
 
@@ -163,10 +148,11 @@
 
 
 
-
 </div>
 
 
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="JS/app.js"></script>
 
