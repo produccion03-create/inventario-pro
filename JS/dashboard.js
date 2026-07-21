@@ -7,7 +7,9 @@ import {
 
 async function cargarDashboard() {
 
+
     const productos = await getDocs(collection(db, "productos"));
+
 
     let totalProductos = 0;
     let valorAlmacen = 0;
@@ -17,37 +19,77 @@ async function cargarDashboard() {
     let listaStockBajo = "";
 
 
+
     productos.forEach((documento) => {
+
 
         const p = documento.data();
 
+
         totalProductos++;
+
 
         valorAlmacen += Number(p.stock) * Number(p.precio);
 
 
+
+        // STOCK BAJO
+
         if (Number(p.stock) < 5) {
+
 
             stockBajo++;
 
-            listaStockBajo +=
-                p.nombre +
-                " | Stock: " +
-                p.stock +
-                " | Ubicación: " +
-                p.ubicacion +
-                "<br>";
+
+            listaStockBajo += `
+
+            <div class="alerta-stock">
+
+
+                <h3>
+                ⚠️ ${p.nombre}
+                </h3>
+
+
+                <p>
+                📦 Stock actual:
+                <strong>${p.stock}</strong>
+                </p>
+
+
+                <p>
+                📍 Ubicación:
+                ${p.ubicacion}
+                </p>
+
+
+                <span>
+                🔄 Necesita reposición
+                </span>
+
+
+            </div>
+
+            `;
+
 
         }
 
+
+
+        // SIN STOCK
 
         if (Number(p.stock) === 0) {
 
+
             sinStock++;
+
 
         }
 
+
     });
+
 
 
 
@@ -55,12 +97,15 @@ async function cargarDashboard() {
         totalProductos;
 
 
+
     document.getElementById("valorAlmacen").textContent =
         valorAlmacen.toFixed(2) + " €";
 
 
+
     document.getElementById("stockBajo").textContent =
         stockBajo;
+
 
 
     document.getElementById("sinStock").textContent =
@@ -68,17 +113,37 @@ async function cargarDashboard() {
 
 
 
+
     const lista = document.getElementById("listaStockBajo");
+
 
 
     if (lista) {
 
-        lista.innerHTML =
-            listaStockBajo || "✅ No hay productos con stock bajo";
+
+        if (listaStockBajo === "") {
+
+
+            lista.innerHTML =
+            "✅ No hay productos con stock bajo";
+
+
+        } else {
+
+
+            lista.innerHTML =
+            listaStockBajo;
+
+
+        }
+
 
     }
 
+
+
 }
+
 
 
 cargarDashboard();
