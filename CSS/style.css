@@ -49,3 +49,41 @@ button {
 .movimiento p{
     margin:6px 0;
 }
+
+/* ==========================
+   DASHBOARD V2
+========================== */
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+    margin:25px 0;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card h3{
+    margin:0;
+    color:#2563eb;
+    font-size:18px;
+}
+
+.card span{
+    display:block;
+    margin-top:15px;
+    font-size:34px;
+    font-weight:bold;
+    color:#111827;
+}
