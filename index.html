@@ -1,80 +1,72 @@
-<!DOCTYPE html>
-<html lang="es">
+import {
+    db,
+    collection,
+    getDocs
+} from "./firebase.js";
 
-<head>
+async function cargarDashboard() {
 
-<meta charset="UTF-8">
+    const productos = await getDocs(collection(db, "productos"));
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    let totalProductos = 0;
+    let valorAlmacen = 0;
+    let stockBajo = 0;
+    let sinStock = 0;
 
-<title>Inventario Pro</title>
+    let listaStockBajo = "";
 
-<link rel="stylesheet" href="CSS/style.css">
+    productos.forEach((documento) => {
 
-</head>
+        const p = documento.data();
 
+        totalProductos++;
 
-<body>
+        valorAlmacen += Number(p.stock) * Number(p.precio);
 
+        if (Number(p.stock) < 5) {
 
-<div class="app">
+            stockBajo++;
 
+            listaStockBajo += `
+                <div class="producto-alerta">
+                    <strong>${p.nombre}</strong>
+                    <br>
+                    Stock: ${p.stock}
+                    <br>
+                    Ubicación: ${p.ubicacion}
+                </div>
+            `;
+        }
 
-<h1>📦 Inventario Pro</h1>
-<div class="dashboard">
+        if (Number(p.stock) === 0) {
+            sinStock++;
+        }
 
-    <div class="card">
-        <h3>📦 Productos</h3>
-        <span id="totalProductos">0</span>
-    </div>
-
-    <div class="card">
-        <h3>💰 Valor almacén</h3>
-        <span id="valorAlmacen">0 €</span>
-    </div>
-
-    <div class="card">
-        <h3>⚠️ Stock bajo</h3>
-        <span id="stockBajo">0</span>
-    </div>
-
-    <div class="card">
-        <h3>🔴 Sin stock</h3>
-        <span id="sinStock">0</span>
-    </div>
-
-</div>
-<div class="menu">
+    });
 
 
-<button onclick="location.href='productos.html'">
-📦 Productos
-</button>
+    document.getElementById("totalProductos").textContent = totalProductos;
 
-<button onclick="location.href='scanner.html'">
-📷 Escanear
-</button>
+    document.getElementById("valorAlmacen").textContent =
+        valorAlmacen.toFixed(2) + " €";
 
-<button onclick="location.href='movimientos.html'">
-    📋 Historial de movimientos
-</button>
+    document.getElementById("stockBajo").textContent = stockBajo;
 
-<button>➕ Entrada</button>
-
-<button>➖ Salida</button>
-
-<button>📊 Informes</button>
-
-<button>⚙ Configuración</button>
+    document.getElementById("sinStock").textContent = sinStock;
 
 
-</div>
+    if (listaStockBajo === "") {
 
+        document.getElementById("listaStockBajo").innerHTML =
+            "✅ No hay productos con stock bajo";
 
-</div>
+    } else {
 
-<script src="JS/app.js"></script>
-<script type="module" src="JS/dashboard.js"></script>
-</body>
+        document.getElementById("listaStockBajo").innerHTML =
+            listaStockBajo;
 
-</html>
+    }
+
+}
+
+cargarDashboard();
