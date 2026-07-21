@@ -8,7 +8,9 @@ import {
 async function cargarDashboard() {
 
 
-    const productos = await getDocs(collection(db, "productos"));
+    const productos = await getDocs(
+        collection(db, "productos")
+    );
 
 
     let totalProductos = 0;
@@ -20,7 +22,7 @@ async function cargarDashboard() {
 
 
 
-    productos.forEach((documento) => {
+    productos.forEach((documento)=>{
 
 
         const p = documento.data();
@@ -29,13 +31,12 @@ async function cargarDashboard() {
         totalProductos++;
 
 
-        valorAlmacen += Number(p.stock) * Number(p.precio);
+        valorAlmacen +=
+        Number(p.stock) * Number(p.precio);
 
 
 
-        // STOCK BAJO
-
-        if (Number(p.stock) < 5) {
+        if(Number(p.stock)<5){
 
 
             stockBajo++;
@@ -45,45 +46,35 @@ async function cargarDashboard() {
 
             <div class="alerta-stock">
 
-
                 <h3>
                 ⚠️ ${p.nombre}
                 </h3>
-
 
                 <p>
                 📦 Stock actual:
                 <strong>${p.stock}</strong>
                 </p>
 
-
                 <p>
                 📍 Ubicación:
                 ${p.ubicacion}
                 </p>
 
-
                 <span>
                 🔄 Necesita reposición
                 </span>
-
 
             </div>
 
             `;
 
-
         }
 
 
 
-        // SIN STOCK
-
-        if (Number(p.stock) === 0) {
-
+        if(Number(p.stock)===0){
 
             sinStock++;
-
 
         }
 
@@ -94,52 +85,96 @@ async function cargarDashboard() {
 
 
     document.getElementById("totalProductos").textContent =
-        totalProductos;
+    totalProductos;
 
 
 
     document.getElementById("valorAlmacen").textContent =
-        valorAlmacen.toFixed(2) + " €";
+    valorAlmacen.toFixed(2)+" €";
 
 
 
     document.getElementById("stockBajo").textContent =
-        stockBajo;
+    stockBajo;
 
 
 
     document.getElementById("sinStock").textContent =
-        sinStock;
+    sinStock;
 
 
 
 
-    const lista = document.getElementById("listaStockBajo");
+    document.getElementById("listaStockBajo").innerHTML =
+    listaStockBajo ||
+    "✅ No hay productos con stock bajo";
 
 
 
-    if (lista) {
 
 
-        if (listaStockBajo === "") {
+    crearGrafico(
+        totalProductos,
+        stockBajo,
+        sinStock
+    );
 
 
-            lista.innerHTML =
-            "✅ No hay productos con stock bajo";
+
+}
 
 
-        } else {
 
 
-            lista.innerHTML =
-            listaStockBajo;
+
+function crearGrafico(productos, bajo, sinStock){
+
+
+    const ctx =
+    document.getElementById("graficoInventario");
+
+
+
+    new Chart(ctx, {
+
+
+        type:"doughnut",
+
+
+        data:{
+
+
+            labels:[
+                "Productos",
+                "Stock bajo",
+                "Sin stock"
+            ],
+
+
+            datasets:[{
+
+                data:[
+                    productos,
+                    bajo,
+                    sinStock
+                ]
+
+            }]
+
+
+        },
+
+
+        options:{
+
+
+            responsive:true
 
 
         }
 
 
-    }
-
+    });
 
 
 }
