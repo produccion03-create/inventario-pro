@@ -15,7 +15,7 @@ async function cargarDashboard() {
     let sinStock = 0;
 
     let listaStockBajo = "";
-
+    console.log("Dashboard cargado");
 
     productos.forEach((documento) => {
 
@@ -27,7 +27,7 @@ async function cargarDashboard() {
 
 
         if (Number(p.stock) < 5) {
-
+	console.log("Stock bajo:", p.nombre, p.stock);
             stockBajo++;
 
             listaStockBajo += `
