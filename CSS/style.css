@@ -63,6 +63,13 @@ button:hover {
 }
 
 
+button:active {
+
+    transform:scale(.97);
+
+}
+
+
 
 /* ==========================
    MOVIMIENTOS
@@ -203,7 +210,7 @@ button:hover {
 
 
 /* ==========================
-   PANEL ALERTAS
+   PANEL
 ========================== */
 
 
@@ -288,7 +295,7 @@ button:hover {
 
 
 /* ==========================
-   MOVIL
+   ADAPTACION MOVIL PRO
 ========================== */
 
 
@@ -302,26 +309,90 @@ button:hover {
     }
 
 
-    .menu {
+
+    h1 {
+
+        font-size:26px;
+
+    }
+
+
+
+    .dashboard {
 
         grid-template-columns:1fr;
 
-    }
-
-
-    button {
-
-        height:70px;
-        font-size:16px;
+        gap:15px;
 
     }
+
+
+
+    .card {
+
+        padding:18px;
+
+    }
+
 
 
     .card span {
 
-        font-size:30px;
+        font-size:32px;
 
     }
 
+
+
+    .menu {
+
+        grid-template-columns:1fr;
+
+        gap:15px;
+
+        margin-top:30px;
+
+    }
+
+
+
+    button {
+
+        height:65px;
+
+        font-size:17px;
+
+        border-radius:12px;
+
+    }
+
+
+
+    .panel {
+
+        padding:15px;
+
+    }
+
+
+
+    .alerta-stock {
+
+        padding:12px;
+
+    }
+
+
+}
+
+
+
+/* Evitar efecto azul al tocar en móvil */
+
+.card,
+.panel,
+button {
+
+    -webkit-tap-highlight-color: transparent;
 
 }
