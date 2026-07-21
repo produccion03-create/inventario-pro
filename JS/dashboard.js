@@ -13,9 +13,8 @@ async function cargarDashboard() {
     let valorAlmacen = 0;
     let stockBajo = 0;
     let sinStock = 0;
-
     let listaStockBajo = "";
-    console.log("Dashboard cargado");
+
 
     productos.forEach((documento) => {
 
@@ -27,26 +26,19 @@ async function cargarDashboard() {
 
 
         if (Number(p.stock) < 5) {
-	console.log("Stock bajo:", p.nombre, p.stock);
             stockBajo++;
 
-            listaStockBajo += `
-                <div class="producto-alerta">
-                    <strong>${p.nombre}</strong>
-                    <br>
-                    Stock: ${p.stock}
-                    <br>
-                    Ubicación: ${p.ubicacion}
-                </div>
-            `;
-
+            listaStockBajo += 
+            "<div>" +
+            "<b>" + p.nombre + "</b><br>" +
+            "Stock: " + p.stock + "<br>" +
+            "Ubicación: " + p.ubicacion +
+            "</div><br>";
         }
 
 
         if (Number(p.stock) === 0) {
-
             sinStock++;
-
         }
 
     });
@@ -54,27 +46,27 @@ async function cargarDashboard() {
 
     document.getElementById("totalProductos").textContent = totalProductos;
 
-
     document.getElementById("valorAlmacen").textContent =
         valorAlmacen.toFixed(2) + " €";
 
-
     document.getElementById("stockBajo").textContent = stockBajo;
-
 
     document.getElementById("sinStock").textContent = sinStock;
 
 
+    const lista = document.getElementById("listaStockBajo");
 
-    if (listaStockBajo === "") {
+    if (lista) {
 
-        document.getElementById("listaStockBajo").innerHTML =
-            "✅ No hay productos con stock bajo";
+        if (listaStockBajo === "") {
 
-    } else {
+            lista.innerHTML = "✅ No hay productos con stock bajo";
 
-        document.getElementById("listaStockBajo").innerHTML =
-            listaStockBajo;
+        } else {
+
+            lista.innerHTML = listaStockBajo;
+
+        }
 
     }
 
