@@ -4,6 +4,7 @@ import {
     getDocs
 } from "./firebase.js";
 
+
 async function cargarDashboard() {
 
     const productos = await getDocs(collection(db, "productos"));
@@ -13,6 +14,9 @@ async function cargarDashboard() {
     let stockBajo = 0;
     let sinStock = 0;
 
+    let listaStockBajo = "";
+
+
     productos.forEach((documento) => {
 
         const p = documento.data();
@@ -21,25 +25,60 @@ async function cargarDashboard() {
 
         valorAlmacen += Number(p.stock) * Number(p.precio);
 
+
         if (Number(p.stock) < 5) {
+
             stockBajo++;
+
+            listaStockBajo +=
+                p.nombre +
+                " | Stock: " +
+                p.stock +
+                " | Ubicación: " +
+                p.ubicacion +
+                "<br>";
+
         }
 
+
         if (Number(p.stock) === 0) {
+
             sinStock++;
+
         }
 
     });
 
-    document.getElementById("totalProductos").textContent = totalProductos;
+
+
+    document.getElementById("totalProductos").textContent =
+        totalProductos;
+
 
     document.getElementById("valorAlmacen").textContent =
         valorAlmacen.toFixed(2) + " €";
 
-    document.getElementById("stockBajo").textContent = stockBajo;
 
-    document.getElementById("sinStock").textContent = sinStock;
+    document.getElementById("stockBajo").textContent =
+        stockBajo;
+
+
+    document.getElementById("sinStock").textContent =
+        sinStock;
+
+
+
+    const lista = document.getElementById("listaStockBajo");
+
+
+    if (lista) {
+
+        lista.innerHTML =
+            listaStockBajo || "✅ No hay productos con stock bajo";
+
+    }
 
 }
+
 
 cargarDashboard();
