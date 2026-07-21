@@ -165,10 +165,21 @@ function crearGrafico(productos, bajo, sinStock){
         },
 
 
-        options:{
+     options:{
 
+    responsive: true,
 
-            responsive:true
+    maintainAspectRatio: false,
+
+    plugins:{
+
+        legend:{
+            position:"bottom"
+        }
+
+    }
+
+}
 
 
         }
