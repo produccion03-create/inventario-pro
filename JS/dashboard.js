@@ -4,14 +4,11 @@ import {
     getDocs
 } from "./firebase.js";
 
-
 async function cargarDashboard() {
-
 
     const productos = await getDocs(
         collection(db, "productos")
     );
-
 
     let totalProductos = 0;
     let valorAlmacen = 0;
@@ -20,98 +17,68 @@ async function cargarDashboard() {
 
     let listaStockBajo = "";
 
-
-
-    productos.forEach((documento)=>{
-
+    productos.forEach((documento) => {
 
         const p = documento.data();
 
-
         totalProductos++;
 
-
         valorAlmacen +=
-        Number(p.stock) * Number(p.precio);
+            Number(p.stock) * Number(p.precio);
 
-
-
-        if(Number(p.stock)<5){
-
+        if (Number(p.stock) < 5) {
 
             stockBajo++;
 
-
             listaStockBajo += `
 
-            <div class="alerta-stock">
+                <div class="alerta-stock">
 
-                <h3>
-                ⚠️ ${p.nombre}
-                </h3>
+                    <h3>⚠️ ${p.nombre}</h3>
 
-                <p>
-                📦 Stock actual:
-                <strong>${p.stock}</strong>
-                </p>
+                    <p>
+                        📦 Stock actual:
+                        <strong>${p.stock}</strong>
+                    </p>
 
-                <p>
-                📍 Ubicación:
-                ${p.ubicacion}
-                </p>
+                    <p>
+                        📍 Ubicación:
+                        ${p.ubicacion}
+                    </p>
 
-                <span>
-                🔄 Necesita reposición
-                </span>
+                    <span>
+                        🔄 Necesita reposición
+                    </span>
 
-            </div>
+                </div>
 
             `;
 
         }
 
-
-
-        if(Number(p.stock)===0){
+        if (Number(p.stock) === 0) {
 
             sinStock++;
 
         }
 
-
     });
 
-
-
-
     document.getElementById("totalProductos").textContent =
-    totalProductos;
-
-
+        totalProductos;
 
     document.getElementById("valorAlmacen").textContent =
-    valorAlmacen.toFixed(2)+" €";
-
-
+        valorAlmacen.toFixed(2) + " €";
 
     document.getElementById("stockBajo").textContent =
-    stockBajo;
-
-
+        stockBajo;
 
     document.getElementById("sinStock").textContent =
-    sinStock;
-
-
-
+        sinStock;
 
     document.getElementById("listaStockBajo").innerHTML =
-    listaStockBajo ||
-    "✅ No hay productos con stock bajo";
-
-
-
-
+        listaStockBajo ||
+        "✅ No hay productos con stock bajo";
 
     crearGrafico(
         totalProductos,
@@ -119,77 +86,64 @@ async function cargarDashboard() {
         sinStock
     );
 
-
-
 }
 
+function crearGrafico(productos, bajo, sinStock) {
 
-
-
-
-function crearGrafico(productos, bajo, sinStock){
-
-
-    const ctx =
-    document.getElementById("graficoInventario");
-
-
+    const ctx = document.getElementById("graficoInventario");
 
     new Chart(ctx, {
 
+        type: "doughnut",
 
-        type:"doughnut",
+        data: {
 
-
-        data:{
-
-
-            labels:[
+            labels: [
                 "Productos",
                 "Stock bajo",
                 "Sin stock"
             ],
 
+            datasets: [{
 
-            datasets:[{
-
-                data:[
+                data: [
                     productos,
                     bajo,
                     sinStock
-                ]
+                ],
+
+                backgroundColor: [
+                    "#2563eb",
+                    "#f59e0b",
+                    "#dc2626"
+                ],
+
+                borderWidth: 2
 
             }]
 
-
         },
 
+        options: {
 
-     options:{
+            responsive: true,
 
-    responsive: true,
+            maintainAspectRatio: false,
 
-    maintainAspectRatio: false,
+            plugins: {
 
-    plugins:{
+                legend: {
 
-        legend:{
-            position:"bottom"
-        }
+                    position: "bottom"
 
-    }
+                }
 
-}
-
+            }
 
         }
-
 
     });
 
-
 }
-
-
 
 cargarDashboard();
