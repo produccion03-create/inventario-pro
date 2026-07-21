@@ -87,3 +87,35 @@ button {
     font-weight:bold;
     color:#111827;
 }
+
+/* INDICADORES DASHBOARD */
+
+.card p {
+
+    margin-top: 10px;
+
+    font-size: 14px;
+
+    color: #777;
+
+}
+
+
+.card span {
+
+    display: block;
+
+    margin-top: 10px;
+
+    font-size: 36px;
+
+    font-weight: bold;
+
+}
+
+
+.card h3 {
+
+    font-size: 18px;
+
+}
