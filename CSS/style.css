@@ -396,3 +396,15 @@ button {
     -webkit-tap-highlight-color: transparent;
 
 }
+
+/* ==========================
+   GRAFICOS
+========================== */
+
+
+canvas {
+
+    max-width:100%;
+    margin-top:20px;
+
+}
