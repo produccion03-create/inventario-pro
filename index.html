@@ -23,43 +23,74 @@
 <h1>📦 Inventario Pro</h1>
 
 
+
+<!-- DASHBOARD -->
+
 <div class="dashboard">
 
 
-    <div class="card">
+    <div class="card card-productos">
+
         <h3>📦 Productos</h3>
+
         <span id="totalProductos">0</span>
+
+        <p>Total registrados</p>
+
     </div>
 
 
-    <div class="card">
+
+    <div class="card card-valor">
+
         <h3>💰 Valor almacén</h3>
+
         <span id="valorAlmacen">0 €</span>
+
+        <p>Valor actual inventario</p>
+
     </div>
 
 
-    <div class="card">
+
+    <div class="card card-stock">
+
         <h3>⚠️ Stock bajo</h3>
+
         <span id="stockBajo">0</span>
+
+        <p>Necesitan revisión</p>
+
     </div>
 
 
-    <div class="card">
+
+    <div class="card card-alerta">
+
         <h3>🔴 Sin stock</h3>
+
         <span id="sinStock">0</span>
+
+        <p>Productos agotados</p>
+
     </div>
 
 
 </div>
 
 
+
+
+<!-- ALERTA STOCK -->
 
 <div class="panel">
 
     <h2>⚠️ Productos con stock bajo</h2>
 
     <div id="listaStockBajo">
+
         Cargando...
+
     </div>
 
 </div>
@@ -67,45 +98,70 @@
 
 
 
+
+<!-- MENU -->
+
 <div class="menu">
 
 
 <button onclick="location.href='productos.html'">
+
 📦 Productos
+
 </button>
+
 
 
 <button onclick="location.href='scanner.html'">
+
 📷 Escanear
+
 </button>
+
 
 
 <button onclick="location.href='movimientos.html'">
+
 📋 Historial de movimientos
+
 </button>
 
 
+
 <button>
+
 ➕ Entrada
+
 </button>
 
 
+
 <button>
+
 ➖ Salida
+
 </button>
 
 
+
 <button>
+
 📊 Informes
+
 </button>
 
 
+
 <button>
+
 ⚙ Configuración
+
 </button>
 
 
 </div>
+
+
 
 
 </div>
