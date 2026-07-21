@@ -11,6 +11,7 @@ async function cargarDashboard() {
     let totalProductos = 0;
     let valorAlmacen = 0;
     let stockBajo = 0;
+    let sinStock = 0;
 
     productos.forEach((documento) => {
 
@@ -24,6 +25,10 @@ async function cargarDashboard() {
             stockBajo++;
         }
 
+        if (Number(p.stock) === 0) {
+            sinStock++;
+        }
+
     });
 
     document.getElementById("totalProductos").textContent = totalProductos;
@@ -32,6 +37,8 @@ async function cargarDashboard() {
         valorAlmacen.toFixed(2) + " €";
 
     document.getElementById("stockBajo").textContent = stockBajo;
+
+    document.getElementById("sinStock").textContent = sinStock;
 
 }
 
