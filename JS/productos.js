@@ -1,5 +1,6 @@
 console.log("PRODUCTOS.JS CARGADO");
 
+
 import {
     db,
     collection,
@@ -11,72 +12,102 @@ import {
 } from "./firebase.js";
 
 
+
 // ==========================
 // GUARDAR PRODUCTO
 // ==========================
 
-async function guardarProducto() {
-
-    let codigo = document.getElementById("codigo").value.trim();
-    let nombre = document.getElementById("nombre").value.trim();
-    let stock = document.getElementById("stock").value.trim();
-    let ubicacion = document.getElementById("ubicacion").value.trim();
-    let precio = document.getElementById("precio").value.trim();
+async function guardarProducto(){
 
 
-    if (codigo === "" || nombre === "") {
+    let codigo =
+    document.getElementById("codigo").value.trim();
 
-        alert("Introduce el código y el nombre.");
+
+    let nombre =
+    document.getElementById("nombre").value.trim();
+
+
+    let stock =
+    document.getElementById("stock").value.trim();
+
+
+    let ubicacion =
+    document.getElementById("ubicacion").value.trim();
+
+
+    let precio =
+    document.getElementById("precio").value.trim();
+
+
+    let categoria =
+    document.getElementById("categoria").value;
+
+
+
+    if(codigo==="" || nombre===""){
+
+        alert("Introduce código y nombre");
 
         return;
 
     }
 
 
-    try {
+
+    try{
+
 
         await addDoc(
-            collection(db, "productos"),
+            collection(db,"productos"),
             {
 
                 codigo,
 
                 nombre,
 
-                stock: Number(stock),
+                stock:Number(stock),
 
                 ubicacion,
 
-                precio: Number(precio)
+                precio:Number(precio),
+
+                categoria
 
             }
         );
 
 
+
         alert("✅ Producto guardado");
 
 
-        document.getElementById("codigo").value = "";
-        document.getElementById("nombre").value = "";
-        document.getElementById("stock").value = "";
-        document.getElementById("ubicacion").value = "";
-        document.getElementById("precio").value = "";
+
+        document.getElementById("codigo").value="";
+        document.getElementById("nombre").value="";
+        document.getElementById("stock").value="";
+        document.getElementById("ubicacion").value="";
+        document.getElementById("precio").value="";
+        document.getElementById("categoria").value="";
+
 
 
         mostrarProductos();
 
 
-    } catch(error) {
 
+    }catch(error){
 
         console.error(error);
 
-        alert("Error al guardar producto");
-
+        alert("Error guardando producto");
 
     }
 
+
 }
+
+
 
 
 
@@ -85,17 +116,18 @@ async function guardarProducto() {
 // ==========================
 
 
-async function mostrarProductos() {
+async function mostrarProductos(){
 
 
     const lista =
     document.getElementById("lista");
 
 
-    lista.innerHTML = "";
+    lista.innerHTML="";
 
 
-    const productos =
+
+    const datos =
     await getDocs(
         collection(db,"productos")
     );
@@ -103,14 +135,19 @@ async function mostrarProductos() {
 
 
     const texto =
-    document
-    .getElementById("buscar")
+    document.getElementById("buscar")
     .value
     .toLowerCase();
 
 
 
-    productos.forEach((documento)=>{
+    const filtro =
+    document.getElementById("filtroCategoria")
+    .value;
+
+
+
+    datos.forEach((documento)=>{
 
 
         const p =
@@ -123,14 +160,24 @@ async function mostrarProductos() {
         .toLowerCase();
 
 
+
         const codigo =
         (p.codigo || "")
         .toLowerCase();
 
 
+
         const ubicacion =
         (p.ubicacion || "")
         .toLowerCase();
+
+
+
+        const categoria =
+        (p.categoria || "")
+        .toLowerCase();
+
+
 
 
 
@@ -140,7 +187,9 @@ async function mostrarProductos() {
 
             !codigo.includes(texto) &&
 
-            !ubicacion.includes(texto)
+            !ubicacion.includes(texto) &&
+
+            !categoria.includes(texto)
 
         ){
 
@@ -150,51 +199,88 @@ async function mostrarProductos() {
 
 
 
+
+
+        if(
+
+            filtro !== "" &&
+
+            p.categoria !== filtro
+
+        ){
+
+            return;
+
+        }
+
+
+
+
+
+
         lista.innerHTML += `
 
 
         <div class="movimiento">
 
 
-            <h3>
-            📦 ${p.nombre}
-            </h3>
-
-
-            <p>
-            <b>🏷 Código:</b>
-            ${p.codigo}
-            </p>
-
-
-            <p>
-            <b>📊 Stock:</b>
-            ${p.stock}
-            </p>
-
-
-            <p>
-            <b>📍 Ubicación:</b>
-            ${p.ubicacion}
-            </p>
-
-
-            <p>
-            <b>💰 Precio:</b>
-            ${p.precio} €
-            </p>
+        <h3>
+        📦 ${p.nombre}
+        </h3>
 
 
 
-            <button onclick="editarProducto('${documento.id}')">
-            ✏️ Editar
-            </button>
+        <p>
+        <b>🏷 Código:</b>
+        ${p.codigo}
+        </p>
 
 
 
-            <button onclick="eliminarProducto('${documento.id}')">
-            🗑️ Eliminar
-            </button>
+        <p>
+        <b>📊 Stock:</b>
+        ${p.stock}
+        </p>
+
+
+
+        <p>
+        <b>📍 Ubicación:</b>
+        ${p.ubicacion}
+        </p>
+
+
+
+        <p>
+        <b>💰 Precio:</b>
+        ${p.precio} €
+        </p>
+
+
+
+        <p>
+        <b>📂 Categoría:</b>
+        ${p.categoria || "Sin categoría"}
+        </p>
+
+
+
+
+
+        <button onclick="editarProducto('${documento.id}')">
+
+        ✏️ Editar
+
+        </button>
+
+
+
+
+        <button onclick="eliminarProducto('${documento.id}')">
+
+        🗑️ Eliminar
+
+        </button>
 
 
 
@@ -211,25 +297,28 @@ async function mostrarProductos() {
 
 
 
+
+
 // ==========================
-// ABRIR EDICIÓN
+// EDITAR PRODUCTO
 // ==========================
 
 
-async function editarProducto(id) {
+async function editarProducto(id){
 
 
-    const productos =
+
+    const datos =
     await getDocs(
         collection(db,"productos")
     );
 
 
 
-    productos.forEach((documento)=>{
+    datos.forEach((documento)=>{
 
 
-        if(documento.id === id){
+        if(documento.id===id){
 
 
             const p =
@@ -237,33 +326,30 @@ async function editarProducto(id) {
 
 
 
-            document.getElementById("editarId").value =
-            id;
+            document.getElementById("editarId").value=id;
 
 
-            document.getElementById("editarCodigo").value =
-            p.codigo;
+            document.getElementById("editarCodigo").value=p.codigo;
 
 
-            document.getElementById("editarNombre").value =
-            p.nombre;
+            document.getElementById("editarNombre").value=p.nombre;
 
 
-            document.getElementById("editarStock").value =
-            p.stock;
+            document.getElementById("editarStock").value=p.stock;
 
 
-            document.getElementById("editarUbicacion").value =
-            p.ubicacion;
+            document.getElementById("editarUbicacion").value=p.ubicacion;
 
 
-            document.getElementById("editarPrecio").value =
-            p.precio;
+            document.getElementById("editarPrecio").value=p.precio;
+
+
+            document.getElementById("editarCategoria").value=
+            p.categoria || "";
 
 
 
-            document.getElementById("modalEditar").style.display =
-            "flex";
+            document.getElementById("modalEditar").style.display="flex";
 
 
         }
@@ -276,12 +362,15 @@ async function editarProducto(id) {
 
 
 
+
+
 // ==========================
-// GUARDAR EDICIÓN
+// GUARDAR EDICION
 // ==========================
 
 
-async function guardarEdicion() {
+async function guardarEdicion(){
+
 
 
     const id =
@@ -289,70 +378,64 @@ async function guardarEdicion() {
 
 
 
-    try {
+    await updateDoc(
+
+        doc(
+            db,
+            "productos",
+            id
+        ),
+
+        {
 
 
-        await updateDoc(
+            codigo:
+            document.getElementById("editarCodigo").value,
 
-            doc(
-                db,
-                "productos",
-                id
+
+            nombre:
+            document.getElementById("editarNombre").value,
+
+
+            stock:
+            Number(
+            document.getElementById("editarStock").value
             ),
 
-            {
 
-                codigo:
-                document.getElementById("editarCodigo").value,
-
-
-                nombre:
-                document.getElementById("editarNombre").value,
+            ubicacion:
+            document.getElementById("editarUbicacion").value,
 
 
-                stock:
-                Number(
-                    document.getElementById("editarStock").value
-                ),
+            precio:
+            Number(
+            document.getElementById("editarPrecio").value
+            ),
 
 
-                ubicacion:
-                document.getElementById("editarUbicacion").value,
+            categoria:
+            document.getElementById("editarCategoria").value
 
 
-                precio:
-                Number(
-                    document.getElementById("editarPrecio").value
-                )
+        }
 
-            }
-
-        );
+    );
 
 
 
-        alert("✅ Producto actualizado");
+    alert("✅ Producto actualizado");
 
 
-        cerrarModal();
+    cerrarModal();
 
 
-        mostrarProductos();
-
-
-
-    } catch(error) {
-
-
-        console.error(error);
-
-        alert("Error actualizando producto");
-
-
-    }
+    mostrarProductos();
 
 
 }
+
+
+
 
 
 
@@ -363,31 +446,23 @@ async function guardarEdicion() {
 
 function cerrarModal(){
 
-
-    document.getElementById("modalEditar").style.display =
-    "none";
-
+    document.getElementById("modalEditar").style.display="none";
 
 }
 
 
 
+
+
 // ==========================
-// ELIMINAR PRODUCTO
+// ELIMINAR
 // ==========================
 
 
-async function eliminarProducto(id) {
+async function eliminarProducto(id){
 
 
-    const confirmar =
-    confirm(
-        "¿Seguro que quieres eliminar este producto?"
-    );
-
-
-
-    if(!confirmar){
+    if(!confirm("¿Eliminar producto?")){
 
         return;
 
@@ -395,57 +470,39 @@ async function eliminarProducto(id) {
 
 
 
-    try {
+    await deleteDoc(
 
+        doc(
+            db,
+            "productos",
+            id
+        )
 
-        await deleteDoc(
-
-            doc(
-                db,
-                "productos",
-                id
-            )
-
-        );
+    );
 
 
 
-        alert("🗑️ Producto eliminado");
+    alert("🗑️ Producto eliminado");
 
 
-        mostrarProductos();
-
-
-
-    } catch(error) {
-
-
-        console.error(error);
-
-        alert("Error al eliminar");
-
-
-    }
+    mostrarProductos();
 
 
 }
 
 
 
-// ==========================
-// EXPORTAR FUNCIONES
-// ==========================
 
 
-window.guardarProducto = guardarProducto;
+window.guardarProducto=guardarProducto;
 
-window.editarProducto = editarProducto;
+window.editarProducto=editarProducto;
 
-window.guardarEdicion = guardarEdicion;
+window.guardarEdicion=guardarEdicion;
 
-window.cerrarModal = cerrarModal;
+window.cerrarModal=cerrarModal;
 
-window.eliminarProducto = eliminarProducto;
+window.eliminarProducto=eliminarProducto;
 
 
 
@@ -453,9 +510,19 @@ mostrarProductos();
 
 
 
+
 document
 .getElementById("buscar")
 .addEventListener(
-    "input",
-    mostrarProductos
+"input",
+mostrarProductos
+);
+
+
+
+document
+.getElementById("filtroCategoria")
+.addEventListener(
+"change",
+mostrarProductos
 );
