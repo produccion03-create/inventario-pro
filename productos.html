@@ -48,11 +48,53 @@ Guardar Producto
 <input
     type="text"
     id="buscar"
-    placeholder="🔍 Buscar por nombre o código..."
+    placeholder="🔍 Buscar por nombre, código o ubicación..."
 >
+
+
 <br><br>
 
 <div id="lista"></div>
+
+<div id="modalEditar" class="modal">
+
+    <div class="modal-contenido">
+
+        <h2>✏️ Editar producto</h2>
+
+        <input type="hidden" id="editarId">
+
+        <input id="editarCodigo" placeholder="Código">
+
+        <br><br>
+
+        <input id="editarNombre" placeholder="Nombre">
+
+        <br><br>
+
+        <input id="editarStock" type="number" placeholder="Stock">
+
+        <br><br>
+
+        <input id="editarUbicacion" placeholder="Ubicación">
+
+        <br><br>
+
+        <input id="editarPrecio" type="number" placeholder="Precio">
+
+        <br><br>
+
+        <button onclick="guardarEdicion()">
+            💾 Guardar cambios
+        </button>
+
+        <button onclick="cerrarModal()">
+            ❌ Cancelar
+        </button>
+
+    </div>
+
+</div>
 
 </div>
 
