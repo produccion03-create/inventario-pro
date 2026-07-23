@@ -24,83 +24,123 @@
 
 
 
+
 <div class="dashboard">
 
 
-    <div class="card card-productos">
+<div class="card card-productos">
 
-        <h3>📦 Productos</h3>
+<h3>📦 Productos</h3>
 
-        <span id="totalProductos">0</span>
+<span id="totalProductos">0</span>
 
-        <p>Total registrados</p>
+<p>Total registrados</p>
 
-    </div>
-
-
-
-    <div class="card card-valor">
-
-        <h3>💰 Valor almacén</h3>
-
-        <span id="valorAlmacen">0 €</span>
-
-        <p>Valor actual inventario</p>
-
-    </div>
+</div>
 
 
 
-    <div class="card card-stock">
 
-        <h3>⚠️ Stock bajo</h3>
+<div class="card card-valor">
 
-        <span id="stockBajo">0</span>
+<h3>💰 Valor almacén</h3>
 
-        <p>Necesitan revisión</p>
+<span id="valorAlmacen">0 €</span>
 
-    </div>
+<p>Valor actual inventario</p>
+
+</div>
 
 
 
-    <div class="card card-alerta">
 
-        <h3>🔴 Sin stock</h3>
+<div class="card card-stock">
 
-        <span id="sinStock">0</span>
+<h3>⚠️ Stock bajo</h3>
 
-        <p>Productos agotados</p>
+<span id="stockBajo">0</span>
 
-    </div>
+<p>Necesitan revisión</p>
+
+</div>
+
+
+
+
+<div class="card card-alerta">
+
+<h3>🔴 Sin stock</h3>
+
+<span id="sinStock">0</span>
+
+<p>Productos agotados</p>
+
+</div>
 
 
 </div>
+
 
 
 
 
 <div class="panel">
 
-    <h2>⚠️ Productos con stock bajo</h2>
 
-    <div id="listaStockBajo">
+<h2>⚠️ Productos con stock bajo</h2>
 
-        Cargando...
 
-    </div>
+<div id="listaStockBajo">
+
+Cargando...
 
 </div>
+
+
+</div>
+
+
 
 
 
 
 <div class="panel">
 
-    <h2>📊 Estadísticas inventario</h2>
 
-    <canvas id="graficoInventario"></canvas>
+<h2>📊 Estadísticas inventario</h2>
+
+
+<div style="height:300px">
+
+<canvas id="graficoInventario"></canvas>
 
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="panel">
+
+
+<h2>📂 Inventario por categorías</h2>
+
+
+<div id="listaCategorias">
+
+Cargando...
+
+</div>
+
+
+</div>
+
+
 
 
 
@@ -109,54 +149,83 @@
 <div class="menu">
 
 
+
 <button onclick="location.href='productos.html'">
+
 📦 Productos
+
 </button>
+
+
 
 
 <button onclick="location.href='scanner.html'">
+
 📷 Escanear
+
 </button>
+
+
 
 
 <button onclick="location.href='movimientos.html'">
+
 📋 Historial movimientos
+
 </button>
+
+
 
 
 <button onclick="location.href='entrada.html'">
+
 ➕ Entrada
+
 </button>
+
+
 
 
 <button onclick="location.href='salida.html'">
+
 ➖ Salida
+
 </button>
 
 
+
+
 <button>
+
 📊 Informes
+
 </button>
+
+
 
 
 <button>
+
 ⚙ Configuración
+
 </button>
 
 
-</div>
-
-
 
 </div>
+
+
+
+
+</div>
+
 
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script src="JS/app.js"></script>
-
 <script type="module" src="JS/dashboard.js"></script>
+
 
 
 </body>
