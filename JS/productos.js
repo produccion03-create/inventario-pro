@@ -10,6 +10,11 @@ import {
     deleteDoc
 } from "./firebase.js";
 
+
+// ==========================
+// GUARDAR PRODUCTO
+// ==========================
+
 async function guardarProducto() {
 
     let codigo = document.getElementById("codigo").value.trim();
@@ -18,22 +23,38 @@ async function guardarProducto() {
     let ubicacion = document.getElementById("ubicacion").value.trim();
     let precio = document.getElementById("precio").value.trim();
 
+
     if (codigo === "" || nombre === "") {
+
         alert("Introduce el código y el nombre.");
+
         return;
+
     }
+
 
     try {
 
-        await addDoc(collection(db, "productos"), {
-            codigo,
-            nombre,
-            stock: Number(stock),
-            ubicacion,
-            precio: Number(precio)
-        });
+        await addDoc(
+            collection(db, "productos"),
+            {
 
-        alert("✅ Producto guardado en Firebase");
+                codigo,
+
+                nombre,
+
+                stock: Number(stock),
+
+                ubicacion,
+
+                precio: Number(precio)
+
+            }
+        );
+
+
+        alert("✅ Producto guardado");
+
 
         document.getElementById("codigo").value = "";
         document.getElementById("nombre").value = "";
@@ -41,136 +62,400 @@ async function guardarProducto() {
         document.getElementById("ubicacion").value = "";
         document.getElementById("precio").value = "";
 
+
         mostrarProductos();
 
-    } catch (error) {
+
+    } catch(error) {
+
 
         console.error(error);
-        alert("Error al guardar el producto");
+
+        alert("Error al guardar producto");
+
 
     }
 
 }
+
+
+
+// ==========================
+// MOSTRAR PRODUCTOS
+// ==========================
+
 
 async function mostrarProductos() {
 
-    let lista = document.getElementById("lista");
+
+    const lista =
+    document.getElementById("lista");
+
 
     lista.innerHTML = "";
 
-    const querySnapshot = await getDocs(collection(db, "productos"));
 
-    const texto = document
-        .getElementById("buscar")
-        .value
+    const productos =
+    await getDocs(
+        collection(db,"productos")
+    );
+
+
+
+    const texto =
+    document
+    .getElementById("buscar")
+    .value
+    .toLowerCase();
+
+
+
+    productos.forEach((documento)=>{
+
+
+        const p =
+        documento.data();
+
+
+
+        const nombre =
+        (p.nombre || "")
         .toLowerCase();
 
-    querySnapshot.forEach((documento) => {
 
-        const p = documento.data();
+        const codigo =
+        (p.codigo || "")
+        .toLowerCase();
 
-        if (
-            !p.nombre.toLowerCase().includes(texto) &&
-            !p.codigo.toLowerCase().includes(texto)
-        ) {
+
+        const ubicacion =
+        (p.ubicacion || "")
+        .toLowerCase();
+
+
+
+        if(
+
+            !nombre.includes(texto) &&
+
+            !codigo.includes(texto) &&
+
+            !ubicacion.includes(texto)
+
+        ){
+
             return;
+
         }
 
+
+
         lista.innerHTML += `
+
+
         <div class="movimiento">
 
-            <h3>📦 ${p.nombre}</h3>
 
-            <p><b>Código:</b> ${p.codigo}</p>
+            <h3>
+            📦 ${p.nombre}
+            </h3>
 
-            <p><b>Stock:</b> ${p.stock}</p>
 
-            <p><b>Ubicación:</b> ${p.ubicacion}</p>
+            <p>
+            <b>🏷 Código:</b>
+            ${p.codigo}
+            </p>
 
-            <p><b>Precio:</b> ${p.precio} €</p>
+
+            <p>
+            <b>📊 Stock:</b>
+            ${p.stock}
+            </p>
+
+
+            <p>
+            <b>📍 Ubicación:</b>
+            ${p.ubicacion}
+            </p>
+
+
+            <p>
+            <b>💰 Precio:</b>
+            ${p.precio} €
+            </p>
+
+
 
             <button onclick="editarProducto('${documento.id}')">
-                ✏️ Editar
+            ✏️ Editar
             </button>
+
+
 
             <button onclick="eliminarProducto('${documento.id}')">
-                🗑️ Eliminar
+            🗑️ Eliminar
             </button>
 
+
+
         </div>
+
+
         `;
+
 
     });
 
+
 }
+
+
+
+// ==========================
+// ABRIR EDICIÓN
+// ==========================
+
 
 async function editarProducto(id) {
 
-    const nombre = prompt("Nuevo nombre:");
-    if (nombre === null) return;
 
-    const stock = prompt("Nuevo stock:");
-    if (stock === null) return;
+    const productos =
+    await getDocs(
+        collection(db,"productos")
+    );
 
-    const ubicacion = prompt("Nueva ubicación:");
-    if (ubicacion === null) return;
 
-    const precio = prompt("Nuevo precio:");
-    if (precio === null) return;
+
+    productos.forEach((documento)=>{
+
+
+        if(documento.id === id){
+
+
+            const p =
+            documento.data();
+
+
+
+            document.getElementById("editarId").value =
+            id;
+
+
+            document.getElementById("editarCodigo").value =
+            p.codigo;
+
+
+            document.getElementById("editarNombre").value =
+            p.nombre;
+
+
+            document.getElementById("editarStock").value =
+            p.stock;
+
+
+            document.getElementById("editarUbicacion").value =
+            p.ubicacion;
+
+
+            document.getElementById("editarPrecio").value =
+            p.precio;
+
+
+
+            document.getElementById("modalEditar").style.display =
+            "flex";
+
+
+        }
+
+
+    });
+
+
+}
+
+
+
+// ==========================
+// GUARDAR EDICIÓN
+// ==========================
+
+
+async function guardarEdicion() {
+
+
+    const id =
+    document.getElementById("editarId").value;
+
+
 
     try {
 
-        await updateDoc(doc(db, "productos", id), {
 
-            nombre: nombre,
-            stock: Number(stock),
-            ubicacion: ubicacion,
-            precio: Number(precio)
+        await updateDoc(
 
-        });
+            doc(
+                db,
+                "productos",
+                id
+            ),
+
+            {
+
+                codigo:
+                document.getElementById("editarCodigo").value,
+
+
+                nombre:
+                document.getElementById("editarNombre").value,
+
+
+                stock:
+                Number(
+                    document.getElementById("editarStock").value
+                ),
+
+
+                ubicacion:
+                document.getElementById("editarUbicacion").value,
+
+
+                precio:
+                Number(
+                    document.getElementById("editarPrecio").value
+                )
+
+            }
+
+        );
+
+
 
         alert("✅ Producto actualizado");
 
+
+        cerrarModal();
+
+
         mostrarProductos();
 
-    } catch (error) {
+
+
+    } catch(error) {
+
 
         console.error(error);
-        alert("Error al actualizar");
+
+        alert("Error actualizando producto");
+
 
     }
 
+
 }
+
+
+
+// ==========================
+// CERRAR MODAL
+// ==========================
+
+
+function cerrarModal(){
+
+
+    document.getElementById("modalEditar").style.display =
+    "none";
+
+
+}
+
+
+
+// ==========================
+// ELIMINAR PRODUCTO
+// ==========================
+
 
 async function eliminarProducto(id) {
 
-    const confirmar = confirm("¿Seguro que quieres eliminar este producto?");
 
-    if (!confirmar) return;
+    const confirmar =
+    confirm(
+        "¿Seguro que quieres eliminar este producto?"
+    );
 
-    try {
 
-        await deleteDoc(doc(db, "productos", id));
 
-        alert("🗑️ Producto eliminado");
+    if(!confirmar){
 
-        mostrarProductos();
-
-    } catch (error) {
-
-        console.error(error);
-        alert("Error al eliminar el producto");
+        return;
 
     }
 
+
+
+    try {
+
+
+        await deleteDoc(
+
+            doc(
+                db,
+                "productos",
+                id
+            )
+
+        );
+
+
+
+        alert("🗑️ Producto eliminado");
+
+
+        mostrarProductos();
+
+
+
+    } catch(error) {
+
+
+        console.error(error);
+
+        alert("Error al eliminar");
+
+
+    }
+
+
 }
 
+
+
+// ==========================
+// EXPORTAR FUNCIONES
+// ==========================
+
+
 window.guardarProducto = guardarProducto;
+
 window.editarProducto = editarProducto;
+
+window.guardarEdicion = guardarEdicion;
+
+window.cerrarModal = cerrarModal;
+
 window.eliminarProducto = eliminarProducto;
+
+
 
 mostrarProductos();
 
+
+
 document
-    .getElementById("buscar")
-    .addEventListener("input", mostrarProductos);
+.getElementById("buscar")
+.addEventListener(
+    "input",
+    mostrarProductos
+);

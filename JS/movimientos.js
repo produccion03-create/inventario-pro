@@ -13,46 +13,52 @@ async function cargarMovimientos() {
     lista.innerHTML = "";
 
     const consulta = query(
-    collection(db, "movimientos"),
-    orderBy("fecha", "desc")
-);
+        collection(db, "movimientos"),
+        orderBy("fecha", "desc")
+    );
 
-const datos = await getDocs(consulta);
+    const datos = await getDocs(consulta);
 
     if (datos.empty) {
 
-        lista.innerHTML = "No hay movimientos registrados.";
-        return;
+        lista.innerHTML = `
+            <div class="panel">
+                No hay movimientos registrados.
+            </div>
+        `;
 
+        return;
     }
 
     datos.forEach((documento) => {
 
         const m = documento.data();
 
-        let fecha = "";
+        let fecha = "Sin fecha";
 
         if (m.fecha && m.fecha.toDate) {
-            fecha = m.fecha.toDate().toLocaleString();
+            fecha = m.fecha.toDate().toLocaleString("es-ES");
         }
 
-lista.innerHTML += `
-<div class="movimiento">
+        const icono = m.tipo === "Entrada" ? "🟢" : "🔴";
+        const texto = m.tipo === "Entrada" ? "Entrada" : "Salida";
+        const borde = m.tipo === "Entrada" ? "#16a34a" : "#dc2626";
 
-    <h3>📦 ${m.producto}</h3>
+        lista.innerHTML += `
 
-    <p><b>🏷 Código:</b> ${m.codigo}</p>
+            <div class="movimiento" style="border-left:6px solid ${borde};">
 
-    <p><b>${m.tipo === "Entrada" ? "📥 Entrada" : "📤 Salida"}</b></p>
+                <h3>${icono} ${texto}</h3>
 
-    <p><b>📦 Cantidad:</b> ${m.cantidad}</p>
+                <p><strong>📦 Producto:</strong> ${m.producto}</p>
 
-    <p><b>📊 Stock final:</b> ${m.stockFinal}</p>
+                <p><strong>📊 Cantidad:</strong> ${m.cantidad}</p>
 
-    <p><b>🕒 Fecha:</b> ${fecha}</p>
+                <p><strong>🕒 Fecha:</strong> ${fecha}</p>
 
-</div>
-`;
+            </div>
+
+        `;
 
     });
 

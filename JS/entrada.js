@@ -190,27 +190,31 @@ async()=>{
     // Guardar movimiento
 
 
-    await addDoc(
+await addDoc(
 
-        collection(db,"movimientos"),
+    collection(db,"movimientos"),
 
-        {
+    {
 
-            tipo:"Entrada",
+        tipo: "Entrada",
 
-            producto:
-            productoSeleccionado.nombre,
+        codigo: productoSeleccionado.codigo,
 
+        producto: productoSeleccionado.nombre,
 
-            cantidad:cantidadAñadir,
+        cantidad: cantidadAñadir,
 
+        stockAnterior: Number(productoSeleccionado.stock),
 
-            fecha:serverTimestamp()
+        stockFinal: nuevoStock,
 
-        }
+        ubicacion: productoSeleccionado.ubicacion,
 
-    );
+        fecha: serverTimestamp()
 
+    }
+
+);
 
 
 

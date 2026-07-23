@@ -218,22 +218,29 @@ async()=>{
 
     await addDoc(
 
-        collection(db,"movimientos"),
+    collection(db,"movimientos"),
 
-        {
+    {
 
-            tipo:"Salida",
+        tipo: "Salida",
 
-            producto:
-            productoSeleccionado.nombre,
+        codigo: productoSeleccionado.codigo,
 
-            cantidad:cantidadSalida,
+        producto: productoSeleccionado.nombre,
 
-            fecha:serverTimestamp()
+        cantidad: cantidadSalida,
 
-        }
+        stockAnterior: Number(productoSeleccionado.stock),
 
-    );
+        stockFinal: nuevoStock,
+
+        ubicacion: productoSeleccionado.ubicacion,
+
+        fecha: serverTimestamp()
+
+    }
+
+);
 
 
 
