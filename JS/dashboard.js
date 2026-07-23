@@ -1,149 +1,404 @@
 import {
+
     db,
     collection,
     getDocs
+
 } from "./firebase.js";
 
-async function cargarDashboard() {
 
-    const productos = await getDocs(
-        collection(db, "productos")
-    );
 
-    let totalProductos = 0;
-    let valorAlmacen = 0;
-    let stockBajo = 0;
-    let sinStock = 0;
+async function cargarDashboard(){
 
-    let listaStockBajo = "";
 
-    productos.forEach((documento) => {
 
-        const p = documento.data();
+const productos = await getDocs(
 
-        totalProductos++;
+    collection(db,"productos")
 
-        valorAlmacen +=
-            Number(p.stock) * Number(p.precio);
+);
 
-        if (Number(p.stock) < 5) {
 
-            stockBajo++;
 
-            listaStockBajo += `
 
-                <div class="alerta-stock">
+let totalProductos = 0;
 
-                    <h3>⚠️ ${p.nombre}</h3>
+let valorAlmacen = 0;
 
-                    <p>
-                        📦 Stock actual:
-                        <strong>${p.stock}</strong>
-                    </p>
+let stockBajo = 0;
 
-                    <p>
-                        📍 Ubicación:
-                        ${p.ubicacion}
-                    </p>
+let sinStock = 0;
 
-                    <span>
-                        🔄 Necesita reposición
-                    </span>
 
-                </div>
 
-            `;
+let listaStockBajo = "";
 
-        }
 
-        if (Number(p.stock) === 0) {
 
-            sinStock++;
+let categorias = {};
 
-        }
 
-    });
 
-    document.getElementById("totalProductos").textContent =
-        totalProductos;
 
-    document.getElementById("valorAlmacen").textContent =
-        valorAlmacen.toFixed(2) + " €";
 
-    document.getElementById("stockBajo").textContent =
-        stockBajo;
+productos.forEach((documento)=>{
 
-    document.getElementById("sinStock").textContent =
-        sinStock;
 
-    document.getElementById("listaStockBajo").innerHTML =
-        listaStockBajo ||
-        "✅ No hay productos con stock bajo";
 
-    crearGrafico(
-        totalProductos,
-        stockBajo,
-        sinStock
-    );
+const p = documento.data();
+
+
+
+const stock = Number(p.stock) || 0;
+
+const precio = Number(p.precio) || 0;
+
+
+
+totalProductos++;
+
+
+
+valorAlmacen += stock * precio;
+
+
+
+
+
+if(stock < 5){
+
+
+stockBajo++;
+
+
+
+listaStockBajo += `
+
+
+<div class="alerta-stock">
+
+
+<h3>
+⚠️ ${p.nombre}
+</h3>
+
+
+<p>
+📦 Stock:
+<strong>${stock}</strong>
+</p>
+
+
+<p>
+📂 Categoría:
+${p.categoria || "Sin categoría"}
+</p>
+
+
+<span>
+🔄 Necesita reposición
+</span>
+
+
+</div>
+
+
+`;
+
+
+
+}
+
+
+
+
+
+if(stock === 0){
+
+
+sinStock++;
+
 
 }
 
-function crearGrafico(productos, bajo, sinStock) {
 
-    const ctx = document.getElementById("graficoInventario");
 
-    new Chart(ctx, {
 
-        type: "doughnut",
 
-        data: {
 
-            labels: [
-                "Productos",
-                "Stock bajo",
-                "Sin stock"
-            ],
 
-            datasets: [{
+let categoria = 
+p.categoria || "Sin categoría";
 
-                data: [
-                    productos,
-                    bajo,
-                    sinStock
-                ],
 
-                backgroundColor: [
-                    "#2563eb",
-                    "#f59e0b",
-                    "#dc2626"
-                ],
 
-                borderWidth: 2
+if(!categorias[categoria]){
 
-            }]
 
-        },
+categorias[categoria]={
 
-        options: {
+cantidad:0,
 
-            responsive: true,
+valor:0
 
-            maintainAspectRatio: false,
+};
 
-            plugins: {
-
-                legend: {
-
-                    position: "bottom"
-
-                }
-
-            }
-
-        }
-
-    });
 
 }
+
+
+
+
+categorias[categoria].cantidad += stock;
+
+
+
+categorias[categoria].valor += stock * precio;
+
+
+
+});
+
+
+
+
+
+
+
+document.getElementById("totalProductos").textContent =
+totalProductos;
+
+
+
+document.getElementById("valorAlmacen").textContent =
+valorAlmacen.toFixed(2)+" €";
+
+
+
+document.getElementById("stockBajo").textContent =
+stockBajo;
+
+
+
+document.getElementById("sinStock").textContent =
+sinStock;
+
+
+
+
+
+document.getElementById("listaStockBajo").innerHTML =
+
+listaStockBajo ||
+
+"✅ No hay productos con stock bajo";
+
+
+
+
+
+
+mostrarCategorias(categorias);
+
+
+
+crearGrafico(
+
+totalProductos,
+
+stockBajo,
+
+sinStock
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+function mostrarCategorias(categorias){
+
+
+
+let lista = "";
+
+
+
+Object.keys(categorias).forEach((cat)=>{
+
+
+
+lista += `
+
+
+<div class="movimiento">
+
+
+<h3>
+📂 ${cat}
+</h3>
+
+
+
+<p>
+
+📦 Stock total:
+
+<strong>
+${categorias[cat].cantidad}
+</strong>
+
+</p>
+
+
+
+<p>
+
+💰 Valor:
+
+<strong>
+${categorias[cat].valor.toFixed(2)} €
+
+</strong>
+
+</p>
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+
+
+document.getElementById("listaCategorias").innerHTML =
+
+lista ||
+
+"No hay categorías registradas";
+
+
+
+}
+
+
+
+
+
+
+
+function crearGrafico(productos,bajo,sinStock){
+
+
+
+const ctx =
+document.getElementById("graficoInventario");
+
+
+
+new Chart(ctx,{
+
+
+
+type:"doughnut",
+
+
+
+data:{
+
+
+
+labels:[
+
+"Productos",
+
+"Stock bajo",
+
+"Sin stock"
+
+],
+
+
+
+datasets:[{
+
+data:[
+
+productos,
+
+bajo,
+
+sinStock
+
+],
+
+
+
+borderWidth:2
+
+
+}]
+
+
+
+},
+
+
+
+options:{
+
+
+
+responsive:true,
+
+
+
+maintainAspectRatio:false,
+
+
+
+plugins:{
+
+
+
+legend:{
+
+
+position:"bottom"
+
+
+}
+
+
+
+}
+
+
+
+}
+
+
+
+});
+
+
+
+}
+
+
+
+
 
 cargarDashboard();
