@@ -4,81 +4,303 @@ import {
     getDocs
 } from "./firebase.js";
 
+
 let productos = [];
 
-async function cargarDatos() {
 
-    const datos = await getDocs(collection(db, "productos"));
+
+
+// ==========================
+// CARGAR DATOS
+// ==========================
+
+async function cargarDatos(){
+
+
+    const datos =
+    await getDocs(
+        collection(db,"productos")
+    );
+
+
 
     let total = 0;
+
     let valor = 0;
+
     let bajo = 0;
+
     let sin = 0;
+
+
 
     productos = [];
 
-    datos.forEach((documento) => {
 
-        const p = documento.data();
+
+    datos.forEach((documento)=>{
+
+
+        const p =
+        documento.data();
+
+
 
         productos.push(p);
 
+
+
         total++;
 
-        valor += Number(p.stock) * Number(p.precio);
 
-        if (Number(p.stock) < 5) {
+
+        valor +=
+        Number(p.stock || 0) *
+        Number(p.precio || 0);
+
+
+
+
+        if(Number(p.stock) < 5){
+
             bajo++;
+
         }
 
-        if (Number(p.stock) === 0) {
+
+
+
+        if(Number(p.stock) === 0){
+
             sin++;
+
         }
+
+
 
     });
 
-    document.getElementById("totalProductos").textContent = total;
-    document.getElementById("valorAlmacen").textContent = valor.toFixed(2) + " €";
-    document.getElementById("stockBajo").textContent = bajo;
-    document.getElementById("sinStock").textContent = sin;
+
+
+
+
+    document.getElementById("totalProductos").textContent =
+    total;
+
+
+
+    document.getElementById("valorAlmacen").textContent =
+    valor.toLocaleString("es-ES",
+    {
+        style:"currency",
+        currency:"EUR"
+    });
+
+
+
+    document.getElementById("stockBajo").textContent =
+    bajo;
+
+
+
+    document.getElementById("sinStock").textContent =
+    sin;
+
+
 
 }
 
-function exportarCSV() {
 
-    let csv =
-        "Código;Nombre;Categoría;Stock;Precio;Valor\n";
 
-    productos.forEach((p) => {
+
+
+
+
+
+// ==========================
+// EXPORTAR EXCEL
+// ==========================
+
+
+function exportarExcel(){
+
+
+
+    if(productos.length === 0){
+
+
+        alert("No hay productos para exportar");
+
+        return;
+
+    }
+
+
+
+
+    let datosExcel = [];
+
+
+
+    let valorTotal = 0;
+
+
+
+    productos.forEach((p)=>{
+
+
 
         const valor =
-            Number(p.stock) * Number(p.precio);
 
-        csv +=
-            `${p.codigo};${p.nombre};${p.categoria};${p.stock};${p.precio};${valor}\n`;
+        Number(p.stock || 0) *
+        Number(p.precio || 0);
+
+
+
+        valorTotal += valor;
+
+
+
+        datosExcel.push({
+
+
+
+            Código:
+            p.codigo || "",
+
+
+
+            Producto:
+            p.nombre || "",
+
+
+
+            Categoría:
+            p.categoria || "",
+
+
+
+            Stock:
+            Number(p.stock || 0),
+
+
+
+            Precio:
+            Number(p.precio || 0),
+
+
+
+            "Valor total":
+            valor
+
+
+
+        });
+
+
 
     });
 
-    const blob = new Blob([csv], {
-        type: "text/csv;charset=utf-8;"
+
+
+
+
+    datosExcel.push({});
+
+
+
+    datosExcel.push({
+
+
+        Producto:
+        "TOTAL INVENTARIO",
+
+
+        "Valor total":
+        valorTotal
+
+
     });
 
-    const url = URL.createObjectURL(blob);
 
-    const enlace = document.createElement("a");
 
-    enlace.href = url;
 
-    enlace.download = "Inventario.csv";
 
-    enlace.click();
 
-    URL.revokeObjectURL(url);
+    const hoja =
+
+    XLSX.utils.json_to_sheet(
+        datosExcel
+    );
+
+
+
+
+
+    const libro =
+
+    XLSX.utils.book_new();
+
+
+
+
+
+    XLSX.utils.book_append_sheet(
+
+        libro,
+
+        hoja,
+
+        "Inventario"
+
+    );
+
+
+
+
+
+
+    XLSX.writeFile(
+
+        libro,
+
+        "Inventario_Pro.xlsx"
+
+    );
+
+
 
 }
 
+
+
+
+
+
+
 document
-    .getElementById("exportarCSV")
-    .addEventListener("click", exportarCSV);
+
+.getElementById("exportarCSV")
+
+.textContent =
+"📗 Exportar Excel";
+
+
+
+document
+
+.getElementById("exportarCSV")
+
+.addEventListener(
+
+"click",
+
+exportarExcel
+
+);
+
+
+
+
 
 cargarDatos();
