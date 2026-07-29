@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Informes</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<h1>📊 Informes</h1>
+
+<div class="panel">
+
+<h2>📦 Resumen del almacén</h2>
+
+<p><strong>Total de productos:</strong> <span id="totalProductos">0</span></p>
+
+<p><strong>Valor del almacén:</strong> <span id="valorAlmacen">0 €</span></p>
+
+<p><strong>Productos con stock bajo:</strong> <span id="stockBajo">0</span></p>
+
+<p><strong>Productos sin stock:</strong> <span id="sinStock">0</span></p>
+
+</div>
+
+<div class="panel">
+
+<h2>📥 Exportaciones</h2>
+
+<button id="exportarCSV">
+
+📄 Exportar inventario a Excel (CSV)
+
+</button>
+
+</div>
+
+<br>
+
+<button onclick="location.href='index.html'">
+
+⬅ Volver
+
+</button>
+
+</div>
+
+<script type="module" src="JS/informes.js"></script>
+
+</body>
+
+</html>
