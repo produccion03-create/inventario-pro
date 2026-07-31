@@ -1,6 +1,5 @@
 console.log("PRODUCTOS.JS CARGADO");
 
-
 import {
     db,
     collection,
@@ -12,517 +11,281 @@ import {
 } from "./firebase.js";
 
 
-
 // ==========================
 // GUARDAR PRODUCTO
 // ==========================
 
-async function guardarProducto(){
+async function guardarProducto() {
 
+    const codigo = document.getElementById("codigo").value.trim();
+    const nombre = document.getElementById("nombre").value.trim();
+    const categoria = document.getElementById("categoria").value;
+    const stock = Number(document.getElementById("stock").value);
+    const precio = Number(document.getElementById("precio").value);
 
-    let codigo =
-    document.getElementById("codigo").value.trim();
-
-
-    let nombre =
-    document.getElementById("nombre").value.trim();
-
-
-    let stock =
-    document.getElementById("stock").value.trim();
-
-
-    let ubicacion =
-    document.getElementById("ubicacion").value.trim();
-
-
-    let precio =
-    document.getElementById("precio").value.trim();
-
-
-    let categoria =
-    document.getElementById("categoria").value;
-
-
-
-    if(codigo==="" || nombre===""){
-
-        alert("Introduce código y nombre");
-
+    if (codigo === "" || nombre === "") {
+        alert("Introduce el código y el nombre.");
         return;
-
     }
 
+    if (categoria === "") {
+        alert("Selecciona una categoría.");
+        return;
+    }
 
+    try {
 
-    try{
+        await addDoc(collection(db, "productos"), {
 
+            codigo,
+            nombre,
+            categoria,
+            stock,
+            precio
 
-        await addDoc(
-            collection(db,"productos"),
-            {
-
-                codigo,
-
-                nombre,
-
-                stock:Number(stock),
-
-                ubicacion,
-
-                precio:Number(precio),
-
-                categoria
-
-            }
-        );
-
-
+        });
 
         alert("✅ Producto guardado");
 
-
-
-        document.getElementById("codigo").value="";
-        document.getElementById("nombre").value="";
-        document.getElementById("stock").value="";
-        document.getElementById("ubicacion").value="";
-        document.getElementById("precio").value="";
-        document.getElementById("categoria").value="";
-
-
+        document.getElementById("codigo").value = "";
+        document.getElementById("nombre").value = "";
+        document.getElementById("categoria").value = "";
+        document.getElementById("stock").value = "";
+        document.getElementById("precio").value = "";
 
         mostrarProductos();
 
-
-
-    }catch(error){
+    } catch (error) {
 
         console.error(error);
-
-        alert("Error guardando producto");
+        alert("Error al guardar");
 
     }
 
-
 }
-
-
-
 
 
 // ==========================
 // MOSTRAR PRODUCTOS
 // ==========================
 
+async function mostrarProductos() {
 
-async function mostrarProductos(){
+    const lista = document.getElementById("lista");
 
+    lista.innerHTML = "";
 
-    const lista =
-    document.getElementById("lista");
+    const datos = await getDocs(collection(db, "productos"));
 
-
-    lista.innerHTML="";
-
-
-
-    const datos =
-    await getDocs(
-        collection(db,"productos")
-    );
-
-
-
-    const texto =
-    document.getElementById("buscar")
-    .value
-    .toLowerCase();
-
-
-
-    const filtro =
-    document.getElementById("filtroCategoria")
-    .value;
-
-
-
-    datos.forEach((documento)=>{
-
-
-        const p =
-        documento.data();
-
-
-
-        const nombre =
-        (p.nombre || "")
+    const texto = document
+        .getElementById("buscar")
+        .value
         .toLowerCase();
 
+    const categorias = {};
 
+    datos.forEach((documento) => {
 
-        const codigo =
-        (p.codigo || "")
-        .toLowerCase();
+        const p = documento.data();
 
+        const nombre = (p.nombre || "").toLowerCase();
+        const codigo = (p.codigo || "").toLowerCase();
+        const categoria = (p.categoria || "Sin categoría");
 
-
-        const ubicacion =
-        (p.ubicacion || "")
-        .toLowerCase();
-
-
-
-        const categoria =
-        (p.categoria || "")
-        .toLowerCase();
-
-
-
-
-
-        if(
-
+        if (
             !nombre.includes(texto) &&
-
             !codigo.includes(texto) &&
-
-            !ubicacion.includes(texto) &&
-
-            !categoria.includes(texto)
-
-        ){
-
+            !categoria.toLowerCase().includes(texto)
+        ) {
             return;
-
         }
 
-
-
-
-
-        if(
-
-            filtro !== "" &&
-
-            p.categoria !== filtro
-
-        ){
-
-            return;
-
+        if (!categorias[categoria]) {
+            categorias[categoria] = [];
         }
 
+        categorias[categoria].push({
+            id: documento.id,
+            ...p
+        });
 
+    });
 
-
-
+    Object.keys(categorias).sort().forEach((categoria) => {
 
         lista.innerHTML += `
 
+        <div class="panel">
 
-        <div class="movimiento">
-
-
-        <h3>
-        📦 ${p.nombre}
-        </h3>
-
-
-
-        <p>
-        <b>🏷 Código:</b>
-        ${p.codigo}
-        </p>
-
-
-
-        <p>
-        <b>📊 Stock:</b>
-        ${p.stock}
-        </p>
-
-
-
-        <p>
-        <b>📍 Ubicación:</b>
-        ${p.ubicacion}
-        </p>
-
-
-
-        <p>
-        <b>💰 Precio:</b>
-        ${p.precio} €
-        </p>
-
-
-
-        <p>
-        <b>📂 Categoría:</b>
-        ${p.categoria || "Sin categoría"}
-        </p>
-
-
-
-
-
-        <button onclick="editarProducto('${documento.id}')">
-
-        ✏️ Editar
-
-        </button>
-
-
-
-
-        <button onclick="eliminarProducto('${documento.id}')">
-
-        🗑️ Eliminar
-
-        </button>
-
-
+            <h2>📂 ${categoria}</h2>
 
         </div>
 
-
         `;
 
+        categorias[categoria].forEach((p) => {
+
+            let colorStock = "#16a34a";
+
+            if (p.stock == 0) {
+                colorStock = "#dc2626";
+            } else if (p.stock < 5) {
+                colorStock = "#f59e0b";
+            }
+
+            lista.innerHTML += `
+
+            <div class="movimiento">
+
+                <h3>📦 ${p.nombre}</h3>
+
+                <p><b>Código:</b> ${p.codigo}</p>
+
+                <p>
+                    <b>Stock:</b>
+                    <span style="color:${colorStock};font-weight:bold;">
+                        ${p.stock}
+                    </span>
+                </p>
+
+                <p><b>Precio:</b> ${p.precio} €</p>
+
+                <button onclick="editarProducto('${p.id}')">
+
+                    ✏️ Editar
+
+                </button>
+
+                <button onclick="eliminarProducto('${p.id}')">
+
+                    🗑️ Eliminar
+
+                </button>
+
+            </div>
+
+            `;
+
+        });
 
     });
 
-
 }
 
 
-
-
-
 // ==========================
-// EDITAR PRODUCTO
+// EDITAR
 // ==========================
 
+async function editarProducto(id) {
 
-async function editarProducto(id){
+    const datos = await getDocs(collection(db, "productos"));
 
+    datos.forEach((documento) => {
 
+        if (documento.id === id) {
 
-    const datos =
-    await getDocs(
-        collection(db,"productos")
-    );
+            const p = documento.data();
 
+            document.getElementById("editarId").value = id;
+            document.getElementById("editarCodigo").value = p.codigo;
+            document.getElementById("editarNombre").value = p.nombre;
+            document.getElementById("editarCategoria").value = p.categoria || "";
+            document.getElementById("editarStock").value = p.stock;
+            document.getElementById("editarPrecio").value = p.precio;
 
-
-    datos.forEach((documento)=>{
-
-
-        if(documento.id===id){
-
-
-            const p =
-            documento.data();
-
-
-
-            document.getElementById("editarId").value=id;
-
-
-            document.getElementById("editarCodigo").value=p.codigo;
-
-
-            document.getElementById("editarNombre").value=p.nombre;
-
-
-            document.getElementById("editarStock").value=p.stock;
-
-
-            document.getElementById("editarUbicacion").value=p.ubicacion;
-
-
-            document.getElementById("editarPrecio").value=p.precio;
-
-
-            document.getElementById("editarCategoria").value=
-            p.categoria || "";
-
-
-
-            document.getElementById("modalEditar").style.display="flex";
-
+            document.getElementById("modalEditar").style.display = "flex";
 
         }
-
 
     });
 
-
 }
 
 
-
-
-
 // ==========================
-// GUARDAR EDICION
+// GUARDAR EDICIÓN
 // ==========================
 
+async function guardarEdicion() {
 
-async function guardarEdicion(){
+    const id = document.getElementById("editarId").value;
 
+    try {
 
+        await updateDoc(doc(db, "productos", id), {
 
-    const id =
-    document.getElementById("editarId").value;
+            codigo: document.getElementById("editarCodigo").value,
+            nombre: document.getElementById("editarNombre").value,
+            categoria: document.getElementById("editarCategoria").value,
+            stock: Number(document.getElementById("editarStock").value),
+            precio: Number(document.getElementById("editarPrecio").value)
 
+        });
 
+        alert("✅ Producto actualizado");
 
-    await updateDoc(
+        cerrarModal();
 
-        doc(
-            db,
-            "productos",
-            id
-        ),
+        mostrarProductos();
 
-        {
+    } catch (error) {
 
+        console.error(error);
 
-            codigo:
-            document.getElementById("editarCodigo").value,
+        alert("Error al actualizar");
 
-
-            nombre:
-            document.getElementById("editarNombre").value,
-
-
-            stock:
-            Number(
-            document.getElementById("editarStock").value
-            ),
-
-
-            ubicacion:
-            document.getElementById("editarUbicacion").value,
-
-
-            precio:
-            Number(
-            document.getElementById("editarPrecio").value
-            ),
-
-
-            categoria:
-            document.getElementById("editarCategoria").value
-
-
-        }
-
-    );
-
-
-
-    alert("✅ Producto actualizado");
-
-
-    cerrarModal();
-
-
-    mostrarProductos();
-
+    }
 
 }
-
-
-
-
 
 
 // ==========================
 // CERRAR MODAL
 // ==========================
 
+function cerrarModal() {
 
-function cerrarModal(){
-
-    document.getElementById("modalEditar").style.display="none";
+    document.getElementById("modalEditar").style.display = "none";
 
 }
-
-
-
 
 
 // ==========================
 // ELIMINAR
 // ==========================
 
+async function eliminarProducto(id) {
 
-async function eliminarProducto(id){
+    if (!confirm("¿Eliminar este producto?")) return;
 
+    try {
 
-    if(!confirm("¿Eliminar producto?")){
+        await deleteDoc(doc(db, "productos", id));
 
-        return;
+        alert("🗑️ Producto eliminado");
+
+        mostrarProductos();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Error al eliminar");
 
     }
-
-
-
-    await deleteDoc(
-
-        doc(
-            db,
-            "productos",
-            id
-        )
-
-    );
-
-
-
-    alert("🗑️ Producto eliminado");
-
-
-    mostrarProductos();
-
 
 }
 
 
-
-
-
-window.guardarProducto=guardarProducto;
-
-window.editarProducto=editarProducto;
-
-window.guardarEdicion=guardarEdicion;
-
-window.cerrarModal=cerrarModal;
-
-window.eliminarProducto=eliminarProducto;
-
-
+window.guardarProducto = guardarProducto;
+window.editarProducto = editarProducto;
+window.guardarEdicion = guardarEdicion;
+window.cerrarModal = cerrarModal;
+window.eliminarProducto = eliminarProducto;
 
 mostrarProductos();
 
-
-
-
 document
-.getElementById("buscar")
-.addEventListener(
-"input",
-mostrarProductos
-);
-
-
-
-document
-.getElementById("filtroCategoria")
-.addEventListener(
-"change",
-mostrarProductos
-);
+    .getElementById("buscar")
+    .addEventListener("input", mostrarProductos);
