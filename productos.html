@@ -34,94 +34,49 @@
 <br><br>
 
 
-<input id="stock" type="number" placeholder="Stock">
-
-<br><br>
-
-
-<input id="ubicacion" placeholder="Ubicación">
-
-<br><br>
-
-
-<input id="precio" type="number" placeholder="Precio">
-
-<br><br>
-
 
 <select id="categoria">
 
 <option value="">
-Selecciona categoría
+Seleccionar categoría
 </option>
 
 <option value="Producto terminado">
-📦 Producto terminado
+Producto terminado
 </option>
 
-<option value="EVA EN">
-🟦 EVA EN
+
+<option value="Planchas de EVA">
+Planchas de EVA
 </option>
 
-<option value="Colchoneta Pemarsa">
-Colchoneta Pemarsa
+
+<option value="Materias primas auxiliares">
+Materias primas auxiliares
 </option>
 
-<option value="Espigas 28mm">
-Espigas 28mm
-</option>
 
-<option value="EPDM">
-EPDM
-</option>
-
-<option value="Tacos WIP">
-Tacos WIP
-</option>
-
-<option value="EVA Nau">
-EVA Nau
-</option>
-
-<option value="EVA Yoga">
-EVA Yoga
-</option>
-
-<option value="X-Soft">
-X-Soft
-</option>
-
-<option value="Colas">
-🟨 Colas
-</option>
-
-<option value="Serigrafía">
-Serigrafía
-</option>
-
-<option value="PVC">
-PVC
-</option>
-
-<option value="Stock cajas">
-🟩 Stock cajas
-</option>
-
-<option value="Bolsas">
-Bolsas
-</option>
-
-<option value="Palets">
-Palets
+<option value="Stock envases embalajes">
+Stock envases embalajes
 </option>
 
 
 </select>
 
 
+<br><br>
+
+
+
+<input id="stock" type="number" placeholder="Stock">
 
 <br><br>
 
+
+<input id="precio" type="number" placeholder="Precio">
+
+
+<br><br>
 
 
 <button onclick="guardarProducto()">
@@ -137,91 +92,16 @@ Guardar Producto
 
 
 
-
 <input
 type="text"
 id="buscar"
-placeholder="🔍 Buscar producto..."
+placeholder="🔍 Buscar por nombre, código o categoría..."
 >
 
 
 
 <br><br>
 
-
-
-<select id="filtroCategoria">
-
-<option value="">
-📂 Todas las categorías
-</option>
-
-<option value="Producto terminado">
-📦 Producto terminado
-</option>
-
-<option value="EVA EN">
-🟦 EVA EN
-</option>
-
-<option value="Colchoneta Pemarsa">
-Colchoneta Pemarsa
-</option>
-
-<option value="Espigas 28mm">
-Espigas 28mm
-</option>
-
-<option value="EPDM">
-EPDM
-</option>
-
-<option value="Tacos WIP">
-Tacos WIP
-</option>
-
-<option value="EVA Nau">
-EVA Nau
-</option>
-
-<option value="EVA Yoga">
-EVA Yoga
-</option>
-
-<option value="X-Soft">
-X-Soft
-</option>
-
-<option value="Colas">
-🟨 Colas
-</option>
-
-<option value="Serigrafía">
-Serigrafía
-</option>
-
-<option value="PVC">
-PVC
-</option>
-
-<option value="Stock cajas">
-🟩 Stock cajas
-</option>
-
-<option value="Bolsas">
-Bolsas
-</option>
-
-<option value="Palets">
-Palets
-</option>
-
-</select>
-
-
-
-
-<br><br>
 
 
 <div id="lista"></div>
@@ -239,32 +119,19 @@ Palets
 <h2>✏️ Editar producto</h2>
 
 
-
 <input type="hidden" id="editarId">
 
 
 
 <input id="editarCodigo" placeholder="Código">
 
+
 <br><br>
+
 
 
 <input id="editarNombre" placeholder="Nombre">
 
-<br><br>
-
-
-<input id="editarStock" type="number" placeholder="Stock">
-
-<br><br>
-
-
-<input id="editarUbicacion" placeholder="Ubicación">
-
-<br><br>
-
-
-<input id="editarPrecio" type="number" placeholder="Precio">
 
 <br><br>
 
@@ -272,45 +139,42 @@ Palets
 
 <select id="editarCategoria">
 
-<option value="">
-Selecciona categoría
-</option>
 
 <option value="Producto terminado">
-📦 Producto terminado
+Producto terminado
 </option>
 
-<option value="EVA EN">
-🟦 EVA EN
+
+<option value="Planchas de EVA">
+Planchas de EVA
 </option>
 
-<option value="Colchoneta Pemarsa">
-Colchoneta Pemarsa
+
+<option value="Materias primas auxiliares">
+Materias primas auxiliares
 </option>
 
-<option value="EPDM">
-EPDM
-</option>
 
-<option value="Colas">
-🟨 Colas
-</option>
-
-<option value="PVC">
-PVC
-</option>
-
-<option value="Stock cajas">
-🟩 Stock cajas
-</option>
-
-<option value="Palets">
-Palets
+<option value="Stock envases embalajes">
+Stock envases embalajes
 </option>
 
 
 </select>
 
+
+<br><br>
+
+
+
+<input id="editarStock" type="number" placeholder="Stock">
+
+
+<br><br>
+
+
+
+<input id="editarPrecio" type="number" placeholder="Precio">
 
 
 <br><br>
@@ -335,12 +199,14 @@ Palets
 
 </div>
 
-</div>
-
-
-
 
 </div>
+
+
+
+
+</div>
+
 
 
 <script type="module" src="JS/productos.js"></script>
