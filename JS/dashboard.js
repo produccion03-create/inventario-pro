@@ -15,9 +15,7 @@ async function cargarDashboard() {
     let stockBajo = 0;
     let sinStock = 0;
 
-    let listaStockBajo = "";
-
-    let categorias = {};
+    const categorias = {};
 
     productos.forEach((documento) => {
 
@@ -31,47 +29,20 @@ async function cargarDashboard() {
 
         valorAlmacen += stock * precio;
 
-        if (stock <= minimo) {
-
+        // No controlar stock mínimo para Planchas de EVA
+        if (
+            p.categoria !== "Planchas de EVA" &&
+            stock <= minimo
+        ) {
             stockBajo++;
-
-            listaStockBajo += `
-
-            <div class="alerta-stock">
-
-                <h3>⚠️ ${p.nombre}</h3>
-
-                <p>
-                    📂 Categoría:
-                    <strong>${p.categoria || "Sin categoría"}</strong>
-                </p>
-
-                <p>
-                    📦 Stock:
-                    <strong>${stock}</strong>
-                </p>
-
-                <p>
-                    📉 Stock mínimo:
-                    <strong>${minimo}</strong>
-                </p>
-
-                <span>
-                    🔄 Necesita reposición
-                </span>
-
-            </div>
-
-            `;
         }
 
         if (stock === 0) {
-
             sinStock++;
-
         }
 
-        const categoria = p.categoria || "Sin categoría";
+        const categoria =
+            p.categoria || "Sin categoría";
 
         if (!categorias[categoria]) {
 
@@ -85,6 +56,7 @@ async function cargarDashboard() {
         }
 
         categorias[categoria].cantidad += stock;
+
         categorias[categoria].valor += stock * precio;
 
     });
@@ -101,9 +73,8 @@ async function cargarDashboard() {
     document.getElementById("sinStock").textContent =
         sinStock;
 
-    document.getElementById("listaStockBajo").innerHTML =
-        listaStockBajo ||
-        "✅ No hay productos con stock bajo";
+    document.getElementById("contadorPendientes").textContent =
+        stockBajo;
 
     mostrarCategorias(categorias);
 
@@ -119,29 +90,45 @@ function mostrarCategorias(categorias) {
 
     let lista = "";
 
-    Object.keys(categorias).forEach((cat) => {
+    Object.keys(categorias)
+        .sort()
+        .forEach((cat) => {
 
-        lista += `
+            lista += `
 
-        <div class="movimiento">
+            <div class="movimiento">
 
-            <h3>📂 ${cat}</h3>
+                <h3>📂 ${cat}</h3>
 
-            <p>
-                📦 Stock total:
-                <strong>${categorias[cat].cantidad}</strong>
-            </p>
+                <p>
 
-            <p>
-                💰 Valor:
-                <strong>${categorias[cat].valor.toFixed(2)} €</strong>
-            </p>
+                    📦 Stock total:
 
-        </div>
+                    <strong>
 
-        `;
+                        ${categorias[cat].cantidad}
 
-    });
+                    </strong>
+
+                </p>
+
+                <p>
+
+                    💰 Valor:
+
+                    <strong>
+
+                        ${categorias[cat].valor.toFixed(2)} €
+
+                    </strong>
+
+                </p>
+
+            </div>
+
+            `;
+
+        });
 
     document.getElementById("listaCategorias").innerHTML =
         lista || "No hay categorías registradas";
@@ -150,7 +137,8 @@ function mostrarCategorias(categorias) {
 
 function crearGrafico(productos, bajo, sinStock) {
 
-    const ctx = document.getElementById("graficoInventario");
+    const ctx =
+        document.getElementById("graficoInventario");
 
     new Chart(ctx, {
 
@@ -159,28 +147,44 @@ function crearGrafico(productos, bajo, sinStock) {
         data: {
 
             labels: [
+
                 "Productos",
+
                 "Stock bajo",
+
                 "Sin stock"
+
             ],
 
-            datasets: [{
+            datasets: [
 
-                data: [
-                    productos,
-                    bajo,
-                    sinStock
-                ],
+                {
 
-                backgroundColor: [
-                    "#2563eb",
-                    "#f59e0b",
-                    "#dc2626"
-                ],
+                    data: [
 
-                borderWidth: 2
+                        productos,
 
-            }]
+                        bajo,
+
+                        sinStock
+
+                    ],
+
+                    backgroundColor: [
+
+                        "#2563eb",
+
+                        "#f59e0b",
+
+                        "#dc2626"
+
+                    ],
+
+                    borderWidth: 2
+
+                }
+
+            ]
 
         },
 
