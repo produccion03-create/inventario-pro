@@ -22,6 +22,7 @@ async function guardarProducto() {
     const categoria = document.getElementById("categoria").value;
     const stock = Number(document.getElementById("stock").value);
     const precio = Number(document.getElementById("precio").value);
+    const stockMinimo = Number(document.getElementById("stockMinimo").value);
 
     if (codigo === "" || nombre === "") {
         alert("Introduce el código y el nombre.");
@@ -41,7 +42,8 @@ async function guardarProducto() {
             nombre,
             categoria,
             stock,
-            precio
+            precio,
+            stockMinimo
 
         });
 
@@ -52,6 +54,7 @@ async function guardarProducto() {
         document.getElementById("categoria").value = "";
         document.getElementById("stock").value = "";
         document.getElementById("precio").value = "";
+        document.getElementById("stockMinimo").value = 5;
 
         mostrarProductos();
 
@@ -63,6 +66,7 @@ async function guardarProducto() {
     }
 
 }
+
 
 
 // ==========================
@@ -82,95 +86,68 @@ async function mostrarProductos() {
         .value
         .toLowerCase();
 
-    const categorias = {};
-
     datos.forEach((documento) => {
 
         const p = documento.data();
 
         const nombre = (p.nombre || "").toLowerCase();
         const codigo = (p.codigo || "").toLowerCase();
-        const categoria = (p.categoria || "Sin categoría");
+        const categoria = (p.categoria || "").toLowerCase();
 
         if (
             !nombre.includes(texto) &&
             !codigo.includes(texto) &&
-            !categoria.toLowerCase().includes(texto)
+            !categoria.includes(texto)
         ) {
             return;
         }
 
-        if (!categorias[categoria]) {
-            categorias[categoria] = [];
+        let colorStock = "#16a34a";
+
+        if (p.stock <= p.stockMinimo) {
+            colorStock = "#dc2626";
         }
-
-        categorias[categoria].push({
-            id: documento.id,
-            ...p
-        });
-
-    });
-
-    Object.keys(categorias).sort().forEach((categoria) => {
 
         lista.innerHTML += `
 
-        <div class="panel">
+        <div class="movimiento">
 
-            <h2>📂 ${categoria}</h2>
+            <h3>📦 ${p.nombre}</h3>
+
+            <p><b>Código:</b> ${p.codigo}</p>
+
+            <p><b>Categoría:</b> ${p.categoria}</p>
+
+            <p style="color:${colorStock};">
+
+                <b>Stock:</b> ${p.stock}
+
+            </p>
+
+            <p><b>Stock mínimo:</b> ${p.stockMinimo}</p>
+
+            <p><b>Precio:</b> ${p.precio} €</p>
+
+            <button onclick="editarProducto('${documento.id}')">
+
+                ✏️ Editar
+
+            </button>
+
+            <button onclick="eliminarProducto('${documento.id}')">
+
+                🗑️ Eliminar
+
+            </button>
 
         </div>
 
         `;
 
-        categorias[categoria].forEach((p) => {
-
-            let colorStock = "#16a34a";
-
-            if (p.stock == 0) {
-                colorStock = "#dc2626";
-            } else if (p.stock < 5) {
-                colorStock = "#f59e0b";
-            }
-
-            lista.innerHTML += `
-
-            <div class="movimiento">
-
-                <h3>📦 ${p.nombre}</h3>
-
-                <p><b>Código:</b> ${p.codigo}</p>
-
-                <p>
-                    <b>Stock:</b>
-                    <span style="color:${colorStock};font-weight:bold;">
-                        ${p.stock}
-                    </span>
-                </p>
-
-                <p><b>Precio:</b> ${p.precio} €</p>
-
-                <button onclick="editarProducto('${p.id}')">
-
-                    ✏️ Editar
-
-                </button>
-
-                <button onclick="eliminarProducto('${p.id}')">
-
-                    🗑️ Eliminar
-
-                </button>
-
-            </div>
-
-            `;
-
-        });
-
     });
 
 }
+
 
 
 // ==========================
@@ -193,6 +170,7 @@ async function editarProducto(id) {
             document.getElementById("editarCategoria").value = p.categoria || "";
             document.getElementById("editarStock").value = p.stock;
             document.getElementById("editarPrecio").value = p.precio;
+            document.getElementById("editarStockMinimo").value = p.stockMinimo ?? 5;
 
             document.getElementById("modalEditar").style.display = "flex";
 
@@ -201,6 +179,7 @@ async function editarProducto(id) {
     });
 
 }
+
 
 
 // ==========================
@@ -219,7 +198,8 @@ async function guardarEdicion() {
             nombre: document.getElementById("editarNombre").value,
             categoria: document.getElementById("editarCategoria").value,
             stock: Number(document.getElementById("editarStock").value),
-            precio: Number(document.getElementById("editarPrecio").value)
+            precio: Number(document.getElementById("editarPrecio").value),
+            stockMinimo: Number(document.getElementById("editarStockMinimo").value)
 
         });
 
@@ -240,6 +220,7 @@ async function guardarEdicion() {
 }
 
 
+
 // ==========================
 // CERRAR MODAL
 // ==========================
@@ -249,6 +230,7 @@ function cerrarModal() {
     document.getElementById("modalEditar").style.display = "none";
 
 }
+
 
 
 // ==========================
@@ -277,6 +259,9 @@ async function eliminarProducto(id) {
 
 }
 
+
+
+// ==========================
 
 window.guardarProducto = guardarProducto;
 window.editarProducto = editarProducto;
