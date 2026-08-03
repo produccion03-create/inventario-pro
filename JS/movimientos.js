@@ -70,98 +70,131 @@ function cargarCategorias() {
 
 }
 
-function mostrarMovimientos() {
-
-    const lista =
-    document.getElementById("listaMovimientos");
-
-    lista.innerHTML = "";
+function obtenerMovimientosFiltrados() {
 
     const texto =
-    document.getElementById("buscar")
-    .value
-    .toLowerCase();
+        document
+        .getElementById("buscar")
+        .value
+        .toLowerCase();
 
     const tipo =
-    document.getElementById("filtroTipo").value;
+        document
+        .getElementById("filtroTipo")
+        .value;
 
     const categoria =
-    document.getElementById("filtroCategoria").value;
+        document
+        .getElementById("filtroCategoria")
+        .value;
 
     const desde =
-    document.getElementById("fechaDesde").value;
+        document
+        .getElementById("fechaDesde")
+        .value;
 
     const hasta =
-    document.getElementById("fechaHasta").value;
+        document
+        .getElementById("fechaHasta")
+        .value;
 
-    let entradas = 0;
-    let salidas = 0;
-    let total = 0;
-
-    movimientos.forEach((m) => {
+    return movimientos.filter((m) => {
 
         const producto =
-        (m.producto || "").toLowerCase();
+            (m.producto || "").toLowerCase();
 
         const codigo =
-        (m.codigo || "").toLowerCase();
+            (m.codigo || "").toLowerCase();
 
         if (
             texto &&
             !producto.includes(texto) &&
             !codigo.includes(texto)
-        ) return;
+        ) {
+
+            return false;
+
+        }
 
         if (
             tipo &&
             m.tipo !== tipo
-        ) return;
+        ) {
+
+            return false;
+
+        }
 
         if (
             categoria &&
             m.categoria !== categoria
-        ) return;
+        ) {
 
-        let fechaObjeto = null;
-
-        if (m.fecha && m.fecha.toDate) {
-
-            fechaObjeto = m.fecha.toDate();
+            return false;
 
         }
 
-        if (fechaObjeto) {
+        let fecha = null;
+
+        if (
+            m.fecha &&
+            m.fecha.toDate
+        ) {
+
+            fecha = m.fecha.toDate();
+
+        }
+
+        if (fecha) {
 
             if (desde) {
 
-                const fechaDesde =
-                new Date(desde);
+                const fDesde =
+                    new Date(desde);
 
-                if (fechaObjeto < fechaDesde)
-                    return;
+                if (fecha < fDesde)
+                    return false;
 
             }
 
             if (hasta) {
 
-                const fechaHasta =
-                new Date(hasta);
+                const fHasta =
+                    new Date(hasta);
 
-                fechaHasta.setHours(
+                fHasta.setHours(
                     23,
                     59,
                     59,
                     999
                 );
 
-                if (fechaObjeto > fechaHasta)
-                    return;
+                if (fecha > fHasta)
+                    return false;
 
             }
 
         }
 
-        total++;
+        return true;
+
+    });
+
+}
+function mostrarMovimientos() {
+
+    const lista =
+        document.getElementById("listaMovimientos");
+
+    lista.innerHTML = "";
+
+    const filtrados =
+        obtenerMovimientosFiltrados();
+
+    let entradas = 0;
+    let salidas = 0;
+
+    filtrados.forEach((m) => {
 
         if (m.tipo === "Entrada") {
 
@@ -173,20 +206,29 @@ function mostrarMovimientos() {
 
         }
 
-        const fechaTexto =
-        fechaObjeto
-        ? fechaObjeto.toLocaleString("es-ES")
-        : "Sin fecha";
+        let fecha = "Sin fecha";
+
+        if (
+            m.fecha &&
+            m.fecha.toDate
+        ) {
+
+            fecha =
+                m.fecha
+                .toDate()
+                .toLocaleString("es-ES");
+
+        }
 
         const color =
-        m.tipo === "Entrada"
-        ? "#16a34a"
-        : "#dc2626";
+            m.tipo === "Entrada"
+            ? "#16a34a"
+            : "#dc2626";
 
         const icono =
-        m.tipo === "Entrada"
-        ? "📥"
-        : "📤";
+            m.tipo === "Entrada"
+            ? "📥"
+            : "📤";
 
         lista.innerHTML += `
 
@@ -195,8 +237,7 @@ function mostrarMovimientos() {
 
             <h3>
 
-                ${icono}
-                ${m.tipo}
+                ${icono} ${m.tipo}
 
             </h3>
 
@@ -252,7 +293,7 @@ function mostrarMovimientos() {
 
                 <strong>🕒 Fecha:</strong>
 
-                ${fechaTexto}
+                ${fecha}
 
             </p>
 
@@ -262,13 +303,13 @@ function mostrarMovimientos() {
 
     });
 
-    if (total === 0) {
+    if (filtrados.length === 0) {
 
         lista.innerHTML = `
 
         <div class="panel">
 
-            No hay movimientos.
+            No se encontraron movimientos.
 
         </div>
 
@@ -277,15 +318,84 @@ function mostrarMovimientos() {
     }
 
     document.getElementById("totalEntradas").textContent =
-    entradas;
+        entradas;
 
     document.getElementById("totalSalidas").textContent =
-    salidas;
+        salidas;
 
     document.getElementById("totalMovimientos").textContent =
-    total;
+        filtrados.length;
 
 }
+
+// ==========================
+// EXPORTAR A EXCEL
+// ==========================
+
+function exportarExcel() {
+
+    const datos = obtenerMovimientosFiltrados();
+
+    const excel = [];
+
+    datos.forEach((m) => {
+
+        let fecha = "";
+
+        if (m.fecha && m.fecha.toDate) {
+
+            fecha =
+                m.fecha
+                .toDate()
+                .toLocaleString("es-ES");
+
+        }
+
+        excel.push({
+
+            Fecha: fecha,
+
+            Tipo: m.tipo,
+
+            Código: m.codigo,
+
+            Producto: m.producto,
+
+            Categoría: m.categoria,
+
+            Cantidad: m.cantidad,
+
+            "Stock anterior": m.stockAnterior,
+
+            "Stock final": m.stockFinal
+
+        });
+
+    });
+
+    const libro = XLSX.utils.book_new();
+
+    const hoja =
+        XLSX.utils.json_to_sheet(excel);
+
+    XLSX.utils.book_append_sheet(
+        libro,
+        hoja,
+        "Movimientos"
+    );
+
+    XLSX.writeFile(
+        libro,
+        "Movimientos.xlsx"
+    );
+
+}
+
+
+
+// ==========================
+// EVENTOS
+// ==========================
 
 document
 .getElementById("buscar")
@@ -342,5 +452,18 @@ document
 
     }
 );
+
+document
+.getElementById("exportarExcel")
+.addEventListener(
+    "click",
+    exportarExcel
+);
+
+
+
+// ==========================
+// INICIO
+// ==========================
 
 cargarMovimientos();
