@@ -1,404 +1,209 @@
 import {
-
     db,
     collection,
     getDocs
-
 } from "./firebase.js";
 
+async function cargarDashboard() {
 
+    const productos = await getDocs(
+        collection(db, "productos")
+    );
 
-async function cargarDashboard(){
+    let totalProductos = 0;
+    let valorAlmacen = 0;
+    let stockBajo = 0;
+    let sinStock = 0;
 
+    let listaStockBajo = "";
 
+    let categorias = {};
 
-const productos = await getDocs(
+    productos.forEach((documento) => {
 
-    collection(db,"productos")
+        const p = documento.data();
 
-);
+        const stock = Number(p.stock) || 0;
+        const precio = Number(p.precio) || 0;
+        const minimo = Number(p.stockMinimo ?? 5);
 
+        totalProductos++;
 
+        valorAlmacen += stock * precio;
 
+        if (stock <= minimo) {
 
-let totalProductos = 0;
+            stockBajo++;
 
-let valorAlmacen = 0;
+            listaStockBajo += `
 
-let stockBajo = 0;
+            <div class="alerta-stock">
 
-let sinStock = 0;
+                <h3>⚠️ ${p.nombre}</h3>
 
+                <p>
+                    📂 Categoría:
+                    <strong>${p.categoria || "Sin categoría"}</strong>
+                </p>
 
+                <p>
+                    📦 Stock:
+                    <strong>${stock}</strong>
+                </p>
 
-let listaStockBajo = "";
+                <p>
+                    📉 Stock mínimo:
+                    <strong>${minimo}</strong>
+                </p>
 
+                <span>
+                    🔄 Necesita reposición
+                </span>
 
+            </div>
 
-let categorias = {};
+            `;
+        }
 
+        if (stock === 0) {
 
+            sinStock++;
 
+        }
 
+        const categoria = p.categoria || "Sin categoría";
 
-productos.forEach((documento)=>{
+        if (!categorias[categoria]) {
 
+            categorias[categoria] = {
 
+                cantidad: 0,
+                valor: 0
 
-const p = documento.data();
+            };
 
+        }
 
+        categorias[categoria].cantidad += stock;
+        categorias[categoria].valor += stock * precio;
 
-const stock = Number(p.stock) || 0;
+    });
 
-const precio = Number(p.precio) || 0;
+    document.getElementById("totalProductos").textContent =
+        totalProductos;
 
+    document.getElementById("valorAlmacen").textContent =
+        valorAlmacen.toFixed(2) + " €";
 
+    document.getElementById("stockBajo").textContent =
+        stockBajo;
 
-totalProductos++;
+    document.getElementById("sinStock").textContent =
+        sinStock;
 
+    document.getElementById("listaStockBajo").innerHTML =
+        listaStockBajo ||
+        "✅ No hay productos con stock bajo";
 
+    mostrarCategorias(categorias);
 
-valorAlmacen += stock * precio;
-
-
-
-
-
-if(stock < 5){
-
-
-stockBajo++;
-
-
-
-listaStockBajo += `
-
-
-<div class="alerta-stock">
-
-
-<h3>
-⚠️ ${p.nombre}
-</h3>
-
-
-<p>
-📦 Stock:
-<strong>${stock}</strong>
-</p>
-
-
-<p>
-📂 Categoría:
-${p.categoria || "Sin categoría"}
-</p>
-
-
-<span>
-🔄 Necesita reposición
-</span>
-
-
-</div>
-
-
-`;
-
-
+    crearGrafico(
+        totalProductos,
+        stockBajo,
+        sinStock
+    );
 
 }
 
+function mostrarCategorias(categorias) {
 
+    let lista = "";
 
+    Object.keys(categorias).forEach((cat) => {
 
+        lista += `
 
-if(stock === 0){
+        <div class="movimiento">
 
+            <h3>📂 ${cat}</h3>
 
-sinStock++;
+            <p>
+                📦 Stock total:
+                <strong>${categorias[cat].cantidad}</strong>
+            </p>
 
+            <p>
+                💰 Valor:
+                <strong>${categorias[cat].valor.toFixed(2)} €</strong>
+            </p>
 
-}
+        </div>
 
+        `;
 
+    });
 
-
-
-
-
-let categoria = 
-p.categoria || "Sin categoría";
-
-
-
-if(!categorias[categoria]){
-
-
-categorias[categoria]={
-
-cantidad:0,
-
-valor:0
-
-};
-
+    document.getElementById("listaCategorias").innerHTML =
+        lista || "No hay categorías registradas";
 
 }
 
+function crearGrafico(productos, bajo, sinStock) {
 
+    const ctx = document.getElementById("graficoInventario");
 
+    new Chart(ctx, {
 
-categorias[categoria].cantidad += stock;
+        type: "doughnut",
 
+        data: {
 
+            labels: [
+                "Productos",
+                "Stock bajo",
+                "Sin stock"
+            ],
 
-categorias[categoria].valor += stock * precio;
+            datasets: [{
 
+                data: [
+                    productos,
+                    bajo,
+                    sinStock
+                ],
 
+                backgroundColor: [
+                    "#2563eb",
+                    "#f59e0b",
+                    "#dc2626"
+                ],
 
-});
+                borderWidth: 2
 
+            }]
 
+        },
 
+        options: {
 
+            responsive: true,
 
+            maintainAspectRatio: false,
 
+            plugins: {
 
-document.getElementById("totalProductos").textContent =
-totalProductos;
+                legend: {
 
+                    position: "bottom"
 
+                }
 
-document.getElementById("valorAlmacen").textContent =
-valorAlmacen.toFixed(2)+" €";
+            }
 
+        }
 
-
-document.getElementById("stockBajo").textContent =
-stockBajo;
-
-
-
-document.getElementById("sinStock").textContent =
-sinStock;
-
-
-
-
-
-document.getElementById("listaStockBajo").innerHTML =
-
-listaStockBajo ||
-
-"✅ No hay productos con stock bajo";
-
-
-
-
-
-
-mostrarCategorias(categorias);
-
-
-
-crearGrafico(
-
-totalProductos,
-
-stockBajo,
-
-sinStock
-
-);
-
-
+    });
 
 }
-
-
-
-
-
-
-
-function mostrarCategorias(categorias){
-
-
-
-let lista = "";
-
-
-
-Object.keys(categorias).forEach((cat)=>{
-
-
-
-lista += `
-
-
-<div class="movimiento">
-
-
-<h3>
-📂 ${cat}
-</h3>
-
-
-
-<p>
-
-📦 Stock total:
-
-<strong>
-${categorias[cat].cantidad}
-</strong>
-
-</p>
-
-
-
-<p>
-
-💰 Valor:
-
-<strong>
-${categorias[cat].valor.toFixed(2)} €
-
-</strong>
-
-</p>
-
-
-</div>
-
-
-`;
-
-
-
-});
-
-
-
-
-
-document.getElementById("listaCategorias").innerHTML =
-
-lista ||
-
-"No hay categorías registradas";
-
-
-
-}
-
-
-
-
-
-
-
-function crearGrafico(productos,bajo,sinStock){
-
-
-
-const ctx =
-document.getElementById("graficoInventario");
-
-
-
-new Chart(ctx,{
-
-
-
-type:"doughnut",
-
-
-
-data:{
-
-
-
-labels:[
-
-"Productos",
-
-"Stock bajo",
-
-"Sin stock"
-
-],
-
-
-
-datasets:[{
-
-data:[
-
-productos,
-
-bajo,
-
-sinStock
-
-],
-
-
-
-borderWidth:2
-
-
-}]
-
-
-
-},
-
-
-
-options:{
-
-
-
-responsive:true,
-
-
-
-maintainAspectRatio:false,
-
-
-
-plugins:{
-
-
-
-legend:{
-
-
-position:"bottom"
-
-
-}
-
-
-
-}
-
-
-
-}
-
-
-
-});
-
-
-
-}
-
-
-
-
 
 cargarDashboard();
