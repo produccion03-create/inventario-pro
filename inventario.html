@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Inventario físico</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<h1>📦 Inventario físico</h1>
+
+<div id="lector"></div>
+
+<div class="panel">
+
+<h2>Producto</h2>
+
+<div id="producto">
+
+Esperando escaneo...
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<p>📊 Stock del sistema</p>
+
+<h2 id="stockSistema">0</h2>
+
+<p>✍️ Stock contado</p>
+
+<input
+type="number"
+id="stockContado"
+min="0"
+value="0">
+
+<br><br>
+
+<button id="guardarConteo">
+
+💾 Guardar conteo
+
+</button>
+
+<br><br>
+
+<button onclick="location.href='inventario_resultado.html'">
+
+📊 Ver diferencias
+
+</button>
+
+</div>
+
+<br>
+
+<button onclick="location.href='index.html'">
+
+⬅ Volver
+
+</button>
+
+</div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<script type="module" src="JS/inventario.js"></script>
+
+</body>
+
+</html>
