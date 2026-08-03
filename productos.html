@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,27 +14,19 @@
 
 </head>
 
-
 <body>
-
 
 <div class="app">
 
-
 <h1>📦 Productos</h1>
-
-
 
 <input id="codigo" placeholder="Código de barras">
 
 <br><br>
 
-
 <input id="nombre" placeholder="Nombre producto">
 
 <br><br>
-
-
 
 <select id="categoria">
 
@@ -45,39 +38,37 @@ Seleccionar categoría
 Producto terminado
 </option>
 
-
 <option value="Planchas de EVA">
 Planchas de EVA
 </option>
-
 
 <option value="Materias primas auxiliares">
 Materias primas auxiliares
 </option>
 
-
 <option value="Stock envases embalajes">
 Stock envases embalajes
 </option>
 
-
 </select>
 
-
 <br><br>
-
-
 
 <input id="stock" type="number" placeholder="Stock">
 
 <br><br>
 
-
 <input id="precio" type="number" placeholder="Precio">
-
 
 <br><br>
 
+<input
+id="stockMinimo"
+type="number"
+placeholder="Stock mínimo"
+value="5">
+
+<br><br>
 
 <button onclick="guardarProducto()">
 
@@ -85,101 +76,69 @@ Guardar Producto
 
 </button>
 
-
-
-
 <h2>Lista de productos</h2>
-
-
 
 <input
 type="text"
 id="buscar"
-placeholder="🔍 Buscar por nombre, código o categoría..."
->
-
-
+placeholder="🔍 Buscar por nombre, código o categoría...">
 
 <br><br>
-
-
 
 <div id="lista"></div>
 
-
-
-
-
 <div id="modalEditar" class="modal">
-
 
 <div class="modal-contenido">
 
-
 <h2>✏️ Editar producto</h2>
-
 
 <input type="hidden" id="editarId">
 
-
-
 <input id="editarCodigo" placeholder="Código">
 
-
 <br><br>
-
-
 
 <input id="editarNombre" placeholder="Nombre">
 
-
 <br><br>
 
-
-
 <select id="editarCategoria">
-
 
 <option value="Producto terminado">
 Producto terminado
 </option>
 
-
 <option value="Planchas de EVA">
 Planchas de EVA
 </option>
-
 
 <option value="Materias primas auxiliares">
 Materias primas auxiliares
 </option>
 
-
 <option value="Stock envases embalajes">
 Stock envases embalajes
 </option>
 
-
 </select>
 
-
 <br><br>
-
-
 
 <input id="editarStock" type="number" placeholder="Stock">
 
-
 <br><br>
-
-
 
 <input id="editarPrecio" type="number" placeholder="Precio">
 
-
 <br><br>
 
+<input
+id="editarStockMinimo"
+type="number"
+placeholder="Stock mínimo">
 
+<br><br>
 
 <button onclick="guardarEdicion()">
 
@@ -187,30 +146,19 @@ Stock envases embalajes
 
 </button>
 
-
-
 <button onclick="cerrarModal()">
 
 ❌ Cancelar
 
 </button>
 
-
+</div>
 
 </div>
 
-
 </div>
-
-
-
-
-</div>
-
-
 
 <script type="module" src="JS/productos.js"></script>
-
 
 </body>
 
