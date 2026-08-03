@@ -21,121 +21,161 @@
 
 <div class="dashboard">
 
-    <div class="card card-productos">
+<div class="card card-productos">
 
-        <h3>📦 Productos</h3>
+<h3>📦 Productos</h3>
 
-        <span id="totalProductos">0</span>
+<span id="totalProductos">0</span>
 
-        <p>Total registrados</p>
-
-    </div>
-
-    <div class="card card-valor">
-
-        <h3>💰 Valor almacén</h3>
-
-        <span id="valorAlmacen">0 €</span>
-
-        <p>Valor actual inventario</p>
-
-    </div>
-
-    <div class="card card-stock">
-
-        <h3>⚠️ Stock bajo</h3>
-
-        <span id="stockBajo">0</span>
-
-        <p>Necesitan revisión</p>
-
-    </div>
-
-    <div class="card card-alerta">
-
-        <h3>🔴 Sin stock</h3>
-
-        <span id="sinStock">0</span>
-
-        <p>Productos agotados</p>
-
-    </div>
+<p>Total registrados</p>
 
 </div>
+
+<div class="card card-valor">
+
+<h3>💰 Valor almacén</h3>
+
+<span id="valorAlmacen">0 €</span>
+
+<p>Valor actual inventario</p>
+
+</div>
+
+<div class="card card-stock">
+
+<h3>⚠️ Stock bajo</h3>
+
+<span id="stockBajo">0</span>
+
+<p>Necesitan revisión</p>
+
+</div>
+
+<div class="card card-alerta">
+
+<h3>🔴 Sin stock</h3>
+
+<span id="sinStock">0</span>
+
+<p>Productos agotados</p>
+
+</div>
+
+</div>
+
+<!-- RESUMEN STOCK BAJO -->
 
 <div class="panel">
 
-    <h2>⚠️ Productos con stock bajo</h2>
+<h2>⚠️ Productos con stock bajo</h2>
 
-    <div id="listaStockBajo">
+<p
+style="
+font-size:22px;
+margin-top:20px;
+text-align:center;
+">
 
-        Cargando...
+Actualmente hay
 
-    </div>
+<strong id="contadorPendientes">
+
+0
+
+</strong>
+
+productos que necesitan revisión.
+
+</p>
+
+<br>
+
+<div style="text-align:center;">
+
+<button
+onclick="location.href='pendientes.html'">
+
+📋 Ver pendientes
+
+</button>
 
 </div>
+
+</div>
+
+<!-- GRAFICO -->
 
 <div class="panel">
 
-    <h2>📊 Estadísticas inventario</h2>
+<h2>📊 Estadísticas inventario</h2>
 
-    <div style="height:300px">
+<div style="height:300px">
 
-        <canvas id="graficoInventario"></canvas>
-
-    </div>
+<canvas id="graficoInventario"></canvas>
 
 </div>
+
+</div>
+
+<!-- CATEGORIAS -->
 
 <div class="panel">
 
-    <h2>📂 Inventario por categorías</h2>
+<h2>📂 Inventario por categorías</h2>
 
-    <div id="listaCategorias">
+<div id="listaCategorias">
 
-        Cargando...
-
-    </div>
+Cargando...
 
 </div>
+
+</div>
+
+<!-- MENÚ -->
 
 <div class="menu">
 
-    <button onclick="location.href='productos.html'">
-        📦 Productos
-    </button>
+<button onclick="location.href='productos.html'">
 
-    <button onclick="location.href='scanner.html'">
-        📷 Escanear
-    </button>
+📦 Productos
 
-    <button onclick="location.href='movimientos.html'">
-        📋 Historial movimientos
-    </button>
+</button>
 
-    <button onclick="location.href='entrada.html'">
-        ➕ Entrada
-    </button>
+<button onclick="location.href='scanner.html'">
 
-    <button onclick="location.href='salida.html'">
-        ➖ Salida
-    </button>
+📷 Escanear
 
-    <button onclick="location.href='inventario.html'">
-        📦 Inventario físico
-    </button>
+</button>
 
-    <button onclick="location.href='pendientes.html'">
-        📋 Pendientes
-    </button>
+<button onclick="location.href='movimientos.html'">
 
-    <button onclick="location.href='informes.html'">
-        📊 Informes
-    </button>
+📋 Historial movimientos
 
-    <button onclick="location.href='configuracion.html'">
-        ⚙ Configuración
-    </button>
+</button>
+
+<button onclick="location.href='entrada.html'">
+
+➕ Entrada
+
+</button>
+
+<button onclick="location.href='salida.html'">
+
+➖ Salida
+
+</button>
+
+<button onclick="location.href='informes.html'">
+
+📊 Informes
+
+</button>
+
+<button onclick="location.href='configuracion.html'">
+
+⚙ Configuración
+
+</button>
 
 </div>
 
