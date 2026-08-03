@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -20,11 +19,15 @@
 
 <h1>📦 Productos</h1>
 
-<input id="codigo" placeholder="Código de barras">
+<input
+id="codigo"
+placeholder="Código de barras">
 
 <br><br>
 
-<input id="nombre" placeholder="Nombre producto">
+<input
+id="nombre"
+placeholder="Nombre producto">
 
 <br><br>
 
@@ -54,29 +57,38 @@ Stock envases embalajes
 
 <br><br>
 
-<input id="stock" type="number" placeholder="Stock">
+<input
+id="stock"
+type="number"
+placeholder="Stock">
 
 <br><br>
 
-<input id="precio" type="number" placeholder="Precio">
+<input
+id="precio"
+type="number"
+step="0.01"
+placeholder="Precio">
 
 <br><br>
 
 <input
 id="stockMinimo"
 type="number"
-placeholder="Stock mínimo"
-value="5">
+value="5"
+placeholder="Stock mínimo">
 
 <br><br>
 
 <button onclick="guardarProducto()">
 
-Guardar Producto
+💾 Guardar producto
 
 </button>
 
-<h2>Lista de productos</h2>
+<hr>
+
+<h2>📋 Lista de productos</h2>
 
 <input
 type="text"
@@ -87,19 +99,27 @@ placeholder="🔍 Buscar por nombre, código o categoría...">
 
 <div id="lista"></div>
 
+<!-- MODAL EDITAR -->
+
 <div id="modalEditar" class="modal">
 
 <div class="modal-contenido">
 
 <h2>✏️ Editar producto</h2>
 
-<input type="hidden" id="editarId">
+<input
+type="hidden"
+id="editarId">
 
-<input id="editarCodigo" placeholder="Código">
+<input
+id="editarCodigo"
+placeholder="Código">
 
 <br><br>
 
-<input id="editarNombre" placeholder="Nombre">
+<input
+id="editarNombre"
+placeholder="Nombre">
 
 <br><br>
 
@@ -125,11 +145,18 @@ Stock envases embalajes
 
 <br><br>
 
-<input id="editarStock" type="number" placeholder="Stock">
+<input
+id="editarStock"
+type="number"
+placeholder="Stock">
 
 <br><br>
 
-<input id="editarPrecio" type="number" placeholder="Precio">
+<input
+id="editarPrecio"
+type="number"
+step="0.01"
+placeholder="Precio">
 
 <br><br>
 
@@ -155,6 +182,14 @@ placeholder="Stock mínimo">
 </div>
 
 </div>
+
+<br>
+
+<button onclick="location.href='index.html'">
+
+⬅ Volver
+
+</button>
 
 </div>
 
