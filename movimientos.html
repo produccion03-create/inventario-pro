@@ -32,17 +32,11 @@ placeholder="Buscar por nombre o código...">
 
 <select id="filtroTipo">
 
-<option value="">
-Todos los movimientos
-</option>
+<option value="">Todos los movimientos</option>
 
-<option value="Entrada">
-📥 Entradas
-</option>
+<option value="Entrada">📥 Entradas</option>
 
-<option value="Salida">
-📤 Salidas
-</option>
+<option value="Salida">📤 Salidas</option>
 
 </select>
 
@@ -50,11 +44,33 @@ Todos los movimientos
 
 <select id="filtroCategoria">
 
-<option value="">
-Todas las categorías
-</option>
+<option value="">Todas las categorías</option>
 
 </select>
+
+<br><br>
+
+<label>📅 Desde</label>
+
+<input
+type="date"
+id="fechaDesde">
+
+<br><br>
+
+<label>📅 Hasta</label>
+
+<input
+type="date"
+id="fechaHasta">
+
+<br><br>
+
+<button id="limpiarFiltros">
+
+🧹 Limpiar filtros
+
+</button>
 
 </div>
 
@@ -101,7 +117,7 @@ Cargando...
 
 <button onclick="location.href='index.html'">
 
-⬅ Volver al inicio
+⬅ Volver
 
 </button>
 
