@@ -35,6 +35,12 @@ function cargarCategorias() {
 
     const filtro = document.getElementById("filtroCategoria");
 
+    filtro.innerHTML = `
+        <option value="">
+            Todas las categorías
+        </option>
+    `;
+
     let categorias = [];
 
     movimientos.forEach((m) => {
@@ -66,25 +72,27 @@ function cargarCategorias() {
 
 function mostrarMovimientos() {
 
-    const lista = document.getElementById("listaMovimientos");
+    const lista =
+    document.getElementById("listaMovimientos");
 
     lista.innerHTML = "";
 
     const texto =
-        document
-        .getElementById("buscar")
-        .value
-        .toLowerCase();
+    document.getElementById("buscar")
+    .value
+    .toLowerCase();
 
     const tipo =
-        document
-        .getElementById("filtroTipo")
-        .value;
+    document.getElementById("filtroTipo").value;
 
     const categoria =
-        document
-        .getElementById("filtroCategoria")
-        .value;
+    document.getElementById("filtroCategoria").value;
+
+    const desde =
+    document.getElementById("fechaDesde").value;
+
+    const hasta =
+    document.getElementById("fechaHasta").value;
 
     let entradas = 0;
     let salidas = 0;
@@ -93,36 +101,63 @@ function mostrarMovimientos() {
     movimientos.forEach((m) => {
 
         const producto =
-            (m.producto || "").toLowerCase();
+        (m.producto || "").toLowerCase();
 
         const codigo =
-            (m.codigo || "").toLowerCase();
+        (m.codigo || "").toLowerCase();
 
         if (
             texto &&
             !producto.includes(texto) &&
             !codigo.includes(texto)
-        ) {
-
-            return;
-
-        }
+        ) return;
 
         if (
             tipo &&
             m.tipo !== tipo
-        ) {
-
-            return;
-
-        }
+        ) return;
 
         if (
             categoria &&
             m.categoria !== categoria
-        ) {
+        ) return;
 
-            return;
+        let fechaObjeto = null;
+
+        if (m.fecha && m.fecha.toDate) {
+
+            fechaObjeto = m.fecha.toDate();
+
+        }
+
+        if (fechaObjeto) {
+
+            if (desde) {
+
+                const fechaDesde =
+                new Date(desde);
+
+                if (fechaObjeto < fechaDesde)
+                    return;
+
+            }
+
+            if (hasta) {
+
+                const fechaHasta =
+                new Date(hasta);
+
+                fechaHasta.setHours(
+                    23,
+                    59,
+                    59,
+                    999
+                );
+
+                if (fechaObjeto > fechaHasta)
+                    return;
+
+            }
 
         }
 
@@ -138,31 +173,25 @@ function mostrarMovimientos() {
 
         }
 
-        let fecha = "Sin fecha";
+        const fechaTexto =
+        fechaObjeto
+        ? fechaObjeto.toLocaleString("es-ES")
+        : "Sin fecha";
 
-        if (m.fecha && m.fecha.toDate) {
-
-            fecha =
-            m.fecha
-            .toDate()
-            .toLocaleString("es-ES");
-
-        }
-
-        const borde =
-            m.tipo === "Entrada"
-            ? "#16a34a"
-            : "#dc2626";
+        const color =
+        m.tipo === "Entrada"
+        ? "#16a34a"
+        : "#dc2626";
 
         const icono =
-            m.tipo === "Entrada"
-            ? "📥"
-            : "📤";
+        m.tipo === "Entrada"
+        ? "📥"
+        : "📤";
 
         lista.innerHTML += `
 
         <div class="movimiento"
-        style="border-left:6px solid ${borde};">
+        style="border-left:6px solid ${color};">
 
             <h3>
 
@@ -205,6 +234,14 @@ function mostrarMovimientos() {
 
             <p>
 
+                <strong>📦 Stock anterior:</strong>
+
+                ${m.stockAnterior}
+
+            </p>
+
+            <p>
+
                 <strong>📦 Stock final:</strong>
 
                 ${m.stockFinal}
@@ -215,7 +252,7 @@ function mostrarMovimientos() {
 
                 <strong>🕒 Fecha:</strong>
 
-                ${fecha}
+                ${fechaTexto}
 
             </p>
 
@@ -227,8 +264,15 @@ function mostrarMovimientos() {
 
     if (total === 0) {
 
-        lista.innerHTML =
-        "No se han encontrado movimientos.";
+        lista.innerHTML = `
+
+        <div class="panel">
+
+            No hay movimientos.
+
+        </div>
+
+        `;
 
     }
 
@@ -262,6 +306,41 @@ document
 .addEventListener(
     "change",
     mostrarMovimientos
+);
+
+document
+.getElementById("fechaDesde")
+.addEventListener(
+    "change",
+    mostrarMovimientos
+);
+
+document
+.getElementById("fechaHasta")
+.addEventListener(
+    "change",
+    mostrarMovimientos
+);
+
+document
+.getElementById("limpiarFiltros")
+.addEventListener(
+    "click",
+    () => {
+
+        document.getElementById("buscar").value = "";
+
+        document.getElementById("filtroTipo").value = "";
+
+        document.getElementById("filtroCategoria").value = "";
+
+        document.getElementById("fechaDesde").value = "";
+
+        document.getElementById("fechaHasta").value = "";
+
+        mostrarMovimientos();
+
+    }
 );
 
 cargarMovimientos();
