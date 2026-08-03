@@ -1,3 +1,4 @@
+```javascript
 console.log("PRODUCTOS.JS CARGADO");
 
 import {
@@ -10,7 +11,6 @@ import {
     deleteDoc
 } from "./firebase.js";
 
-
 // ==========================
 // GUARDAR PRODUCTO
 // ==========================
@@ -22,7 +22,7 @@ async function guardarProducto() {
     const categoria = document.getElementById("categoria").value;
     const stock = Number(document.getElementById("stock").value);
     const precio = Number(document.getElementById("precio").value);
-    const stockMinimo = Number(document.getElementById("stockMinimo").value);
+    const stockMinimo = Number(document.getElementById("stockMinimo").value) || 5;
 
     if (codigo === "" || nombre === "") {
         alert("Introduce el código y el nombre.");
@@ -43,7 +43,8 @@ async function guardarProducto() {
             categoria,
             stock,
             precio,
-            stockMinimo
+            stockMinimo,
+            revisado: false
 
         });
 
@@ -64,10 +65,7 @@ async function guardarProducto() {
         alert("Error al guardar");
 
     }
-
 }
-
-
 
 // ==========================
 // MOSTRAR PRODUCTOS
@@ -102,53 +100,50 @@ async function mostrarProductos() {
             return;
         }
 
-        let colorStock = "#16a34a";
+        const stock = Number(p.stock) || 0;
+        const minimo = Number(p.stockMinimo ?? 5);
+        const precio = Number(p.precio) || 0;
 
-        if (p.stock <= p.stockMinimo) {
-            colorStock = "#dc2626";
+        let color = "#16a34a";
+        let estado = "🟢 Stock correcto";
+
+        if (stock <= minimo) {
+            color = "#f59e0b";
+            estado = "🟠 Stock bajo";
         }
 
+        if (stock === 0) {
+            color = "#dc2626";
+            estado = "🔴 Sin stock";
+        }
+
+        const valor = (stock * precio).toFixed(2);
+
         lista.innerHTML += `
+        <div class="movimiento" style="border-left:8px solid ${color};">
+            <h3>${estado}</h3>
+            <h2>${p.nombre}</h2>
 
-        <div class="movimiento">
+            <p><strong>🏷 Código:</strong> ${p.codigo}</p>
+            <p><strong>📂 Categoría:</strong> ${p.categoria}</p>
+            <p><strong>📦 Stock:</strong> ${stock}</p>
+            <p><strong>⚠ Stock mínimo:</strong> ${minimo}</p>
+            <p><strong>💰 Precio:</strong> ${precio.toFixed(2)} €</p>
+            <p><strong>💵 Valor:</strong> ${valor} €</p>
 
-            <h3>📦 ${p.nombre}</h3>
-
-            <p><b>Código:</b> ${p.codigo}</p>
-
-            <p><b>Categoría:</b> ${p.categoria}</p>
-
-            <p style="color:${colorStock};">
-
-                <b>Stock:</b> ${p.stock}
-
-            </p>
-
-            <p><b>Stock mínimo:</b> ${p.stockMinimo}</p>
-
-            <p><b>Precio:</b> ${p.precio} €</p>
+            <br>
 
             <button onclick="editarProducto('${documento.id}')">
-
                 ✏️ Editar
-
             </button>
 
             <button onclick="eliminarProducto('${documento.id}')">
-
                 🗑️ Eliminar
-
             </button>
-
         </div>
-
         `;
-
     });
-
 }
-
-
 
 // ==========================
 // EDITAR
@@ -173,14 +168,9 @@ async function editarProducto(id) {
             document.getElementById("editarStockMinimo").value = p.stockMinimo ?? 5;
 
             document.getElementById("modalEditar").style.display = "flex";
-
         }
-
     });
-
 }
-
-
 
 // ==========================
 // GUARDAR EDICIÓN
@@ -199,7 +189,7 @@ async function guardarEdicion() {
             categoria: document.getElementById("editarCategoria").value,
             stock: Number(document.getElementById("editarStock").value),
             precio: Number(document.getElementById("editarPrecio").value),
-            stockMinimo: Number(document.getElementById("editarStockMinimo").value)
+            stockMinimo: Number(document.getElementById("editarStockMinimo").value) || 5
 
         });
 
@@ -212,26 +202,18 @@ async function guardarEdicion() {
     } catch (error) {
 
         console.error(error);
-
         alert("Error al actualizar");
 
     }
-
 }
-
-
 
 // ==========================
 // CERRAR MODAL
 // ==========================
 
 function cerrarModal() {
-
     document.getElementById("modalEditar").style.display = "none";
-
 }
-
-
 
 // ==========================
 // ELIMINAR
@@ -252,15 +234,13 @@ async function eliminarProducto(id) {
     } catch (error) {
 
         console.error(error);
-
         alert("Error al eliminar");
 
     }
-
 }
 
-
-
+// ==========================
+// EXPORTAR FUNCIONES
 // ==========================
 
 window.guardarProducto = guardarProducto;
@@ -269,8 +249,13 @@ window.guardarEdicion = guardarEdicion;
 window.cerrarModal = cerrarModal;
 window.eliminarProducto = eliminarProducto;
 
+// ==========================
+// INICIO
+// ==========================
+
 mostrarProductos();
 
 document
     .getElementById("buscar")
     .addEventListener("input", mostrarProductos);
+```
