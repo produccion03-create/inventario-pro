@@ -1,29 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escáner</title>
 
-    <link rel="stylesheet" href="CSS/style.css">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Escáner</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
 </head>
 
 <body>
 
 <div class="app">
-    <h1>📷 Escanear código</h1>
 
-    <div id="lector"></div>
+<h1>📷 Escanear código</h1>
 
-    <h2 id="resultado">Esperando código...</h2>
+<div id="lector"></div>
 
-    <button onclick="location.href='index.html'">
-        ⬅ Volver
-    </button>
+<div id="resultado" class="panel">
+
+Esperando código...
+
+</div>
+
+<div id="panelMovimiento" class="panel" style="display:none;">
+
+<h2>Movimiento de stock</h2>
+
+<p>
+
+Cantidad
+
+</p>
+
+<input
+type="number"
+id="cantidad"
+value="1"
+min="1">
+
+<br><br>
+
+<button id="entrada">
+
+📥 Confirmar entrada
+
+</button>
+
+<button id="salida">
+
+📤 Confirmar salida
+
+</button>
+
+</div>
+
+<br>
+
+<button onclick="location.reload()">
+
+🔄 Escanear otro producto
+
+</button>
+
+<br><br>
+
+<button onclick="location.href='index.html'">
+
+⬅ Volver
+
+</button>
+
 </div>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
+
 <script type="module" src="JS/scanner.js"></script>
 
 </body>
+
 </html>
