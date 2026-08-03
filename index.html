@@ -13,214 +13,137 @@
 
 </head>
 
-
 <body>
-
 
 <div class="app">
 
-
 <h1>📦 Inventario Pro</h1>
-
-
-
 
 <div class="dashboard">
 
+    <div class="card card-productos">
 
-<div class="card card-productos">
+        <h3>📦 Productos</h3>
 
-<h3>📦 Productos</h3>
+        <span id="totalProductos">0</span>
 
-<span id="totalProductos">0</span>
+        <p>Total registrados</p>
 
-<p>Total registrados</p>
+    </div>
 
-</div>
+    <div class="card card-valor">
 
+        <h3>💰 Valor almacén</h3>
 
+        <span id="valorAlmacen">0 €</span>
 
+        <p>Valor actual inventario</p>
 
-<div class="card card-valor">
+    </div>
 
-<h3>💰 Valor almacén</h3>
+    <div class="card card-stock">
 
-<span id="valorAlmacen">0 €</span>
+        <h3>⚠️ Stock bajo</h3>
 
-<p>Valor actual inventario</p>
+        <span id="stockBajo">0</span>
 
-</div>
+        <p>Necesitan revisión</p>
 
+    </div>
 
+    <div class="card card-alerta">
 
+        <h3>🔴 Sin stock</h3>
 
-<div class="card card-stock">
+        <span id="sinStock">0</span>
 
-<h3>⚠️ Stock bajo</h3>
+        <p>Productos agotados</p>
 
-<span id="stockBajo">0</span>
-
-<p>Necesitan revisión</p>
-
-</div>
-
-
-
-
-<div class="card card-alerta">
-
-<h3>🔴 Sin stock</h3>
-
-<span id="sinStock">0</span>
-
-<p>Productos agotados</p>
+    </div>
 
 </div>
-
-
-</div>
-
-
-
-
 
 <div class="panel">
 
+    <h2>⚠️ Productos con stock bajo</h2>
 
-<h2>⚠️ Productos con stock bajo</h2>
+    <div id="listaStockBajo">
 
+        Cargando...
 
-<div id="listaStockBajo">
-
-Cargando...
-
-</div>
-
+    </div>
 
 </div>
-
-
-
-
-
 
 <div class="panel">
 
+    <h2>📊 Estadísticas inventario</h2>
 
-<h2>📊 Estadísticas inventario</h2>
+    <div style="height:300px">
 
+        <canvas id="graficoInventario"></canvas>
 
-<div style="height:300px">
-
-<canvas id="graficoInventario"></canvas>
-
-</div>
-
+    </div>
 
 </div>
-
-
-
-
-
-
 
 <div class="panel">
 
+    <h2>📂 Inventario por categorías</h2>
 
-<h2>📂 Inventario por categorías</h2>
+    <div id="listaCategorias">
 
+        Cargando...
 
-<div id="listaCategorias">
-
-Cargando...
-
-</div>
-
+    </div>
 
 </div>
-
-
-
-
-
-
 
 <div class="menu">
 
+    <button onclick="location.href='productos.html'">
+        📦 Productos
+    </button>
 
+    <button onclick="location.href='scanner.html'">
+        📷 Escanear
+    </button>
 
-<button onclick="location.href='productos.html'">
+    <button onclick="location.href='movimientos.html'">
+        📋 Historial movimientos
+    </button>
 
-📦 Productos
+    <button onclick="location.href='entrada.html'">
+        ➕ Entrada
+    </button>
 
-</button>
+    <button onclick="location.href='salida.html'">
+        ➖ Salida
+    </button>
 
+    <button onclick="location.href='inventario.html'">
+        📦 Inventario físico
+    </button>
 
+    <button onclick="location.href='pendientes.html'">
+        📋 Pendientes
+    </button>
 
+    <button onclick="location.href='informes.html'">
+        📊 Informes
+    </button>
 
-<button onclick="location.href='scanner.html'">
-
-📷 Escanear
-
-</button>
-
-
-
-
-<button onclick="location.href='movimientos.html'">
-
-📋 Historial movimientos
-
-</button>
-
-
-
-
-<button onclick="location.href='entrada.html'">
-
-➕ Entrada
-
-</button>
-
-
-
-
-<button onclick="location.href='salida.html'">
-
-➖ Salida
-
-</button>
-
-
-
-<button onclick="location.href='informes.html'">
-
-📊 Informes
-
-</button>
-
-
-<button onclick="location.href='configuracion.html'">
-⚙ Configuración
-</button>
-
+    <button onclick="location.href='configuracion.html'">
+        ⚙ Configuración
+    </button>
 
 </div>
 
-
-
-
 </div>
-
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script type="module" src="JS/dashboard.js"></script>
-
-
 
 </body>
 
