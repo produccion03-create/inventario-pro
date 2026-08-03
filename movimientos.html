@@ -1,32 +1,114 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movimientos</title>
 
-    <link rel="stylesheet" href="CSS/style.css">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Historial de movimientos</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
 </head>
 
 <body>
 
 <div class="app">
 
-    <h1>📋 Historial de Movimientos</h1>
+<h1>📋 Historial de movimientos</h1>
 
-    <div id="listaMovimientos">
-        Cargando...
-    </div>
+<div class="panel">
 
-    <br>
+<h2>🔎 Filtros</h2>
 
-    <button onclick="location.href='index.html'">
-        ⬅ Volver
-    </button>
+<input
+type="text"
+id="buscar"
+placeholder="Buscar por nombre o código...">
+
+<br><br>
+
+<select id="filtroTipo">
+
+<option value="">
+Todos los movimientos
+</option>
+
+<option value="Entrada">
+📥 Entradas
+</option>
+
+<option value="Salida">
+📤 Salidas
+</option>
+
+</select>
+
+<br><br>
+
+<select id="filtroCategoria">
+
+<option value="">
+Todas las categorías
+</option>
+
+</select>
+
+</div>
+
+<div class="panel">
+
+<h2>📊 Resumen</h2>
+
+<p>
+
+📥 Entradas:
+<strong id="totalEntradas">0</strong>
+
+</p>
+
+<p>
+
+📤 Salidas:
+<strong id="totalSalidas">0</strong>
+
+</p>
+
+<p>
+
+📋 Total movimientos:
+<strong id="totalMovimientos">0</strong>
+
+</p>
+
+</div>
+
+<div class="panel">
+
+<h2>📜 Movimientos registrados</h2>
+
+<div id="listaMovimientos">
+
+Cargando...
+
+</div>
+
+</div>
+
+<br>
+
+<button onclick="location.href='index.html'">
+
+⬅ Volver al inicio
+
+</button>
 
 </div>
 
 <script type="module" src="JS/movimientos.js"></script>
 
 </body>
+
 </html>
