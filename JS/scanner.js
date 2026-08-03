@@ -69,6 +69,8 @@ function mostrarProducto() {
 
     const resultado = document.getElementById("resultado");
 
+    const minimo = Number(productoActual.stockMinimo ?? 5);
+
     resultado.innerHTML = `
 
         <h2>📦 ${productoActual.nombre}</h2>
@@ -87,9 +89,9 @@ function mostrarProducto() {
                 font-size:28px;
                 font-weight:bold;
                 color:${
-                    Number(productoActual.stock) == 0
+                    Number(productoActual.stock) === 0
                     ? "#dc2626"
-                    : Number(productoActual.stock) < 5
+                    : Number(productoActual.stock) <= minimo
                     ? "#f59e0b"
                     : "#16a34a"
                 };
@@ -100,6 +102,8 @@ function mostrarProducto() {
             </span>
 
         </p>
+
+        <p><b>⚠️ Stock mínimo:</b> ${minimo}</p>
 
         <p><b>💰 Precio:</b> ${productoActual.precio} €</p>
 
@@ -133,7 +137,7 @@ async function registrarMovimiento(tipo) {
 
     let nuevoStock = Number(productoActual.stock);
 
-    if (tipo == "Entrada") {
+    if (tipo === "Entrada") {
 
         nuevoStock += cantidad;
 
@@ -157,7 +161,8 @@ async function registrarMovimiento(tipo) {
 
         {
 
-            stock: nuevoStock
+            stock: nuevoStock,
+            revisado: false
 
         }
 
@@ -190,6 +195,8 @@ async function registrarMovimiento(tipo) {
     );
 
     productoActual.stock = nuevoStock;
+
+    productoActual.revisado = false;
 
     mostrarProducto();
 
