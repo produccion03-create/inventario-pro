@@ -9,49 +9,155 @@
 
 <title>Configuración</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="CSS/style.css">
 
 </head>
 
 <body>
 
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+📦 Inventario Pro
+
+</div>
+
+<nav>
+
+<a href="index.html">🏠 Dashboard</a>
+
+<a href="productos.html">📦 Productos</a>
+
+<a href="entrada.html">➕ Entradas</a>
+
+<a href="salida.html">➖ Salidas</a>
+
+<a href="movimientos.html">📋 Movimientos</a>
+
+<a href="scanner.html">📷 Escáner</a>
+
+<a href="informes.html">📊 Informes</a>
+
+<a href="configuracion.html" class="activo">⚙ Configuración</a>
+
+</nav>
+
+</aside>
+
+<!-- CONTENIDO -->
+
+<div class="contenido">
+
+<div class="topbar">
+
+<div>
+
+<h1>Configuración</h1>
+
+<p>Datos generales de la empresa y preferencias del sistema.</p>
+
+</div>
+
+</div>
+
 <div class="app">
 
-<h1>⚙ Configuración</h1>
+<!-- TARJETAS -->
+
+<div class="dashboard">
+
+<div class="card card-productos">
+
+<h3>🏢 Empresa</h3>
+
+<span>⚙</span>
+
+<p>Información de la empresa</p>
+
+</div>
+
+<div class="card card-valor">
+
+<h3>👤 Responsable</h3>
+
+<span>👤</span>
+
+<p>Datos de contacto</p>
+
+</div>
+
+</div>
+
+<!-- FORMULARIO -->
 
 <div class="panel">
 
 <h2>Datos de la empresa</h2>
 
+<div class="grid-form">
+
+<div>
+
+<label>Empresa</label>
+
 <input
 type="text"
 id="empresa"
-placeholder="Nombre empresa">
+placeholder="Nombre de la empresa">
 
-<br><br>
+</div>
+
+<div>
+
+<label>Responsable</label>
 
 <input
 type="text"
 id="responsable"
-placeholder="Responsable">
+placeholder="Nombre del responsable">
 
-<br><br>
+</div>
+
+<div>
+
+<label>Teléfono</label>
 
 <input
 type="text"
 id="telefono"
-placeholder="Teléfono">
+placeholder="Número de teléfono">
 
-<br><br>
+</div>
+
+<div>
+
+<label>Correo electrónico</label>
 
 <input
 type="email"
 id="email"
-placeholder="Correo">
+placeholder="correo@empresa.com">
 
-<br><br>
+</div>
 
-<button id="guardar">
+</div>
+
+<br>
+
+<button
+id="guardar"
+class="btn-verde">
 
 💾 Guardar configuración
 
@@ -59,13 +165,25 @@ placeholder="Correo">
 
 </div>
 
-<br>
+<!-- INFORMACIÓN -->
 
-<button onclick="location.href='index.html'">
+<div class="panel">
 
-⬅ Volver
+<h2>Información</h2>
 
-</button>
+<div class="movimiento">
+
+<h3>📦 Inventario Pro</h3>
+
+<p>Los datos de esta pantalla se almacenan en Firebase y estarán disponibles para futuras funciones como informes, documentos PDF, albaranes y etiquetas.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 

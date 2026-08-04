@@ -9,30 +9,115 @@
 
 <title>Entrada de mercancía</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="CSS/style.css">
 
 </head>
 
 <body>
 
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+📦 Inventario Pro
+
+</div>
+
+<nav>
+
+<a href="index.html">🏠 Dashboard</a>
+
+<a href="productos.html">📦 Productos</a>
+
+<a href="entrada.html" class="activo">➕ Entradas</a>
+
+<a href="salida.html">➖ Salidas</a>
+
+<a href="movimientos.html">📋 Movimientos</a>
+
+<a href="scanner.html">📷 Escáner</a>
+
+<a href="informes.html">📊 Informes</a>
+
+<a href="configuracion.html">⚙ Configuración</a>
+
+</nav>
+
+</aside>
+
+<!-- CONTENIDO -->
+
+<div class="contenido">
+
+<div class="topbar">
+
+<div>
+
+<h1>Entrada de mercancía</h1>
+
+<p>Registrar nuevas unidades en el inventario.</p>
+
+</div>
+
+</div>
+
 <div class="app">
 
-<h1>➕ Entrada de mercancía</h1>
-
 <div class="panel">
+
+<h2>📦 Seleccionar producto</h2>
+
+<div class="grid-form">
+
+<div>
 
 <label>Producto</label>
 
 <select id="producto"></select>
 
-<br><br>
+</div>
 
-<p>
-Stock actual:
-<strong id="stockActual">0</strong>
-</p>
+<div>
 
-<label>Cantidad a añadir</label>
+<label>Stock actual</label>
+
+<div class="info-stock">
+
+<span id="stockActual">
+
+0
+
+</span>
+
+<span>unidades</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>➕ Registrar entrada</h2>
+
+<div class="grid-form">
+
+<div>
+
+<label>Cantidad</label>
 
 <input
 type="number"
@@ -40,23 +125,74 @@ id="cantidad"
 min="1"
 value="1">
 
-<br><br>
+</div>
 
-<button id="guardarEntrada">
+<div>
 
-💾 Guardar entrada
+<label>Observaciones</label>
 
-</button>
+<input
+type="text"
+id="observaciones"
+placeholder="Proveedor, albarán, compra...">
+
+</div>
 
 </div>
 
 <br>
 
-<button onclick="location.href='index.html'">
+<button
+id="guardarEntrada"
+class="btn-verde">
 
-⬅ Volver
+💾 Registrar entrada
 
 </button>
+
+</div>
+
+<div class="panel">
+
+<h2>ℹ Información</h2>
+
+<div class="dashboard">
+
+<div class="card card-productos">
+
+<h3>📦 Stock actual</h3>
+
+<span id="stockActual2">
+
+0
+
+</span>
+
+<p>Unidades disponibles</p>
+
+</div>
+
+<div class="card card-valor">
+
+<h3>➕ Entrada</h3>
+
+<span id="cantidadVista">
+
+1
+
+</span>
+
+<p>Unidades a añadir</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 

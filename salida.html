@@ -9,46 +9,119 @@
 
 <title>Salida de mercancía</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="CSS/style.css">
 
 </head>
 
-
 <body>
 
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+📦 Inventario Pro
+
+</div>
+
+<nav>
+
+<a href="index.html">🏠 Dashboard</a>
+
+<a href="productos.html">📦 Productos</a>
+
+<a href="entrada.html">➕ Entradas</a>
+
+<a href="salida.html" class="activo">➖ Salidas</a>
+
+<a href="movimientos.html">📋 Movimientos</a>
+
+<a href="scanner.html">📷 Escáner</a>
+
+<a href="informes.html">📊 Informes</a>
+
+<a href="configuracion.html">⚙ Configuración</a>
+
+</nav>
+
+</aside>
+
+<!-- CONTENIDO -->
+
+<div class="contenido">
+
+<div class="topbar">
+
+<div>
+
+<h1>Salida de mercancía</h1>
+
+<p>Registrar la salida de productos del inventario.</p>
+
+</div>
+
+</div>
 
 <div class="app">
 
-
-<h1>➖ Salida de mercancía</h1>
-
-
+<!-- PRODUCTO -->
 
 <div class="panel">
 
+<h2>📦 Seleccionar producto</h2>
 
-<label>
-Producto
-</label>
+<div class="grid-form">
 
+<div>
+
+<label>Producto</label>
 
 <select id="producto"></select>
 
+</div>
 
-<br><br>
+<div>
 
+<label>Stock disponible</label>
 
-<p>
-Stock disponible:
-<strong id="stockActual">0</strong>
-</p>
+<div class="info-stock">
 
+<span id="stockActual">
 
+0
 
-<label>
-Cantidad a retirar
-</label>
+</span>
 
+<span>unidades</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SALIDA -->
+
+<div class="panel">
+
+<h2>➖ Registrar salida</h2>
+
+<div class="grid-form">
+
+<div>
+
+<label>Cantidad</label>
 
 <input
 type="number"
@@ -56,38 +129,80 @@ id="cantidad"
 min="1"
 value="1">
 
+</div>
 
-<br><br>
+<div>
 
+<label>Destino / Observaciones</label>
 
-<button id="guardarSalida">
-
-💾 Guardar salida
-
-</button>
-
+<input
+type="text"
+id="observaciones"
+placeholder="Cliente, pedido, fabricación...">
 
 </div>
 
-
+</div>
 
 <br>
 
+<button
+id="guardarSalida"
+class="btn-rojo">
 
-<button onclick="location.href='index.html'">
-
-⬅ Volver
+📤 Registrar salida
 
 </button>
 
+</div>
+
+<!-- RESUMEN -->
+
+<div class="panel">
+
+<h2>Resumen</h2>
+
+<div class="dashboard">
+
+<div class="card card-alerta">
+
+<h3>📦 Stock actual</h3>
+
+<span id="stockActual2">
+
+0
+
+</span>
+
+<p>Unidades disponibles</p>
 
 </div>
 
+<div class="card card-stock">
 
+<h3>➖ Salida</h3>
 
+<span id="cantidadVista">
+
+1
+
+</span>
+
+<p>Unidades a retirar</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 <script type="module" src="JS/salida.js"></script>
-
 
 </body>
 
