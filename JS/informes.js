@@ -7,13 +7,12 @@ import {
 let productos = [];
 
 // ==========================
-// CARGAR INFORMES
+// CARGAR DATOS
 // ==========================
 
 async function cargarDatos(){
 
-    const datos =
-    await getDocs(
+    const datos = await getDocs(
         collection(db,"productos")
     );
 
@@ -45,8 +44,6 @@ async function cargarDatos(){
 
         valor += stock * precio;
 
-        // No controlar EVA
-
         if(
             p.categoria !== "Planchas de EVA" &&
             stock <= minimo &&
@@ -57,29 +54,40 @@ async function cargarDatos(){
 
         }
 
-        if(stock===0){
+        if(stock === 0){
 
             sin++;
 
         }
 
-        const cat =
+        const categoria =
         p.categoria || "Sin categoría";
 
-        if(!categorias[cat]){
+        if(!categorias[categoria]){
 
-            categorias[cat]=0;
+            categorias[categoria]={
+
+                cantidad:0,
+                valor:0
+
+            };
 
         }
 
-        categorias[cat]++;
+        categorias[categoria].cantidad++;
+
+        categorias[categoria].valor +=
+        stock * precio;
 
     });
 
-    document.getElementById("totalProductos").textContent =
-    total;
+    document.getElementById(
+        "totalProductos"
+    ).textContent = total;
 
-    document.getElementById("valorAlmacen").textContent =
+    document.getElementById(
+        "valorAlmacen"
+    ).textContent =
     valor.toLocaleString(
         "es-ES",
         {
@@ -88,25 +96,96 @@ async function cargarDatos(){
         }
     );
 
-    document.getElementById("stockBajo").textContent =
-    bajo;
+    document.getElementById(
+        "stockBajo"
+    ).textContent = bajo;
 
-    document.getElementById("sinStock").textContent =
-    sin;
+    document.getElementById(
+        "sinStock"
+    ).textContent = sin;
 
-    crearGrafico(
-        categorias
-    );
+    crearGraficoCategorias(categorias);
+
+    crearGraficoValor(categorias);
+
+    mostrarInformes(categorias);
 
 }
+
 // ==========================
-// GRÁFICO
+// GRÁFICO PRODUCTOS
 // ==========================
 
-function crearGrafico(categorias){
+function crearGraficoCategorias(categorias){
 
     const ctx =
-    document.getElementById("graficoInformes");
+    document.getElementById(
+        "graficoInformes"
+    );
+
+    new Chart(ctx,{
+
+        type:"doughnut",
+
+        data:{
+
+            labels:Object.keys(categorias),
+
+            datasets:[{
+
+                data:Object.values(categorias).map(
+                    c=>c.cantidad
+                ),
+
+                backgroundColor:[
+
+                    "#2563eb",
+                    "#16a34a",
+                    "#f59e0b",
+                    "#dc2626",
+                    "#7c3aed",
+                    "#0891b2",
+                    "#ea580c",
+                    "#0f766e"
+
+                ],
+
+                borderWidth:0
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            maintainAspectRatio:false,
+
+            plugins:{
+
+                legend:{
+                    position:"bottom"
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+// ==========================
+// GRÁFICO VALOR
+// ==========================
+
+function crearGraficoValor(categorias){
+
+    const ctx =
+    document.getElementById(
+        "graficoValorCategorias"
+    );
 
     new Chart(ctx,{
 
@@ -118,21 +197,15 @@ function crearGrafico(categorias){
 
             datasets:[{
 
-                label:"Productos por categoría",
+                label:"Valor (€)",
 
-                data:Object.values(categorias),
+                data:Object.values(categorias).map(
+                    c=>c.valor
+                ),
 
-                borderRadius:8,
+                backgroundColor:"#2563eb",
 
-                backgroundColor:[
-                    "#2563eb",
-                    "#16a34a",
-                    "#f59e0b",
-                    "#dc2626",
-                    "#7c3aed",
-                    "#0891b2",
-                    "#ea580c"
-                ]
+                borderRadius:8
 
             }]
 
@@ -155,7 +228,9 @@ function crearGrafico(categorias){
             scales:{
 
                 y:{
+
                     beginAtZero:true
+
                 }
 
             }
@@ -167,6 +242,242 @@ function crearGrafico(categorias){
 }
 
 // ==========================
+// INFORMES
+// ==========================
+
+function mostrarInformes(categorias){
+
+    mostrarCategorias(categorias);
+
+    mostrarStockBajo();
+
+    mostrarSinStock();
+
+    mostrarTopValor();
+
+}
+
+// ==========================
+// VALOR POR CATEGORÍAS
+// ==========================
+
+function mostrarCategorias(categorias){
+
+    let html="";
+
+    Object.entries(categorias).forEach(([nombre,datos])=>{
+
+        html+=`
+
+        <div class="fila-informe">
+
+            <span>${nombre}</span>
+
+            <strong>
+
+                ${datos.valor.toLocaleString(
+                    "es-ES",
+                    {
+                        style:"currency",
+                        currency:"EUR"
+                    }
+                )}
+
+            </strong>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById(
+        "informeCategorias"
+    ).innerHTML=
+    html;
+
+}
+
+// ==========================
+// STOCK BAJO
+// ==========================
+
+function mostrarStockBajo(){
+
+    let html="";
+
+    productos.forEach((p)=>{
+
+        const stock=
+        Number(p.stock)||0;
+
+        const minimo=
+        Number(p.stockMinimo??5);
+
+        if(
+
+            p.categoria!=="Planchas de EVA" &&
+
+            stock<=minimo &&
+
+            stock>0
+
+        ){
+
+            html+=`
+
+            <div class="fila-informe">
+
+                <span>
+
+                    ${p.nombre}
+
+                </span>
+
+                <strong style="color:#f59e0b">
+
+                    ${stock}
+
+                </strong>
+
+            </div>
+
+            `;
+
+        }
+
+    });
+
+    if(html===""){
+
+        html="<p>✅ No hay productos con stock bajo.</p>";
+
+    }
+
+    document.getElementById(
+        "informeStockBajo"
+    ).innerHTML=html;
+
+}
+
+// ==========================
+// SIN STOCK
+// ==========================
+
+function mostrarSinStock(){
+
+    let html="";
+
+    productos.forEach((p)=>{
+
+        if(Number(p.stock)===0){
+
+            html+=`
+
+            <div class="fila-informe">
+
+                <span>
+
+                    ${p.nombre}
+
+                </span>
+
+                <strong style="color:#dc2626">
+
+                    Agotado
+
+                </strong>
+
+            </div>
+
+            `;
+
+        }
+
+    });
+
+    if(html===""){
+
+        html="<p>✅ No hay productos agotados.</p>";
+
+    }
+
+    document.getElementById(
+        "informeSinStock"
+    ).innerHTML=html;
+
+}
+
+// ==========================
+// TOP VALOR
+// ==========================
+
+function mostrarTopValor(){
+
+    let html="";
+
+    [...productos]
+
+    .sort((a,b)=>{
+
+        const valorA=
+
+        (Number(a.stock)||0)*
+        (Number(a.precio)||0);
+
+        const valorB=
+
+        (Number(b.stock)||0)*
+        (Number(b.precio)||0);
+
+        return valorB-valorA;
+
+    })
+
+    .slice(0,10)
+
+    .forEach((p)=>{
+
+        const valor=
+
+        (Number(p.stock)||0)*
+        (Number(p.precio)||0);
+
+        html+=`
+
+        <div class="fila-informe">
+
+            <span>
+
+                ${p.nombre}
+
+            </span>
+
+            <strong>
+
+                ${valor.toLocaleString(
+                    "es-ES",
+                    {
+                        style:"currency",
+                        currency:"EUR"
+                    }
+                )}
+
+            </strong>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById(
+        "informeValor"
+    ).innerHTML=html;
+
+}
+
+// ==========================
 // EXPORTAR EXCEL
 // ==========================
 
@@ -174,24 +485,26 @@ function exportarExcel(){
 
     if(productos.length===0){
 
-        alert("No hay productos para exportar");
+        alert("No hay productos.");
+
         return;
 
     }
 
-    let datosExcel=[];
+    const datos=[];
 
     let valorTotal=0;
 
     productos.forEach((p)=>{
 
-        const valor =
+        const valor=
+
         (Number(p.stock)||0)*
         (Number(p.precio)||0);
 
         valorTotal+=valor;
 
-        datosExcel.push({
+        datos.push({
 
             Código:p.codigo||"",
 
@@ -211,9 +524,9 @@ function exportarExcel(){
 
     });
 
-    datosExcel.push({});
+    datos.push({});
 
-    datosExcel.push({
+    datos.push({
 
         Producto:"TOTAL INVENTARIO",
 
@@ -222,15 +535,19 @@ function exportarExcel(){
     });
 
     const hoja=
-    XLSX.utils.json_to_sheet(datosExcel);
+
+    XLSX.utils.json_to_sheet(datos);
 
     const libro=
+
     XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(
 
         libro,
+
         hoja,
+
         "Inventario"
 
     );
@@ -238,6 +555,7 @@ function exportarExcel(){
     XLSX.writeFile(
 
         libro,
+
         "Inventario_Pro.xlsx"
 
     );
@@ -249,10 +567,15 @@ function exportarExcel(){
 // ==========================
 
 document
+
 .getElementById("exportarCSV")
+
 .addEventListener(
+
     "click",
+
     exportarExcel
+
 );
 
 // ==========================
