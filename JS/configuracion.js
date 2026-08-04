@@ -5,57 +5,152 @@ import {
     setDoc
 } from "./firebase.js";
 
-const empresa = document.getElementById("empresa");
-const responsable = document.getElementById("responsable");
-const telefono = document.getElementById("telefono");
-const email = document.getElementById("email");
+const empresa =
+document.getElementById("empresa");
 
-async function cargar() {
+const responsable =
+document.getElementById("responsable");
 
-    const documento =
-    await getDoc(
-        doc(db,"configuracion","empresa")
-    );
+const telefono =
+document.getElementById("telefono");
 
-    if(documento.exists()){
+const email =
+document.getElementById("email");
 
-        const datos = documento.data();
+const guardarBtn =
+document.getElementById("guardar");
 
-        empresa.value = datos.empresa || "";
-        responsable.value = datos.responsable || "";
-        telefono.value = datos.telefono || "";
-        email.value = datos.email || "";
+// ==========================
+// CARGAR CONFIGURACIÓN
+// ==========================
+
+async function cargar(){
+
+    try{
+
+        const documento =
+        await getDoc(
+            doc(
+                db,
+                "configuracion",
+                "empresa"
+            )
+        );
+
+        if(documento.exists()){
+
+            const datos =
+            documento.data();
+
+            empresa.value =
+            datos.empresa || "";
+
+            responsable.value =
+            datos.responsable || "";
+
+            telefono.value =
+            datos.telefono || "";
+
+            email.value =
+            datos.email || "";
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Error al cargar la configuración."
+        );
 
     }
 
 }
 
-document
-.getElementById("guardar")
-.addEventListener("click",guardar);
+// ==========================
+// GUARDAR
+// ==========================
+
+guardarBtn.addEventListener(
+    "click",
+    guardar
+);
 
 async function guardar(){
 
-    await setDoc(
+    if(
+        empresa.value.trim()===""
+    ){
 
-        doc(db,"configuracion","empresa"),
+        alert(
+            "Introduce el nombre de la empresa."
+        );
 
-        {
+        empresa.focus();
 
-            empresa:empresa.value,
+        return;
 
-            responsable:responsable.value,
+    }
 
-            telefono:telefono.value,
+    guardarBtn.disabled = true;
 
-            email:email.value
+    guardarBtn.textContent =
+    "Guardando...";
 
-        }
+    try{
 
-    );
+        await setDoc(
 
-    alert("✅ Configuración guardada");
+            doc(
+                db,
+                "configuracion",
+                "empresa"
+            ),
+
+            {
+
+                empresa:
+                empresa.value.trim(),
+
+                responsable:
+                responsable.value.trim(),
+
+                telefono:
+                telefono.value.trim(),
+
+                email:
+                email.value.trim()
+
+            }
+
+        );
+
+        alert(
+            "✅ Configuración guardada correctamente"
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Error al guardar la configuración."
+        );
+
+    }finally{
+
+        guardarBtn.disabled = false;
+
+        guardarBtn.textContent =
+        "💾 Guardar configuración";
+
+    }
 
 }
+
+// ==========================
+// INICIO
+// ==========================
 
 cargar();

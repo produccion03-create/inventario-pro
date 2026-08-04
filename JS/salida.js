@@ -8,194 +8,172 @@ import {
     serverTimestamp
 } from "./firebase.js";
 
-
 const selectorProducto =
 document.getElementById("producto");
 
 const stockActual =
 document.getElementById("stockActual");
 
+const stockActual2 =
+document.getElementById("stockActual2");
+
 const cantidad =
 document.getElementById("cantidad");
 
+const cantidadVista =
+document.getElementById("cantidadVista");
+
+const observaciones =
+document.getElementById("observaciones");
+
 const boton =
 document.getElementById("guardarSalida");
-
 
 let productos = [];
 
 let productoSeleccionado = null;
 
-
+// ==========================
+// CARGAR PRODUCTOS
+// ==========================
 
 async function cargarProductos(){
 
-
     try{
-
 
         const datos =
         await getDocs(
             collection(db,"productos")
         );
 
+        productos = [];
 
-
-        selectorProducto.innerHTML =
-        "<option value=''>Selecciona producto</option>";
-
-
+        selectorProducto.innerHTML = "";
 
         datos.forEach((documento)=>{
 
-
             const p = documento.data();
-
 
             productos.push({
 
-                id:documento.id,
+                id: documento.id,
 
                 ...p
 
             });
 
+        });
 
+        productos.sort((a,b)=>
+            a.nombre.localeCompare(b.nombre)
+        );
+
+        productos.forEach((p)=>{
 
             const opcion =
             document.createElement("option");
 
-
-            opcion.value =
-            documento.id;
-
+            opcion.value = p.id;
 
             opcion.textContent =
             p.nombre +
-            " - Stock: " +
+            " · Stock " +
             p.stock;
-
 
             selectorProducto.appendChild(opcion);
 
-
         });
 
-
+        actualizarStock();
 
     }catch(error){
 
-
-        console.error(
-            "Error cargando productos:",
-            error
-        );
-
+        console.error(error);
 
     }
 
-
 }
 
-
-
+// ==========================
+// ACTUALIZAR STOCK
+// ==========================
 
 function actualizarStock(){
-
 
     productoSeleccionado =
     productos.find(
         p => p.id === selectorProducto.value
     );
 
-
-
-    if(productoSeleccionado){
-
-
-        stockActual.textContent =
-        productoSeleccionado.stock;
-
-
-    }else{
-
+    if(!productoSeleccionado){
 
         stockActual.textContent = 0;
+        stockActual2.textContent = 0;
 
+        return;
 
     }
 
+    stockActual.textContent =
+    productoSeleccionado.stock;
+
+    stockActual2.textContent =
+    productoSeleccionado.stock;
 
 }
-
-
-
 
 selectorProducto.addEventListener(
 "change",
 actualizarStock
 );
 
+cantidad.addEventListener(
+"input",
+()=>{
 
+    cantidadVista.textContent =
+    cantidad.value || 0;
 
+});
 
+// ==========================
+// GUARDAR SALIDA
+// ==========================
 
 boton.addEventListener(
 "click",
 async()=>{
 
-
     if(!productoSeleccionado){
 
-
-        alert(
-        "Selecciona un producto"
-        );
-
+        alert("Selecciona un producto");
         return;
 
     }
-
-
 
     const cantidadSalida =
     Number(cantidad.value);
 
+    if(cantidadSalida<=0){
 
-
-    if(cantidadSalida <= 0){
-
-
-        alert(
-        "Cantidad incorrecta"
-        );
-
+        alert("Introduce una cantidad válida");
         return;
 
     }
-
-
 
     const nuevoStock =
     Number(productoSeleccionado.stock)
     -
     cantidadSalida;
 
+    if(nuevoStock<0){
 
-
-    if(nuevoStock < 0){
-
-
-        alert(
-        "❌ No hay suficiente stock"
-        );
-
+        alert("❌ No hay suficiente stock");
         return;
 
     }
 
-
-
+    // ACTUALIZAR STOCK
 
     await updateDoc(
 
@@ -213,50 +191,45 @@ async()=>{
 
     );
 
-
-
+    // GUARDAR MOVIMIENTO
 
     await addDoc(
 
-    collection(db,"movimientos"),
+        collection(db,"movimientos"),
 
-    {
+        {
 
-        tipo: "Salida",
+            tipo:"Salida",
 
-        codigo: productoSeleccionado.codigo,
+            codigo:productoSeleccionado.codigo,
 
-        producto: productoSeleccionado.nombre,
+            producto:productoSeleccionado.nombre,
 
-        cantidad: cantidadSalida,
+            categoria:productoSeleccionado.categoria || "",
 
-        stockAnterior: Number(productoSeleccionado.stock),
+            cantidad:cantidadSalida,
 
-        stockFinal: nuevoStock,
+            stockAnterior:Number(productoSeleccionado.stock),
 
-        ubicacion: productoSeleccionado.ubicacion,
+            stockFinal:nuevoStock,
 
-        fecha: serverTimestamp()
+            observaciones:
+            observaciones.value.trim(),
 
-    }
+            fecha:serverTimestamp()
 
-);
+        }
 
-
-
-    alert(
-    "✅ Salida registrada"
     );
 
+    alert("✅ Salida registrada correctamente");
 
     location.reload();
 
-
-
 });
 
-
-
-
+// ==========================
+// INICIO
+// ==========================
 
 cargarProductos();

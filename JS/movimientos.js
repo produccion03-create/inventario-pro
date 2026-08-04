@@ -8,6 +8,10 @@ import {
 
 let movimientos = [];
 
+// ==========================
+// CARGAR MOVIMIENTOS
+// ==========================
+
 async function cargarMovimientos() {
 
     const consulta = query(
@@ -31,17 +35,18 @@ async function cargarMovimientos() {
 
 }
 
+// ==========================
+// CATEGORÍAS
+// ==========================
+
 function cargarCategorias() {
 
     const filtro = document.getElementById("filtroCategoria");
 
-    filtro.innerHTML = `
-        <option value="">
-            Todas las categorías
-        </option>
-    `;
+    filtro.innerHTML =
+        `<option value="">Todas las categorías</option>`;
 
-    let categorias = [];
+    const categorias = [];
 
     movimientos.forEach((m) => {
 
@@ -60,15 +65,16 @@ function cargarCategorias() {
 
     categorias.forEach((c) => {
 
-        filtro.innerHTML += `
-            <option value="${c}">
-                ${c}
-            </option>
-        `;
+        filtro.innerHTML +=
+            `<option value="${c}">${c}</option>`;
 
     });
 
 }
+
+// ==========================
+// FILTROS
+// ==========================
 
 function obtenerMovimientosFiltrados() {
 
@@ -90,13 +96,11 @@ function obtenerMovimientosFiltrados() {
 
     const desde =
         document
-        .getElementById("fechaDesde")
-        .value;
+        .getElementById("fechaDesde").value;
 
     const hasta =
         document
-        .getElementById("fechaHasta")
-        .value;
+        .getElementById("fechaHasta").value;
 
     return movimientos.filter((m) => {
 
@@ -110,29 +114,15 @@ function obtenerMovimientosFiltrados() {
             texto &&
             !producto.includes(texto) &&
             !codigo.includes(texto)
-        ) {
+        ) return false;
 
+        if (tipo && m.tipo !== tipo)
             return false;
-
-        }
-
-        if (
-            tipo &&
-            m.tipo !== tipo
-        ) {
-
-            return false;
-
-        }
 
         if (
             categoria &&
             m.categoria !== categoria
-        ) {
-
-            return false;
-
-        }
+        ) return false;
 
         let fecha = null;
 
@@ -181,32 +171,62 @@ function obtenerMovimientosFiltrados() {
     });
 
 }
+
+// ==========================
+// TABLA
+// ==========================
+
 function mostrarMovimientos() {
 
     const lista =
         document.getElementById("listaMovimientos");
 
-    lista.innerHTML = "";
-
-    const filtrados =
+    const datos =
         obtenerMovimientosFiltrados();
 
     let entradas = 0;
     let salidas = 0;
 
-    filtrados.forEach((m) => {
+    let tabla = `
 
-        if (m.tipo === "Entrada") {
+<table class="tabla-productos">
 
+<thead>
+
+<tr>
+
+<th>Fecha</th>
+
+<th>Tipo</th>
+
+<th>Código</th>
+
+<th>Producto</th>
+
+<th>Categoría</th>
+
+<th>Cantidad</th>
+
+<th>Stock ant.</th>
+
+<th>Stock final</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+`;
+
+    datos.forEach((m) => {
+
+        if (m.tipo === "Entrada")
             entradas++;
-
-        } else {
-
+        else
             salidas++;
 
-        }
-
-        let fecha = "Sin fecha";
+        let fecha = "";
 
         if (
             m.fecha &&
@@ -220,100 +240,58 @@ function mostrarMovimientos() {
 
         }
 
-        const color =
+        const clase =
             m.tipo === "Entrada"
-            ? "#16a34a"
-            : "#dc2626";
+            ? "ok"
+            : "sin";
 
         const icono =
             m.tipo === "Entrada"
             ? "📥"
             : "📤";
 
-        lista.innerHTML += `
+        tabla += `
 
-        <div class="movimiento"
-        style="border-left:6px solid ${color};">
+<tr class="${clase}">
 
-            <h3>
+<td>${fecha}</td>
 
-                ${icono} ${m.tipo}
+<td>${icono} ${m.tipo}</td>
 
-            </h3>
+<td>${m.codigo}</td>
 
-            <p>
+<td>${m.producto}</td>
 
-                <strong>📦 Producto:</strong>
+<td>${m.categoria}</td>
 
-                ${m.producto}
+<td>${m.cantidad}</td>
 
-            </p>
+<td>${m.stockAnterior}</td>
 
-            <p>
+<td>${m.stockFinal}</td>
 
-                <strong>🏷 Código:</strong>
+</tr>
 
-                ${m.codigo}
-
-            </p>
-
-            <p>
-
-                <strong>📂 Categoría:</strong>
-
-                ${m.categoria}
-
-            </p>
-
-            <p>
-
-                <strong>📊 Cantidad:</strong>
-
-                ${m.cantidad}
-
-            </p>
-
-            <p>
-
-                <strong>📦 Stock anterior:</strong>
-
-                ${m.stockAnterior}
-
-            </p>
-
-            <p>
-
-                <strong>📦 Stock final:</strong>
-
-                ${m.stockFinal}
-
-            </p>
-
-            <p>
-
-                <strong>🕒 Fecha:</strong>
-
-                ${fecha}
-
-            </p>
-
-        </div>
-
-        `;
+`;
 
     });
 
-    if (filtrados.length === 0) {
+    tabla += `
 
-        lista.innerHTML = `
+</tbody>
 
-        <div class="panel">
+</table>
 
-            No se encontraron movimientos.
+`;
 
-        </div>
+    if (datos.length === 0) {
 
-        `;
+        lista.innerHTML =
+            `<div class="panel">No hay movimientos.</div>`;
+
+    } else {
+
+        lista.innerHTML = tabla;
 
     }
 
@@ -324,7 +302,7 @@ function mostrarMovimientos() {
         salidas;
 
     document.getElementById("totalMovimientos").textContent =
-        filtrados.length;
+        datos.length;
 
 }
 
@@ -344,8 +322,7 @@ function exportarExcel() {
 
         if (m.fecha && m.fecha.toDate) {
 
-            fecha =
-                m.fecha
+            fecha = m.fecha
                 .toDate()
                 .toLocaleString("es-ES");
 
@@ -354,19 +331,12 @@ function exportarExcel() {
         excel.push({
 
             Fecha: fecha,
-
             Tipo: m.tipo,
-
             Código: m.codigo,
-
             Producto: m.producto,
-
             Categoría: m.categoria,
-
             Cantidad: m.cantidad,
-
             "Stock anterior": m.stockAnterior,
-
             "Stock final": m.stockFinal
 
         });
@@ -375,8 +345,7 @@ function exportarExcel() {
 
     const libro = XLSX.utils.book_new();
 
-    const hoja =
-        XLSX.utils.json_to_sheet(excel);
+    const hoja = XLSX.utils.json_to_sheet(excel);
 
     XLSX.utils.book_append_sheet(
         libro,
@@ -390,8 +359,6 @@ function exportarExcel() {
     );
 
 }
-
-
 
 // ==========================
 // EVENTOS
@@ -439,13 +406,9 @@ document
     () => {
 
         document.getElementById("buscar").value = "";
-
         document.getElementById("filtroTipo").value = "";
-
         document.getElementById("filtroCategoria").value = "";
-
         document.getElementById("fechaDesde").value = "";
-
         document.getElementById("fechaHasta").value = "";
 
         mostrarMovimientos();
@@ -459,8 +422,6 @@ document
     "click",
     exportarExcel
 );
-
-
 
 // ==========================
 // INICIO
