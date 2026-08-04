@@ -1,97 +1,183 @@
 import {
     db,
     collection,
-    getDocs,
-    doc,
-    updateDoc
+    getDocs
 } from "./firebase.js";
 
+let productos = [];
+
 async function cargarPendientes() {
-
-    const lista = document.getElementById("listaPendientes");
-
-    lista.innerHTML = "";
 
     const datos = await getDocs(
         collection(db, "productos")
     );
 
-    let encontrados = 0;
+    productos = [];
 
     datos.forEach((documento) => {
 
         const p = documento.data();
 
+        // Ignorar Planchas de EVA
+        if (p.categoria === "Planchas de EVA") return;
+
         const stock = Number(p.stock) || 0;
         const minimo = Number(p.stockMinimo ?? 5);
 
-        if (stock <= minimo && !p.revisado) {
+        if (stock <= minimo) {
 
-            encontrados++;
+            productos.push({
 
-            lista.innerHTML += `
+                ...p,
 
-            <div class="movimiento">
+                stock,
+                minimo
 
-                <h2>📦 ${p.nombre}</h2>
-
-                <p><b>Código:</b> ${p.codigo}</p>
-
-                <p><b>Categoría:</b> ${p.categoria}</p>
-
-                <p>
-                    <b>Stock:</b>
-                    <span style="color:red;">
-                        ${stock}
-                    </span>
-                </p>
-
-                <p><b>Stock mínimo:</b> ${minimo}</p>
-
-                <button
-                onclick="marcarRevisado('${documento.id}')">
-
-                ✔ Marcar como revisado
-
-                </button>
-
-            </div>
-
-            <br>
-
-            `;
+            });
 
         }
 
     });
 
-    if (encontrados === 0) {
-
-        lista.innerHTML =
-        "✅ No hay productos pendientes.";
-
-    }
+    mostrarPendientes();
 
 }
 
-async function marcarRevisado(id) {
+function mostrarPendientes() {
 
-    await updateDoc(
+    const lista =
+        document.getElementById("listaPendientes");
 
-        doc(db, "productos", id),
+    const texto =
+        document
+        .getElementById("buscar")
+        .value
+        .toLowerCase();
 
-        {
+    lista.innerHTML = "";
 
-            revisado: true
+    let bajo = 0;
+    let sinStock = 0;
+
+    productos.sort((a, b) => a.stock - b.stock);
+
+    productos.forEach((p) => {
+
+        const nombre =
+            (p.nombre || "").toLowerCase();
+
+        const codigo =
+            (p.codigo || "").toLowerCase();
+
+        if (
+            !nombre.includes(texto) &&
+            !codigo.includes(texto)
+        ) {
+            return;
+        }
+
+        let color = "#f59e0b";
+        let estado = "🟠 Stock bajo";
+
+        if (p.stock === 0) {
+
+            color = "#dc2626";
+            estado = "🔴 Sin stock";
+            sinStock++;
+
+        } else {
+
+            bajo++;
 
         }
 
-    );
+        lista.innerHTML += `
 
-    cargarPendientes();
+        <div class="movimiento"
+        style="border-left:8px solid ${color};">
+
+            <h3>${estado}</h3>
+
+            <h2>${p.nombre}</h2>
+
+            <p>
+
+                <strong>🏷 Código:</strong>
+
+                ${p.codigo}
+
+            </p>
+
+            <p>
+
+                <strong>📂 Categoría:</strong>
+
+                ${p.categoria}
+
+            </p>
+
+            <p>
+
+                <strong>📦 Stock:</strong>
+
+                ${p.stock}
+
+            </p>
+
+            <p>
+
+                <strong>⚠ Stock mínimo:</strong>
+
+                ${p.minimo}
+
+            </p>
+
+            <p>
+
+                <strong>💰 Precio:</strong>
+
+                ${Number(p.precio).toFixed(2)} €
+
+            </p>
+
+            <p>
+
+                <strong>💵 Valor:</strong>
+
+                ${(p.stock * Number(p.precio)).toFixed(2)} €
+
+            </p>
+
+        </div>
+
+        `;
+
+    });
+
+    if (lista.innerHTML === "") {
+
+        lista.innerHTML = `
+
+        <div class="panel">
+
+            ✅ No hay productos pendientes.
+
+        </div>
+
+        `;
+
+    }
+
+    document.getElementById("contadorBajo").textContent =
+        bajo;
+
+    document.getElementById("contadorSinStock").textContent =
+        sinStock;
 
 }
 
-window.marcarRevisado = marcarRevisado;
+document
+    .getElementById("buscar")
+    .addEventListener("input", mostrarPendientes);
 
 cargarPendientes();
