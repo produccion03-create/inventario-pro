@@ -4,15 +4,19 @@ import {
     getDocs
 } from "./firebase.js";
 
-let productos = [];
+let pendientes = [];
 
 async function cargarPendientes() {
+
+    const lista = document.getElementById("listaPendientes");
+
+    lista.innerHTML = "Cargando...";
+
+    pendientes = [];
 
     const datos = await getDocs(
         collection(db, "productos")
     );
-
-    productos = [];
 
     datos.forEach((documento) => {
 
@@ -26,12 +30,21 @@ async function cargarPendientes() {
 
         if (stock <= minimo) {
 
-            productos.push({
+            pendientes.push({
 
-                ...p,
+                id: documento.id,
 
-                stock,
-                minimo
+                nombre: p.nombre,
+
+                codigo: p.codigo,
+
+                categoria: p.categoria,
+
+                stock: stock,
+
+                minimo: minimo,
+
+                precio: Number(p.precio) || 0
 
             });
 
@@ -45,29 +58,24 @@ async function cargarPendientes() {
 
 function mostrarPendientes() {
 
-    const lista =
-        document.getElementById("listaPendientes");
+    const lista = document.getElementById("listaPendientes");
 
-    const texto =
-        document
+    const texto = document
         .getElementById("buscar")
         .value
         .toLowerCase();
 
     lista.innerHTML = "";
 
-    let bajo = 0;
-    let sinStock = 0;
+    let contadorBajo = 0;
+    let contadorSinStock = 0;
 
-    productos.sort((a, b) => a.stock - b.stock);
+    pendientes.sort((a, b) => a.stock - b.stock);
 
-    productos.forEach((p) => {
+    pendientes.forEach((p) => {
 
-        const nombre =
-            (p.nombre || "").toLowerCase();
-
-        const codigo =
-            (p.codigo || "").toLowerCase();
+        const nombre = p.nombre.toLowerCase();
+        const codigo = p.codigo.toLowerCase();
 
         if (
             !nombre.includes(texto) &&
@@ -83,17 +91,18 @@ function mostrarPendientes() {
 
             color = "#dc2626";
             estado = "🔴 Sin stock";
-            sinStock++;
+            contadorSinStock++;
 
         } else {
 
-            bajo++;
+            contadorBajo++;
 
         }
 
         lista.innerHTML += `
 
-        <div class="movimiento"
+        <div
+        class="movimiento"
         style="border-left:8px solid ${color};">
 
             <h3>${estado}</h3>
@@ -136,15 +145,15 @@ function mostrarPendientes() {
 
                 <strong>💰 Precio:</strong>
 
-                ${Number(p.precio).toFixed(2)} €
+                ${p.precio.toFixed(2)} €
 
             </p>
 
             <p>
 
-                <strong>💵 Valor:</strong>
+                <strong>💵 Valor stock:</strong>
 
-                ${(p.stock * Number(p.precio)).toFixed(2)} €
+                ${(p.stock * p.precio).toFixed(2)} €
 
             </p>
 
@@ -169,10 +178,10 @@ function mostrarPendientes() {
     }
 
     document.getElementById("contadorBajo").textContent =
-        bajo;
+        contadorBajo;
 
     document.getElementById("contadorSinStock").textContent =
-        sinStock;
+        contadorSinStock;
 
 }
 

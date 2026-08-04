@@ -29,16 +29,20 @@ async function cargarDashboard() {
 
         valorAlmacen += stock * precio;
 
-        // No controlar stock mínimo para Planchas de EVA
+        // Las Planchas de EVA no generan avisos
         if (
             p.categoria !== "Planchas de EVA" &&
             stock <= minimo
         ) {
+
             stockBajo++;
+
         }
 
         if (stock === 0) {
+
             sinStock++;
+
         }
 
         const categoria =
@@ -48,6 +52,7 @@ async function cargarDashboard() {
 
             categorias[categoria] = {
 
+                productos: 0,
                 cantidad: 0,
                 valor: 0
 
@@ -55,11 +60,15 @@ async function cargarDashboard() {
 
         }
 
+        categorias[categoria].productos++;
+
         categorias[categoria].cantidad += stock;
 
         categorias[categoria].valor += stock * precio;
 
     });
+
+    // TARJETAS
 
     document.getElementById("totalProductos").textContent =
         totalProductos;
@@ -73,7 +82,15 @@ async function cargarDashboard() {
     document.getElementById("sinStock").textContent =
         sinStock;
 
-    document.getElementById("contadorPendientes").textContent =
+    // AVISOS
+
+    document.getElementById("avisoStockBajo").textContent =
+        stockBajo;
+
+    document.getElementById("avisoSinStock").textContent =
+        sinStock;
+
+    document.getElementById("avisoPendientes").textContent =
         stockBajo;
 
     mostrarCategorias(categorias);
@@ -99,6 +116,18 @@ function mostrarCategorias(categorias) {
             <div class="movimiento">
 
                 <h3>📂 ${cat}</h3>
+
+                <p>
+
+                    📦 Productos:
+
+                    <strong>
+
+                        ${categorias[cat].productos}
+
+                    </strong>
+
+                </p>
 
                 <p>
 
@@ -131,7 +160,7 @@ function mostrarCategorias(categorias) {
         });
 
     document.getElementById("listaCategorias").innerHTML =
-        lista || "No hay categorías registradas";
+        lista || "No hay categorías.";
 
 }
 
