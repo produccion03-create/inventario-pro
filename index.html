@@ -19,6 +19,8 @@
 
 <h1>📦 Inventario Pro</h1>
 
+<!-- TARJETAS PRINCIPALES -->
+
 <div class="dashboard">
 
 <div class="card card-productos">
@@ -63,28 +65,32 @@
 
 </div>
 
-<!-- RESUMEN STOCK BAJO -->
+<!-- AVISOS -->
 
 <div class="panel">
 
-<h2>⚠️ Productos con stock bajo</h2>
+<h2>🔔 Avisos</h2>
 
-<p
-style="
-font-size:22px;
-margin-top:20px;
-text-align:center;
-">
+<div class="movimiento">
 
-Actualmente hay
+<p>
 
-<strong id="contadorPendientes">
+⚠️ Productos con stock bajo:
+<strong id="avisoStockBajo">0</strong>
 
-0
+</p>
 
-</strong>
+<p>
 
-productos que necesitan revisión.
+🔴 Productos sin stock:
+<strong id="avisoSinStock">0</strong>
+
+</p>
+
+<p>
+
+📦 Pendientes de inventario:
+<strong id="avisoPendientes">0</strong>
 
 </p>
 
@@ -92,8 +98,7 @@ productos que necesitan revisión.
 
 <div style="text-align:center;">
 
-<button
-onclick="location.href='pendientes.html'">
+<button onclick="location.href='pendientes.html'">
 
 📋 Ver pendientes
 
@@ -103,7 +108,9 @@ onclick="location.href='pendientes.html'">
 
 </div>
 
-<!-- GRAFICO -->
+</div>
+
+<!-- GRÁFICO -->
 
 <div class="panel">
 
@@ -117,7 +124,7 @@ onclick="location.href='pendientes.html'">
 
 </div>
 
-<!-- CATEGORIAS -->
+<!-- CATEGORÍAS -->
 
 <div class="panel">
 
