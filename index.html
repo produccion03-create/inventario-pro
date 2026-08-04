@@ -3,188 +3,215 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Inventario Pro</title>
+    <title>Inventario Pro</title>
 
-<link rel="stylesheet" href="CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="CSS/style.css">
 
 </head>
 
 <body>
 
-<div class="app">
+<div class="layout">
 
-<h1>📦 Inventario Pro</h1>
+    <!-- ==========================
+         SIDEBAR
+    =========================== -->
 
-<!-- TARJETAS PRINCIPALES -->
+    <aside class="sidebar">
 
-<div class="dashboard">
+        <div class="logo">
 
-<div class="card card-productos">
+            📦 Inventario Pro
 
-<h3>📦 Productos</h3>
+        </div>
 
-<span id="totalProductos">0</span>
+        <nav>
 
-<p>Total registrados</p>
+            <a href="index.html" class="activo">
 
-</div>
+                🏠 Dashboard
 
-<div class="card card-valor">
+            </a>
 
-<h3>💰 Valor almacén</h3>
+            <a href="productos.html">
 
-<span id="valorAlmacen">0 €</span>
+                📦 Productos
 
-<p>Valor actual inventario</p>
+            </a>
 
-</div>
+            <a href="scanner.html">
 
-<div class="card card-stock">
+                📷 Escáner
 
-<h3>⚠️ Stock bajo</h3>
+            </a>
 
-<span id="stockBajo">0</span>
+            <a href="entrada.html">
 
-<p>Necesitan revisión</p>
+                ➕ Entrada
 
-</div>
+            </a>
 
-<div class="card card-alerta">
+            <a href="salida.html">
 
-<h3>🔴 Sin stock</h3>
+                ➖ Salida
 
-<span id="sinStock">0</span>
+            </a>
 
-<p>Productos agotados</p>
+            <a href="movimientos.html">
 
-</div>
+                📋 Movimientos
 
-</div>
+            </a>
 
-<!-- AVISOS -->
+            <a href="informes.html">
 
-<div class="panel">
+                📊 Informes
 
-<h2>🔔 Avisos</h2>
+            </a>
 
-<div class="movimiento">
+            <a href="configuracion.html">
 
-<p>
+                ⚙ Configuración
 
-⚠️ Productos con stock bajo:
-<strong id="avisoStockBajo">0</strong>
+            </a>
 
-</p>
+        </nav>
 
-<p>
+    </aside>
 
-🔴 Productos sin stock:
-<strong id="avisoSinStock">0</strong>
+    <!-- ==========================
+         CONTENIDO
+    =========================== -->
 
-</p>
+    <main class="contenido">
 
-<p>
+        <header class="topbar">
 
-📦 Pendientes de inventario:
-<strong id="avisoPendientes">0</strong>
+            <div>
 
-</p>
+                <h1>Dashboard</h1>
 
-<br>
+                <p>Resumen general del inventario</p>
 
-<div style="text-align:center;">
+            </div>
 
-<button onclick="location.href='pendientes.html'">
+        </header>
 
-📋 Ver pendientes
+        <div class="app">
 
-</button>
+            <!-- TARJETAS -->
 
-</div>
+            <div class="dashboard">
 
-</div>
+                <div class="card card-productos">
 
-</div>
+                    <h3>📦 Productos</h3>
 
-<!-- GRÁFICO -->
+                    <span id="totalProductos">0</span>
 
-<div class="panel">
+                    <p>Total registrados</p>
 
-<h2>📊 Estadísticas inventario</h2>
+                </div>
 
-<div style="height:300px">
+                <div class="card card-valor">
 
-<canvas id="graficoInventario"></canvas>
+                    <h3>💰 Valor almacén</h3>
 
-</div>
+                    <span id="valorAlmacen">0 €</span>
 
-</div>
+                    <p>Valor actual inventario</p>
 
-<!-- CATEGORÍAS -->
+                </div>
 
-<div class="panel">
+                <div class="card card-stock">
 
-<h2>📂 Inventario por categorías</h2>
+                    <h3>⚠️ Stock bajo</h3>
 
-<div id="listaCategorias">
+                    <span id="stockBajo">0</span>
 
-Cargando...
+                    <p>Necesitan revisión</p>
 
-</div>
+                </div>
 
-</div>
+                <div class="card card-alerta">
 
-<!-- MENÚ -->
+                    <h3>🔴 Sin stock</h3>
 
-<div class="menu">
+                    <span id="sinStock">0</span>
 
-<button onclick="location.href='productos.html'">
+                    <p>Productos agotados</p>
 
-📦 Productos
+                </div>
 
-</button>
+            </div>
 
-<button onclick="location.href='scanner.html'">
+            <!-- PANEL AVISOS -->
 
-📷 Escanear
+            <div class="panel">
 
-</button>
+                <h2>🔔 Avisos</h2>
 
-<button onclick="location.href='movimientos.html'">
+                <p class="resumen">
 
-📋 Historial movimientos
+                    Actualmente hay
 
-</button>
+                    <strong id="contadorPendientes">0</strong>
 
-<button onclick="location.href='entrada.html'">
+                    productos que necesitan revisión.
 
-➕ Entrada
+                </p>
 
-</button>
+                <br>
 
-<button onclick="location.href='salida.html'">
+                <button onclick="location.href='pendientes.html'">
 
-➖ Salida
+                    Ver productos pendientes
 
-</button>
+                </button>
 
-<button onclick="location.href='informes.html'">
+            </div>
 
-📊 Informes
+            <!-- GRÁFICO -->
 
-</button>
+            <div class="panel">
 
-<button onclick="location.href='configuracion.html'">
+                <h2>📊 Estado del inventario</h2>
 
-⚙ Configuración
+                <div style="height:320px">
 
-</button>
+                    <canvas id="graficoInventario"></canvas>
 
-</div>
+                </div>
+
+            </div>
+
+            <!-- CATEGORÍAS -->
+
+            <div class="panel">
+
+                <h2>📂 Inventario por categorías</h2>
+
+                <div id="listaCategorias">
+
+                    Cargando...
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
 
 </div>
 

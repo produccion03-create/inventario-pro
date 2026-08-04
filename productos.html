@@ -9,187 +9,247 @@
 
 <title>Productos</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="CSS/style.css">
 
 </head>
 
 <body>
 
-<div class="app">
+<div class="layout">
 
-<h1>📦 Productos</h1>
+    <!-- SIDEBAR -->
 
-<input
-id="codigo"
-placeholder="Código de barras">
+    <aside class="sidebar">
 
-<br><br>
+        <div class="logo">
 
-<input
-id="nombre"
-placeholder="Nombre producto">
+            📦 Inventario Pro
 
-<br><br>
+        </div>
 
-<select id="categoria">
+        <nav>
 
-<option value="">
-Seleccionar categoría
-</option>
+            <a href="index.html">🏠 Dashboard</a>
 
-<option value="Producto terminado">
-Producto terminado
-</option>
+            <a href="productos.html" class="activo">📦 Productos</a>
 
-<option value="Planchas de EVA">
-Planchas de EVA
-</option>
+            <a href="scanner.html">📷 Escáner</a>
 
-<option value="Materias primas auxiliares">
-Materias primas auxiliares
-</option>
+            <a href="entrada.html">➕ Entrada</a>
 
-<option value="Stock envases embalajes">
-Stock envases embalajes
-</option>
+            <a href="salida.html">➖ Salida</a>
 
-</select>
+            <a href="movimientos.html">📋 Movimientos</a>
 
-<br><br>
+            <a href="informes.html">📊 Informes</a>
 
-<input
-id="stock"
-type="number"
-placeholder="Stock">
+            <a href="configuracion.html">⚙ Configuración</a>
 
-<br><br>
+        </nav>
 
-<input
-id="precio"
-type="number"
-step="0.01"
-placeholder="Precio">
+    </aside>
 
-<br><br>
+    <!-- CONTENIDO -->
 
-<input
-id="stockMinimo"
-type="number"
-value="5"
-placeholder="Stock mínimo">
+    <main class="contenido">
 
-<br><br>
+        <header class="topbar">
 
-<button onclick="guardarProducto()">
+            <div>
 
-💾 Guardar producto
+                <h1>Productos</h1>
 
-</button>
+                <p>Gestión del inventario</p>
 
-<hr>
+            </div>
 
-<h2>📋 Lista de productos</h2>
+        </header>
 
-<input
-type="text"
-id="buscar"
-placeholder="🔍 Buscar por nombre, código o categoría...">
+        <div class="app">
 
-<br><br>
+            <!-- NUEVO PRODUCTO -->
 
-<div id="lista"></div>
+            <div class="panel">
 
-<!-- MODAL EDITAR -->
+                <h2>➕ Nuevo producto</h2>
+
+                <div class="grid-form">
+
+                    <input
+                    id="codigo"
+                    placeholder="Código de barras">
+
+                    <input
+                    id="nombre"
+                    placeholder="Nombre del producto">
+
+                    <select id="categoria">
+
+                        <option value="">
+                            Seleccionar categoría
+                        </option>
+
+                        <option value="Producto terminado">
+                            Producto terminado
+                        </option>
+
+                        <option value="Planchas de EVA">
+                            Planchas de EVA
+                        </option>
+
+                        <option value="Materias primas auxiliares">
+                            Materias primas auxiliares
+                        </option>
+
+                        <option value="Stock envases embalajes">
+                            Stock envases embalajes
+                        </option>
+
+                    </select>
+
+                    <input
+                    id="stock"
+                    type="number"
+                    placeholder="Stock">
+
+                    <input
+                    id="precio"
+                    type="number"
+                    step="0.01"
+                    placeholder="Precio">
+
+                    <input
+                    id="stockMinimo"
+                    type="number"
+                    value="5"
+                    placeholder="Stock mínimo">
+
+                </div>
+
+                <br>
+
+                <button onclick="guardarProducto()">
+
+                    💾 Guardar producto
+
+                </button>
+
+            </div>
+
+            <!-- LISTA -->
+
+            <div class="panel">
+
+                <div class="cabecera-tabla">
+
+                    <h2>📋 Productos</h2>
+
+                    <input
+                    type="text"
+                    id="buscar"
+                    placeholder="🔍 Buscar producto...">
+
+                </div>
+
+                <div id="lista">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- MODAL -->
 
 <div id="modalEditar" class="modal">
 
-<div class="modal-contenido">
+    <div class="modal-contenido">
 
-<h2>✏️ Editar producto</h2>
+        <h2>✏️ Editar producto</h2>
 
-<input
-type="hidden"
-id="editarId">
+        <input
+        type="hidden"
+        id="editarId">
 
-<input
-id="editarCodigo"
-placeholder="Código">
+        <input
+        id="editarCodigo"
+        placeholder="Código">
 
-<br><br>
+        <br><br>
 
-<input
-id="editarNombre"
-placeholder="Nombre">
+        <input
+        id="editarNombre"
+        placeholder="Nombre">
 
-<br><br>
+        <br><br>
 
-<select id="editarCategoria">
+        <select id="editarCategoria">
 
-<option value="Producto terminado">
-Producto terminado
-</option>
+            <option value="Producto terminado">
+                Producto terminado
+            </option>
 
-<option value="Planchas de EVA">
-Planchas de EVA
-</option>
+            <option value="Planchas de EVA">
+                Planchas de EVA
+            </option>
 
-<option value="Materias primas auxiliares">
-Materias primas auxiliares
-</option>
+            <option value="Materias primas auxiliares">
+                Materias primas auxiliares
+            </option>
 
-<option value="Stock envases embalajes">
-Stock envases embalajes
-</option>
+            <option value="Stock envases embalajes">
+                Stock envases embalajes
+            </option>
 
-</select>
+        </select>
 
-<br><br>
+        <br><br>
 
-<input
-id="editarStock"
-type="number"
-placeholder="Stock">
+        <input
+        id="editarStock"
+        type="number"
+        placeholder="Stock">
 
-<br><br>
+        <br><br>
 
-<input
-id="editarPrecio"
-type="number"
-step="0.01"
-placeholder="Precio">
+        <input
+        id="editarPrecio"
+        type="number"
+        step="0.01"
+        placeholder="Precio">
 
-<br><br>
+        <br><br>
 
-<input
-id="editarStockMinimo"
-type="number"
-placeholder="Stock mínimo">
+        <input
+        id="editarStockMinimo"
+        type="number"
+        placeholder="Stock mínimo">
 
-<br><br>
+        <br><br>
 
-<button onclick="guardarEdicion()">
+        <button onclick="guardarEdicion()">
 
-💾 Guardar cambios
+            💾 Guardar cambios
 
-</button>
+        </button>
 
-<button onclick="cerrarModal()">
+        <button onclick="cerrarModal()">
 
-❌ Cancelar
+            ❌ Cancelar
 
-</button>
+        </button>
 
-</div>
-
-</div>
-
-<br>
-
-<button onclick="location.href='index.html'">
-
-⬅ Volver
-
-</button>
+    </div>
 
 </div>
 
