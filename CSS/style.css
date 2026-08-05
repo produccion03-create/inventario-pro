@@ -77,7 +77,8 @@ color:inherit;
 
 button,
 input,
-select{
+select,
+textarea{
 
 font-family:inherit;
 
@@ -116,6 +117,7 @@ p{
 color:var(--texto-secundario);
 
 }
+
 /* ==========================================================
    LAYOUT
 ========================================================== */
@@ -134,7 +136,7 @@ width:260px;
 
 background:#111827;
 
-color:white;
+color:#fff;
 
 display:flex;
 
@@ -204,7 +206,7 @@ transition:all .20s ease;
 
 background:rgba(255,255,255,.08);
 
-color:white;
+color:#fff;
 
 transform:translateX(4px);
 
@@ -218,10 +220,9 @@ var(--azul),
 #3b82f6
 );
 
-color:white;
+color:#fff;
 
 box-shadow:
-
 0 10px 25px rgba(37,99,235,.30);
 
 }
@@ -244,7 +245,7 @@ min-height:100vh;
 
 height:82px;
 
-background:white;
+background:#fff;
 
 border-bottom:1px solid var(--color-borde);
 
@@ -291,6 +292,7 @@ width:100%;
 margin:auto;
 
 }
+
 /* ==========================================================
    DASHBOARD
 ========================================================== */
@@ -372,7 +374,6 @@ background:#dc2626;
 transform:translateY(-6px);
 
 box-shadow:
-
 0 18px 40px rgba(15,23,42,.12);
 
 }
@@ -528,6 +529,7 @@ transform:translateY(0);
 }
 
 }
+
 /* ==========================================================
    FORMULARIOS
 ========================================================== */
@@ -637,7 +639,7 @@ border-radius:14px;
 
 background:var(--azul);
 
-color:white;
+color:#fff;
 
 font-size:15px;
 
@@ -719,8 +721,6 @@ box-shadow:
 
 background:var(--naranja);
 
-color:#fff;
-
 box-shadow:
 
 0 8px 18px rgba(245,158,11,.25);
@@ -734,10 +734,6 @@ box-shadow:
 0 14px 28px rgba(245,158,11,.35);
 
 }
-
-/* ==========================================================
-   BOTONES EN LÍNEA
-========================================================== */
 
 .acciones{
 
@@ -835,6 +831,46 @@ color:var(--texto);
 }
 
 /* ==========================================================
+   INFORMES
+========================================================== */
+
+.fila-informe{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:15px;
+
+padding:12px 0;
+
+border-bottom:1px solid #eef2f7;
+
+font-size:15px;
+
+}
+
+.fila-informe:last-child{
+
+border-bottom:none;
+
+}
+
+.fila-informe span{
+
+color:var(--texto);
+
+}
+
+.fila-informe strong{
+
+font-weight:700;
+
+}
+
+/* ==========================================================
    ALERTAS
 ========================================================== */
 
@@ -899,6 +935,12 @@ gap:18px;
 /* ==========================================================
    TABLAS
 ========================================================== */
+
+.tabla-responsive{
+
+overflow-x:auto;
+
+}
 
 table{
 
@@ -1019,22 +1061,6 @@ background:#dbeafe;
 color:#1d4ed8;
 
 }
-
-/* ==========================================================
-   SEPARADORES
-========================================================== */
-
-hr{
-
-border:none;
-
-height:1px;
-
-background:#edf2f7;
-
-margin:28px 0;
-
-}
 /* ==========================================================
    MODALES
 ========================================================== */
@@ -1100,7 +1126,7 @@ transform:translateY(0) scale(1);
 }
 
 /* ==========================================================
-   MENÚ PRINCIPAL
+   MENÚ
 ========================================================== */
 
 .menu{
@@ -1449,8 +1475,18 @@ font-size:14px;
 
 }
 
+.fila-informe{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:5px;
+
+}
+
 }
 
 /* ==========================================================
-   FIN STYLE.CSS
+   FIN
 ========================================================== */
