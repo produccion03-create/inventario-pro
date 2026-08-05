@@ -6,190 +6,456 @@ import {
     orderBy
 } from "./firebase.js";
 
+
 let movimientos = [];
+
 
 // ==========================
 // CARGAR MOVIMIENTOS
 // ==========================
 
-async function cargarMovimientos() {
+async function cargarMovimientos(){
 
-    const consulta = query(
-        collection(db, "movimientos"),
-        orderBy("fecha", "desc")
-    );
+    try{
 
-    const datos = await getDocs(consulta);
+        const consulta = query(
+            collection(db,"movimientos"),
+            orderBy("fecha","desc")
+        );
 
-    movimientos = [];
 
-    datos.forEach((documento) => {
+        const datos = await getDocs(consulta);
 
-        movimientos.push(documento.data());
 
-    });
+        movimientos=[];
 
-    cargarCategorias();
 
-    mostrarMovimientos();
+        datos.forEach((doc)=>{
+
+            movimientos.push({
+
+                id:doc.id,
+                ...doc.data()
+
+            });
+
+        });
+
+
+        cargarCategorias();
+
+        mostrarMovimientos();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        document.getElementById(
+            "listaMovimientos"
+        ).innerHTML=
+
+        `
+
+        <div class="panel">
+
+        ❌ Error cargando movimientos
+
+        </div>
+
+        `;
+
+    }
 
 }
 
+
+
+
 // ==========================
-// CATEGORÍAS
+// FECHA FORMATO
 // ==========================
 
-function cargarCategorias() {
 
-    const filtro = document.getElementById("filtroCategoria");
+function formatoFecha(fecha){
 
-    filtro.innerHTML =
-        `<option value="">Todas las categorías</option>`;
 
-    const categorias = [];
+    if(
+        fecha &&
+        fecha.toDate
+    ){
 
-    movimientos.forEach((m) => {
+        return fecha
+        .toDate()
+        .toLocaleString("es-ES");
 
-        if (
+    }
+
+
+    return "";
+
+}
+
+
+
+
+
+// ==========================
+// CATEGORIAS
+// ==========================
+
+
+function cargarCategorias(){
+
+
+    const select =
+    document.getElementById(
+        "filtroCategoria"
+    );
+
+
+    select.innerHTML=
+
+    `
+    <option value="">
+    Todas las categorías
+    </option>
+    `;
+
+
+
+    const categorias=[];
+
+
+
+    movimientos.forEach((m)=>{
+
+
+        if(
             m.categoria &&
             !categorias.includes(m.categoria)
-        ) {
+        ){
 
-            categorias.push(m.categoria);
+            categorias.push(
+                m.categoria
+            );
 
         }
 
+
     });
+
+
 
     categorias.sort();
 
-    categorias.forEach((c) => {
 
-        filtro.innerHTML +=
-            `<option value="${c}">${c}</option>`;
+
+    categorias.forEach((categoria)=>{
+
+
+        select.innerHTML +=
+
+        `
+
+        <option value="${categoria}">
+        ${categoria}
+        </option>
+
+        `;
+
 
     });
 
+
 }
+
+
+
+
 
 // ==========================
 // FILTROS
 // ==========================
 
-function obtenerMovimientosFiltrados() {
+
+function obtenerFiltrados(){
+
 
     const texto =
-        document
-        .getElementById("buscar")
-        .value
-        .toLowerCase();
+    document
+    .getElementById("buscar")
+    .value
+    .toLowerCase();
+
+
 
     const tipo =
-        document
-        .getElementById("filtroTipo")
-        .value;
+    document
+    .getElementById("filtroTipo")
+    .value;
+
+
 
     const categoria =
-        document
-        .getElementById("filtroCategoria")
-        .value;
+    document
+    .getElementById("filtroCategoria")
+    .value;
+
+
 
     const desde =
-        document
-        .getElementById("fechaDesde").value;
+    document
+    .getElementById("fechaDesde")
+    .value;
+
+
 
     const hasta =
-        document
-        .getElementById("fechaHasta").value;
+    document
+    .getElementById("fechaHasta")
+    .value;
 
-    return movimientos.filter((m) => {
+
+
+    return movimientos.filter((m)=>{
+
 
         const producto =
-            (m.producto || "").toLowerCase();
+        (m.producto || "")
+        .toLowerCase();
+
+
 
         const codigo =
-            (m.codigo || "").toLowerCase();
+        (m.codigo || "")
+        .toLowerCase();
 
-        if (
+
+
+        if(
             texto &&
             !producto.includes(texto) &&
             !codigo.includes(texto)
-        ) return false;
+        ){
 
-        if (tipo && m.tipo !== tipo)
             return false;
-
-        if (
-            categoria &&
-            m.categoria !== categoria
-        ) return false;
-
-        let fecha = null;
-
-        if (
-            m.fecha &&
-            m.fecha.toDate
-        ) {
-
-            fecha = m.fecha.toDate();
 
         }
 
-        if (fecha) {
 
-            if (desde) {
 
-                const fDesde =
-                    new Date(desde);
 
-                if (fecha < fDesde)
+        if(
+            tipo &&
+            m.tipo !== tipo
+        ){
+
+            return false;
+
+        }
+
+
+
+
+        if(
+            categoria &&
+            m.categoria !== categoria
+        ){
+
+            return false;
+
+        }
+
+
+
+
+
+        if(
+            m.fecha &&
+            m.fecha.toDate
+        ){
+
+            const fecha =
+            m.fecha.toDate();
+
+
+
+            if(desde){
+
+                if(
+                    fecha <
+                    new Date(desde)
+                ){
+
                     return false;
+
+                }
 
             }
 
-            if (hasta) {
 
-                const fHasta =
-                    new Date(hasta);
 
-                fHasta.setHours(
+            if(hasta){
+
+                const final =
+                new Date(hasta);
+
+
+                final.setHours(
                     23,
                     59,
                     59,
                     999
                 );
 
-                if (fecha > fHasta)
+
+                if(fecha > final){
+
                     return false;
+
+                }
 
             }
 
         }
 
+
+
         return true;
+
 
     });
 
+
 }
 
+
+
+
+
+
 // ==========================
-// TABLA
+// MOSTRAR
 // ==========================
 
-function mostrarMovimientos() {
 
-    const lista =
-        document.getElementById("listaMovimientos");
+function mostrarMovimientos(){
+
 
     const datos =
-        obtenerMovimientosFiltrados();
+    obtenerFiltrados();
 
-    let entradas = 0;
-    let salidas = 0;
 
-    let tabla = `
+
+    let entradas=0;
+
+    let salidas=0;
+
+    let unidadesEntrada=0;
+
+    let unidadesSalida=0;
+
+
+
+    datos.forEach((m)=>{
+
+
+        const cantidad =
+        Number(m.cantidad)||0;
+
+
+
+        if(
+            m.tipo==="Entrada"
+        ){
+
+            entradas++;
+
+            unidadesEntrada += cantidad;
+
+
+        }else{
+
+
+            salidas++;
+
+            unidadesSalida += cantidad;
+
+
+        }
+
+
+    });
+
+
+
+    document.getElementById(
+        "totalEntradas"
+    ).textContent =
+    unidadesEntrada;
+
+
+
+    document.getElementById(
+        "totalSalidas"
+    ).textContent =
+    unidadesSalida;
+
+
+
+    document.getElementById(
+        "totalBalance"
+    ).textContent =
+    unidadesEntrada-unidadesSalida;
+
+
+
+    document.getElementById(
+        "totalMovimientos"
+    ).textContent =
+    datos.length;
+
+
+
+
+    const contenedor =
+    document.getElementById(
+        "listaMovimientos"
+    );
+
+
+
+    if(datos.length===0){
+
+
+        contenedor.innerHTML=
+
+        `
+
+        <div class="panel">
+
+        📭 No hay movimientos encontrados
+
+        </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+
+
+
+    let html=
+
+    `
 
 <table class="tabla-productos">
+
 
 <thead>
 
@@ -207,76 +473,103 @@ function mostrarMovimientos() {
 
 <th>Cantidad</th>
 
-<th>Stock ant.</th>
+<th>Stock anterior</th>
 
 <th>Stock final</th>
 
+
 </tr>
 
+
 </thead>
+
 
 <tbody>
 
 `;
 
-    datos.forEach((m) => {
 
-        if (m.tipo === "Entrada")
-            entradas++;
-        else
-            salidas++;
 
-        let fecha = "";
 
-        if (
-            m.fecha &&
-            m.fecha.toDate
-        ) {
 
-            fecha =
-                m.fecha
-                .toDate()
-                .toLocaleString("es-ES");
+    datos.forEach((m)=>{
 
-        }
 
         const clase =
-            m.tipo === "Entrada"
-            ? "ok"
-            : "sin";
+        m.tipo==="Entrada"
+        ?"ok"
+        :"sin";
+
+
 
         const icono =
-            m.tipo === "Entrada"
-            ? "📥"
-            : "📤";
+        m.tipo==="Entrada"
+        ?"📥"
+        :"📤";
 
-        tabla += `
+
+
+        html +=
+
+
+        `
 
 <tr class="${clase}">
 
-<td>${fecha}</td>
 
-<td>${icono} ${m.tipo}</td>
+<td>
+${formatoFecha(m.fecha)}
+</td>
 
-<td>${m.codigo}</td>
 
-<td>${m.producto}</td>
+<td>
+${icono} ${m.tipo}
+</td>
 
-<td>${m.categoria}</td>
 
-<td>${m.cantidad}</td>
+<td>
+${m.codigo || ""}
+</td>
 
-<td>${m.stockAnterior}</td>
 
-<td>${m.stockFinal}</td>
+<td>
+${m.producto || ""}
+</td>
+
+
+<td>
+${m.categoria || ""}
+</td>
+
+
+<td>
+${m.cantidad || 0}
+</td>
+
+
+<td>
+${m.stockAnterior || 0}
+</td>
+
+
+<td>
+${m.stockFinal || 0}
+</td>
+
 
 </tr>
 
 `;
 
+
+
     });
 
-    tabla += `
+
+
+    html+=
+
+    `
 
 </tbody>
 
@@ -284,68 +577,77 @@ function mostrarMovimientos() {
 
 `;
 
-    if (datos.length === 0) {
 
-        lista.innerHTML =
-            `<div class="panel">No hay movimientos.</div>`;
 
-    } else {
+    contenedor.innerHTML=html;
 
-        lista.innerHTML = tabla;
-
-    }
-
-    document.getElementById("totalEntradas").textContent =
-        entradas;
-
-    document.getElementById("totalSalidas").textContent =
-        salidas;
-
-    document.getElementById("totalMovimientos").textContent =
-        datos.length;
 
 }
 
+
+
+
+
+
 // ==========================
-// EXPORTAR A EXCEL
+// EXCEL
 // ==========================
 
-function exportarExcel() {
 
-    const datos = obtenerMovimientosFiltrados();
+function exportarExcel(){
 
-    const excel = [];
 
-    datos.forEach((m) => {
+    const datos =
+    obtenerFiltrados();
 
-        let fecha = "";
 
-        if (m.fecha && m.fecha.toDate) {
 
-            fecha = m.fecha
-                .toDate()
-                .toLocaleString("es-ES");
+    const filas =
+    datos.map((m)=>({
 
-        }
 
-        excel.push({
+        Fecha:
+        formatoFecha(m.fecha),
 
-            Fecha: fecha,
-            Tipo: m.tipo,
-            Código: m.codigo,
-            Producto: m.producto,
-            Categoría: m.categoria,
-            Cantidad: m.cantidad,
-            "Stock anterior": m.stockAnterior,
-            "Stock final": m.stockFinal
 
-        });
+        Tipo:m.tipo,
 
-    });
 
-    const libro = XLSX.utils.book_new();
+        Codigo:m.codigo,
 
-    const hoja = XLSX.utils.json_to_sheet(excel);
+
+        Producto:m.producto,
+
+
+        Categoria:m.categoria,
+
+
+        Cantidad:m.cantidad,
+
+
+        Stock_anterior:
+        m.stockAnterior,
+
+
+        Stock_final:
+        m.stockFinal
+
+
+    }));
+
+
+
+    const libro =
+    XLSX.utils.book_new();
+
+
+
+    const hoja =
+    XLSX.utils.json_to_sheet(
+        filas
+    );
+
+
 
     XLSX.utils.book_append_sheet(
         libro,
@@ -353,78 +655,216 @@ function exportarExcel() {
         "Movimientos"
     );
 
+
+
     XLSX.writeFile(
         libro,
         "Movimientos.xlsx"
     );
 
+
 }
+
+
+
+
+
+
+// ==========================
+// PDF
+// ==========================
+
+
+function exportarPDF(){
+
+
+    const datos =
+    obtenerFiltrados();
+
+
+
+    const {jsPDF}=window.jspdf;
+
+
+
+    const pdf =
+    new jsPDF();
+
+
+
+    pdf.text(
+        "Inventario Pro - Movimientos",
+        14,
+        15
+    );
+
+
+
+    pdf.autoTable({
+
+        startY:25,
+
+        head:[[
+            "Fecha",
+            "Tipo",
+            "Producto",
+            "Cantidad"
+        ]],
+
+
+        body:
+
+        datos.map((m)=>[
+
+            formatoFecha(m.fecha),
+
+            m.tipo,
+
+            m.producto,
+
+            m.cantidad
+
+        ])
+
+    });
+
+
+
+    pdf.save(
+        "Movimientos.pdf"
+    );
+
+
+}
+
+
+
+
+
+
+// ==========================
+// IMPRIMIR
+// ==========================
+
+
+function imprimir(){
+
+    window.print();
+
+}
+
+
+
+
 
 // ==========================
 // EVENTOS
 // ==========================
 
-document
-.getElementById("buscar")
-.addEventListener(
-    "input",
-    mostrarMovimientos
-);
+
+[
+"buscar",
+"filtroTipo",
+"filtroCategoria",
+"fechaDesde",
+"fechaHasta"
+
+].forEach(id=>{
+
 
 document
-.getElementById("filtroTipo")
+.getElementById(id)
 .addEventListener(
-    "change",
-    mostrarMovimientos
+"input",
+mostrarMovimientos
 );
+
+
+});
+
+
 
 document
-.getElementById("filtroCategoria")
+.getElementById(
+"limpiarFiltros"
+)
 .addEventListener(
-    "change",
-    mostrarMovimientos
-);
+"click",
+()=>{
+
+
+[
+"buscar",
+"fechaDesde",
+"fechaHasta"
+
+].forEach(id=>{
 
 document
-.getElementById("fechaDesde")
-.addEventListener(
-    "change",
-    mostrarMovimientos
-);
+.getElementById(id)
+.value="";
+
+});
+
 
 document
-.getElementById("fechaHasta")
-.addEventListener(
-    "change",
-    mostrarMovimientos
-);
+.getElementById(
+"filtroTipo"
+)
+.value="";
+
 
 document
-.getElementById("limpiarFiltros")
-.addEventListener(
-    "click",
-    () => {
+.getElementById(
+"filtroCategoria"
+)
+.value="";
 
-        document.getElementById("buscar").value = "";
-        document.getElementById("filtroTipo").value = "";
-        document.getElementById("filtroCategoria").value = "";
-        document.getElementById("fechaDesde").value = "";
-        document.getElementById("fechaHasta").value = "";
 
-        mostrarMovimientos();
+mostrarMovimientos();
 
-    }
-);
+
+});
+
+
+
 
 document
-.getElementById("exportarExcel")
+.getElementById(
+"exportarExcel"
+)
 .addEventListener(
-    "click",
-    exportarExcel
+"click",
+exportarExcel
 );
 
-// ==========================
+
+
+document
+.getElementById(
+"exportarPDF"
+)
+.addEventListener(
+"click",
+exportarPDF
+);
+
+
+
+document
+.getElementById(
+"imprimirMovimientos"
+)
+.addEventListener(
+"click",
+imprimir
+);
+
+
+
+
+
+
 // INICIO
-// ==========================
 
 cargarMovimientos();
