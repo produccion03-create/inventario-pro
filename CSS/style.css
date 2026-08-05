@@ -1490,3 +1490,430 @@ gap:5px;
 /* ==========================================================
    FIN
 ========================================================== */
+/* ==========================================================
+   ACABADOS FINALES INVENTARIO PRO
+========================================================== */
+
+
+/* Animación general de entrada */
+
+.app > *{
+
+animation:entradaPro .35s ease both;
+
+}
+
+
+@keyframes entradaPro{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+
+
+/* Logo más premium */
+
+.logo{
+
+background:linear-gradient(
+135deg,
+#ffffff,
+#93c5fd
+);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+
+
+
+
+/* Sidebar más moderna */
+
+.sidebar{
+
+box-shadow:
+
+8px 0 30px rgba(15,23,42,.15);
+
+}
+
+
+
+.sidebar nav a{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+
+.sidebar nav a::after{
+
+content:"";
+
+position:absolute;
+
+left:-100%;
+
+bottom:0;
+
+width:100%;
+
+height:2px;
+
+background:#60a5fa;
+
+transition:.3s;
+
+}
+
+
+.sidebar nav a:hover::after{
+
+left:0;
+
+}
+
+
+
+
+
+/* Tarjetas KPI mejoradas */
+
+.card span{
+
+background:linear-gradient(
+135deg,
+#111827,
+#475569
+);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+
+
+
+
+/* Botones con efecto premium */
+
+button{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+
+button::after{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-120%;
+
+width:80%;
+
+height:100%;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.35),
+transparent
+);
+
+transition:.5s;
+
+}
+
+
+
+button:hover::after{
+
+left:120%;
+
+}
+
+
+
+
+
+/* Tablas más modernas */
+
+
+.tabla-productos{
+
+border-radius:22px;
+
+overflow:hidden;
+
+}
+
+
+
+.tabla-productos tbody tr{
+
+transition:.25s;
+
+}
+
+
+
+.tabla-productos tbody tr:hover{
+
+transform:scale(1.01);
+
+}
+
+
+
+
+
+/* Estados entrada salida */
+
+tr.ok td:first-child{
+
+border-left:5px solid var(--verde);
+
+}
+
+
+tr.sin td:first-child{
+
+border-left:5px solid var(--rojo);
+
+}
+
+
+
+
+
+/* Panel vacío */
+
+.panel:has(.vacio){
+
+text-align:center;
+
+padding:50px;
+
+color:var(--texto-secundario);
+
+}
+
+
+
+
+
+/* Inputs más app */
+
+input,
+select{
+
+background:#ffffff;
+
+box-shadow:
+
+0 2px 6px rgba(15,23,42,.03);
+
+}
+
+
+
+
+
+/* Canvas gráficos */
+
+canvas{
+
+padding:10px;
+
+}
+
+
+
+
+
+/* Scroll suave */
+
+*{
+
+scrollbar-width:thin;
+
+}
+
+
+
+
+
+/* Botones agrupados */
+
+.acciones button{
+
+width:auto;
+
+}
+
+
+
+@media(max-width:768px){
+
+.acciones button{
+
+width:100%;
+
+}
+
+}
+
+
+
+
+
+/* Etiquetas modernas */
+
+.tag{
+
+display:inline-flex;
+
+align-items:center;
+
+padding:5px 12px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:600;
+
+background:#eff6ff;
+
+color:#2563eb;
+
+}
+
+
+
+
+
+/* Carga */
+
+.cargando{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:40px;
+
+font-weight:600;
+
+color:#64748b;
+
+}
+
+
+
+.cargando::after{
+
+content:"";
+
+width:18px;
+
+height:18px;
+
+margin-left:12px;
+
+border:3px solid #dbeafe;
+
+border-top-color:#2563eb;
+
+border-radius:50%;
+
+animation:giro 1s linear infinite;
+
+}
+
+
+
+@keyframes giro{
+
+to{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+
+
+
+
+/* Impresión */
+
+@media print{
+
+
+.sidebar,
+.topbar,
+button{
+
+display:none!important;
+
+}
+
+
+.contenido{
+
+margin:0;
+
+}
+
+
+.panel,
+.card{
+
+box-shadow:none;
+
+border:1px solid #ddd;
+
+}
+
+
+}
