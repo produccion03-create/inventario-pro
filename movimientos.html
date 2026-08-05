@@ -7,10 +7,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Movimientos</title>
+<title>Movimientos | Inventario Pro</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,13 +18,14 @@
 
 </head>
 
+
 <body>
+
 
 <div class="layout">
 
-<!-- =======================
-SIDEBAR
-======================= -->
+
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
@@ -34,6 +34,7 @@ SIDEBAR
 📦 Inventario Pro
 
 </div>
+
 
 <nav>
 
@@ -57,11 +58,13 @@ SIDEBAR
 
 </aside>
 
-<!-- =======================
-CONTENIDO
-======================= -->
+
+
+<!-- CONTENIDO -->
+
 
 <div class="contenido">
+
 
 <div class="topbar">
 
@@ -69,93 +72,202 @@ CONTENIDO
 
 <h1>Historial de movimientos</h1>
 
-<p>Consulta todas las entradas y salidas del almacén.</p>
+<p>
+Controla todas las entradas y salidas del almacén.
+</p>
 
 </div>
 
 </div>
+
+
 
 <div class="app">
 
-<!-- =======================
-RESUMEN
-======================= -->
+
+
+<!-- RESUMEN -->
+
 
 <div class="dashboard">
+
 
 <div class="card card-productos">
 
 <h3>📥 Entradas</h3>
 
-<span id="totalEntradas">0</span>
+<span id="totalEntradas">
+0
+</span>
 
-<p>Total entradas</p>
+<p>
+Unidades recibidas
+</p>
 
 </div>
+
+
 
 <div class="card card-alerta">
 
 <h3>📤 Salidas</h3>
 
-<span id="totalSalidas">0</span>
+<span id="totalSalidas">
+0
+</span>
 
-<p>Total salidas</p>
+<p>
+Unidades retiradas
+</p>
 
 </div>
+
+
 
 <div class="card card-valor">
 
+<h3>📊 Balance</h3>
+
+<span id="totalBalance">
+0
+</span>
+
+<p>
+Diferencia stock
+</p>
+
+</div>
+
+
+
+<div class="card">
+
 <h3>📋 Movimientos</h3>
 
-<span id="totalMovimientos">0</span>
+<span id="totalMovimientos">
+0
+</span>
 
-<p>Total registrados</p>
+<p>
+Registros encontrados
+</p>
 
 </div>
 
+
 </div>
 
-<!-- =======================
-FILTROS
-======================= -->
+
+
+
+
+<!-- FILTROS -->
+
 
 <div class="panel">
 
-<h2>Filtros</h2>
+
+<h2>
+🔎 Filtros
+</h2>
+
+
 
 <div class="grid-form">
 
+
+
 <input
+
 id="buscar"
-placeholder="Buscar producto o código">
+
+placeholder="Buscar producto o código"
+
+
+
+>
+
+
 
 <select id="filtroTipo">
 
-<option value="">Todos</option>
 
-<option value="Entrada">📥 Entrada</option>
+<option value="">
+Todos los movimientos
+</option>
 
-<option value="Salida">📤 Salida</option>
+
+<option value="Entrada">
+📥 Entradas
+</option>
+
+
+<option value="Salida">
+📤 Salidas
+</option>
+
 
 </select>
+
+
+
+
 
 <select id="filtroCategoria">
 
-<option value="">Todas las categorías</option>
+
+<option value="">
+Todas las categorías
+</option>
+
 
 </select>
 
-<input
-type="date"
-id="fechaDesde">
+
+
+
+
+<label>
+
+Desde
 
 <input
+
 type="date"
-id="fechaHasta">
+
+id="fechaDesde"
+
+>
+
+</label>
+
+
+
+
+<label>
+
+Hasta
+
+<input
+
+type="date"
+
+id="fechaHasta"
+
+>
+
+</label>
+
+
+
 
 </div>
 
+
+
+
 <br>
+
 
 <button id="limpiarFiltros">
 
@@ -163,50 +275,119 @@ id="fechaHasta">
 
 </button>
 
+
+
 </div>
 
-<!-- =======================
-ACCIONES
-======================= -->
+
+
+
+
+
+<!-- EXPORTACIONES -->
+
 
 <div class="panel">
+
+
+<h2>
+📁 Exportar
+</h2>
+
+
+
+<div class="acciones">
+
 
 <button id="exportarExcel">
 
-📄 Exportar a Excel
+📗 Exportar Excel
 
 </button>
 
+
+
+<button id="exportarPDF">
+
+📄 Exportar PDF
+
+</button>
+
+
+
+<button id="imprimirMovimientos">
+
+🖨 Imprimir
+
+</button>
+
+
+
 </div>
 
-<!-- =======================
-TABLA
-======================= -->
+
+</div>
+
+
+
+
+
+
+
+<!-- TABLA -->
+
 
 <div class="panel">
 
+
 <div class="cabecera-tabla">
 
-<h2>Movimientos</h2>
+
+<h2>
+Movimientos registrados
+</h2>
+
 
 </div>
+
+
+
 
 <div id="listaMovimientos">
 
-</div>
 
 </div>
 
-</div>
+
 
 </div>
 
+
+
+
+
 </div>
+
+
+</div>
+
+
+</div>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+
 <script type="module" src="JS/movimientos.js"></script>
 
+
 </body>
+
 
 </html>
