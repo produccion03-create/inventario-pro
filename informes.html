@@ -8,25 +8,35 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Informes</title>
+<title>Informes | Inventario Pro</title>
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 
 <link rel="stylesheet" href="CSS/style.css">
 
+
 </head>
+
 
 <body>
 
+
 <div class="layout">
+
+
 
 <!-- SIDEBAR -->
 
+
 <aside class="sidebar">
+
 
 <div class="logo">
 
@@ -34,147 +44,405 @@
 
 </div>
 
+
+
 <nav>
 
-<a href="index.html">🏠 Dashboard</a>
 
-<a href="productos.html">📦 Productos</a>
+<a href="index.html">
+🏠 Dashboard
+</a>
 
-<a href="entrada.html">➕ Entradas</a>
 
-<a href="salida.html">➖ Salidas</a>
+<a href="productos.html">
+📦 Productos
+</a>
 
-<a href="movimientos.html">📋 Movimientos</a>
 
-<a href="scanner.html">📷 Escáner</a>
+<a href="entrada.html">
+➕ Entradas
+</a>
 
-<a href="informes.html" class="activo">📊 Informes</a>
 
-<a href="configuracion.html">⚙ Configuración</a>
+<a href="salida.html">
+➖ Salidas
+</a>
+
+
+<a href="movimientos.html">
+📋 Movimientos
+</a>
+
+
+<a href="scanner.html">
+📷 Escáner
+</a>
+
+
+<a href="informes.html" class="activo">
+📊 Informes
+</a>
+
+
+<a href="configuracion.html">
+⚙ Configuración
+</a>
+
 
 </nav>
 
+
 </aside>
+
+
+
+
+
 
 <!-- CONTENIDO -->
 
+
 <div class="contenido">
+
+
 
 <div class="topbar">
 
+
 <div>
 
-<h1>Informes</h1>
 
-<p>Estadísticas e indicadores del inventario.</p>
+<h1>
+Informes del inventario
+</h1>
+
+
+<p>
+Análisis, estadísticas y evolución del almacén.
+</p>
+
 
 </div>
 
+
 </div>
+
+
+
+
 
 <div class="app">
 
-<!-- TARJETAS -->
+
+
+
+
+
+<!-- TARJETAS RESUMEN -->
+
 
 <div class="dashboard">
+
+
 
 <div class="card card-productos">
 
-<h3>📦 Productos</h3>
+<h3>
+📦 Productos
+</h3>
 
-<span id="totalProductos">0</span>
+<span id="totalProductos">
+0
+</span>
 
-<p>Total registrados</p>
+<p>
+Registrados
+</p>
 
 </div>
+
+
+
+
 
 <div class="card card-valor">
 
-<h3>💰 Valor almacén</h3>
+<h3>
+💰 Valor almacén
+</h3>
 
-<span id="valorAlmacen">0 €</span>
+<span id="valorAlmacen">
+0 €
+</span>
 
-<p>Valor actual</p>
+<p>
+Valor actual
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+📊 Unidades
+</h3>
+
+<span id="totalUnidades">
+0
+</span>
+
+<p>
+Stock disponible
+</p>
 
 </div>
 
-<div class="card card-stock">
 
-<h3>⚠ Stock bajo</h3>
 
-<span id="stockBajo">0</span>
 
-<p>Necesitan reposición</p>
-
-</div>
 
 <div class="card card-alerta">
 
-<h3>🔴 Sin stock</h3>
+<h3>
+⚠ Alertas
+</h3>
 
-<span id="sinStock">0</span>
+<span id="stockBajo">
+0
+</span>
 
-<p>Productos agotados</p>
+<p>
+Stock bajo
+</p>
 
 </div>
 
+
+
+
+
+<div class="card">
+
+<h3>
+🔴 Agotados
+</h3>
+
+<span id="sinStock">
+0
+</span>
+
+<p>
+Sin existencias
+</p>
+
 </div>
 
-<!-- GRÁFICOS -->
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- GRAFICOS -->
+
 
 <div class="grid-form">
 
+
+
+
+
 <div class="panel">
 
-<h2>📈 Productos por categoría</h2>
+
+<h2>
+📦 Productos por categoría
+</h2>
+
 
 <div style="height:320px">
+
 
 <canvas id="graficoInformes"></canvas>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+
+
 
 <div class="panel">
 
-<h2>💰 Valor por categoría</h2>
+
+<h2>
+💰 Valor por categoría
+</h2>
+
 
 <div style="height:320px">
 
+
 <canvas id="graficoValorCategorias"></canvas>
 
-</div>
 
 </div>
 
+
 </div>
 
-<!-- EXPORTAR -->
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="grid-form">
+
+
+
+
 
 <div class="panel">
 
-<h2>📄 Exportaciones</h2>
+
+<h2>
+📈 Entradas y salidas
+</h2>
+
+
+<div style="height:320px">
+
+
+<canvas id="graficoMovimientos"></canvas>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="panel">
+
+
+<h2>
+🏆 Productos más movidos
+</h2>
+
+
+<div style="height:320px">
+
+
+<canvas id="graficoProductosMovidos"></canvas>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- EXPORTACIONES -->
+
+
+<div class="panel">
+
+
+<h2>
+📄 Exportar informes
+</h2>
+
+
 
 <button id="exportarCSV">
 
-📗 Exportar inventario a Excel
+📗 Excel inventario
 
 </button>
 
+
+
+<button id="exportarPDF">
+
+📄 PDF informe
+
+</button>
+
+
+
 </div>
 
-<!-- INFORMES -->
+
+
+
+
+
+
+
+
+<!-- LISTADOS -->
+
 
 <div class="panel">
 
-<h2>📋 Informes del inventario</h2>
+
+<h2>
+📋 Resumen detallado
+</h2>
+
+
+
 
 <div class="dashboard">
 
+
+
+
+
 <div class="movimiento">
 
-<h3>📂 Valor por categorías</h3>
+
+<h3>
+📂 Valor por categorías
+</h3>
+
 
 <div id="informeCategorias">
 
@@ -182,11 +450,21 @@ Cargando...
 
 </div>
 
+
 </div>
+
+
+
+
+
 
 <div class="movimiento">
 
-<h3>⚠ Productos con stock bajo</h3>
+
+<h3>
+⚠ Productos con stock bajo
+</h3>
+
 
 <div id="informeStockBajo">
 
@@ -194,11 +472,21 @@ Cargando...
 
 </div>
 
+
 </div>
+
+
+
+
+
 
 <div class="movimiento">
 
-<h3>🔴 Productos sin stock</h3>
+
+<h3>
+🔴 Productos sin stock
+</h3>
+
 
 <div id="informeSinStock">
 
@@ -206,11 +494,21 @@ Cargando...
 
 </div>
 
+
 </div>
+
+
+
+
+
 
 <div class="movimiento">
 
-<h3>💰 Top 10 productos por valor</h3>
+
+<h3>
+🏆 Top productos por valor
+</h3>
+
 
 <div id="informeValor">
 
@@ -218,24 +516,51 @@ Cargando...
 
 </div>
 
-</div>
 
 </div>
 
-</div>
+
+
+
 
 </div>
 
-</div>
+
 
 </div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+
+
 <script type="module" src="JS/informes.js"></script>
 
+
+
 </body>
+
 
 </html>
