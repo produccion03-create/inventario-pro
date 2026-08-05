@@ -10,10 +10,10 @@ let productos = [];
 // CARGAR DATOS
 // ==========================
 
-async function cargarDatos(){
+async function cargarDatos() {
 
     const datos = await getDocs(
-        collection(db,"productos")
+        collection(db, "productos")
     );
 
     productos = [];
@@ -23,52 +23,47 @@ async function cargarDatos(){
     let bajo = 0;
     let sin = 0;
 
-    let categorias = {};
+    const categorias = {};
 
-    datos.forEach((documento)=>{
+    datos.forEach((documento) => {
 
         const p = documento.data();
 
         productos.push(p);
 
-        const stock =
-        Number(p.stock) || 0;
-
-        const precio =
-        Number(p.precio) || 0;
-
-        const minimo =
-        Number(p.stockMinimo ?? 5);
+        const stock = Number(p.stock) || 0;
+        const precio = Number(p.precio) || 0;
+        const minimo = Number(p.stockMinimo ?? 5);
 
         total++;
 
         valor += stock * precio;
 
-        if(
+        if (
             p.categoria !== "Planchas de EVA" &&
-            stock <= minimo &&
-            stock > 0
-        ){
+            stock > 0 &&
+            stock <= minimo
+        ) {
 
             bajo++;
 
         }
 
-        if(stock === 0){
+        if (stock === 0) {
 
             sin++;
 
         }
 
         const categoria =
-        p.categoria || "Sin categoría";
+            p.categoria || "Sin categoría";
 
-        if(!categorias[categoria]){
+        if (!categorias[categoria]) {
 
-            categorias[categoria]={
+            categorias[categoria] = {
 
-                cantidad:0,
-                valor:0
+                cantidad: 0,
+                valor: 0
 
             };
 
@@ -77,7 +72,7 @@ async function cargarDatos(){
         categorias[categoria].cantidad++;
 
         categorias[categoria].valor +=
-        stock * precio;
+            stock * precio;
 
     });
 
@@ -88,13 +83,13 @@ async function cargarDatos(){
     document.getElementById(
         "valorAlmacen"
     ).textContent =
-    valor.toLocaleString(
-        "es-ES",
-        {
-            style:"currency",
-            currency:"EUR"
-        }
-    );
+        valor.toLocaleString(
+            "es-ES",
+            {
+                style: "currency",
+                currency: "EUR"
+            }
+        );
 
     document.getElementById(
         "stockBajo"
@@ -116,28 +111,28 @@ async function cargarDatos(){
 // GRÁFICO PRODUCTOS
 // ==========================
 
-function crearGraficoCategorias(categorias){
+function crearGraficoCategorias(categorias) {
 
     const ctx =
-    document.getElementById(
-        "graficoInformes"
-    );
+        document.getElementById(
+            "graficoInformes"
+        );
 
-    new Chart(ctx,{
+    new Chart(ctx, {
 
-        type:"doughnut",
+        type: "doughnut",
 
-        data:{
+        data: {
 
-            labels:Object.keys(categorias),
+            labels: Object.keys(categorias),
 
-            datasets:[{
+            datasets: [{
 
-                data:Object.values(categorias).map(
-                    c=>c.cantidad
+                data: Object.values(categorias).map(
+                    c => c.cantidad
                 ),
 
-                backgroundColor:[
+                backgroundColor: [
 
                     "#2563eb",
                     "#16a34a",
@@ -150,22 +145,24 @@ function crearGraficoCategorias(categorias){
 
                 ],
 
-                borderWidth:0
+                borderWidth: 0
 
             }]
 
         },
 
-        options:{
+        options: {
 
-            responsive:true,
+            responsive: true,
 
-            maintainAspectRatio:false,
+            maintainAspectRatio: false,
 
-            plugins:{
+            plugins: {
 
-                legend:{
-                    position:"bottom"
+                legend: {
+
+                    position: "bottom"
+
                 }
 
             }
@@ -177,59 +174,61 @@ function crearGraficoCategorias(categorias){
 }
 
 // ==========================
-// GRÁFICO VALOR
+// GRÁFICO VALOR CATEGORÍAS
 // ==========================
 
-function crearGraficoValor(categorias){
+function crearGraficoValor(categorias) {
 
     const ctx =
-    document.getElementById(
-        "graficoValorCategorias"
-    );
+        document.getElementById(
+            "graficoValorCategorias"
+        );
 
-    new Chart(ctx,{
+    new Chart(ctx, {
 
-        type:"bar",
+        type: "bar",
 
-        data:{
+        data: {
 
-            labels:Object.keys(categorias),
+            labels: Object.keys(categorias),
 
-            datasets:[{
+            datasets: [{
 
-                label:"Valor (€)",
+                label: "Valor (€)",
 
-                data:Object.values(categorias).map(
-                    c=>c.valor
+                data: Object.values(categorias).map(
+                    c => c.valor
                 ),
 
-                backgroundColor:"#2563eb",
+                backgroundColor: "#2563eb",
 
-                borderRadius:8
+                borderRadius: 8
 
             }]
 
         },
 
-        options:{
+        options: {
 
-            responsive:true,
+            responsive: true,
 
-            maintainAspectRatio:false,
+            maintainAspectRatio: false,
 
-            plugins:{
+            plugins: {
 
-                legend:{
-                    display:false
+                legend: {
+
+                    display: false
+
                 }
 
             },
 
-            scales:{
+            scales: {
 
-                y:{
+                y: {
 
-                    beginAtZero:true
+                    beginAtZero: true
 
                 }
 
@@ -240,7 +239,6 @@ function crearGraficoValor(categorias){
     });
 
 }
-
 // ==========================
 // INFORMES
 // ==========================
@@ -293,8 +291,7 @@ function mostrarCategorias(categorias){
 
     document.getElementById(
         "informeCategorias"
-    ).innerHTML=
-    html;
+    ).innerHTML=html;
 
 }
 
@@ -318,9 +315,9 @@ function mostrarStockBajo(){
 
             p.categoria!=="Planchas de EVA" &&
 
-            stock<=minimo &&
+            stock>0 &&
 
-            stock>0
+            stock<=minimo
 
         ){
 
@@ -328,11 +325,7 @@ function mostrarStockBajo(){
 
             <div class="fila-informe">
 
-                <span>
-
-                    ${p.nombre}
-
-                </span>
+                <span>${p.nombre}</span>
 
                 <strong style="color:#f59e0b">
 
@@ -376,11 +369,7 @@ function mostrarSinStock(){
 
             <div class="fila-informe">
 
-                <span>
-
-                    ${p.nombre}
-
-                </span>
+                <span>${p.nombre}</span>
 
                 <strong style="color:#dc2626">
 
@@ -409,7 +398,7 @@ function mostrarSinStock(){
 }
 
 // ==========================
-// TOP VALOR
+// TOP 10 VALOR
 // ==========================
 
 function mostrarTopValor(){
@@ -421,12 +410,10 @@ function mostrarTopValor(){
     .sort((a,b)=>{
 
         const valorA=
-
         (Number(a.stock)||0)*
         (Number(a.precio)||0);
 
         const valorB=
-
         (Number(b.stock)||0)*
         (Number(b.precio)||0);
 
@@ -447,11 +434,7 @@ function mostrarTopValor(){
 
         <div class="fila-informe">
 
-            <span>
-
-                ${p.nombre}
-
-            </span>
+            <span>${p.nombre}</span>
 
             <strong>
 
@@ -485,7 +468,7 @@ function exportarExcel(){
 
     if(productos.length===0){
 
-        alert("No hay productos.");
+        alert("No hay productos para exportar.");
 
         return;
 
