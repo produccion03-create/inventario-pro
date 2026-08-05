@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -119,15 +120,31 @@
 
 </div>
 
-<!-- GRAFICO -->
+<!-- GRÁFICOS -->
+
+<div class="grid-form">
 
 <div class="panel">
 
-<h2>📈 Estado del inventario</h2>
+<h2>📈 Productos por categoría</h2>
 
-<div style="height:350px">
+<div style="height:320px">
 
 <canvas id="graficoInformes"></canvas>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>💰 Valor por categoría</h2>
+
+<div style="height:320px">
+
+<canvas id="graficoValorCategorias"></canvas>
+
+</div>
 
 </div>
 
@@ -151,15 +168,19 @@
 
 <div class="panel">
 
-<h2>📋 Informes disponibles</h2>
+<h2>📋 Informes del inventario</h2>
 
-<div class="grid-form">
+<div class="dashboard">
 
 <div class="movimiento">
 
-<h3>📦 Inventario por categorías</h3>
+<h3>📂 Valor por categorías</h3>
 
-<p>Valor y cantidad por categoría.</p>
+<div id="informeCategorias">
+
+Cargando...
+
+</div>
 
 </div>
 
@@ -167,7 +188,11 @@
 
 <h3>⚠ Productos con stock bajo</h3>
 
-<p>Listado de artículos pendientes.</p>
+<div id="informeStockBajo">
+
+Cargando...
+
+</div>
 
 </div>
 
@@ -175,15 +200,23 @@
 
 <h3>🔴 Productos sin stock</h3>
 
-<p>Artículos agotados.</p>
+<div id="informeSinStock">
+
+Cargando...
+
+</div>
 
 </div>
 
 <div class="movimiento">
 
-<h3>📅 Movimientos por fechas</h3>
+<h3>💰 Top 10 productos por valor</h3>
 
-<p>Entradas y salidas del almacén.</p>
+<div id="informeValor">
+
+Cargando...
+
+</div>
 
 </div>
 
