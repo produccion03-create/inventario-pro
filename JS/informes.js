@@ -31,9 +31,14 @@ async function cargarDatos() {
 
         productos.push(p);
 
-        const stock = Number(p.stock) || 0;
-        const precio = Number(p.precio) || 0;
-        const minimo = Number(p.stockMinimo ?? 5);
+        const stock =
+        Number(p.stock) || 0;
+
+        const precio =
+        Number(p.precio) || 0;
+
+        const minimo =
+        Number(p.stockMinimo ?? 5);
 
         total++;
 
@@ -56,13 +61,14 @@ async function cargarDatos() {
         }
 
         const categoria =
-            p.categoria || "Sin categoría";
+        p.categoria || "Sin categoría";
 
         if (!categorias[categoria]) {
 
             categorias[categoria] = {
 
                 cantidad: 0,
+
                 valor: 0
 
             };
@@ -72,7 +78,7 @@ async function cargarDatos() {
         categorias[categoria].cantidad++;
 
         categorias[categoria].valor +=
-            stock * precio;
+        stock * precio;
 
     });
 
@@ -83,13 +89,13 @@ async function cargarDatos() {
     document.getElementById(
         "valorAlmacen"
     ).textContent =
-        valor.toLocaleString(
-            "es-ES",
-            {
-                style: "currency",
-                currency: "EUR"
-            }
-        );
+    valor.toLocaleString(
+        "es-ES",
+        {
+            style: "currency",
+            currency: "EUR"
+        }
+    );
 
     document.getElementById(
         "stockBajo"
@@ -99,11 +105,17 @@ async function cargarDatos() {
         "sinStock"
     ).textContent = sin;
 
-    crearGraficoCategorias(categorias);
+    crearGraficoCategorias(
+        categorias
+    );
 
-    crearGraficoValor(categorias);
+    crearGraficoValor(
+        categorias
+    );
 
-    mostrarInformes(categorias);
+    mostrarInformes(
+        categorias
+    );
 
 }
 
@@ -113,24 +125,36 @@ async function cargarDatos() {
 
 function crearGraficoCategorias(categorias) {
 
-    const ctx =
-        document.getElementById(
-            "graficoInformes"
-        );
+    const canvas =
+    document.getElementById(
+        "graficoInformes"
+    );
 
-    new Chart(ctx, {
+    if (!canvas) return;
+
+    const grafico =
+    Chart.getChart(canvas);
+
+    if (grafico) {
+
+        grafico.destroy();
+
+    }
+
+    new Chart(canvas, {
 
         type: "doughnut",
 
         data: {
 
-            labels: Object.keys(categorias),
+            labels:
+            Object.keys(categorias),
 
             datasets: [{
 
-                data: Object.values(categorias).map(
-                    c => c.cantidad
-                ),
+                data:
+                Object.values(categorias)
+                .map(c => c.cantidad),
 
                 backgroundColor: [
 
@@ -172,35 +196,47 @@ function crearGraficoCategorias(categorias) {
     });
 
 }
-
 // ==========================
 // GRÁFICO VALOR CATEGORÍAS
 // ==========================
 
 function crearGraficoValor(categorias) {
 
-    const ctx =
-        document.getElementById(
-            "graficoValorCategorias"
-        );
+    const canvas =
+    document.getElementById(
+        "graficoValorCategorias"
+    );
 
-    new Chart(ctx, {
+    if (!canvas) return;
+
+    const grafico =
+    Chart.getChart(canvas);
+
+    if (grafico) {
+
+        grafico.destroy();
+
+    }
+
+    new Chart(canvas, {
 
         type: "bar",
 
         data: {
 
-            labels: Object.keys(categorias),
+            labels:
+            Object.keys(categorias),
 
             datasets: [{
 
                 label: "Valor (€)",
 
-                data: Object.values(categorias).map(
-                    c => c.valor
-                ),
+                data:
+                Object.values(categorias)
+                .map(c => c.valor),
 
-                backgroundColor: "#2563eb",
+                backgroundColor:
+                "#2563eb",
 
                 borderRadius: 8
 
@@ -239,6 +275,7 @@ function crearGraficoValor(categorias) {
     });
 
 }
+
 // ==========================
 // INFORMES
 // ==========================
@@ -260,6 +297,13 @@ function mostrarInformes(categorias){
 // ==========================
 
 function mostrarCategorias(categorias){
+
+    const contenedor =
+    document.getElementById(
+        "informeCategorias"
+    );
+
+    if(!contenedor) return;
 
     let html="";
 
@@ -289,9 +333,7 @@ function mostrarCategorias(categorias){
 
     });
 
-    document.getElementById(
-        "informeCategorias"
-    ).innerHTML=html;
+    contenedor.innerHTML=html;
 
 }
 
@@ -300,6 +342,13 @@ function mostrarCategorias(categorias){
 // ==========================
 
 function mostrarStockBajo(){
+
+    const contenedor =
+    document.getElementById(
+        "informeStockBajo"
+    );
+
+    if(!contenedor) return;
 
     let html="";
 
@@ -347,23 +396,27 @@ function mostrarStockBajo(){
 
     }
 
-    document.getElementById(
-        "informeStockBajo"
-    ).innerHTML=html;
+    contenedor.innerHTML=html;
 
 }
-
 // ==========================
 // SIN STOCK
 // ==========================
 
 function mostrarSinStock(){
 
+    const contenedor =
+    document.getElementById(
+        "informeSinStock"
+    );
+
+    if(!contenedor) return;
+
     let html="";
 
     productos.forEach((p)=>{
 
-        if(Number(p.stock)===0){
+        if((Number(p.stock)||0)===0){
 
             html+=`
 
@@ -391,9 +444,7 @@ function mostrarSinStock(){
 
     }
 
-    document.getElementById(
-        "informeSinStock"
-    ).innerHTML=html;
+    contenedor.innerHTML=html;
 
 }
 
@@ -403,21 +454,32 @@ function mostrarSinStock(){
 
 function mostrarTopValor(){
 
+    const contenedor =
+    document.getElementById(
+        "informeValor"
+    );
+
+    if(!contenedor) return;
+
     let html="";
 
     [...productos]
 
     .sort((a,b)=>{
 
-        const valorA=
-        (Number(a.stock)||0)*
-        (Number(a.precio)||0);
+        return (
 
-        const valorB=
-        (Number(b.stock)||0)*
-        (Number(b.precio)||0);
+            (Number(b.stock)||0) *
+            (Number(b.precio)||0)
 
-        return valorB-valorA;
+        )-
+
+        (
+
+            (Number(a.stock)||0) *
+            (Number(a.precio)||0)
+
+        );
 
     })
 
@@ -425,9 +487,9 @@ function mostrarTopValor(){
 
     .forEach((p)=>{
 
-        const valor=
+        const valor =
 
-        (Number(p.stock)||0)*
+        (Number(p.stock)||0) *
         (Number(p.precio)||0);
 
         html+=`
@@ -454,9 +516,13 @@ function mostrarTopValor(){
 
     });
 
-    document.getElementById(
-        "informeValor"
-    ).innerHTML=html;
+    if(html===""){
+
+        html="<p>No hay productos.</p>";
+
+    }
+
+    contenedor.innerHTML=html;
 
 }
 
@@ -474,7 +540,7 @@ function exportarExcel(){
 
     }
 
-    const datos=[];
+    const datosExcel=[];
 
     let valorTotal=0;
 
@@ -487,7 +553,7 @@ function exportarExcel(){
 
         valorTotal+=valor;
 
-        datos.push({
+        datosExcel.push({
 
             Código:p.codigo||"",
 
@@ -507,9 +573,9 @@ function exportarExcel(){
 
     });
 
-    datos.push({});
+    datosExcel.push({});
 
-    datos.push({
+    datosExcel.push({
 
         Producto:"TOTAL INVENTARIO",
 
@@ -517,12 +583,12 @@ function exportarExcel(){
 
     });
 
-    const hoja=
+    const hoja =
+    XLSX.utils.json_to_sheet(
+        datosExcel
+    );
 
-    XLSX.utils.json_to_sheet(datos);
-
-    const libro=
-
+    const libro =
     XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(
@@ -549,17 +615,22 @@ function exportarExcel(){
 // EVENTOS
 // ==========================
 
-document
-
-.getElementById("exportarCSV")
-
-.addEventListener(
-
-    "click",
-
-    exportarExcel
-
+const botonExportar =
+document.getElementById(
+    "exportarCSV"
 );
+
+if(botonExportar){
+
+    botonExportar.addEventListener(
+
+        "click",
+
+        exportarExcel
+
+    );
+
+}
 
 // ==========================
 // INICIO
