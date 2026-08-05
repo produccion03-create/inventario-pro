@@ -4,13 +4,11 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Configuración</title>
+<title>Configuración | Inventario Pro</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,175 +17,348 @@
 
 </head>
 
+
 <body>
+
 
 <div class="layout">
 
-<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
 <div class="logo">
-
 📦 Inventario Pro
-
 </div>
+
 
 <nav>
 
 <a href="index.html">🏠 Dashboard</a>
-
 <a href="productos.html">📦 Productos</a>
-
 <a href="entrada.html">➕ Entradas</a>
-
 <a href="salida.html">➖ Salidas</a>
-
 <a href="movimientos.html">📋 Movimientos</a>
-
 <a href="scanner.html">📷 Escáner</a>
-
 <a href="informes.html">📊 Informes</a>
-
 <a href="configuracion.html" class="activo">⚙ Configuración</a>
 
 </nav>
 
+
 </aside>
 
-<!-- CONTENIDO -->
+
 
 <div class="contenido">
+
 
 <div class="topbar">
 
 <div>
 
-<h1>Configuración</h1>
+<h1>
+Configuración
+</h1>
 
-<p>Datos generales de la empresa y preferencias del sistema.</p>
+<p>
+Preferencias generales de Inventario Pro.
+</p>
 
 </div>
 
 </div>
+
+
+
 
 <div class="app">
 
-<!-- TARJETAS -->
+
+
+
 
 <div class="dashboard">
+
 
 <div class="card card-productos">
 
 <h3>🏢 Empresa</h3>
 
-<span>⚙</span>
+<span>
+⚙
+</span>
 
-<p>Información de la empresa</p>
+<p>
+Datos generales
+</p>
 
 </div>
+
+
 
 <div class="card card-valor">
 
-<h3>👤 Responsable</h3>
+<h3>📦 Stock</h3>
 
-<span>👤</span>
+<span>
+📊
+</span>
 
-<p>Datos de contacto</p>
+<p>
+Control del inventario
+</p>
 
 </div>
 
+
+
+<div class="card">
+
+<h3>💶 IVA</h3>
+
+<span>
+%
+</span>
+
+<p>
+Configuración fiscal
+</p>
+
 </div>
 
-<!-- FORMULARIO -->
+
+
+</div>
+
+
+
+
+
+
 
 <div class="panel">
 
-<h2>Datos de la empresa</h2>
+
+<h2>
+🏢 Datos empresa
+</h2>
+
+
 
 <div class="grid-form">
 
-<div>
-
-<label>Empresa</label>
-
-<input
-type="text"
-id="empresa"
-placeholder="Nombre de la empresa">
-
-</div>
 
 <div>
 
-<label>Responsable</label>
+<label>
+Empresa
+</label>
 
-<input
-type="text"
-id="responsable"
-placeholder="Nombre del responsable">
+<input id="empresa">
+
 
 </div>
+
+
 
 <div>
 
-<label>Teléfono</label>
+<label>
+Responsable
+</label>
 
-<input
-type="text"
-id="telefono"
-placeholder="Número de teléfono">
+<input id="responsable">
+
 
 </div>
+
+
 
 <div>
 
-<label>Correo electrónico</label>
+<label>
+Teléfono
+</label>
+
+<input id="telefono">
+
+
+</div>
+
+
+
+<div>
+
+<label>
+Correo
+</label>
+
+<input id="email">
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel">
+
+
+<h2>
+⚙ Preferencias
+</h2>
+
+
+<div class="grid-form">
+
+
+<div>
+
+<label>
+IVA (%)
+</label>
 
 <input
-type="email"
-id="email"
-placeholder="correo@empresa.com">
+type="number"
+id="iva"
+value="21">
 
 </div>
 
+
+
+<div>
+
+<label>
+Stock mínimo por defecto
+</label>
+
+<input
+type="number"
+id="stockMinimo"
+value="5">
+
 </div>
+
+
+
+</div>
+
+
 
 <br>
 
-<button
-id="guardar"
-class="btn-verde">
+
+<button id="guardar" class="btn-verde">
 
 💾 Guardar configuración
 
 </button>
 
+
 </div>
 
-<!-- INFORMACIÓN -->
+
+
+
+
+
+
+
 
 <div class="panel">
 
-<h2>Información</h2>
+
+<h2>
+💾 Copias de seguridad
+</h2>
+
+
+
+<button id="backup">
+
+📥 Exportar copia de seguridad
+
+</button>
+
+
+
+<button id="restaurar">
+
+📤 Restaurar copia
+
+</button>
+
+
+
+<input 
+type="file"
+id="archivoBackup"
+accept=".json"
+style="display:none">
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel">
+
+
+<h2>
+ℹ Información
+</h2>
+
 
 <div class="movimiento">
 
-<h3>📦 Inventario Pro</h3>
 
-<p>Los datos de esta pantalla se almacenan en Firebase y estarán disponibles para futuras funciones como informes, documentos PDF, albaranes y etiquetas.</p>
+<h3>
+📦 Inventario Pro
+</h3>
+
+
+<p>
+La configuración se guarda en Firebase y será utilizada para informes, documentos PDF, etiquetas y futuras mejoras.
+</p>
+
 
 </div>
 
-</div>
 
 </div>
 
-</div>
+
+
+
 
 </div>
+
+
+</div>
+
+
+</div>
+
+
+
 
 <script type="module" src="JS/configuracion.js"></script>
+
 
 </body>
 
