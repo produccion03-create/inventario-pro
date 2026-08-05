@@ -9,17 +9,77 @@
 
 <title>Escáner</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="CSS/style.css">
 
 </head>
 
 <body>
 
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+📦 Inventario Pro
+
+</div>
+
+<nav>
+
+<a href="index.html">🏠 Dashboard</a>
+
+<a href="productos.html">📦 Productos</a>
+
+<a href="entrada.html">➕ Entradas</a>
+
+<a href="salida.html">➖ Salidas</a>
+
+<a href="movimientos.html">📋 Movimientos</a>
+
+<a href="scanner.html" class="activo">📷 Escáner</a>
+
+<a href="informes.html">📊 Informes</a>
+
+<a href="configuracion.html">⚙ Configuración</a>
+
+</nav>
+
+</aside>
+
+<!-- CONTENIDO -->
+
+<div class="contenido">
+
+<div class="topbar">
+
+<div>
+
+<h1>Escáner</h1>
+
+<p>Escanea un código QR o código de barras para consultar el producto.</p>
+
+</div>
+
+</div>
+
 <div class="app">
 
-<h1>📷 Escanear código</h1>
+<div class="panel">
+
+<h2>📷 Cámara</h2>
 
 <div id="lector"></div>
+
+</div>
 
 <div id="resultado" class="panel">
 
@@ -27,15 +87,18 @@ Esperando código...
 
 </div>
 
-<div id="panelMovimiento" class="panel" style="display:none;">
+<div
+id="panelMovimiento"
+class="panel"
+style="display:none;">
 
 <h2>Movimiento de stock</h2>
 
-<p>
+<label>
 
 Cantidad
 
-</p>
+</label>
 
 <input
 type="number"
@@ -47,19 +110,19 @@ min="1">
 
 <button id="entrada">
 
-📥 Confirmar entrada
+📥 Registrar entrada
 
 </button>
 
 <button id="salida">
 
-📤 Confirmar salida
+📤 Registrar salida
 
 </button>
 
 </div>
 
-<br>
+<div class="panel">
 
 <button onclick="location.reload()">
 
@@ -67,13 +130,17 @@ min="1">
 
 </button>
 
-<br><br>
-
 <button onclick="location.href='index.html'">
 
 ⬅ Volver
 
 </button>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 
