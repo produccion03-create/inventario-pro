@@ -32,6 +32,7 @@ async function cargarDashboard() {
         // Las Planchas de EVA no generan avisos
         if (
             p.categoria !== "Planchas de EVA" &&
+            stock > 0 &&
             stock <= minimo
         ) {
 
@@ -68,13 +69,21 @@ async function cargarDashboard() {
 
     });
 
+    // ==========================
     // TARJETAS
+    // ==========================
 
     document.getElementById("totalProductos").textContent =
         totalProductos;
 
     document.getElementById("valorAlmacen").textContent =
-        valorAlmacen.toFixed(2) + " €";
+        valorAlmacen.toLocaleString(
+            "es-ES",
+            {
+                style: "currency",
+                currency: "EUR"
+            }
+        );
 
     document.getElementById("stockBajo").textContent =
         stockBajo;
@@ -82,16 +91,16 @@ async function cargarDashboard() {
     document.getElementById("sinStock").textContent =
         sinStock;
 
+    // ==========================
     // AVISOS
+    // ==========================
 
-    document.getElementById("avisoStockBajo").textContent =
+    document.getElementById("contadorPendientes").textContent =
         stockBajo;
 
-    document.getElementById("avisoSinStock").textContent =
-        sinStock;
-
-    document.getElementById("avisoPendientes").textContent =
-        stockBajo;
+    // ==========================
+    // RESTO
+    // ==========================
 
     mostrarCategorias(categorias);
 
@@ -102,6 +111,10 @@ async function cargarDashboard() {
     );
 
 }
+
+// ==========================
+// LISTADO CATEGORÍAS
+// ==========================
 
 function mostrarCategorias(categorias) {
 
@@ -118,39 +131,27 @@ function mostrarCategorias(categorias) {
                 <h3>📂 ${cat}</h3>
 
                 <p>
-
                     📦 Productos:
-
                     <strong>
-
                         ${categorias[cat].productos}
-
                     </strong>
-
                 </p>
 
                 <p>
-
                     📦 Stock total:
-
                     <strong>
-
                         ${categorias[cat].cantidad}
-
                     </strong>
-
                 </p>
 
                 <p>
-
                     💰 Valor:
-
                     <strong>
-
-                        ${categorias[cat].valor.toFixed(2)} €
-
+                        ${categorias[cat].valor.toLocaleString("es-ES", {
+                            style: "currency",
+                            currency: "EUR"
+                        })}
                     </strong>
-
                 </p>
 
             </div>
@@ -163,6 +164,10 @@ function mostrarCategorias(categorias) {
         lista || "No hay categorías.";
 
 }
+
+// ==========================
+// GRÁFICO
+// ==========================
 
 function crearGrafico(productos, bajo, sinStock) {
 
@@ -238,5 +243,9 @@ function crearGrafico(productos, bajo, sinStock) {
     });
 
 }
+
+// ==========================
+// INICIO
+// ==========================
 
 cargarDashboard();
