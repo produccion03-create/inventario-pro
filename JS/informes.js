@@ -4,636 +4,609 @@ import {
     getDocs
 } from "./firebase.js";
 
+
 let productos = [];
+let movimientos = [];
+
 
 // ==========================
 // CARGAR DATOS
 // ==========================
 
-async function cargarDatos() {
+async function cargarDatos(){
 
-    const datos = await getDocs(
-        collection(db, "productos")
-    );
+    try{
 
-    productos = [];
+        const [productosDB, movimientosDB] = await Promise.all([
 
-    let total = 0;
-    let valor = 0;
-    let bajo = 0;
-    let sin = 0;
+            getDocs(collection(db,"productos")),
 
-    const categorias = {};
+            getDocs(collection(db,"movimientos"))
 
-    datos.forEach((documento) => {
+        ]);
 
-        const p = documento.data();
 
-        productos.push(p);
+        productos=[];
 
-        const stock =
-        Number(p.stock) || 0;
+        movimientos=[];
 
-        const precio =
-        Number(p.precio) || 0;
 
-        const minimo =
-        Number(p.stockMinimo ?? 5);
+        productosDB.forEach(doc=>{
 
-        total++;
+            productos.push({
+                id:doc.id,
+                ...doc.data()
+            });
 
-        valor += stock * precio;
+        });
 
-        if (
-            p.categoria !== "Planchas de EVA" &&
-            stock > 0 &&
-            stock <= minimo
-        ) {
 
-            bajo++;
+        movimientosDB.forEach(doc=>{
 
-        }
+            movimientos.push({
+                id:doc.id,
+                ...doc.data()
+            });
 
-        if (stock === 0) {
+        });
+
+
+        generarInforme();
+
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+
+
+
+// ==========================
+// INFORME GENERAL
+// ==========================
+
+
+function generarInforme(){
+
+
+    let valorTotal=0;
+
+    let unidades=0;
+
+    let bajo=0;
+
+    let sin=0;
+
+
+    const categorias={};
+
+
+    productos.forEach(p=>{
+
+
+        const stock=Number(p.stock)||0;
+
+        const precio=Number(p.precio)||0;
+
+        const minimo=Number(p.stockMinimo ?? 5);
+
+
+        unidades+=stock;
+
+        valorTotal+=stock*precio;
+
+
+        if(stock===0){
 
             sin++;
 
         }
 
-        const categoria =
-        p.categoria || "Sin categoría";
 
-        if (!categorias[categoria]) {
+        if(stock>0 && stock<=minimo){
 
-            categorias[categoria] = {
+            bajo++;
 
-                cantidad: 0,
+        }
 
-                valor: 0
 
+        const cat=p.categoria || "Sin categoría";
+
+
+        if(!categorias[cat]){
+
+            categorias[cat]={
+                cantidad:0,
+                valor:0
             };
 
         }
 
-        categorias[categoria].cantidad++;
 
-        categorias[categoria].valor +=
-        stock * precio;
+        categorias[cat].cantidad++;
+
+        categorias[cat].valor += stock*precio;
+
 
     });
 
-    document.getElementById(
-        "totalProductos"
-    ).textContent = total;
 
-    document.getElementById(
-        "valorAlmacen"
-    ).textContent =
-    valor.toLocaleString(
-        "es-ES",
+
+
+    document.getElementById("totalProductos").textContent=
+    productos.length;
+
+
+    document.getElementById("valorAlmacen").textContent=
+    valorTotal.toLocaleString("es-ES",{
+        style:"currency",
+        currency:"EUR"
+    });
+
+
+    document.getElementById("totalUnidades").textContent=
+    unidades;
+
+
+    document.getElementById("stockBajo").textContent=
+    bajo;
+
+
+    document.getElementById("sinStock").textContent=
+    sin;
+
+
+
+
+    crearGraficoCategorias(categorias);
+
+    crearGraficoValor(categorias);
+
+    crearGraficoMovimientos();
+
+    crearGraficoProductosMovidos();
+
+
+    mostrarListados(categorias);
+
+}
+
+
+
+
+
+// ==========================
+// GRAFICOS
+// ==========================
+
+
+function destruir(id){
+
+    const c=document.getElementById(id);
+
+    const g=Chart.getChart(c);
+
+    if(g){
+
+        g.destroy();
+
+    }
+
+}
+
+
+
+
+
+function crearGraficoCategorias(categorias){
+
+
+    destruir("graficoInformes");
+
+
+    new Chart(
+
+        document.getElementById("graficoInformes"),
+
         {
-            style: "currency",
-            currency: "EUR"
+
+        type:"doughnut",
+
+        data:{
+
+            labels:Object.keys(categorias),
+
+            datasets:[{
+
+                data:Object.values(categorias)
+                .map(x=>x.cantidad)
+
+            }]
+
         }
-    );
 
-    document.getElementById(
-        "stockBajo"
-    ).textContent = bajo;
+        }
 
-    document.getElementById(
-        "sinStock"
-    ).textContent = sin;
-
-    crearGraficoCategorias(
-        categorias
-    );
-
-    crearGraficoValor(
-        categorias
-    );
-
-    mostrarInformes(
-        categorias
     );
 
 }
 
-// ==========================
-// GRÁFICO PRODUCTOS
-// ==========================
 
-function crearGraficoCategorias(categorias) {
 
-    const canvas =
-    document.getElementById(
-        "graficoInformes"
-    );
 
-    if (!canvas) return;
 
-    const grafico =
-    Chart.getChart(canvas);
+function crearGraficoValor(categorias){
 
-    if (grafico) {
 
-        grafico.destroy();
+    destruir("graficoValorCategorias");
 
-    }
 
-    new Chart(canvas, {
+    new Chart(
 
-        type: "doughnut",
+        document.getElementById("graficoValorCategorias"),
 
-        data: {
+        {
 
-            labels:
-            Object.keys(categorias),
+        type:"bar",
 
-            datasets: [{
+        data:{
 
-                data:
-                Object.values(categorias)
-                .map(c => c.cantidad),
+            labels:Object.keys(categorias),
 
-                backgroundColor: [
+            datasets:[{
 
-                    "#2563eb",
-                    "#16a34a",
-                    "#f59e0b",
-                    "#dc2626",
-                    "#7c3aed",
-                    "#0891b2",
-                    "#ea580c",
-                    "#0f766e"
+                label:"€",
 
-                ],
-
-                borderWidth: 0
+                data:Object.values(categorias)
+                .map(x=>x.valor)
 
             }]
 
-        },
-
-        options: {
-
-            responsive: true,
-
-            maintainAspectRatio: false,
-
-            plugins: {
-
-                legend: {
-
-                    position: "bottom"
-
-                }
-
-            }
+        }
 
         }
+
+    );
+
+}
+
+
+
+
+
+function crearGraficoMovimientos(){
+
+
+    destruir("graficoMovimientos");
+
+
+    const meses={};
+
+
+    movimientos.forEach(m=>{
+
+
+        if(!m.fecha?.toDate)return;
+
+
+        const fecha=m.fecha.toDate();
+
+
+        const mes=
+        fecha.toLocaleString(
+            "es-ES",
+            {month:"short"}
+        );
+
+
+        if(!meses[mes]){
+
+            meses[mes]={
+                entrada:0,
+                salida:0
+            };
+
+        }
+
+
+        if(m.tipo==="Entrada"){
+
+            meses[mes].entrada+=Number(m.cantidad)||0;
+
+        }else{
+
+            meses[mes].salida+=Number(m.cantidad)||0;
+
+        }
+
 
     });
 
-}
-// ==========================
-// GRÁFICO VALOR CATEGORÍAS
-// ==========================
 
-function crearGraficoValor(categorias) {
 
-    const canvas =
-    document.getElementById(
-        "graficoValorCategorias"
-    );
+    new Chart(
 
-    if (!canvas) return;
+        document.getElementById("graficoMovimientos"),
 
-    const grafico =
-    Chart.getChart(canvas);
+        {
 
-    if (grafico) {
+        type:"bar",
 
-        grafico.destroy();
+        data:{
 
-    }
+            labels:Object.keys(meses),
 
-    new Chart(canvas, {
+            datasets:[
 
-        type: "bar",
+            {
 
-        data: {
+            label:"Entradas",
 
-            labels:
-            Object.keys(categorias),
-
-            datasets: [{
-
-                label: "Valor (€)",
-
-                data:
-                Object.values(categorias)
-                .map(c => c.valor),
-
-                backgroundColor:
-                "#2563eb",
-
-                borderRadius: 8
-
-            }]
-
-        },
-
-        options: {
-
-            responsive: true,
-
-            maintainAspectRatio: false,
-
-            plugins: {
-
-                legend: {
-
-                    display: false
-
-                }
+            data:Object.values(meses)
+            .map(x=>x.entrada)
 
             },
 
-            scales: {
+            {
 
-                y: {
+            label:"Salidas",
 
-                    beginAtZero: true
-
-                }
+            data:Object.values(meses)
+            .map(x=>x.salida)
 
             }
 
-        }
-
-    });
-
-}
-
-// ==========================
-// INFORMES
-// ==========================
-
-function mostrarInformes(categorias){
-
-    mostrarCategorias(categorias);
-
-    mostrarStockBajo();
-
-    mostrarSinStock();
-
-    mostrarTopValor();
-
-}
-
-// ==========================
-// VALOR POR CATEGORÍAS
-// ==========================
-
-function mostrarCategorias(categorias){
-
-    const contenedor =
-    document.getElementById(
-        "informeCategorias"
-    );
-
-    if(!contenedor) return;
-
-    let html="";
-
-    Object.entries(categorias).forEach(([nombre,datos])=>{
-
-        html+=`
-
-        <div class="fila-informe">
-
-            <span>${nombre}</span>
-
-            <strong>
-
-                ${datos.valor.toLocaleString(
-                    "es-ES",
-                    {
-                        style:"currency",
-                        currency:"EUR"
-                    }
-                )}
-
-            </strong>
-
-        </div>
-
-        `;
-
-    });
-
-    contenedor.innerHTML=html;
-
-}
-
-// ==========================
-// STOCK BAJO
-// ==========================
-
-function mostrarStockBajo(){
-
-    const contenedor =
-    document.getElementById(
-        "informeStockBajo"
-    );
-
-    if(!contenedor) return;
-
-    let html="";
-
-    productos.forEach((p)=>{
-
-        const stock=
-        Number(p.stock)||0;
-
-        const minimo=
-        Number(p.stockMinimo??5);
-
-        if(
-
-            p.categoria!=="Planchas de EVA" &&
-
-            stock>0 &&
-
-            stock<=minimo
-
-        ){
-
-            html+=`
-
-            <div class="fila-informe">
-
-                <span>${p.nombre}</span>
-
-                <strong style="color:#f59e0b">
-
-                    ${stock}
-
-                </strong>
-
-            </div>
-
-            `;
+            ]
 
         }
 
-    });
+        }
 
-    if(html===""){
-
-        html="<p>✅ No hay productos con stock bajo.</p>";
-
-    }
-
-    contenedor.innerHTML=html;
-
-}
-// ==========================
-// SIN STOCK
-// ==========================
-
-function mostrarSinStock(){
-
-    const contenedor =
-    document.getElementById(
-        "informeSinStock"
     );
 
-    if(!contenedor) return;
 
-    let html="";
+}
 
-    productos.forEach((p)=>{
 
-        if((Number(p.stock)||0)===0){
 
-            html+=`
 
-            <div class="fila-informe">
 
-                <span>${p.nombre}</span>
+function crearGraficoProductosMovidos(){
 
-                <strong style="color:#dc2626">
 
-                    Agotado
+    destruir("graficoProductosMovidos");
 
-                </strong>
 
-            </div>
+    const ranking={};
 
-            `;
+
+    movimientos.forEach(m=>{
+
+
+        ranking[m.producto]=
+        (ranking[m.producto]||0)+
+        (Number(m.cantidad)||0);
+
+
+    });
+
+
+
+    const datos=
+    Object.entries(ranking)
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,10);
+
+
+
+    new Chart(
+
+        document.getElementById("graficoProductosMovidos"),
+
+        {
+
+        type:"bar",
+
+        data:{
+
+            labels:datos.map(x=>x[0]),
+
+            datasets:[{
+
+                label:"Unidades",
+
+                data:datos.map(x=>x[1])
+
+            }]
 
         }
 
-    });
+        }
 
-    if(html===""){
-
-        html="<p>✅ No hay productos agotados.</p>";
-
-    }
-
-    contenedor.innerHTML=html;
+    );
 
 }
 
+
+
+
+
 // ==========================
-// TOP 10 VALOR
+// LISTADOS
 // ==========================
 
-function mostrarTopValor(){
 
-    const contenedor =
-    document.getElementById(
-        "informeValor"
-    );
+function mostrarListados(categorias){
 
-    if(!contenedor) return;
 
-    let html="";
+    document.getElementById("informeCategorias").innerHTML=
 
-    [...productos]
+    Object.entries(categorias)
+    .map(([c,v])=>
 
-    .sort((a,b)=>{
+    `<div class="fila-informe">
+    <span>${c}</span>
+    <strong>${v.valor.toFixed(2)} €</strong>
+    </div>`
 
-        return (
+    ).join("");
 
-            (Number(b.stock)||0) *
-            (Number(b.precio)||0)
 
-        )-
 
-        (
 
-            (Number(a.stock)||0) *
-            (Number(a.precio)||0)
 
-        );
+    document.getElementById("informeStockBajo").innerHTML=
+
+    productos.filter(p=>{
+
+        const s=Number(p.stock)||0;
+
+        return s>0 && s<=Number(p.stockMinimo??5);
 
     })
+    .map(p=>
 
+    `<div class="fila-informe">
+    <span>${p.nombre}</span>
+    <strong>${p.stock}</strong>
+    </div>`
+
+    ).join("") || "✅ Todo correcto";
+
+
+
+
+
+    document.getElementById("informeSinStock").innerHTML=
+
+    productos.filter(p=>
+
+        Number(p.stock)===0
+
+    )
+    .map(p=>
+
+    `<div class="fila-informe">
+    <span>${p.nombre}</span>
+    <strong>Agotado</strong>
+    </div>`
+
+    ).join("") || "✅ Sin agotados";
+
+
+
+
+
+
+    document.getElementById("informeValor").innerHTML=
+
+    [...productos]
+    .sort((a,b)=>
+
+    (b.stock*b.precio)-(a.stock*a.precio)
+
+    )
     .slice(0,10)
+    .map(p=>
 
-    .forEach((p)=>{
+    `<div class="fila-informe">
+    <span>${p.nombre}</span>
+    <strong>${(p.stock*p.precio).toFixed(2)} €</strong>
+    </div>`
 
-        const valor =
-
-        (Number(p.stock)||0) *
-        (Number(p.precio)||0);
-
-        html+=`
-
-        <div class="fila-informe">
-
-            <span>${p.nombre}</span>
-
-            <strong>
-
-                ${valor.toLocaleString(
-                    "es-ES",
-                    {
-                        style:"currency",
-                        currency:"EUR"
-                    }
-                )}
-
-            </strong>
-
-        </div>
-
-        `;
-
-    });
-
-    if(html===""){
-
-        html="<p>No hay productos.</p>";
-
-    }
-
-    contenedor.innerHTML=html;
+    ).join("");
 
 }
+
+
+
+
 
 // ==========================
 // EXPORTAR EXCEL
 // ==========================
 
-function exportarExcel(){
 
-    if(productos.length===0){
+document.getElementById("exportarCSV")
+?.addEventListener("click",()=>{
 
-        alert("No hay productos para exportar.");
 
-        return;
+const hoja=XLSX.utils.json_to_sheet(productos);
 
-    }
+const libro=XLSX.utils.book_new();
 
-    const datosExcel=[];
-
-    let valorTotal=0;
-
-    productos.forEach((p)=>{
-
-        const valor=
-
-        (Number(p.stock)||0)*
-        (Number(p.precio)||0);
-
-        valorTotal+=valor;
-
-        datosExcel.push({
-
-            Código:p.codigo||"",
-
-            Producto:p.nombre||"",
-
-            Categoría:p.categoria||"",
-
-            Stock:Number(p.stock)||0,
-
-            Precio:Number(p.precio)||0,
-
-            "Stock mínimo":Number(p.stockMinimo)||5,
-
-            Valor:valor
-
-        });
-
-    });
-
-    datosExcel.push({});
-
-    datosExcel.push({
-
-        Producto:"TOTAL INVENTARIO",
-
-        Valor:valorTotal
-
-    });
-
-    const hoja =
-    XLSX.utils.json_to_sheet(
-        datosExcel
-    );
-
-    const libro =
-    XLSX.utils.book_new();
-
-    XLSX.utils.book_append_sheet(
-
-        libro,
-
-        hoja,
-
-        "Inventario"
-
-    );
-
-    XLSX.writeFile(
-
-        libro,
-
-        "Inventario_Pro.xlsx"
-
-    );
-
-}
-
-// ==========================
-// EVENTOS
-// ==========================
-
-const botonExportar =
-document.getElementById(
-    "exportarCSV"
+XLSX.utils.book_append_sheet(
+    libro,
+    hoja,
+    "Inventario"
 );
 
-if(botonExportar){
 
-    botonExportar.addEventListener(
+XLSX.writeFile(
+    libro,
+    "Inventario_Pro.xlsx"
+);
 
-        "click",
 
-        exportarExcel
+});
 
-    );
 
-}
+
+
 
 // ==========================
-// INICIO
+// PDF
 // ==========================
+
+
+document.getElementById("exportarPDF")
+?.addEventListener("click",()=>{
+
+
+const {jsPDF}=window.jspdf;
+
+
+const pdf=new jsPDF();
+
+
+pdf.text(
+"Inventario Pro - Informe",
+15,
+15
+);
+
+
+pdf.autoTable({
+
+startY:25,
+
+head:[["Producto","Stock","Precio"]],
+
+body:
+
+productos.map(p=>[
+p.nombre,
+p.stock,
+p.precio
+])
+
+});
+
+
+pdf.save(
+"Informe_Inventario.pdf"
+);
+
+
+});
+
+
+
+
 
 cargarDatos();
