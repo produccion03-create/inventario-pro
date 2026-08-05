@@ -6,45 +6,66 @@ import {
 
 let pendientes = [];
 
+// ==========================
+// CARGAR PENDIENTES
+// ==========================
+
 async function cargarPendientes() {
 
-    const lista = document.getElementById("listaPendientes");
+    const lista =
+    document.getElementById(
+        "listaPendientes"
+    );
 
-    lista.innerHTML = "Cargando...";
+    lista.innerHTML =
+    "Cargando...";
 
     pendientes = [];
 
-    const datos = await getDocs(
-        collection(db, "productos")
+    const datos =
+    await getDocs(
+        collection(db,"productos")
     );
 
-    datos.forEach((documento) => {
+    datos.forEach((documento)=>{
 
-        const p = documento.data();
+        const p =
+        documento.data();
 
-        // Ignorar Planchas de EVA
-        if (p.categoria === "Planchas de EVA") return;
+        // No controlar EVA
 
-        const stock = Number(p.stock) || 0;
-        const minimo = Number(p.stockMinimo ?? 5);
+        if(
+            p.categoria ===
+            "Planchas de EVA"
+        ) return;
 
-        if (stock <= minimo) {
+        const stock =
+        Number(p.stock)||0;
+
+        const minimo =
+        Number(p.stockMinimo??5);
+
+        if(stock<=minimo){
 
             pendientes.push({
 
-                id: documento.id,
+                id:documento.id,
 
-                nombre: p.nombre,
+                codigo:p.codigo||"",
 
-                codigo: p.codigo,
+                nombre:p.nombre||"",
 
-                categoria: p.categoria,
+                categoria:p.categoria||"",
 
-                stock: stock,
+                stock:stock,
 
-                minimo: minimo,
+                minimo:minimo,
 
-                precio: Number(p.precio) || 0
+                precio:Number(p.precio)||0,
+
+                valor:
+                stock*
+                (Number(p.precio)||0)
 
             });
 
@@ -56,58 +77,86 @@ async function cargarPendientes() {
 
 }
 
-function mostrarPendientes() {
+// ==========================
+// MOSTRAR
+// ==========================
 
-    const lista = document.getElementById("listaPendientes");
+function mostrarPendientes(){
 
-    const texto = document
-        .getElementById("buscar")
-        .value
-        .toLowerCase();
+    const lista =
+    document.getElementById(
+        "listaPendientes"
+    );
 
-    lista.innerHTML = "";
+    const texto =
+    document
+    .getElementById("buscar")
+    .value
+    .toLowerCase()
+    .trim();
 
-    let contadorBajo = 0;
-    let contadorSinStock = 0;
+    lista.innerHTML="";
 
-    pendientes.sort((a, b) => a.stock - b.stock);
+    let contadorBajo=0;
 
-    pendientes.forEach((p) => {
+    let contadorSinStock=0;
 
-        const nombre = p.nombre.toLowerCase();
-        const codigo = p.codigo.toLowerCase();
+    pendientes
 
-        if (
-            !nombre.includes(texto) &&
-            !codigo.includes(texto)
-        ) {
+    .sort((a,b)=>a.stock-b.stock)
+
+    .forEach((p)=>{
+
+        if(
+
+            !p.nombre
+            .toLowerCase()
+            .includes(texto)
+
+            &&
+
+            !p.codigo
+            .toLowerCase()
+            .includes(texto)
+
+        ){
+
             return;
+
         }
 
-        let color = "#f59e0b";
-        let estado = "🟠 Stock bajo";
+        let estado="🟠 Stock bajo";
 
-        if (p.stock === 0) {
+        let color="#f59e0b";
 
-            color = "#dc2626";
-            estado = "🔴 Sin stock";
+        if(p.stock===0){
+
+            estado="🔴 Sin stock";
+
+            color="#dc2626";
+
             contadorSinStock++;
 
-        } else {
+        }else{
 
             contadorBajo++;
 
         }
 
-        lista.innerHTML += `
+        lista.innerHTML+=`
 
-        <div
-        class="movimiento"
-        style="border-left:8px solid ${color};">
+        <div class="movimiento"
+        style="border-left:8px solid ${color}">
 
             <h3>${estado}</h3>
 
-            <h2>${p.nombre}</h2>
+            <p>
+
+                <strong>📦 Producto:</strong>
+
+                ${p.nombre}
+
+            </p>
 
             <p>
 
@@ -151,9 +200,15 @@ function mostrarPendientes() {
 
             <p>
 
-                <strong>💵 Valor stock:</strong>
+                <strong>💵 Valor:</strong>
 
-                ${(p.stock * p.precio).toFixed(2)} €
+                ${p.valor.toLocaleString(
+                    "es-ES",
+                    {
+                        style:"currency",
+                        currency:"EUR"
+                    }
+                )}
 
             </p>
 
@@ -163,9 +218,9 @@ function mostrarPendientes() {
 
     });
 
-    if (lista.innerHTML === "") {
+    if(lista.innerHTML===""){
 
-        lista.innerHTML = `
+        lista.innerHTML=`
 
         <div class="panel">
 
@@ -177,16 +232,34 @@ function mostrarPendientes() {
 
     }
 
-    document.getElementById("contadorBajo").textContent =
-        contadorBajo;
+    document.getElementById(
+        "contadorBajo"
+    ).textContent=contadorBajo;
 
-    document.getElementById("contadorSinStock").textContent =
-        contadorSinStock;
+    document.getElementById(
+        "contadorSinStock"
+    ).textContent=contadorSinStock;
 
 }
 
+// ==========================
+// BUSCADOR
+// ==========================
+
 document
-    .getElementById("buscar")
-    .addEventListener("input", mostrarPendientes);
+
+.getElementById("buscar")
+
+.addEventListener(
+
+    "input",
+
+    mostrarPendientes
+
+);
+
+// ==========================
+// INICIO
+// ==========================
 
 cargarPendientes();
