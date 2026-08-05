@@ -7,7 +7,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pendientes</title>
+<title>Productos pendientes</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="CSS/style.css">
 
@@ -15,9 +21,59 @@
 
 <body>
 
-<div class="app">
+<div class="layout">
 
-<h1>📋 Productos pendientes</h1>
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+📦 Inventario Pro
+
+</div>
+
+<nav>
+
+<a href="index.html">🏠 Dashboard</a>
+
+<a href="productos.html">📦 Productos</a>
+
+<a href="entrada.html">➕ Entradas</a>
+
+<a href="salida.html">➖ Salidas</a>
+
+<a href="movimientos.html">📋 Movimientos</a>
+
+<a href="scanner.html">📷 Escáner</a>
+
+<a href="informes.html">📊 Informes</a>
+
+<a href="pendientes.html" class="activo">📋 Pendientes</a>
+
+<a href="configuracion.html">⚙ Configuración</a>
+
+</nav>
+
+</aside>
+
+<!-- CONTENIDO -->
+
+<div class="contenido">
+
+<div class="topbar">
+
+<div>
+
+<h1>Productos pendientes</h1>
+
+<p>Productos con stock bajo o agotados.</p>
+
+</div>
+
+</div>
+
+<div class="app">
 
 <div class="panel">
 
@@ -26,11 +82,9 @@
 <input
 type="text"
 id="buscar"
-placeholder="Nombre o código...">
+placeholder="Buscar por nombre o código...">
 
 </div>
-
-<br>
 
 <div class="dashboard">
 
@@ -40,7 +94,7 @@ placeholder="Nombre o código...">
 
 <span id="contadorBajo">0</span>
 
-<p>Necesitan revisión</p>
+<p>Necesitan reposición</p>
 
 </div>
 
@@ -50,13 +104,15 @@ placeholder="Nombre o código...">
 
 <span id="contadorSinStock">0</span>
 
-<p>Agotados</p>
+<p>Productos agotados</p>
 
 </div>
 
 </div>
 
-<br>
+<div class="panel">
+
+<h2>📋 Listado</h2>
 
 <div id="listaPendientes">
 
@@ -64,15 +120,19 @@ Cargando...
 
 </div>
 
-<br>
+</div>
 
-<div style="text-align:center;">
+<div class="panel">
 
 <button onclick="location.href='index.html'">
 
 ⬅ Volver al Dashboard
 
 </button>
+
+</div>
+
+</div>
 
 </div>
 
