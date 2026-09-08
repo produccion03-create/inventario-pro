@@ -1486,7 +1486,188 @@ gap:5px;
 }
 
 }
+/* ==========================================================
+   REVISION DE STOCK
+========================================================== */
 
+.revision-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.revision-cabecera h2 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    color: #1f2937;
+}
+
+.revision-cabecera p {
+    margin: 0;
+    color: #6b7280;
+}
+
+.revision-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.revision-producto {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 35px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.revision-producto h2 {
+    margin: 0 0 25px;
+    font-size: 30px;
+    color: #111827;
+}
+
+.datos-producto {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.datos-producto p {
+    margin: 0;
+    padding: 18px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    color: #374151;
+}
+
+.datos-producto strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+#stockFisico {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 22px;
+    text-align: center;
+}
+
+#marcarRevisado {
+    width: 100%;
+    margin-top: 15px;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#marcarRevisado:hover {
+    background: #1d4ed8;
+}
+
+.btn-secundario {
+    padding: 12px 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    background: white;
+    color: #374151;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secundario:hover {
+    background: #f3f4f6;
+}
+
+.btn-secundario:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.alerta-info,
+.alerta-exito {
+    margin: 15px 0;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.alerta-info {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.alerta-exito {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.item-pendiente {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.item-pendiente:last-child {
+    border-bottom: none;
+}
+
+.item-pendiente strong {
+    color: #1f2937;
+}
+
+.item-pendiente span {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+@media (max-width: 700px) {
+
+    .revision-cabecera {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .revision-botones {
+        width: 100%;
+    }
+
+    .revision-botones button {
+        flex: 1;
+    }
+
+    .datos-producto {
+        grid-template-columns: 1fr;
+    }
+
+    .revision-producto {
+        padding: 20px;
+    }
+
+    .item-pendiente {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
 /* ==========================================================
    FIN
 ========================================================== */
