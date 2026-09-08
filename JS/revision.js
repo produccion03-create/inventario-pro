@@ -111,6 +111,7 @@ categoriaSelect.addEventListener("change", async () => {
     nombreCategoria.textContent = categoriaActual;
 
     panelRevision.style.display = "block";
+panelPendientes.style.display = "block";
 
     await mostrarProducto();
     await mostrarPendientes();
