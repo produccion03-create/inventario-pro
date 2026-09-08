@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisión de stock</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <h2>Inventario Pro</h2>
+
+        <nav>
+            <a href="index.html">Dashboard</a>
+            <a href="productos.html">Productos</a>
+            <a href="scanner.html">Scanner</a>
+            <a href="entrada.html">Entrada</a>
+            <a href="salida.html">Salida</a>
+            <a href="movimientos.html">Movimientos</a>
+            <a href="informes.html">Informes</a>
+            <a href="configuracion.html">Configuración</a>
+            <a href="pendientes.html">Pendientes</a>
+            <a href="revision.html" class="activo">Revisión de stock</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <h1>Revisión de stock</h1>
+        </header>
+
+        <section class="panel">
+
+            <div class="form-group">
+                <label for="categoria">Seleccionar categoría</label>
+
+                <select id="categoria">
+                    <option value="">Cargando categorías...</option>
+                </select>
+            </div>
+
+            <div id="contadorRevision" class="alerta-info">
+                Selecciona una categoría para comenzar.
+            </div>
+
+        </section>
+
+        <section class="panel" id="panelRevision" style="display:none;">
+
+            <div class="revision-cabecera">
+                <div>
+                    <h2 id="nombreCategoria">Categoría</h2>
+                    <p id="progresoRevision">Producto 1 de 1</p>
+                </div>
+
+                <div class="revision-botones">
+                    <button id="anterior" class="btn-secundario">
+                        Anterior
+                    </button>
+
+                    <button id="siguiente" class="btn-secundario">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+
+            <div class="revision-producto">
+
+                <h2 id="nombreProducto">Producto</h2>
+
+                <div class="datos-producto">
+                    <p>
+                        <strong>Código:</strong>
+                        <span id="codigoProducto">-</span>
+                    </p>
+
+                    <p>
+                        <strong>Stock registrado:</strong>
+                        <span id="stockSistema">0</span>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="stockFisico">
+                        Stock físico contado
+                    </label>
+
+                    <input
+                        type="number"
+                        id="stockFisico"
+                        min="0"
+                        step="1"
+                        placeholder="Introduce la cantidad contada"
+                    >
+                </div>
+
+                <div id="estadoProducto" class="alerta-info">
+                    Producto pendiente de revisar.
+                </div>
+
+                <button id="marcarRevisado" class="btn-principal">
+                    Marcar como revisado
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="panel">
+
+            <h2>Productos pendientes de esta categoría</h2>
+
+            <div id="listaPendientesRevision">
+                Selecciona una categoría para ver los productos pendientes.
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script type="module" src="JS/revision.js"></script>
+
+</body>
+</html>
