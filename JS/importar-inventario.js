@@ -7,7 +7,7 @@ import {
     setDoc
 } from "./firebase.js";
 
-import { INVENTARIO_AGOSTO_2026 } from "./inventario-agosto-2026.js";
+import { INVENTARIO_AGOSTO_2026 } from "./inventario-agosto-2026.js?v=precios-20260921-2";
 
 const btn = document.getElementById("btnImportar");
 const resumen = document.getElementById("resumenImportacion");
