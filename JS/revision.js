@@ -1,202 +1,36 @@
-import {
-    db,
-    collection,
-    getDocs,
-    getDoc,
-    doc,
-    setDoc,
-    serverTimestamp
-} from "./firebase.js";
-
-const FAMILIAS = [
-    "Stock de planchas",
-    "Envases y embalaje",
-    "Materias primas auxiliares",
-    "Stock de productos terminados"
-];
-
-const categoria = document.getElementById("categoria");
-const contador = document.getElementById("contadorRevision");
-const panel = document.getElementById("panelRevision");
-const nombre = document.getElementById("nombreProducto");
-const codigo = document.getElementById("codigoProducto");
-const material = document.getElementById("materialProducto");
-const descripcion = document.getElementById("descripcionProducto");
-const formato = document.getElementById("formatoProducto");
-const proveedor = document.getElementById("proveedorProducto");
-const stockSistema = document.getElementById("stockSistema");
-const stockFisico = document.getElementById("stockFisico");
-const marcar = document.getElementById("marcarRevisado");
-const anterior = document.getElementById("anteriorProducto");
-const siguiente = document.getElementById("siguienteProducto");
-const panelPendientes = document.getElementById("panelPendientes");
-
-let todos = [];
-let lista = [];
-let indice = 0;
-let revisiones = new Map();
-
-const ahora = new Date();
-const mesActual = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}`;
-
-function txt(v) {
-    return String(v ?? "").trim();
+import {db,collection,getDocs,doc,setDoc,serverTimestamp} from "./firebase.js";
+const FAMILIAS=["Stock de planchas","Envases y embalaje","Materias primas auxiliares","Stock de productos terminados"];
+const familiaSelect=document.getElementById("familia"),tbody=document.getElementById("tablaRevision"),resumen=document.getElementById("resumen");
+let productos=[],revisiones=new Map();
+const ahora=new Date(),mesActual=`${ahora.getFullYear()}-${String(ahora.getMonth()+1).padStart(2,"0")}`;
+const t=v=>String(v??"").trim(), n=v=>Number.isFinite(Number(v))?Number(v):0;
+function esc(v){return t(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
+async function cargarDatos(){
+ const [ps,rs]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"revisionesStock"))]);
+ productos=ps.docs.map(d=>({id:d.id,...d.data()})).filter(p=>p.revisionStock===true&&FAMILIAS.includes(p.familia||p.categoria));
+ revisiones.clear();rs.forEach(d=>{const r=d.data();if(r.mes===mesActual&&r.productoId)revisiones.set(r.productoId,r)});
+ familiaSelect.innerHTML='<option value="">Selecciona una familia...</option>';
+ FAMILIAS.forEach(f=>{const c=productos.filter(p=>(p.familia||p.categoria)===f).length;if(c){const o=document.createElement("option");o.value=f;o.textContent=`${f} (${c})`;familiaSelect.appendChild(o)}});
+ tbody.innerHTML='<tr><td colspan="12">Selecciona una familia para empezar la revisión.</td></tr>';
 }
-
-async function cargar() {
-    contador.textContent = "Cargando inventario...";
-
-    const [productosSnap, revisionesSnap] = await Promise.all([
-        getDocs(collection(db, "productos")),
-        getDocs(collection(db, "revisionesStock"))
-    ]);
-
-    todos = productosSnap.docs
-        .map(d => ({ id: d.id, ...d.data() }))
-        .filter(p => p.revisionStock === true && FAMILIAS.includes(p.familia || p.categoria));
-
-    revisiones.clear();
-    revisionesSnap.forEach(d => {
-        const r = d.data();
-        if (r.mes === mesActual && r.productoId) {
-            revisiones.set(r.productoId, r);
-        }
-    });
-
-    categoria.innerHTML = `<option value="">Selecciona una familia...</option>`;
-    FAMILIAS.forEach(f => {
-        const cantidad = todos.filter(p => (p.familia || p.categoria) === f).length;
-        if (cantidad > 0) {
-            const op = document.createElement("option");
-            op.value = f;
-            op.textContent = `${f} (${cantidad})`;
-            categoria.appendChild(op);
-        }
-    });
-
-    contador.textContent = `${todos.length} productos disponibles para revisión`;
+function lista(){return productos.filter(p=>(p.familia||p.categoria)===familiaSelect.value).sort((a,b)=>{const oa=t(a.origenExcel),ob=t(b.origenExcel);return oa!==ob?oa.localeCompare(ob,"es"):n(a.excelFila)-n(b.excelFila)})}
+function resumenUI(l){if(!l.length){resumen.innerHTML="";return}const r=l.filter(p=>revisiones.get(p.id)?.revisado).length;resumen.innerHTML=`<span class="chip">Total: ${l.length}</span><span class="chip">Revisados: ${r}</span><span class="chip">Pendientes: ${l.length-r}</span><span class="chip">Mes: ${mesActual}</span>`}
+function render(){
+ const l=lista();if(!familiaSelect.value){tbody.innerHTML='<tr><td colspan="12">Selecciona una familia.</td></tr>';resumenUI([]);return}
+ tbody.innerHTML=l.map(p=>{const r=revisiones.get(p.id),f=r?.stockFisico??"",d=f===""?"":n(f)-n(p.stock),ok=!!r?.revisado;return `<tr data-id="${p.id}" class="${ok?"revisado":""}"><td>${esc(p.codigo)}</td><td>${esc(p.nombre)}</td><td>${esc(p.material||p.subfamilia)}</td><td>${esc(p.descripcion)}</td><td>${esc(p.color)}</td><td>${esc(p.proveedor)}</td><td><strong>${esc(p.formato)}</strong></td><td>${n(p.stock)}</td><td><input class="stock-fisico" type="number" step="any" inputmode="decimal" value="${f}"></td><td class="diferencia">${d===""?"—":d}</td><td><input class="check-revisado" type="checkbox" ${ok?"checked":""}></td><td class="estado">${ok?"✓ Revisado":"Pendiente"}</td></tr>`}).join("");
+ resumenUI(l);
 }
-
-function cargarFamilia() {
-    const fam = categoria.value;
-    if (!fam) {
-        panel.hidden = true;
-        panelPendientes.hidden = true;
-        contador.textContent = `${todos.length} productos disponibles para revisión`;
-        return;
-    }
-
-    lista = todos
-        .filter(p => (p.familia || p.categoria) === fam)
-        .sort((a, b) => {
-            const sub = txt(a.subfamilia).localeCompare(txt(b.subfamilia), "es");
-            if (sub !== 0) return sub;
-            return Number(a.excelFila || 0) - Number(b.excelFila || 0);
-        });
-
-    indice = 0;
-    panel.hidden = lista.length === 0;
-    panelPendientes.hidden = lista.length === 0;
-    mostrar();
+async function guardar(tr,ok=true){
+ const p=productos.find(x=>x.id===tr.dataset.id),input=tr.querySelector(".stock-fisico"),check=tr.querySelector(".check-revisado"),estado=tr.querySelector(".estado"),dif=tr.querySelector(".diferencia");
+ if(input.value===""){if(ok){alert("Introduce el stock físico.");check.checked=false;input.focus()}return}
+ const fisico=Number(input.value);if(!Number.isFinite(fisico)){alert("Stock físico no válido.");check.checked=false;return}
+ tr.classList.add("guardando");estado.textContent="Guardando...";
+ const datos={productoId:p.id,codigo:p.codigo||"",nombreProducto:p.nombre||"",familia:p.familia||p.categoria||"",subfamilia:p.subfamilia||"",material:p.material||"",descripcion:p.descripcion||"",formato:p.formato||"",stockSistema:n(p.stock),stockFisico:fisico,diferencia:fisico-n(p.stock),mes:mesActual,revisado:ok,fechaRevision:serverTimestamp()};
+ try{await setDoc(doc(db,"revisionesStock",`${mesActual}_${p.id}`),datos,{merge:true});revisiones.set(p.id,{...datos});dif.textContent=datos.diferencia;check.checked=ok;tr.classList.toggle("revisado",ok);estado.textContent=ok?"✓ Revisado":"Pendiente";resumenUI(lista())}catch(e){console.error(e);estado.textContent="Error";alert(`No se pudo guardar: ${e.message}`)}finally{tr.classList.remove("guardando")}
 }
-
-function mostrar() {
-    if (!lista.length) return;
-
-    const p = lista[indice];
-    const rev = revisiones.get(p.id);
-
-    nombre.textContent = p.nombre || "Sin nombre";
-    codigo.textContent = p.codigo || "—";
-    material.textContent = [p.subfamilia, p.material].filter(Boolean).join(" · ") || "—";
-    descripcion.textContent = p.descripcion || "—";
-    formato.textContent = p.formato || "—";
-    proveedor.textContent = p.proveedor || "—";
-    stockSistema.textContent = Number(p.stock ?? 0);
-    stockFisico.value = rev?.stockFisico ?? "";
-    marcar.checked = Boolean(rev?.revisado);
-
-    anterior.disabled = indice === 0;
-    siguiente.disabled = indice >= lista.length - 1;
-
-    const revisados = lista.filter(x => revisiones.get(x.id)?.revisado).length;
-    contador.textContent = `${categoria.value}: ${indice + 1} / ${lista.length} · Revisados ${revisados} · Pendientes ${lista.length - revisados}`;
-
-    mostrarPendientes();
-}
-
-function mostrarPendientes() {
-    const pendientes = lista.filter(p => !revisiones.get(p.id)?.revisado);
-    panelPendientes.innerHTML = `
-        <strong>Pendientes (${pendientes.length})</strong>
-        <div style="margin-top:8px; max-height:160px; overflow:auto;">
-            ${pendientes.slice(0, 30).map(p =>
-                `<div>• ${p.nombre || p.codigo || "Sin nombre"}${p.formato ? ` — ${p.formato}` : ""}</div>`
-            ).join("")}
-            ${pendientes.length > 30 ? `<div>… y ${pendientes.length - 30} más</div>` : ""}
-        </div>
-    `;
-}
-
-async function guardarRevision() {
-    if (!lista.length) return;
-    const p = lista[indice];
-    const fisico = Number(stockFisico.value);
-    if (!Number.isFinite(fisico)) {
-        alert("Introduce el stock físico.");
-        stockFisico.focus();
-        return;
-    }
-
-    const datos = {
-        productoId: p.id,
-        codigo: p.codigo || "",
-        nombreProducto: p.nombre || "",
-        familia: p.familia || p.categoria || "",
-        subfamilia: p.subfamilia || "",
-        material: p.material || "",
-        descripcion: p.descripcion || "",
-        formato: p.formato || "",
-        stockSistema: Number(p.stock ?? 0),
-        stockFisico: fisico,
-        diferencia: fisico - Number(p.stock ?? 0),
-        mes: mesActual,
-        revisado: true,
-        fechaRevision: serverTimestamp()
-    };
-
-    await setDoc(doc(db, "revisionesStock", `${mesActual}_${p.id}`), datos, { merge: true });
-    revisiones.set(p.id, { ...datos, fechaRevision: new Date() });
-    marcar.checked = true;
-    mostrar();
-
-    if (indice < lista.length - 1) {
-        indice++;
-        mostrar();
-        stockFisico.focus();
-    }
-}
-
-categoria.addEventListener("change", cargarFamilia);
-anterior.addEventListener("click", () => {
-    if (indice > 0) {
-        indice--;
-        mostrar();
-    }
-});
-siguiente.addEventListener("click", () => {
-    if (indice < lista.length - 1) {
-        indice++;
-        mostrar();
-    }
-});
-marcar.addEventListener("change", async () => {
-    if (marcar.checked) {
-        await guardarRevision();
-    }
-});
-
-cargar().catch(e => {
-    console.error(e);
-    contador.textContent = `Error cargando inventario: ${e.message}`;
-});
+familiaSelect.addEventListener("change",render);
+tbody.addEventListener("focusin",e=>{const tr=e.target.closest("tr[data-id]");if(tr){tbody.querySelectorAll(".activa").forEach(x=>x.classList.remove("activa"));tr.classList.add("activa")}});
+tbody.addEventListener("input",e=>{if(!e.target.classList.contains("stock-fisico"))return;const tr=e.target.closest("tr"),p=productos.find(x=>x.id===tr.dataset.id),c=tr.querySelector(".diferencia");c.textContent=e.target.value===""?"—":Number(e.target.value)-n(p.stock)});
+tbody.addEventListener("change",async e=>{const tr=e.target.closest("tr[data-id]");if(tr&&e.target.classList.contains("check-revisado"))await guardar(tr,e.target.checked)});
+tbody.addEventListener("keydown",async e=>{if(!e.target.classList.contains("stock-fisico")||e.key!=="Enter")return;e.preventDefault();const tr=e.target.closest("tr[data-id]"),c=tr.querySelector(".check-revisado");c.checked=true;await guardar(tr,true);const sig=tr.nextElementSibling?.querySelector(".stock-fisico");if(sig){sig.focus();sig.select();sig.scrollIntoView({block:"center",behavior:"smooth"})}});
+cargarDatos().catch(e=>{console.error(e);tbody.innerHTML=`<tr><td colspan="12">Error: ${esc(e.message)}</td></tr>`});
