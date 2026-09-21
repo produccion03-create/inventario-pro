@@ -2,333 +2,201 @@ import {
     db,
     collection,
     getDocs,
-    doc,
     getDoc,
+    doc,
     setDoc,
     serverTimestamp
 } from "./firebase.js";
 
-const ORIGEN = "AGOSTO_2026_MATERIALES";
+const FAMILIAS = [
+    "Stock de planchas",
+    "Envases y embalaje",
+    "Materias primas auxiliares",
+    "Stock de productos terminados"
+];
 
-const categoriaSelect = document.getElementById("categoria");
-const panelRevision = document.getElementById("panelRevision");
-const panelPendientes = document.getElementById("panelPendientes");
-const contadorRevision = document.getElementById("contadorRevision");
-
-const nombreCategoria = document.getElementById("nombreCategoria");
-const progresoRevision = document.getElementById("progresoRevision");
-const nombreProducto = document.getElementById("nombreProducto");
-const codigoProducto = document.getElementById("codigoProducto");
-const materialProducto = document.getElementById("materialProducto");
-const descripcionProducto = document.getElementById("descripcionProducto");
-const formatoProducto = document.getElementById("formatoProducto");
-const proveedorProducto = document.getElementById("proveedorProducto");
+const categoria = document.getElementById("categoria");
+const contador = document.getElementById("contadorRevision");
+const panel = document.getElementById("panelRevision");
+const nombre = document.getElementById("nombreProducto");
+const codigo = document.getElementById("codigoProducto");
+const material = document.getElementById("materialProducto");
+const descripcion = document.getElementById("descripcionProducto");
+const formato = document.getElementById("formatoProducto");
+const proveedor = document.getElementById("proveedorProducto");
 const stockSistema = document.getElementById("stockSistema");
 const stockFisico = document.getElementById("stockFisico");
-const estadoProducto = document.getElementById("estadoProducto");
-const marcarRevisado = document.getElementById("marcarRevisado");
-const anterior = document.getElementById("anterior");
-const siguiente = document.getElementById("siguiente");
-const listaPendientesRevision = document.getElementById("listaPendientesRevision");
+const marcar = document.getElementById("marcarRevisado");
+const anterior = document.getElementById("anteriorProducto");
+const siguiente = document.getElementById("siguienteProducto");
+const panelPendientes = document.getElementById("panelPendientes");
 
-let productos = [];
-let productosCategoria = [];
-let indiceActual = 0;
+let todos = [];
+let lista = [];
+let indice = 0;
+let revisiones = new Map();
 
 const ahora = new Date();
-const mesActual =
-    `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}`;
+const mesActual = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}`;
 
-function escaparHTML(valor) {
-    return String(valor ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+function txt(v) {
+    return String(v ?? "").trim();
 }
 
-async function cargarProductos() {
-    try {
-        const snapshot = await getDocs(collection(db, "productos"));
+async function cargar() {
+    contador.textContent = "Cargando inventario...";
 
-        productos = snapshot.docs
-            .map((d) => ({
-                id: d.id,
-                ...d.data()
-            }))
-            .filter((p) =>
-                p.revisionStock === true &&
-                p.origenExcel === ORIGEN &&
-                String(p.formato || "").trim().toLowerCase() !== "plancha"
-            );
+    const [productosSnap, revisionesSnap] = await Promise.all([
+        getDocs(collection(db, "productos")),
+        getDocs(collection(db, "revisionesStock"))
+    ]);
 
-        cargarCategorias();
+    todos = productosSnap.docs
+        .map(d => ({ id: d.id, ...d.data() }))
+        .filter(p => p.revisionStock === true && FAMILIAS.includes(p.familia || p.categoria));
 
-    } catch (error) {
-        console.error("Error cargando productos:", error);
-
-        categoriaSelect.innerHTML =
-            `<option value="">Error cargando categorías</option>`;
-
-        contadorRevision.textContent =
-            "No se pudieron cargar los productos.";
-    }
-}
-
-function cargarCategorias() {
-    const categorias = [
-        ...new Set(
-            productos
-                .map((p) => String(p.categoria || "").trim())
-                .filter(Boolean)
-        )
-    ].sort((a, b) => a.localeCompare(b, "es"));
-
-    categoriaSelect.innerHTML =
-        `<option value="">Selecciona una categoría</option>`;
-
-    categorias.forEach((categoria) => {
-        const option = document.createElement("option");
-        option.value = categoria;
-        option.textContent = categoria;
-        categoriaSelect.appendChild(option);
+    revisiones.clear();
+    revisionesSnap.forEach(d => {
+        const r = d.data();
+        if (r.mes === mesActual && r.productoId) {
+            revisiones.set(r.productoId, r);
+        }
     });
 
-    if (!categorias.length) {
-        contadorRevision.textContent =
-            "Primero ejecuta la actualización del inventario desde Excel.";
-    }
-}
-
-categoriaSelect.addEventListener("change", async () => {
-    const categoria = categoriaSelect.value;
-
-    if (!categoria) {
-        panelRevision.style.display = "none";
-        panelPendientes.style.display = "none";
-
-        contadorRevision.textContent =
-            "Selecciona una categoría para comenzar.";
-
-        return;
-    }
-
-    productosCategoria = productos
-        .filter((p) => p.categoria === categoria)
-        .sort((a, b) =>
-            Number(a.excelFila || 99999) - Number(b.excelFila || 99999)
-        );
-
-    indiceActual = 0;
-
-    nombreCategoria.textContent = categoria;
-
-    panelRevision.style.display = "block";
-    panelPendientes.style.display = "block";
-
-    await mostrarProducto();
-});
-
-async function obtenerRevision(producto) {
-    const revisionId = `${mesActual}_${producto.id}`;
-
-    return await getDoc(
-        doc(db, "revisionesStock", revisionId)
-    );
-}
-
-async function mostrarProducto() {
-    if (!productosCategoria.length) {
-        panelRevision.style.display = "none";
-        return;
-    }
-
-    const producto = productosCategoria[indiceActual];
-
-    nombreProducto.textContent =
-        producto.nombre || producto.descripcion || "Producto";
-
-    codigoProducto.textContent =
-        producto.codigo || "-";
-
-    materialProducto.textContent =
-        producto.material || producto.categoria || "-";
-
-    descripcionProducto.textContent =
-        producto.descripcion || "-";
-
-    formatoProducto.textContent =
-        producto.formato || "-";
-
-    proveedorProducto.textContent =
-        producto.proveedor || "-";
-
-    stockSistema.textContent =
-        producto.stock ?? 0;
-
-    progresoRevision.textContent =
-        `Producto ${indiceActual + 1} de ${productosCategoria.length}`;
-
-    stockFisico.value = "";
-
-    try {
-        const revisionSnapshot = await obtenerRevision(producto);
-
-        if (
-            revisionSnapshot.exists() &&
-            revisionSnapshot.data().revisado === true
-        ) {
-            const revision = revisionSnapshot.data();
-
-            stockFisico.value = revision.stockFisico ?? "";
-
-            estadoProducto.textContent =
-                "Este producto ya está revisado.";
-
-            estadoProducto.className = "alerta-exito";
-            marcarRevisado.textContent = "Guardar revisión";
-        } else {
-            estadoProducto.textContent =
-                "Producto pendiente de revisar.";
-
-            estadoProducto.className = "alerta-info";
-            marcarRevisado.textContent = "Marcar como revisado";
+    categoria.innerHTML = `<option value="">Selecciona una familia...</option>`;
+    FAMILIAS.forEach(f => {
+        const cantidad = todos.filter(p => (p.familia || p.categoria) === f).length;
+        if (cantidad > 0) {
+            const op = document.createElement("option");
+            op.value = f;
+            op.textContent = `${f} (${cantidad})`;
+            categoria.appendChild(op);
         }
+    });
 
-    } catch (error) {
-        console.error("Error consultando revisión:", error);
-
-        estadoProducto.textContent =
-            "No se pudo consultar el estado.";
-
-        estadoProducto.className = "alerta-error";
-    }
-
-    anterior.disabled = indiceActual === 0;
-    siguiente.disabled =
-        indiceActual === productosCategoria.length - 1;
-
-    await mostrarPendientes();
+    contador.textContent = `${todos.length} productos disponibles para revisión`;
 }
 
-marcarRevisado.addEventListener("click", async () => {
-    const producto = productosCategoria[indiceActual];
+function cargarFamilia() {
+    const fam = categoria.value;
+    if (!fam) {
+        panel.hidden = true;
+        panelPendientes.hidden = true;
+        contador.textContent = `${todos.length} productos disponibles para revisión`;
+        return;
+    }
 
-    if (!producto) return;
+    lista = todos
+        .filter(p => (p.familia || p.categoria) === fam)
+        .sort((a, b) => {
+            const sub = txt(a.subfamilia).localeCompare(txt(b.subfamilia), "es");
+            if (sub !== 0) return sub;
+            return Number(a.excelFila || 0) - Number(b.excelFila || 0);
+        });
 
-    if (stockFisico.value === "" || Number(stockFisico.value) < 0) {
-        alert("Introduce el stock físico contado.");
+    indice = 0;
+    panel.hidden = lista.length === 0;
+    panelPendientes.hidden = lista.length === 0;
+    mostrar();
+}
+
+function mostrar() {
+    if (!lista.length) return;
+
+    const p = lista[indice];
+    const rev = revisiones.get(p.id);
+
+    nombre.textContent = p.nombre || "Sin nombre";
+    codigo.textContent = p.codigo || "—";
+    material.textContent = [p.subfamilia, p.material].filter(Boolean).join(" · ") || "—";
+    descripcion.textContent = p.descripcion || "—";
+    formato.textContent = p.formato || "—";
+    proveedor.textContent = p.proveedor || "—";
+    stockSistema.textContent = Number(p.stock ?? 0);
+    stockFisico.value = rev?.stockFisico ?? "";
+    marcar.checked = Boolean(rev?.revisado);
+
+    anterior.disabled = indice === 0;
+    siguiente.disabled = indice >= lista.length - 1;
+
+    const revisados = lista.filter(x => revisiones.get(x.id)?.revisado).length;
+    contador.textContent = `${categoria.value}: ${indice + 1} / ${lista.length} · Revisados ${revisados} · Pendientes ${lista.length - revisados}`;
+
+    mostrarPendientes();
+}
+
+function mostrarPendientes() {
+    const pendientes = lista.filter(p => !revisiones.get(p.id)?.revisado);
+    panelPendientes.innerHTML = `
+        <strong>Pendientes (${pendientes.length})</strong>
+        <div style="margin-top:8px; max-height:160px; overflow:auto;">
+            ${pendientes.slice(0, 30).map(p =>
+                `<div>• ${p.nombre || p.codigo || "Sin nombre"}${p.formato ? ` — ${p.formato}` : ""}</div>`
+            ).join("")}
+            ${pendientes.length > 30 ? `<div>… y ${pendientes.length - 30} más</div>` : ""}
+        </div>
+    `;
+}
+
+async function guardarRevision() {
+    if (!lista.length) return;
+    const p = lista[indice];
+    const fisico = Number(stockFisico.value);
+    if (!Number.isFinite(fisico)) {
+        alert("Introduce el stock físico.");
         stockFisico.focus();
         return;
     }
 
-    const cantidadFisica = Number(stockFisico.value);
-    const revisionId = `${mesActual}_${producto.id}`;
+    const datos = {
+        productoId: p.id,
+        codigo: p.codigo || "",
+        nombreProducto: p.nombre || "",
+        familia: p.familia || p.categoria || "",
+        subfamilia: p.subfamilia || "",
+        material: p.material || "",
+        descripcion: p.descripcion || "",
+        formato: p.formato || "",
+        stockSistema: Number(p.stock ?? 0),
+        stockFisico: fisico,
+        diferencia: fisico - Number(p.stock ?? 0),
+        mes: mesActual,
+        revisado: true,
+        fechaRevision: serverTimestamp()
+    };
 
-    try {
-        await setDoc(
-            doc(db, "revisionesStock", revisionId),
-            {
-                productoId: producto.id,
-                codigo: producto.codigo || "",
-                nombreProducto: producto.nombre || "",
-                categoria: producto.categoria || "",
-                material: producto.material || "",
-                descripcion: producto.descripcion || "",
-                formato: producto.formato || "",
-                stockSistema: Number(producto.stock || 0),
-                stockFisico: cantidadFisica,
-                diferencia:
-                    cantidadFisica - Number(producto.stock || 0),
-                mes: mesActual,
-                revisado: true,
-                fechaRevision: serverTimestamp()
-            },
-            { merge: true }
-        );
+    await setDoc(doc(db, "revisionesStock", `${mesActual}_${p.id}`), datos, { merge: true });
+    revisiones.set(p.id, { ...datos, fechaRevision: new Date() });
+    marcar.checked = true;
+    mostrar();
 
-        estadoProducto.textContent =
-            "Producto revisado correctamente.";
-
-        estadoProducto.className = "alerta-exito";
-        marcarRevisado.textContent = "Guardar revisión";
-
-        await mostrarPendientes();
-
-    } catch (error) {
-        console.error("Error guardando revisión:", error);
-        alert("No se pudo guardar la revisión.");
+    if (indice < lista.length - 1) {
+        indice++;
+        mostrar();
+        stockFisico.focus();
     }
-});
-
-anterior.addEventListener("click", async () => {
-    if (indiceActual <= 0) return;
-
-    indiceActual--;
-    await mostrarProducto();
-});
-
-siguiente.addEventListener("click", async () => {
-    if (indiceActual >= productosCategoria.length - 1) return;
-
-    indiceActual++;
-    await mostrarProducto();
-});
-
-async function mostrarPendientes() {
-    const pendientes = [];
-
-    for (const producto of productosCategoria) {
-        try {
-            const revision = await obtenerRevision(producto);
-
-            if (
-                !revision.exists() ||
-                revision.data().revisado !== true
-            ) {
-                pendientes.push(producto);
-            }
-        } catch (error) {
-            console.error("Error consultando pendiente:", error);
-            pendientes.push(producto);
-        }
-    }
-
-    contadorRevision.textContent =
-        `${pendientes.length} pendiente(s) de ${productosCategoria.length}`;
-
-    contadorRevision.className =
-        pendientes.length === 0
-            ? "alerta-exito"
-            : "alerta-info";
-
-    if (!pendientes.length) {
-        listaPendientesRevision.innerHTML = `
-            <div class="alerta-exito">
-                Todos los productos de esta categoría están revisados.
-            </div>
-        `;
-        return;
-    }
-
-    listaPendientesRevision.innerHTML =
-        pendientes.map((producto) => `
-            <div class="item-pendiente">
-                <strong>
-                    ${escaparHTML(producto.nombre || producto.descripcion)}
-                </strong>
-
-                <span>
-                    ${producto.codigo
-                        ? `Ref: ${escaparHTML(producto.codigo)} | `
-                        : ""
-                    }
-                    ${escaparHTML(producto.formato || "")}
-                    | Stock: ${producto.stock ?? 0}
-                </span>
-            </div>
-        `).join("");
 }
 
-cargarProductos();
+categoria.addEventListener("change", cargarFamilia);
+anterior.addEventListener("click", () => {
+    if (indice > 0) {
+        indice--;
+        mostrar();
+    }
+});
+siguiente.addEventListener("click", () => {
+    if (indice < lista.length - 1) {
+        indice++;
+        mostrar();
+    }
+});
+marcar.addEventListener("change", async () => {
+    if (marcar.checked) {
+        await guardarRevision();
+    }
+});
+
+cargar().catch(e => {
+    console.error(e);
+    contador.textContent = `Error cargando inventario: ${e.message}`;
+});
