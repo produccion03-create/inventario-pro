@@ -3,11 +3,21 @@ const F=["Stock de planchas","Envases y embalaje","Materias primas auxiliares","
 const mes=document.getElementById("mes"),familia=document.getElementById("familia"),tabla=document.getElementById("tabla"),resumen=document.getElementById("resumen"),estado=document.getElementById("estadoCierre");
 const hoy=new Date();mes.value=`${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,"0")}`;
 F.forEach(x=>familia.insertAdjacentHTML("beforeend",`<option>${x}</option>`));
-let productos=new Map(),revs=[];
+let productos=new Map(),productosConPrecio=[],revs=[];
+const norm=v=>String(v??"").trim().toLowerCase();
+function productoParaRevision(r){
+ const directo=productos.get(r.productoId);
+ if(directo && Number(directo.precioUnitario)>0) return directo;
+ return productosConPrecio.find(p =>
+   (r.codigo && norm(p.codigo)===norm(r.codigo)) ||
+   (r.nombreProducto && norm(p.nombre)===norm(r.nombreProducto) && (!r.familia || p.familia===r.familia))
+ ) || directo || {};
+}
 const e=s=>String(s??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 async function cargar(){
  const [ps,rs,cs]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"revisionesStock")),getDocs(collection(db,"cierresInventario"))]);
  productos=new Map(ps.docs.map(d=>[d.id,{id:d.id,...d.data()}]));
+ productosConPrecio=[...productos.values()].filter(p=>Number(p.precioUnitario)>0);
  revs=rs.docs.map(d=>d.data()).filter(r=>r.mes===mes.value&&(!familia.value||r.familia===familia.value));
  const cierre=cs.docs.map(d=>d.data()).find(c=>c.mes===mes.value);
  estado.innerHTML=cierre?`<div class="chip">🔒 Inventario cerrado: ${e(cierre.mes)}</div>`:"";
@@ -15,9 +25,9 @@ async function cargar(){
 }
 function render(){
  const total=revs.length,revisados=revs.filter(r=>r.revisado).length,difs=revs.filter(r=>r.revisado&&Number(r.diferencia)!==0).length;
- const valorFisico=revs.filter(r=>r.revisado).reduce((s,r)=>{const p=productos.get(r.productoId)||{};return s+(Number(r.stockFisico)||0)*(Number(p.precioUnitario)||0)},0);
+ const valorFisico=revs.filter(r=>r.revisado).reduce((s,r)=>{const p=productoParaRevision(r);return s+(Number(r.stockFisico)||0)*(Number(p.precioUnitario)||0)},0);
  resumen.innerHTML=`<span class="chip">Revisados: ${revisados}</span><span class="chip">Con diferencias: ${difs}</span><span class="chip">Registros: ${total}</span><span class="chip">Valor stock físico: ${valorFisico.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}</span>`;
- tabla.innerHTML=revs.sort((a,b)=>(a.familia||"").localeCompare(b.familia||"")||(a.codigo||"").localeCompare(b.codigo||"")).map(r=>{const p=productos.get(r.productoId)||{};const precio=Number(p.precioUnitario)||0;const valor=(Number(r.stockFisico)||0)*precio;return `<tr><td>${e(r.codigo)}</td><td>${e(r.nombreProducto)}</td><td>${e(r.familia)}</td><td>${Number(r.stockSistema||0)}</td><td>${r.stockFisico??""}</td><td class="dif">${Number(r.diferencia||0)}</td><td>${precio?precio.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${precio?valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${r.revisado?"✓ Revisado":"Pendiente"}</td></tr>`}).join("")||'<tr><td colspan="9">No hay revisiones para este mes.</td></tr>';
+ tabla.innerHTML=revs.sort((a,b)=>(a.familia||"").localeCompare(b.familia||"")||(a.codigo||"").localeCompare(b.codigo||"")).map(r=>{const p=productoParaRevision(r);const precio=Number(p.precioUnitario)||0;const valor=(Number(r.stockFisico)||0)*precio;return `<tr><td>${e(r.codigo)}</td><td>${e(r.nombreProducto)}</td><td>${e(r.familia)}</td><td>${Number(r.stockSistema||0)}</td><td>${r.stockFisico??""}</td><td class="dif">${(Number(r.stockFisico||0)-Number(r.stockSistema||0))}</td><td>${precio?precio.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${precio?valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${r.revisado?"✓ Revisado":"Pendiente"}</td></tr>`}).join("")||'<tr><td colspan="9">No hay revisiones para este mes.</td></tr>';
 }
 document.getElementById("cargar").onclick=cargar;
 document.getElementById("aplicar").onclick=async()=>{
@@ -35,15 +45,15 @@ document.getElementById("pdf").onclick=()=>{
  const pdf=new jsPDF({orientation:"landscape",unit:"mm",format:"a4"});
  const revisados=revs.filter(r=>r.revisado);
  const diferencias=revisados.filter(r=>Number(r.diferencia)!==0);
- const valorTotal=revisados.reduce((s,r)=>{const p=productos.get(r.productoId)||{};return s+(Number(r.stockFisico)||0)*(Number(p.precioUnitario)||0)},0);
+ const valorTotal=revisados.reduce((s,r)=>{const p=productoParaRevision(r);return s+(Number(r.stockFisico)||0)*(Number(p.precioUnitario)||0)},0);
  pdf.setFontSize(18);pdf.text("Inventario Pro - Informe de cierre mensual",14,15);
  pdf.setFontSize(11);pdf.text(`Mes: ${mes.value}`,14,23);pdf.text(`Familia: ${familia.value||"Todas"}`,14,29);
  pdf.text(`Productos revisados: ${revisados.length}`,14,35);pdf.text(`Productos con diferencias: ${diferencias.length}`,14,41);
  pdf.text(`Valor total del stock físico: ${valorTotal.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}`,14,47);
  pdf.text(`Fecha del informe: ${new Date().toLocaleDateString("es-ES")}`,14,53);
- const filas=revs.map(r=>{const p=productos.get(r.productoId)||{};const precio=Number(p.precioUnitario)||0;const valor=(Number(r.stockFisico)||0)*precio;return [r.codigo||"",r.nombreProducto||"",r.familia||"",String(Number(r.stockSistema||0)),String(r.stockFisico??""),String(Number(r.diferencia||0)),precio?precio.toFixed(2):"",precio?valor.toFixed(2):"",r.revisado?"Revisado":"Pendiente"]});
+ const filas=revs.map(r=>{const p=productoParaRevision(r);const precio=Number(p.precioUnitario)||0;const valor=(Number(r.stockFisico)||0)*precio;return [r.codigo||"",r.nombreProducto||"",r.familia||"",String(Number(r.stockSistema||0)),String(r.stockFisico??""),String((Number(r.stockFisico||0)-Number(r.stockSistema||0))),precio?precio.toFixed(2):"",precio?valor.toFixed(2):"",r.revisado?"Revisado":"Pendiente"]});
  pdf.autoTable({startY:59,head:[["Referencia","Producto","Familia","Stock sistema","Stock físico","Diferencia","Precio €","Valor €","Estado"]],body:filas,styles:{fontSize:6.5,cellPadding:1.4},margin:{left:7,right:7}});
- if(diferencias.length){pdf.addPage("a4","landscape");pdf.setFontSize(16);pdf.text("Diferencias encontradas",14,15);pdf.autoTable({startY:22,head:[["Referencia","Producto","Familia","Stock sistema","Stock físico","Diferencia","Precio €","Valor físico €"]],body:diferencias.map(r=>{const p=productos.get(r.productoId)||{};const precio=Number(p.precioUnitario)||0;return [r.codigo||"",r.nombreProducto||"",r.familia||"",String(Number(r.stockSistema||0)),String(r.stockFisico??""),String(Number(r.diferencia||0)),precio?precio.toFixed(2):"",precio?((Number(r.stockFisico)||0)*precio).toFixed(2):""]}),styles:{fontSize:7,cellPadding:1.5},margin:{left:7,right:7}});}
+ if(diferencias.length){pdf.addPage("a4","landscape");pdf.setFontSize(16);pdf.text("Diferencias encontradas",14,15);pdf.autoTable({startY:22,head:[["Referencia","Producto","Familia","Stock sistema","Stock físico","Diferencia","Precio €","Valor físico €"]],body:diferencias.map(r=>{const p=productoParaRevision(r);const precio=Number(p.precioUnitario)||0;return [r.codigo||"",r.nombreProducto||"",r.familia||"",String(Number(r.stockSistema||0)),String(r.stockFisico??""),String((Number(r.stockFisico||0)-Number(r.stockSistema||0))),precio?precio.toFixed(2):"",precio?((Number(r.stockFisico)||0)*precio).toFixed(2):""]}),styles:{fontSize:7,cellPadding:1.5},margin:{left:7,right:7}});}
  pdf.save(`inventario_${mes.value}_${(familia.value||"todas").replaceAll(" ","_")}.pdf`);
 };
 
