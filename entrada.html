@@ -112,6 +112,52 @@
 </div>
 
 <div class="panel">
+<h2>🧾 Pedido y recepción</h2>
+
+<div class="grid-form">
+<div>
+<label>PCN (pedido de compra)</label>
+<input type="text" id="pcn" placeholder="PCNxxxx">
+</div>
+
+<div>
+<label>PVN relacionado</label>
+<input type="text" id="pvn" placeholder="PVNxxxx">
+</div>
+
+<div>
+<label>Cantidad pedida</label>
+<input type="number" id="cantidadPedida" min="0" value="0">
+</div>
+
+<div>
+<label>Recibido anteriormente</label>
+<div class="info-stock"><span id="recibidoAnterior">0</span><span> unidades</span></div>
+</div>
+</div>
+
+<div class="dashboard" style="margin-top:16px">
+<div class="card card-productos">
+<h3>📋 Pedido</h3>
+<span id="pedidoVista">0</span>
+<p>Unidades pedidas</p>
+</div>
+
+<div class="card card-valor">
+<h3>📥 Recibido total</h3>
+<span id="recibidoTotalVista">0</span>
+<p>Incluyendo esta entrada</p>
+</div>
+
+<div class="card card-productos">
+<h3>⏳ Pendiente / diferencia</h3>
+<span id="pendienteVista">0</span>
+<p id="estadoPedido">Pendiente</p>
+</div>
+</div>
+</div>
+
+<div class="panel">
 
 <h2>➕ Registrar entrada</h2>
 
@@ -198,7 +244,7 @@ class="btn-verde">
 
 </div>
 
-<script type="module" src="JS/entrada.js"></script>
+<script type="module" src="JS/entrada.js?v=pcn-pvn-v1"></script>
 
 </body>
 
