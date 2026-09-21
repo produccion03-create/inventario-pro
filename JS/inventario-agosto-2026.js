@@ -12,7 +12,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 54.47,
+    "valor": 0.0
   },
   {
     "excelFila": 3,
@@ -27,7 +29,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 54.47,
+    "valor": 0.0
   },
   {
     "excelFila": 4,
@@ -42,7 +46,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 31,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 54.47,
+    "valor": 1688.57
   },
   {
     "excelFila": 5,
@@ -57,7 +63,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 54.47,
+    "valor": 0.0
   },
   {
     "excelFila": 6,
@@ -72,7 +80,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 54.47,
+    "valor": 326.82
   },
   {
     "excelFila": 7,
@@ -87,7 +97,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 54.47,
+    "valor": 0.0
   },
   {
     "excelFila": 8,
@@ -102,7 +114,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 37.03,
+    "valor": 0.0
   },
   {
     "excelFila": 9,
@@ -117,7 +131,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 37.03,
+    "valor": 296.24
   },
   {
     "excelFila": 10,
@@ -132,7 +148,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.21,
+    "valor": 0.0
   },
   {
     "excelFila": 11,
@@ -147,7 +165,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 7.5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.21,
+    "valor": 286.575
   },
   {
     "excelFila": 12,
@@ -162,7 +182,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.27,
+    "valor": 0.0
   },
   {
     "excelFila": 13,
@@ -177,7 +199,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.27,
+    "valor": 0.0
   },
   {
     "excelFila": 14,
@@ -192,7 +216,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.72,
+    "valor": 0.0
   },
   {
     "excelFila": 15,
@@ -207,7 +233,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.72,
+    "valor": 158.88
   },
   {
     "excelFila": 16,
@@ -222,7 +250,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.27,
+    "valor": 0.0
   },
   {
     "excelFila": 17,
@@ -237,7 +267,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.27,
+    "valor": 39.27
   },
   {
     "excelFila": 18,
@@ -252,7 +284,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 41.83,
+    "valor": 0.0
   },
   {
     "excelFila": 19,
@@ -267,7 +301,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 41.83,
+    "valor": 0.0
   },
   {
     "excelFila": 20,
@@ -282,7 +318,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 13,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.01,
+    "valor": 507.13
   },
   {
     "excelFila": 21,
@@ -297,7 +335,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.01,
+    "valor": 0.0
   },
   {
     "excelFila": 22,
@@ -312,7 +352,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.39,
+    "valor": 0.0
   },
   {
     "excelFila": 23,
@@ -327,7 +369,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.39,
+    "valor": 211.95
   },
   {
     "excelFila": 24,
@@ -342,7 +386,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.37,
+    "valor": 0.0
   },
   {
     "excelFila": 25,
@@ -357,7 +403,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.37,
+    "valor": 38.37
   },
   {
     "excelFila": 26,
@@ -372,7 +420,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.28,
+    "valor": 0.0
   },
   {
     "excelFila": 27,
@@ -387,7 +437,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.28,
+    "valor": 153.12
   },
   {
     "excelFila": 28,
@@ -402,7 +454,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.9,
+    "valor": 0.0
   },
   {
     "excelFila": 29,
@@ -417,7 +471,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.9,
+    "valor": 257.4
   },
   {
     "excelFila": 30,
@@ -432,7 +488,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 51.43,
+    "valor": 0.0
   },
   {
     "excelFila": 31,
@@ -447,7 +505,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 51.43,
+    "valor": 154.29
   },
   {
     "excelFila": 32,
@@ -462,7 +522,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 46.14,
+    "valor": 0.0
   },
   {
     "excelFila": 33,
@@ -477,7 +539,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 46.14,
+    "valor": 0.0
   },
   {
     "excelFila": 34,
@@ -492,7 +556,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 15,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 41.3,
+    "valor": 619.5
   },
   {
     "excelFila": 35,
@@ -507,7 +573,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 41.3,
+    "valor": 0.0
   },
   {
     "excelFila": 36,
@@ -522,7 +590,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 10,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 43.54,
+    "valor": 435.4
   },
   {
     "excelFila": 37,
@@ -537,7 +607,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 43.54,
+    "valor": 0.0
   },
   {
     "excelFila": 38,
@@ -552,7 +624,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 58.2,
+    "valor": 0.0
   },
   {
     "excelFila": 39,
@@ -567,7 +641,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 58.2,
+    "valor": 465.6
   },
   {
     "excelFila": 40,
@@ -582,7 +658,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 31.87,
+    "valor": 31.87
   },
   {
     "excelFila": 41,
@@ -597,7 +675,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 31.87,
+    "valor": 0.0
   },
   {
     "excelFila": 42,
@@ -612,7 +692,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 0.0
   },
   {
     "excelFila": 43,
@@ -627,7 +709,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 0.0
   },
   {
     "excelFila": 44,
@@ -642,7 +726,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 28.35,
+    "valor": 226.8
   },
   {
     "excelFila": 45,
@@ -657,7 +743,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 28.35,
+    "valor": 0.0
   },
   {
     "excelFila": 46,
@@ -672,7 +760,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 11,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 244.2
   },
   {
     "excelFila": 47,
@@ -687,7 +777,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 0.0
   },
   {
     "excelFila": 48,
@@ -702,7 +794,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.89,
+    "valor": 0.0
   },
   {
     "excelFila": 49,
@@ -717,7 +811,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.89,
+    "valor": 0.0
   },
   {
     "excelFila": 50,
@@ -732,7 +828,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 23,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 510.6
   },
   {
     "excelFila": 51,
@@ -747,7 +845,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 0.0
   },
   {
     "excelFila": 52,
@@ -762,7 +862,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 22,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.02,
+    "valor": 506.44
   },
   {
     "excelFila": 53,
@@ -777,7 +879,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.02,
+    "valor": 0.0
   },
   {
     "excelFila": 54,
@@ -792,7 +896,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.27,
+    "valor": 0.0
   },
   {
     "excelFila": 55,
@@ -807,7 +913,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 12,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.27,
+    "valor": 279.24
   },
   {
     "excelFila": 56,
@@ -822,7 +930,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 19.27,
+    "valor": 0.0
   },
   {
     "excelFila": 57,
@@ -837,7 +947,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 19.27,
+    "valor": 0.0
   },
   {
     "excelFila": 58,
@@ -852,7 +964,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 0.0
   },
   {
     "excelFila": 59,
@@ -867,7 +981,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 0.0
   },
   {
     "excelFila": 60,
@@ -882,7 +998,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 19,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 28.35,
+    "valor": 538.65
   },
   {
     "excelFila": 61,
@@ -897,7 +1015,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 28.35,
+    "valor": 0.0
   },
   {
     "excelFila": 62,
@@ -912,7 +1032,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 19,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 24.4,
+    "valor": 463.6
   },
   {
     "excelFila": 63,
@@ -927,7 +1049,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 24.4,
+    "valor": 0.0
   },
   {
     "excelFila": 64,
@@ -942,7 +1066,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.99,
+    "valor": 23.99
   },
   {
     "excelFila": 65,
@@ -957,7 +1083,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.99,
+    "valor": 0.0
   },
   {
     "excelFila": 66,
@@ -972,7 +1100,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 7,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 155.4
   },
   {
     "excelFila": 67,
@@ -987,7 +1117,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 0.0
   },
   {
     "excelFila": 68,
@@ -1002,7 +1134,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.89,
+    "valor": 0.0
   },
   {
     "excelFila": 69,
@@ -1017,7 +1151,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.89,
+    "valor": 0.0
   },
   {
     "excelFila": 70,
@@ -1032,7 +1168,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 24.93,
+    "valor": 0.0
   },
   {
     "excelFila": 71,
@@ -1047,7 +1185,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 24.93,
+    "valor": 0.0
   },
   {
     "excelFila": 72,
@@ -1062,7 +1202,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.58,
+    "valor": 94.32
   },
   {
     "excelFila": 73,
@@ -1077,7 +1219,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.58,
+    "valor": 0.0
   },
   {
     "excelFila": 74,
@@ -1092,7 +1236,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.58,
+    "valor": 0.0
   },
   {
     "excelFila": 75,
@@ -1107,7 +1253,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.58,
+    "valor": 0.0
   },
   {
     "excelFila": 76,
@@ -1122,7 +1270,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 19.09,
+    "valor": 0.0
   },
   {
     "excelFila": 77,
@@ -1137,7 +1287,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 19.09,
+    "valor": 0.0
   },
   {
     "excelFila": 78,
@@ -1152,7 +1304,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.88,
+    "valor": 0.0
   },
   {
     "excelFila": 79,
@@ -1167,7 +1321,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.88,
+    "valor": 0.0
   },
   {
     "excelFila": 80,
@@ -1182,7 +1338,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 16.65,
+    "valor": 0.0
   },
   {
     "excelFila": 81,
@@ -1197,7 +1355,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 16.65,
+    "valor": 0.0
   },
   {
     "excelFila": 82,
@@ -1212,7 +1372,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.3,
+    "valor": 0.0
   },
   {
     "excelFila": 83,
@@ -1227,7 +1389,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.3,
+    "valor": 0.0
   },
   {
     "excelFila": 84,
@@ -1242,7 +1406,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.57,
+    "valor": 0.0
   },
   {
     "excelFila": 85,
@@ -1257,7 +1423,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.57,
+    "valor": 0.0
   },
   {
     "excelFila": 86,
@@ -1272,7 +1440,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.15,
+    "valor": 0.0
   },
   {
     "excelFila": 87,
@@ -1287,7 +1457,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.15,
+    "valor": 0.0
   },
   {
     "excelFila": 88,
@@ -1302,7 +1474,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.15,
+    "valor": 0.0
   },
   {
     "excelFila": 89,
@@ -1317,7 +1491,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.15,
+    "valor": 0.0
   },
   {
     "excelFila": 90,
@@ -1332,7 +1508,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 10.34,
+    "valor": 0.0
   },
   {
     "excelFila": 91,
@@ -1347,7 +1525,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 10.34,
+    "valor": 0.0
   },
   {
     "excelFila": 92,
@@ -1362,7 +1542,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.15,
+    "valor": 0.0
   },
   {
     "excelFila": 93,
@@ -1377,7 +1559,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.15,
+    "valor": 0.0
   },
   {
     "excelFila": 94,
@@ -1392,7 +1576,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 48.5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.64,
+    "valor": 2213.54
   },
   {
     "excelFila": 95,
@@ -1407,7 +1593,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.64,
+    "valor": 0.0
   },
   {
     "excelFila": 96,
@@ -1422,7 +1610,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.64,
+    "valor": 182.56
   },
   {
     "excelFila": 97,
@@ -1437,7 +1627,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.64,
+    "valor": 0.0
   },
   {
     "excelFila": 98,
@@ -1452,7 +1644,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 25,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 58.67,
+    "valor": 1466.75
   },
   {
     "excelFila": 99,
@@ -1467,7 +1661,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 58.67,
+    "valor": 0.0
   },
   {
     "excelFila": 100,
@@ -1482,7 +1678,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 40,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 59.67,
+    "valor": 2386.8
   },
   {
     "excelFila": 101,
@@ -1497,7 +1695,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 59.67,
+    "valor": 0.0
   },
   {
     "excelFila": 102,
@@ -1512,7 +1712,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 26,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 58.67,
+    "valor": 1525.42
   },
   {
     "excelFila": 103,
@@ -1527,7 +1729,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 58.67,
+    "valor": 0.0
   },
   {
     "excelFila": 104,
@@ -1542,7 +1746,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 6.61,
+    "valor": 0.0
   },
   {
     "excelFila": 105,
@@ -1557,7 +1763,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 6.61,
+    "valor": 0.0
   },
   {
     "excelFila": 106,
@@ -1572,7 +1780,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 51.43,
+    "valor": 0.0
   },
   {
     "excelFila": 107,
@@ -1587,7 +1797,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 51.43,
+    "valor": 0.0
   },
   {
     "excelFila": 108,
@@ -1602,7 +1814,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 62.18,
+    "valor": 0.0
   },
   {
     "excelFila": 109,
@@ -1617,7 +1831,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 62.18,
+    "valor": 0.0
   },
   {
     "excelFila": 110,
@@ -1632,7 +1848,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 62.18,
+    "valor": 0.0
   },
   {
     "excelFila": 111,
@@ -1647,7 +1865,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 62.18,
+    "valor": 0.0
   },
   {
     "excelFila": 112,
@@ -1662,7 +1882,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 63.02,
+    "valor": 0.0
   },
   {
     "excelFila": 113,
@@ -1677,7 +1899,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 63.02,
+    "valor": 0.0
   },
   {
     "excelFila": 114,
@@ -1692,7 +1916,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 55.68,
+    "valor": 0.0
   },
   {
     "excelFila": 115,
@@ -1707,7 +1933,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 55.68,
+    "valor": 0.0
   },
   {
     "excelFila": 116,
@@ -1722,7 +1950,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 54.14,
+    "valor": 0.0
   },
   {
     "excelFila": 117,
@@ -1737,7 +1967,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 54.14,
+    "valor": 0.0
   },
   {
     "excelFila": 118,
@@ -1752,7 +1984,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 119,
@@ -1767,7 +2001,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 120,
@@ -1782,7 +2018,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 121,
@@ -1797,7 +2035,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 364.72
   },
   {
     "excelFila": 122,
@@ -1812,7 +2052,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 123,
@@ -1827,7 +2069,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 124,
@@ -1842,7 +2086,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 125,
@@ -1857,7 +2103,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 126,
@@ -1872,7 +2120,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 127,
@@ -1887,7 +2137,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 128,
@@ -1902,7 +2154,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 129,
@@ -1917,7 +2171,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.59,
+    "valor": 0.0
   },
   {
     "excelFila": 130,
@@ -1932,7 +2188,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.74,
+    "valor": 0.0
   },
   {
     "excelFila": 131,
@@ -1947,7 +2205,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.74,
+    "valor": 0.0
   },
   {
     "excelFila": 132,
@@ -1962,7 +2222,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.01,
+    "valor": 0.0
   },
   {
     "excelFila": 133,
@@ -1977,7 +2239,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.01,
+    "valor": 0.0
   },
   {
     "excelFila": 134,
@@ -1992,7 +2256,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.01,
+    "valor": 0.0
   },
   {
     "excelFila": 135,
@@ -2007,7 +2273,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.01,
+    "valor": 0.0
   },
   {
     "excelFila": 136,
@@ -2022,7 +2290,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.52,
+    "valor": 231.12
   },
   {
     "excelFila": 137,
@@ -2037,7 +2307,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.52,
+    "valor": 0.0
   },
   {
     "excelFila": 138,
@@ -2052,7 +2324,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 20,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.37,
+    "valor": 767.4
   },
   {
     "excelFila": 139,
@@ -2067,7 +2341,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.37,
+    "valor": 0.0
   },
   {
     "excelFila": 140,
@@ -2082,7 +2358,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 55,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.25,
+    "valor": 2158.75
   },
   {
     "excelFila": 141,
@@ -2097,7 +2375,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.25,
+    "valor": 0.0
   },
   {
     "excelFila": 142,
@@ -2112,7 +2392,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 18,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.09,
+    "valor": 703.62
   },
   {
     "excelFila": 143,
@@ -2127,7 +2409,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.09,
+    "valor": 0.0
   },
   {
     "excelFila": 144,
@@ -2142,7 +2426,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 14,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.66,
+    "valor": 541.24
   },
   {
     "excelFila": 145,
@@ -2157,7 +2443,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.66,
+    "valor": 0.0
   },
   {
     "excelFila": 146,
@@ -2172,7 +2460,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 11,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 44.01,
+    "valor": 484.11
   },
   {
     "excelFila": 147,
@@ -2187,7 +2477,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 44.01,
+    "valor": 0.0
   },
   {
     "excelFila": 148,
@@ -2202,7 +2494,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 29.5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.59,
+    "valor": 1256.405
   },
   {
     "excelFila": 149,
@@ -2217,7 +2511,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.59,
+    "valor": 0.0
   },
   {
     "excelFila": 150,
@@ -2232,7 +2528,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 4.5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.33,
+    "valor": 176.985
   },
   {
     "excelFila": 151,
@@ -2247,7 +2545,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.33,
+    "valor": 0.0
   },
   {
     "excelFila": 152,
@@ -2262,7 +2562,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 15.5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.07,
+    "valor": 652.085
   },
   {
     "excelFila": 153,
@@ -2277,7 +2579,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.07,
+    "valor": 0.0
   },
   {
     "excelFila": 154,
@@ -2292,7 +2596,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 15,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 30.82,
+    "valor": 462.3
   },
   {
     "excelFila": 155,
@@ -2307,7 +2613,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 30.82,
+    "valor": 0.0
   },
   {
     "excelFila": 156,
@@ -2322,7 +2630,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 44,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.38,
+    "valor": 1732.72
   },
   {
     "excelFila": 157,
@@ -2337,7 +2647,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.38,
+    "valor": 0.0
   },
   {
     "excelFila": 158,
@@ -2352,7 +2664,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 12,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.3,
+    "valor": 459.6
   },
   {
     "excelFila": 159,
@@ -2367,7 +2681,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.3,
+    "valor": 0.0
   },
   {
     "excelFila": 160,
@@ -2382,7 +2698,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 3.5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.56,
+    "valor": 134.96
   },
   {
     "excelFila": 161,
@@ -2397,7 +2715,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.56,
+    "valor": 0.0
   },
   {
     "excelFila": 162,
@@ -2412,7 +2732,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.67,
+    "valor": 365.36
   },
   {
     "excelFila": 163,
@@ -2427,7 +2749,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.67,
+    "valor": 0.0
   },
   {
     "excelFila": 164,
@@ -2442,7 +2766,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.08,
+    "valor": 84.16
   },
   {
     "excelFila": 165,
@@ -2457,7 +2783,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.08,
+    "valor": 0.0
   },
   {
     "excelFila": 166,
@@ -2472,7 +2800,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 30.82,
+    "valor": 61.64
   },
   {
     "excelFila": 167,
@@ -2487,7 +2817,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 30.82,
+    "valor": 0.0
   },
   {
     "excelFila": 168,
@@ -2502,7 +2834,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.53,
+    "valor": 118.59
   },
   {
     "excelFila": 169,
@@ -2517,7 +2851,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.53,
+    "valor": 0.0
   },
   {
     "excelFila": 170,
@@ -2532,7 +2868,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.36,
+    "valor": 38.36
   },
   {
     "excelFila": 171,
@@ -2547,7 +2885,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.36,
+    "valor": 0.0
   },
   {
     "excelFila": 172,
@@ -2562,7 +2902,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.85,
+    "valor": 310.8
   },
   {
     "excelFila": 173,
@@ -2577,7 +2919,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.85,
+    "valor": 0.0
   },
   {
     "excelFila": 174,
@@ -2592,7 +2936,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 7,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 40.04,
+    "valor": 280.28
   },
   {
     "excelFila": 175,
@@ -2607,7 +2953,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 40.04,
+    "valor": 0.0
   },
   {
     "excelFila": 176,
@@ -2622,7 +2970,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 10,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.8,
+    "valor": 428.0
   },
   {
     "excelFila": 177,
@@ -2637,7 +2987,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 42.8,
+    "valor": 0.0
   },
   {
     "excelFila": 178,
@@ -2652,7 +3004,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 11,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.72,
+    "valor": 436.92
   },
   {
     "excelFila": 179,
@@ -2667,7 +3021,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 39.72,
+    "valor": 0.0
   },
   {
     "excelFila": 180,
@@ -2682,7 +3038,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.22,
+    "valor": 229.32
   },
   {
     "excelFila": 181,
@@ -2697,7 +3055,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.22,
+    "valor": 0.0
   },
   {
     "excelFila": 182,
@@ -2712,7 +3072,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 32.25,
+    "valor": 258.0
   },
   {
     "excelFila": 183,
@@ -2727,7 +3089,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 32.25,
+    "valor": 0.0
   },
   {
     "excelFila": 184,
@@ -2742,7 +3106,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.66,
+    "valor": 115.98
   },
   {
     "excelFila": 185,
@@ -2757,7 +3123,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 38.66,
+    "valor": 0.0
   },
   {
     "excelFila": 186,
@@ -2772,7 +3140,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 50.36,
+    "valor": 0.0
   },
   {
     "excelFila": 187,
@@ -2787,7 +3157,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 50.36,
+    "valor": 0.0
   },
   {
     "excelFila": 188,
@@ -2802,7 +3174,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 48.08,
+    "valor": 96.16
   },
   {
     "excelFila": 189,
@@ -2817,7 +3191,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 48.08,
+    "valor": 0.0
   },
   {
     "excelFila": 190,
@@ -2832,7 +3208,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 47.99,
+    "valor": 239.95
   },
   {
     "excelFila": 191,
@@ -2847,7 +3225,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 47.99,
+    "valor": 0.0
   },
   {
     "excelFila": 192,
@@ -2862,7 +3242,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 49.32,
+    "valor": 246.6
   },
   {
     "excelFila": 193,
@@ -2877,7 +3259,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 49.32,
+    "valor": 0.0
   },
   {
     "excelFila": 194,
@@ -2892,7 +3276,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 340.32
   },
   {
     "excelFila": 195,
@@ -2907,7 +3293,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 0.0
   },
   {
     "excelFila": 196,
@@ -2922,7 +3310,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 57.72,
+    "valor": 230.88
   },
   {
     "excelFila": 197,
@@ -2937,7 +3327,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 57.72,
+    "valor": 0.0
   },
   {
     "excelFila": 198,
@@ -2952,7 +3344,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0.5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 28.36
   },
   {
     "excelFila": 199,
@@ -2967,7 +3361,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 0.0
   },
   {
     "excelFila": 200,
@@ -2982,7 +3378,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 56.72
   },
   {
     "excelFila": 201,
@@ -2997,7 +3395,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 0.0
   },
   {
     "excelFila": 202,
@@ -3012,7 +3412,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 2.5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 141.8
   },
   {
     "excelFila": 203,
@@ -3027,7 +3429,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 0.0
   },
   {
     "excelFila": 204,
@@ -3042,7 +3446,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 283.6
   },
   {
     "excelFila": 205,
@@ -3057,7 +3463,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 0.0
   },
   {
     "excelFila": 206,
@@ -3072,7 +3480,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 0.0
   },
   {
     "excelFila": 207,
@@ -3087,7 +3497,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 56.72,
+    "valor": 0.0
   },
   {
     "excelFila": 208,
@@ -3102,7 +3514,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 22,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 51.03,
+    "valor": 1122.66
   },
   {
     "excelFila": 209,
@@ -3117,7 +3531,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 51.03,
+    "valor": 0.0
   },
   {
     "excelFila": 210,
@@ -3132,7 +3548,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 29,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 50.44,
+    "valor": 1462.76
   },
   {
     "excelFila": 211,
@@ -3147,7 +3565,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 50.44,
+    "valor": 0.0
   },
   {
     "excelFila": 212,
@@ -3162,7 +3582,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 47.82,
+    "valor": 191.28
   },
   {
     "excelFila": 213,
@@ -3177,7 +3599,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 47.82,
+    "valor": 0.0
   },
   {
     "excelFila": 214,
@@ -3192,7 +3616,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 27,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 48.34,
+    "valor": 1305.18
   },
   {
     "excelFila": 215,
@@ -3207,7 +3633,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 48.34,
+    "valor": 0.0
   },
   {
     "excelFila": 216,
@@ -3222,7 +3650,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 45,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.2,
+    "valor": 549.0
   },
   {
     "excelFila": 217,
@@ -3237,7 +3667,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.2,
+    "valor": 0.0
   },
   {
     "excelFila": 218,
@@ -3252,7 +3684,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 20,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.01,
+    "valor": 240.2
   },
   {
     "excelFila": 219,
@@ -3267,7 +3701,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.01,
+    "valor": 0.0
   },
   {
     "excelFila": 220,
@@ -3282,7 +3718,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 20,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.11,
+    "valor": 242.2
   },
   {
     "excelFila": 221,
@@ -3297,7 +3735,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.11,
+    "valor": 0.0
   },
   {
     "excelFila": 222,
@@ -3312,7 +3752,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 36,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 16.2,
+    "valor": 583.2
   },
   {
     "excelFila": 223,
@@ -3327,7 +3769,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 16.2,
+    "valor": 0.0
   },
   {
     "excelFila": 224,
@@ -3342,7 +3786,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 33,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.2,
+    "valor": 501.6
   },
   {
     "excelFila": 225,
@@ -3357,7 +3803,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.2,
+    "valor": 0.0
   },
   {
     "excelFila": 226,
@@ -3372,7 +3820,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 26,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.36,
+    "valor": 399.36
   },
   {
     "excelFila": 227,
@@ -3387,7 +3837,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.36,
+    "valor": 0.0
   },
   {
     "excelFila": 228,
@@ -3402,7 +3854,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 104,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.05,
+    "valor": 1253.2
   },
   {
     "excelFila": 229,
@@ -3417,7 +3871,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.05,
+    "valor": 0.0
   },
   {
     "excelFila": 230,
@@ -3432,7 +3888,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.98,
+    "valor": 71.88
   },
   {
     "excelFila": 231,
@@ -3447,7 +3905,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.98,
+    "valor": 0.0
   },
   {
     "excelFila": 232,
@@ -3462,7 +3922,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 123,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.54,
+    "valor": 1542.42
   },
   {
     "excelFila": 233,
@@ -3477,7 +3939,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.54,
+    "valor": 0.0
   },
   {
     "excelFila": 234,
@@ -3492,7 +3956,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 7,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.4287,
+    "valor": 101.0009
   },
   {
     "excelFila": 235,
@@ -3507,7 +3973,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.4287,
+    "valor": 0.0
   },
   {
     "excelFila": 236,
@@ -3522,7 +3990,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 29,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 10.18,
+    "valor": 295.22
   },
   {
     "excelFila": 237,
@@ -3537,7 +4007,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 10.18,
+    "valor": 0.0
   },
   {
     "excelFila": 238,
@@ -3552,7 +4024,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 38,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.2,
+    "valor": 881.6
   },
   {
     "excelFila": 239,
@@ -3567,7 +4041,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.2,
+    "valor": 0.0
   },
   {
     "excelFila": 240,
@@ -3582,7 +4058,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 107,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.3,
+    "valor": 1316.1
   },
   {
     "excelFila": 241,
@@ -3597,7 +4075,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.3,
+    "valor": 0.0
   },
   {
     "excelFila": 242,
@@ -3612,7 +4092,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.08,
+    "valor": 36.24
   },
   {
     "excelFila": 243,
@@ -3627,7 +4109,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 12.08,
+    "valor": 0.0
   },
   {
     "excelFila": 244,
@@ -3642,7 +4126,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 7,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 13.08,
+    "valor": 91.56
   },
   {
     "excelFila": 245,
@@ -3657,7 +4143,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 13.08,
+    "valor": 52.32
   },
   {
     "excelFila": 246,
@@ -3672,7 +4160,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 13,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 10.28,
+    "valor": 133.64
   },
   {
     "excelFila": 247,
@@ -3687,7 +4177,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 10.28,
+    "valor": 0.0
   },
   {
     "excelFila": 248,
@@ -3702,7 +4194,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 14,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.21,
+    "valor": 212.94
   },
   {
     "excelFila": 249,
@@ -3717,7 +4211,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.21,
+    "valor": 0.0
   },
   {
     "excelFila": 250,
@@ -3732,7 +4228,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 26,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.34,
+    "valor": 398.84
   },
   {
     "excelFila": 251,
@@ -3747,7 +4245,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.34,
+    "valor": 0.0
   },
   {
     "excelFila": 252,
@@ -3762,7 +4262,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.35,
+    "valor": 61.4
   },
   {
     "excelFila": 253,
@@ -3777,7 +4279,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.35,
+    "valor": 0.0
   },
   {
     "excelFila": 254,
@@ -3792,7 +4296,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 59,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 21.86,
+    "valor": 1289.74
   },
   {
     "excelFila": 255,
@@ -3807,7 +4313,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 21.86,
+    "valor": 0.0
   },
   {
     "excelFila": 256,
@@ -3822,7 +4330,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 21.74,
+    "valor": 173.92
   },
   {
     "excelFila": 257,
@@ -3837,7 +4347,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 21.74,
+    "valor": 0.0
   },
   {
     "excelFila": 258,
@@ -3852,7 +4364,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 73,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 20.71,
+    "valor": 1511.83
   },
   {
     "excelFila": 259,
@@ -3867,7 +4381,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 20.71,
+    "valor": 0.0
   },
   {
     "excelFila": 260,
@@ -3882,7 +4398,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 20.71,
+    "valor": 0.0
   },
   {
     "excelFila": 261,
@@ -3897,7 +4415,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 20.71,
+    "valor": 0.0
   },
   {
     "excelFila": 262,
@@ -3912,7 +4432,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 21,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.7,
+    "valor": 371.7
   },
   {
     "excelFila": 263,
@@ -3927,7 +4449,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.7,
+    "valor": 0.0
   },
   {
     "excelFila": 264,
@@ -3942,7 +4466,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 16,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.62,
+    "valor": 281.92
   },
   {
     "excelFila": 265,
@@ -3957,7 +4483,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.62,
+    "valor": 0.0
   },
   {
     "excelFila": 266,
@@ -3972,7 +4500,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.62,
+    "valor": 0.0
   },
   {
     "excelFila": 267,
@@ -3987,7 +4517,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 17.62,
+    "valor": 0.0
   },
   {
     "excelFila": 268,
@@ -4002,7 +4534,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 18.15,
+    "valor": 54.45
   },
   {
     "excelFila": 269,
@@ -4017,7 +4551,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 18.15,
+    "valor": 0.0
   },
   {
     "excelFila": 270,
@@ -4032,7 +4568,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 93,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 24.08,
+    "valor": 2239.44
   },
   {
     "excelFila": 271,
@@ -4047,7 +4585,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 24.08,
+    "valor": 0.0
   },
   {
     "excelFila": 272,
@@ -4062,7 +4602,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 11,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 244.2
   },
   {
     "excelFila": 273,
@@ -4077,7 +4619,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 22.2,
+    "valor": 0.0
   },
   {
     "excelFila": 274,
@@ -4092,7 +4636,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 275,
@@ -4107,7 +4653,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 276,
@@ -4122,7 +4670,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 28,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 232.96
   },
   {
     "excelFila": 277,
@@ -4137,7 +4687,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 278,
@@ -4152,7 +4704,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 11,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 91.52
   },
   {
     "excelFila": 279,
@@ -4167,7 +4721,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 280,
@@ -4182,7 +4738,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 16.64
   },
   {
     "excelFila": 281,
@@ -4197,7 +4755,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 282,
@@ -4212,7 +4772,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 8.32
   },
   {
     "excelFila": 283,
@@ -4227,7 +4789,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 284,
@@ -4242,7 +4806,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 41.6
   },
   {
     "excelFila": 285,
@@ -4257,7 +4823,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 286,
@@ -4272,7 +4840,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 287,
@@ -4287,7 +4857,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 288,
@@ -4302,7 +4874,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 41.6
   },
   {
     "excelFila": 289,
@@ -4317,7 +4891,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 290,
@@ -4332,7 +4908,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 10,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 83.2
   },
   {
     "excelFila": 291,
@@ -4347,7 +4925,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 292,
@@ -4362,7 +4942,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 49.92
   },
   {
     "excelFila": 293,
@@ -4377,7 +4959,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 294,
@@ -4392,7 +4976,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 180,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 1497.6
   },
   {
     "excelFila": 295,
@@ -4407,7 +4993,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 296,
@@ -4422,7 +5010,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 8.32
   },
   {
     "excelFila": 297,
@@ -4437,7 +5027,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 298,
@@ -4452,7 +5044,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 49.92
   },
   {
     "excelFila": 299,
@@ -4467,7 +5061,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 300,
@@ -4482,7 +5078,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 24.96
   },
   {
     "excelFila": 301,
@@ -4497,7 +5095,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 302,
@@ -4512,7 +5112,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 139,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 1156.48
   },
   {
     "excelFila": 303,
@@ -4527,7 +5129,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 304,
@@ -4542,7 +5146,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 24.96
   },
   {
     "excelFila": 305,
@@ -4557,7 +5163,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 306,
@@ -4572,7 +5180,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 33.28
   },
   {
     "excelFila": 307,
@@ -4587,7 +5197,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 308,
@@ -4602,7 +5214,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 134,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 1114.88
   },
   {
     "excelFila": 309,
@@ -4617,7 +5231,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.32,
+    "valor": 0.0
   },
   {
     "excelFila": 310,
@@ -4632,7 +5248,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 311,
@@ -4647,7 +5265,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 312,
@@ -4662,7 +5282,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.12,
+    "valor": 0.0
   },
   {
     "excelFila": 313,
@@ -4677,7 +5299,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.12,
+    "valor": 0.0
   },
   {
     "excelFila": 314,
@@ -4692,7 +5316,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.12,
+    "valor": 16.24
   },
   {
     "excelFila": 315,
@@ -4707,7 +5333,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.12,
+    "valor": 0.0
   },
   {
     "excelFila": 316,
@@ -4722,7 +5350,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.12,
+    "valor": 48.72
   },
   {
     "excelFila": 317,
@@ -4737,7 +5367,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.12,
+    "valor": 0.0
   },
   {
     "excelFila": 318,
@@ -4752,7 +5384,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 319,
@@ -4767,7 +5401,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 320,
@@ -4782,7 +5418,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 57.65
   },
   {
     "excelFila": 321,
@@ -4797,7 +5435,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 322,
@@ -4812,7 +5452,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 12,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 138.36
   },
   {
     "excelFila": 323,
@@ -4827,7 +5469,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 324,
@@ -4842,7 +5486,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 11.53
   },
   {
     "excelFila": 325,
@@ -4857,7 +5503,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 326,
@@ -4872,7 +5520,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 13,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 149.89
   },
   {
     "excelFila": 327,
@@ -4887,7 +5537,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 328,
@@ -4902,7 +5554,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 10,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 115.3
   },
   {
     "excelFila": 329,
@@ -4917,7 +5571,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 330,
@@ -4932,7 +5588,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 7,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 80.71
   },
   {
     "excelFila": 331,
@@ -4947,7 +5605,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 332,
@@ -4962,7 +5622,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 11.53
   },
   {
     "excelFila": 333,
@@ -4977,7 +5639,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.53,
+    "valor": 0.0
   },
   {
     "excelFila": 334,
@@ -4992,7 +5656,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 21.61,
+    "valor": 43.22
   },
   {
     "excelFila": 335,
@@ -5007,7 +5673,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 21.61,
+    "valor": 0.0
   },
   {
     "excelFila": 336,
@@ -5022,7 +5690,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 21.61,
+    "valor": 0.0
   },
   {
     "excelFila": 337,
@@ -5037,7 +5707,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 21.61,
+    "valor": 0.0
   },
   {
     "excelFila": 338,
@@ -5052,7 +5724,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 18.01,
+    "valor": 36.02
   },
   {
     "excelFila": 339,
@@ -5067,7 +5741,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 18.01,
+    "valor": 0.0
   },
   {
     "excelFila": 340,
@@ -5082,7 +5758,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 86,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.36,
+    "valor": 976.96
   },
   {
     "excelFila": 341,
@@ -5097,7 +5775,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.36,
+    "valor": 0.0
   },
   {
     "excelFila": 342,
@@ -5112,7 +5792,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.11,
+    "valor": 8.11
   },
   {
     "excelFila": 343,
@@ -5127,7 +5809,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.11,
+    "valor": 0.0
   },
   {
     "excelFila": 344,
@@ -5142,7 +5826,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 13.09,
+    "valor": 104.72
   },
   {
     "excelFila": 345,
@@ -5157,7 +5843,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 13.09,
+    "valor": 0.0
   },
   {
     "excelFila": 346,
@@ -5172,7 +5860,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 16,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.59,
+    "valor": 185.44
   },
   {
     "excelFila": 347,
@@ -5187,7 +5877,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 11.59,
+    "valor": 0.0
   },
   {
     "excelFila": 348,
@@ -5202,7 +5894,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 9.44,
+    "valor": 56.64
   },
   {
     "excelFila": 349,
@@ -5217,7 +5911,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 9.44,
+    "valor": 0.0
   },
   {
     "excelFila": 350,
@@ -5232,7 +5928,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 27,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.88,
+    "valor": 239.76
   },
   {
     "excelFila": 351,
@@ -5247,7 +5945,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 8.88,
+    "valor": 0.0
   },
   {
     "excelFila": 352,
@@ -5262,7 +5962,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.7,
+    "valor": 44.1
   },
   {
     "excelFila": 353,
@@ -5277,7 +5979,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.7,
+    "valor": 0.0
   },
   {
     "excelFila": 354,
@@ -5292,7 +5996,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.7,
+    "valor": 0.0
   },
   {
     "excelFila": 355,
@@ -5307,7 +6013,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.7,
+    "valor": 0.0
   },
   {
     "excelFila": 356,
@@ -5322,7 +6030,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 9.11,
+    "valor": 72.88
   },
   {
     "excelFila": 357,
@@ -5337,7 +6047,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 9.11,
+    "valor": 0.0
   },
   {
     "excelFila": 358,
@@ -5352,7 +6064,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 66.62,
+    "valor": 133.24
   },
   {
     "excelFila": 359,
@@ -5367,7 +6081,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 66.62,
+    "valor": 0.0
   },
   {
     "excelFila": 360,
@@ -5382,7 +6098,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 43.82,
+    "valor": 43.82
   },
   {
     "excelFila": 361,
@@ -5397,7 +6115,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 43.82,
+    "valor": 0.0
   },
   {
     "excelFila": 362,
@@ -5412,7 +6132,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Taco",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 40.24,
+    "valor": 40.24
   },
   {
     "excelFila": 363,
@@ -5427,7 +6149,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "Plancha",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 40.24,
+    "valor": 0.0
   },
   {
     "excelFila": 364,
@@ -5622,7 +6346,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 80,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 1.17,
+    "valor": 93.6
   },
   {
     "excelFila": 378,
@@ -5637,7 +6363,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 87,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.88,
+    "valor": 337.56
   },
   {
     "excelFila": 380,
@@ -5652,7 +6380,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.218,
+    "valor": 0.0
   },
   {
     "excelFila": 382,
@@ -5667,7 +6397,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.644,
+    "valor": 0.0
   },
   {
     "excelFila": 384,
@@ -5682,7 +6414,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 290,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.6,
+    "valor": 1044.0
   },
   {
     "excelFila": 386,
@@ -5697,7 +6431,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 82,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.6,
+    "valor": 295.2
   },
   {
     "excelFila": 388,
@@ -5712,7 +6448,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 13,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.6,
+    "valor": 46.8
   },
   {
     "excelFila": 390,
@@ -5727,7 +6465,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 80,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.6,
+    "valor": 288.0
   },
   {
     "excelFila": 392,
@@ -5742,7 +6482,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 138,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.6,
+    "valor": 496.8
   },
   {
     "excelFila": 394,
@@ -5757,7 +6499,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 148,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.6,
+    "valor": 532.8
   },
   {
     "excelFila": 396,
@@ -5772,7 +6516,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 105,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.6,
+    "valor": 378.0
   },
   {
     "excelFila": 398,
@@ -5787,7 +6533,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 8000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 240.0
   },
   {
     "excelFila": 400,
@@ -5802,7 +6550,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 5600,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 168.0
   },
   {
     "excelFila": 402,
@@ -5817,7 +6567,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1250,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.04,
+    "valor": 50.0
   },
   {
     "excelFila": 404,
@@ -5832,7 +6584,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.05,
+    "valor": 50.0
   },
   {
     "excelFila": 406,
@@ -5847,7 +6601,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 500,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.05,
+    "valor": 25.0
   },
   {
     "excelFila": 408,
@@ -5862,7 +6618,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.06,
+    "valor": 0.0
   },
   {
     "excelFila": 410,
@@ -5877,7 +6635,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 400,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.06,
+    "valor": 24.0
   },
   {
     "excelFila": 412,
@@ -5892,7 +6652,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1300,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.05,
+    "valor": 65.0
   },
   {
     "excelFila": 414,
@@ -5907,7 +6669,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 250,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.05,
+    "valor": 12.5
   },
   {
     "excelFila": 416,
@@ -5922,7 +6686,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 235,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.3,
+    "valor": 70.5
   },
   {
     "excelFila": 418,
@@ -5937,7 +6703,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 60,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 2.0,
+    "valor": 120.0
   },
   {
     "excelFila": 420,
@@ -5952,7 +6720,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2100,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.05,
+    "valor": 105.0
   },
   {
     "excelFila": 422,
@@ -5967,7 +6737,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 36,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.3,
+    "valor": 10.8
   },
   {
     "excelFila": 424,
@@ -5982,7 +6754,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 290,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.1,
+    "valor": 29.0
   },
   {
     "excelFila": 426,
@@ -5997,7 +6771,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 990,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.109,
+    "valor": 107.91
   },
   {
     "excelFila": 428,
@@ -6012,7 +6788,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 270,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.15,
+    "valor": 40.5
   },
   {
     "excelFila": 430,
@@ -6027,7 +6805,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 60,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.15,
+    "valor": 9.0
   },
   {
     "excelFila": 432,
@@ -6042,7 +6822,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.0,
+    "valor": 360.0
   },
   {
     "excelFila": 434,
@@ -6057,7 +6839,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 50.0,
+    "valor": 100.0
   },
   {
     "excelFila": 436,
@@ -6072,7 +6856,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 8,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.95,
+    "valor": 7.6
   },
   {
     "excelFila": 438,
@@ -6087,7 +6873,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 7,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.86,
+    "valor": 27.02
   },
   {
     "excelFila": 440,
@@ -6102,7 +6890,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 6,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.86,
+    "valor": 23.16
   },
   {
     "excelFila": 442,
@@ -6117,7 +6907,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 60.0,
+    "valor": 180.0
   },
   {
     "excelFila": 444,
@@ -6132,7 +6924,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1185,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.05,
+    "valor": 59.25
   },
   {
     "excelFila": 446,
@@ -6147,7 +6941,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 58,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 5.5,
+    "valor": 319.0
   },
   {
     "excelFila": 448,
@@ -6162,7 +6958,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.32,
+    "valor": 320.0
   },
   {
     "excelFila": 450,
@@ -6177,7 +6975,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 57,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.08,
+    "valor": 4.56
   },
   {
     "excelFila": 452,
@@ -6192,7 +6992,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 50,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.08,
+    "valor": 4.0
   },
   {
     "excelFila": 454,
@@ -6207,7 +7009,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 15,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 5.0,
+    "valor": 75.0
   },
   {
     "excelFila": 456,
@@ -6222,7 +7026,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 93.75,
+    "valor": 93.75
   },
   {
     "excelFila": 458,
@@ -6237,7 +7043,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4790,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.010714,
+    "valor": 51.321429
   },
   {
     "excelFila": 460,
@@ -6252,7 +7060,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "PAQUETE",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 1.69875,
+    "valor": 6.795
   },
   {
     "excelFila": 462,
@@ -6297,7 +7107,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03041,
+    "valor": 121.64
   },
   {
     "excelFila": 468,
@@ -6312,7 +7124,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 700,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.00671,
+    "valor": 4.697
   },
   {
     "excelFila": 470,
@@ -6327,7 +7141,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 120,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.01606,
+    "valor": 1.9272
   },
   {
     "excelFila": 472,
@@ -6342,7 +7158,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 300,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.01606,
+    "valor": 4.818
   },
   {
     "excelFila": 474,
@@ -6357,7 +7175,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1990,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.02,
+    "valor": 39.8
   },
   {
     "excelFila": 476,
@@ -6372,7 +7192,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.01606,
+    "valor": 0.0
   },
   {
     "excelFila": 478,
@@ -6387,7 +7209,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 570,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.00671,
+    "valor": 3.8247
   },
   {
     "excelFila": 480,
@@ -6402,7 +7226,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.01606,
+    "valor": 0.0
   },
   {
     "excelFila": 482,
@@ -6417,7 +7243,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 580,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.00671,
+    "valor": 3.8918
   },
   {
     "excelFila": 484,
@@ -6432,7 +7260,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 70,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.01606,
+    "valor": 1.1242
   },
   {
     "excelFila": 486,
@@ -6447,7 +7277,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 220,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.01606,
+    "valor": 3.5332
   },
   {
     "excelFila": 488,
@@ -6462,7 +7294,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 950,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.001,
+    "valor": 0.95
   },
   {
     "excelFila": 490,
@@ -6477,7 +7311,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 20,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.6,
+    "valor": 72.0
   },
   {
     "excelFila": 492,
@@ -6492,7 +7328,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.56,
+    "valor": 0.0
   },
   {
     "excelFila": 494,
@@ -6507,7 +7345,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 20,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.56,
+    "valor": 71.2
   },
   {
     "excelFila": 496,
@@ -6522,7 +7362,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 200,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.89,
+    "valor": 778.0
   },
   {
     "excelFila": 498,
@@ -6537,7 +7379,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.89,
+    "valor": 0.0
   },
   {
     "excelFila": 500,
@@ -6552,7 +7396,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTE",
     "stock": 12,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 14.7,
+    "valor": 176.4
   },
   {
     "excelFila": 502,
@@ -6567,7 +7413,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 20,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.8,
+    "valor": 76.0
   },
   {
     "excelFila": 504,
@@ -6582,7 +7430,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 40,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.8,
+    "valor": 152.0
   },
   {
     "excelFila": 506,
@@ -6597,7 +7447,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 10,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.8,
+    "valor": 38.0
   },
   {
     "excelFila": 508,
@@ -6612,7 +7464,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 10,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 4.5,
+    "valor": 45.0
   },
   {
     "excelFila": 510,
@@ -6627,7 +7481,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 3500,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.32,
+    "valor": 1120.0
   },
   {
     "excelFila": 512,
@@ -6642,7 +7498,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1900,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.5,
+    "valor": 950.0
   },
   {
     "excelFila": 514,
@@ -6657,7 +7515,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.5,
+    "valor": 1000.0
   },
   {
     "excelFila": 516,
@@ -6672,7 +7532,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 200,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.0295,
+    "valor": 5.9
   },
   {
     "excelFila": 518,
@@ -6687,7 +7549,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 1500,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.0295,
+    "valor": 44.25
   },
   {
     "excelFila": 520,
@@ -6702,7 +7566,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 3000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.0295,
+    "valor": 88.5
   },
   {
     "excelFila": 522,
@@ -6717,7 +7583,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.0295,
+    "valor": 0.0
   },
   {
     "excelFila": 524,
@@ -6732,7 +7600,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.0295,
+    "valor": 0.0
   },
   {
     "excelFila": 526,
@@ -6747,7 +7617,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 1100,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.117,
+    "valor": 128.7
   },
   {
     "excelFila": 528,
@@ -6762,7 +7634,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "LITROS",
     "stock": 500,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.074,
+    "valor": 37.0
   },
   {
     "excelFila": 530,
@@ -6777,7 +7651,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 49.0,
+    "valor": 49.0
   },
   {
     "excelFila": 532,
@@ -6792,7 +7668,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 60.0,
+    "valor": 60.0
   },
   {
     "excelFila": 534,
@@ -6807,7 +7685,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 72.0,
+    "valor": 144.0
   },
   {
     "excelFila": 536,
@@ -6822,7 +7702,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 72.0,
+    "valor": 72.0
   },
   {
     "excelFila": 538,
@@ -6837,7 +7719,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 58.1,
+    "valor": 116.2
   },
   {
     "excelFila": 540,
@@ -6852,7 +7736,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 57.25,
+    "valor": 114.5
   },
   {
     "excelFila": 542,
@@ -6867,7 +7753,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 55.44,
+    "valor": 110.88
   },
   {
     "excelFila": 544,
@@ -6882,7 +7770,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.16,
+    "valor": 45.16
   },
   {
     "excelFila": 546,
@@ -6897,7 +7787,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.16,
+    "valor": 45.16
   },
   {
     "excelFila": 548,
@@ -6912,7 +7804,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 48.98,
+    "valor": 97.96
   },
   {
     "excelFila": 550,
@@ -6927,7 +7821,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 27.12,
+    "valor": 27.12
   },
   {
     "excelFila": 552,
@@ -6942,7 +7838,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 29.69,
+    "valor": 89.07
   },
   {
     "excelFila": 554,
@@ -6957,7 +7855,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.0,
+    "valor": 45.0
   },
   {
     "excelFila": 556,
@@ -6972,7 +7872,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.0,
+    "valor": 45.0
   },
   {
     "excelFila": 558,
@@ -6987,7 +7889,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 29.0,
+    "valor": 0.0
   },
   {
     "excelFila": 560,
@@ -7002,7 +7906,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 52.0,
+    "valor": 52.0
   },
   {
     "excelFila": 562,
@@ -7017,7 +7923,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.0,
+    "valor": 0.0
   },
   {
     "excelFila": 564,
@@ -7032,7 +7940,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 72.0,
+    "valor": 72.0
   },
   {
     "excelFila": 566,
@@ -7047,7 +7957,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 29.0,
+    "valor": 0.0
   },
   {
     "excelFila": 568,
@@ -7062,7 +7974,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 45.0,
+    "valor": 45.0
   },
   {
     "excelFila": 570,
@@ -7077,7 +7991,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 29.0,
+    "valor": 0.0
   },
   {
     "excelFila": 572,
@@ -7092,7 +8008,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 29.0,
+    "valor": 116.0
   },
   {
     "excelFila": 574,
@@ -7107,7 +8025,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 10.0,
+    "valor": 20.0
   },
   {
     "excelFila": 576,
@@ -7122,7 +8042,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "M",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 60.0,
+    "valor": 60.0
   },
   {
     "excelFila": 578,
@@ -7137,7 +8059,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 31.08,
+    "valor": 62.16
   },
   {
     "excelFila": 580,
@@ -7152,7 +8076,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "",
     "stock": 136,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 25.0,
+    "valor": 3400.0
   },
   {
     "excelFila": 582,
@@ -7167,7 +8093,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES 1 KG",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 23.45,
+    "valor": 23.45
   },
   {
     "excelFila": 584,
@@ -7182,7 +8110,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "BOTES 5L",
     "stock": 0.5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 40.56,
+    "valor": 20.28
   },
   {
     "excelFila": 586,
@@ -7197,7 +8127,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 71.25,
+    "valor": 142.5
   },
   {
     "excelFila": 588,
@@ -7212,7 +8144,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 69.78,
+    "valor": 279.12
   },
   {
     "excelFila": 590,
@@ -7227,7 +8161,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 62.4,
+    "valor": 0.0
   },
   {
     "excelFila": 592,
@@ -7242,7 +8178,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 69.78,
+    "valor": 0.0
   },
   {
     "excelFila": 594,
@@ -7257,7 +8195,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 69.78,
+    "valor": 0.0
   },
   {
     "excelFila": 596,
@@ -7272,7 +8212,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 7.59,
+    "valor": 30.36
   },
   {
     "excelFila": 598,
@@ -7287,7 +8229,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 15.75,
+    "valor": 31.5
   },
   {
     "excelFila": 600,
@@ -7302,7 +8246,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 14,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 2.85,
+    "valor": 39.9
   },
   {
     "excelFila": 602,
@@ -7317,7 +8263,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 400,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 2.57,
+    "valor": 1028.0
   },
   {
     "excelFila": 604,
@@ -7332,7 +8280,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 100,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 2.57,
+    "valor": 257.0
   },
   {
     "excelFila": 606,
@@ -7347,7 +8297,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 3650,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 109.5
   },
   {
     "excelFila": 608,
@@ -7362,7 +8314,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4500,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 135.0
   },
   {
     "excelFila": 610,
@@ -7377,7 +8331,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 120,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 3.6
   },
   {
     "excelFila": 612,
@@ -7392,7 +8348,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2800,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 84.0
   },
   {
     "excelFila": 614,
@@ -7407,7 +8365,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4950,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 148.5
   },
   {
     "excelFila": 616,
@@ -7422,7 +8382,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4960,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 148.8
   },
   {
     "excelFila": 618,
@@ -7437,7 +8399,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1200,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 36.0
   },
   {
     "excelFila": 620,
@@ -7452,7 +8416,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 60.0
   },
   {
     "excelFila": 622,
@@ -7467,7 +8433,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 30.0
   },
   {
     "excelFila": 624,
@@ -7482,7 +8450,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 20,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.03,
+    "valor": 0.6
   },
   {
     "excelFila": 626,
@@ -7497,7 +8467,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 600,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.11,
+    "valor": 66.0
   },
   {
     "excelFila": 628,
@@ -7512,7 +8484,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 65,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.11,
+    "valor": 7.15
   },
   {
     "excelFila": 630,
@@ -7527,7 +8501,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4650,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.11,
+    "valor": 511.5
   },
   {
     "excelFila": 632,
@@ -7542,7 +8518,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 150,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.11,
+    "valor": 16.5
   },
   {
     "excelFila": 634,
@@ -7557,7 +8535,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 15400,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.11,
+    "valor": 1694.0
   },
   {
     "excelFila": 636,
@@ -7572,7 +8552,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 8000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.08,
+    "valor": 640.0
   },
   {
     "excelFila": 638,
@@ -7587,7 +8569,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 8000,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.08,
+    "valor": 640.0
   },
   {
     "excelFila": 640,
@@ -7602,7 +8586,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1500,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.08,
+    "valor": 120.0
   },
   {
     "excelFila": 642,
@@ -7617,7 +8603,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1750,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.08,
+    "valor": 140.0
   },
   {
     "excelFila": 644,
@@ -7632,7 +8620,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 3350,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.08,
+    "valor": 268.0
   },
   {
     "excelFila": 646,
@@ -7647,7 +8637,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1300,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.08,
+    "valor": 104.0
   },
   {
     "excelFila": 648,
@@ -7662,7 +8654,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 1,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 150.0,
+    "valor": 150.0
   },
   {
     "excelFila": 650,
@@ -7677,7 +8671,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 350,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 2.0,
+    "valor": 700.0
   },
   {
     "excelFila": 652,
@@ -7692,7 +8688,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 100,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 2.0,
+    "valor": 200.0
   },
   {
     "excelFila": 654,
@@ -7707,7 +8705,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 62,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 2.19,
+    "valor": 135.78
   },
   {
     "excelFila": 656,
@@ -7722,7 +8722,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 23,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 2.25,
+    "valor": 51.75
   },
   {
     "excelFila": 658,
@@ -7737,7 +8739,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 52,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 1.3,
+    "valor": 67.6
   },
   {
     "excelFila": 660,
@@ -7752,7 +8756,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 23,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 3.35,
+    "valor": 77.05
   },
   {
     "excelFila": 662,
@@ -7767,7 +8773,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 204,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 1.3,
+    "valor": 265.2
   },
   {
     "excelFila": 664,
@@ -7782,7 +8790,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 21.53,
+    "valor": 43.06
   },
   {
     "excelFila": 666,
@@ -7797,7 +8807,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2050,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 5.6,
+    "valor": 11480.0
   },
   {
     "excelFila": 668,
@@ -7812,7 +8824,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 2,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 271.8,
+    "valor": 543.6
   },
   {
     "excelFila": 670,
@@ -7827,7 +8841,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 820,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 311.6
   },
   {
     "excelFila": 672,
@@ -7842,7 +8858,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 820,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 311.6
   },
   {
     "excelFila": 674,
@@ -7857,7 +8875,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 500,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 190.0
   },
   {
     "excelFila": 676,
@@ -7872,7 +8892,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 500,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 190.0
   },
   {
     "excelFila": 678,
@@ -7887,7 +8909,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 110,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 41.8
   },
   {
     "excelFila": 680,
@@ -7902,7 +8926,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 110,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 41.8
   },
   {
     "excelFila": 682,
@@ -7917,7 +8943,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 240,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 91.2
   },
   {
     "excelFila": 684,
@@ -7932,7 +8960,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 240,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 91.2
   },
   {
     "excelFila": 686,
@@ -7947,7 +8977,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 245,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 93.1
   },
   {
     "excelFila": 688,
@@ -7962,7 +8994,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 245,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 93.1
   },
   {
     "excelFila": 690,
@@ -7977,7 +9011,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 27,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 5.13
   },
   {
     "excelFila": 692,
@@ -7992,7 +9028,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 200,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 76.0
   },
   {
     "excelFila": 694,
@@ -8007,7 +9045,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 200,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.38,
+    "valor": 76.0
   },
   {
     "excelFila": 696,
@@ -8022,7 +9062,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 0.0
   },
   {
     "excelFila": 698,
@@ -8037,7 +9079,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 0,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 0.0
   },
   {
     "excelFila": 700,
@@ -8052,7 +9096,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 29,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 5.51
   },
   {
     "excelFila": 702,
@@ -8067,7 +9113,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 28,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 5.32
   },
   {
     "excelFila": 704,
@@ -8082,7 +9130,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 12,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 2.28
   },
   {
     "excelFila": 706,
@@ -8097,7 +9147,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 12,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 2.28
   },
   {
     "excelFila": 708,
@@ -8112,7 +9164,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 3,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 0.57
   },
   {
     "excelFila": 710,
@@ -8127,7 +9181,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 0.76
   },
   {
     "excelFila": 712,
@@ -8142,7 +9198,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 5,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 0.95
   },
   {
     "excelFila": 714,
@@ -8157,7 +9215,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 4,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 0.76
   },
   {
     "excelFila": 716,
@@ -8172,7 +9232,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 12,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 2.28
   },
   {
     "excelFila": 718,
@@ -8187,7 +9249,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 12,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 2.28
   },
   {
     "excelFila": 720,
@@ -8202,7 +9266,9 @@ export const INVENTARIO_AGOSTO_2026 = [
     "formato": "UNIDADES",
     "stock": 150,
     "origenExcel": "AGOSTO_2026_MATERIALES",
-    "revisionStock": true
+    "revisionStock": true,
+    "precioUnitario": 0.19,
+    "valor": 28.5
   },
   {
     "excelFila": 5,

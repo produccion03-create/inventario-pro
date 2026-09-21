@@ -15,8 +15,9 @@ async function cargar(){
 }
 function render(){
  const total=revs.length,revisados=revs.filter(r=>r.revisado).length,difs=revs.filter(r=>r.revisado&&Number(r.diferencia)!==0).length;
- resumen.innerHTML=`<span class="chip">Revisados: ${revisados}</span><span class="chip">Con diferencias: ${difs}</span><span class="chip">Registros: ${total}</span>`;
- tabla.innerHTML=revs.sort((a,b)=>(a.familia||"").localeCompare(b.familia||"")||(a.codigo||"").localeCompare(b.codigo||"")).map(r=>`<tr><td>${e(r.codigo)}</td><td>${e(r.nombreProducto)}</td><td>${e(r.familia)}</td><td>${Number(r.stockSistema||0)}</td><td>${r.stockFisico??""}</td><td class="dif">${Number(r.diferencia||0)}</td><td>${r.revisado?"✓ Revisado":"Pendiente"}</td></tr>`).join("")||'<tr><td colspan="7">No hay revisiones para este mes.</td></tr>';
+ const valorFisico=revs.filter(r=>r.revisado).reduce((s,r)=>{const p=productos.get(r.productoId)||{};return s+(Number(r.stockFisico)||0)*(Number(p.precioUnitario)||0)},0);
+ resumen.innerHTML=`<span class="chip">Revisados: ${revisados}</span><span class="chip">Con diferencias: ${difs}</span><span class="chip">Registros: ${total}</span><span class="chip">Valor stock físico: ${valorFisico.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}</span>`;
+ tabla.innerHTML=revs.sort((a,b)=>(a.familia||"").localeCompare(b.familia||"")||(a.codigo||"").localeCompare(b.codigo||"")).map(r=>{const p=productos.get(r.productoId)||{};const precio=Number(p.precioUnitario)||0;const valor=(Number(r.stockFisico)||0)*precio;return `<tr><td>${e(r.codigo)}</td><td>${e(r.nombreProducto)}</td><td>${e(r.familia)}</td><td>${Number(r.stockSistema||0)}</td><td>${r.stockFisico??""}</td><td class="dif">${Number(r.diferencia||0)}</td><td>${precio?precio.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${precio?valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${r.revisado?"✓ Revisado":"Pendiente"}</td></tr>`}).join("")||'<tr><td colspan="9">No hay revisiones para este mes.</td></tr>';
 }
 document.getElementById("cargar").onclick=cargar;
 document.getElementById("aplicar").onclick=async()=>{
@@ -34,51 +35,15 @@ document.getElementById("pdf").onclick=()=>{
  const pdf=new jsPDF({orientation:"landscape",unit:"mm",format:"a4"});
  const revisados=revs.filter(r=>r.revisado);
  const diferencias=revisados.filter(r=>Number(r.diferencia)!==0);
-
- pdf.setFontSize(18);
- pdf.text("Inventario Pro - Informe de cierre mensual",14,15);
- pdf.setFontSize(11);
- pdf.text(`Mes: ${mes.value}`,14,23);
- pdf.text(`Familia: ${familia.value||"Todas"}`,14,29);
- pdf.text(`Productos revisados: ${revisados.length}`,14,35);
- pdf.text(`Productos con diferencias: ${diferencias.length}`,14,41);
- pdf.text(`Fecha del informe: ${new Date().toLocaleDateString("es-ES")}`,14,47);
-
- const filas=revs.map(r=>[
-   r.codigo||"",
-   r.nombreProducto||"",
-   r.familia||"",
-   String(Number(r.stockSistema||0)),
-   r.stockFisico??"",
-   String(Number(r.diferencia||0)),
-   r.revisado?"Revisado":"Pendiente"
- ]);
-
- pdf.autoTable({
-   startY:53,
-   head:[["Referencia","Producto","Familia","Stock sistema","Stock físico","Diferencia","Estado"]],
-   body:filas,
-   styles:{fontSize:7,cellPadding:1.6},
-   headStyles:{fontSize:7},
-   columnStyles:{0:{cellWidth:27},1:{cellWidth:65},2:{cellWidth:50},3:{cellWidth:27},4:{cellWidth:27},5:{cellWidth:24},6:{cellWidth:25}},
-   margin:{left:10,right:10}
- });
-
- if(diferencias.length){
-   pdf.addPage("a4","landscape");
-   pdf.setFontSize(16);
-   pdf.text("Diferencias encontradas",14,15);
-   pdf.autoTable({
-     startY:22,
-     head:[["Referencia","Producto","Familia","Stock sistema","Stock físico","Diferencia"]],
-     body:diferencias.map(r=>[
-       r.codigo||"",r.nombreProducto||"",r.familia||"",
-       String(Number(r.stockSistema||0)),String(r.stockFisico??""),String(Number(r.diferencia||0))
-     ]),
-     styles:{fontSize:8,cellPadding:1.8},
-     margin:{left:10,right:10}
-   });
- }
+ const valorTotal=revisados.reduce((s,r)=>{const p=productos.get(r.productoId)||{};return s+(Number(r.stockFisico)||0)*(Number(p.precioUnitario)||0)},0);
+ pdf.setFontSize(18);pdf.text("Inventario Pro - Informe de cierre mensual",14,15);
+ pdf.setFontSize(11);pdf.text(`Mes: ${mes.value}`,14,23);pdf.text(`Familia: ${familia.value||"Todas"}`,14,29);
+ pdf.text(`Productos revisados: ${revisados.length}`,14,35);pdf.text(`Productos con diferencias: ${diferencias.length}`,14,41);
+ pdf.text(`Valor total del stock físico: ${valorTotal.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}`,14,47);
+ pdf.text(`Fecha del informe: ${new Date().toLocaleDateString("es-ES")}`,14,53);
+ const filas=revs.map(r=>{const p=productos.get(r.productoId)||{};const precio=Number(p.precioUnitario)||0;const valor=(Number(r.stockFisico)||0)*precio;return [r.codigo||"",r.nombreProducto||"",r.familia||"",String(Number(r.stockSistema||0)),String(r.stockFisico??""),String(Number(r.diferencia||0)),precio?precio.toFixed(2):"",precio?valor.toFixed(2):"",r.revisado?"Revisado":"Pendiente"]});
+ pdf.autoTable({startY:59,head:[["Referencia","Producto","Familia","Stock sistema","Stock físico","Diferencia","Precio €","Valor €","Estado"]],body:filas,styles:{fontSize:6.5,cellPadding:1.4},margin:{left:7,right:7}});
+ if(diferencias.length){pdf.addPage("a4","landscape");pdf.setFontSize(16);pdf.text("Diferencias encontradas",14,15);pdf.autoTable({startY:22,head:[["Referencia","Producto","Familia","Stock sistema","Stock físico","Diferencia","Precio €","Valor físico €"]],body:diferencias.map(r=>{const p=productos.get(r.productoId)||{};const precio=Number(p.precioUnitario)||0;return [r.codigo||"",r.nombreProducto||"",r.familia||"",String(Number(r.stockSistema||0)),String(r.stockFisico??""),String(Number(r.diferencia||0)),precio?precio.toFixed(2):"",precio?((Number(r.stockFisico)||0)*precio).toFixed(2):""]}),styles:{fontSize:7,cellPadding:1.5},margin:{left:7,right:7}});}
  pdf.save(`inventario_${mes.value}_${(familia.value||"todas").replaceAll(" ","_")}.pdf`);
 };
 
