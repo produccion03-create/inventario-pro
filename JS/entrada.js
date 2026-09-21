@@ -31,6 +31,50 @@ let movimientos = [];
 
 const normalizar = v => String(v || "").trim().toUpperCase();
 
+
+function fechaMovimiento(m){
+    if(!m.fecha) return "";
+    try{
+        const d = m.fecha.toDate ? m.fecha.toDate() : new Date(m.fecha);
+        return d.toLocaleDateString("es-ES");
+    }catch(e){ return ""; }
+}
+
+function mostrarEntradas(){
+    const cuerpo=document.getElementById("tablaEntradas");
+    if(!cuerpo) return;
+
+    const entradas=movimientos
+        .filter(m=>m.tipo==="Entrada" && (m.pcn || m.pvn))
+        .sort((a,b)=>{
+            const fa=a.fecha?.seconds || 0;
+            const fb=b.fecha?.seconds || 0;
+            return fb-fa;
+        });
+
+    if(!entradas.length){
+        cuerpo.innerHTML='<tr><td colspan="10" style="padding:14px;">Todavía no hay entradas PCN / PVN registradas.</td></tr>';
+        return;
+    }
+
+    cuerpo.innerHTML=entradas.map(m=>{
+        const diferencia = Number(m.diferencia ?? (Number(m.recibidoAcumulado||m.cantidad||0)-Number(m.cantidadPedida||0)));
+        const pendiente = Number(m.pendiente ?? Math.max(-diferencia,0));
+        return `<tr>
+          <td style="padding:9px;border-bottom:1px solid #eee;">${fechaMovimiento(m)}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;"><strong>${m.pcn||""}</strong></td>
+          <td style="padding:9px;border-bottom:1px solid #eee;"><strong>${m.pvn||""}</strong></td>
+          <td style="padding:9px;border-bottom:1px solid #eee;">${m.producto||""}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${Number(m.cantidadPedida||0)}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${Number(m.cantidad||0)}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${Number(m.recibidoAcumulado||m.cantidad||0)}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${pendiente}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${diferencia}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;">${m.estadoPedido||""}</td>
+        </tr>`;
+    }).join("");
+}
+
 async function cargarDatos(){
     const [datosProductos, datosMovimientos] = await Promise.all([
         getDocs(collection(db,"productos")),
@@ -60,6 +104,7 @@ async function cargarDatos(){
 
     actualizarStock();
     actualizarPedido();
+    mostrarEntradas();
 }
 
 function actualizarStock(){
