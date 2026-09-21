@@ -127,7 +127,7 @@
 
 <div>
 <label>Cantidad pedida</label>
-<input type="number" id="cantidadPedida" min="0" value="0">
+<input type="number" id="cantidadPedida" min="0" step="any" value="" placeholder="Lo que pediste">
 </div>
 
 <div>
@@ -165,13 +165,9 @@
 
 <div>
 
-<label>Cantidad</label>
+<label>Cantidad recibida</label>
 
-<input
-type="number"
-id="cantidad"
-min="1"
-value="1">
+<input type="number" id="cantidad" min="0" step="any" value="" placeholder="Lo que realmente llegó">
 
 </div>
 
@@ -230,7 +226,7 @@ class="btn-verde">
 
 </span>
 
-<p>Unidades a añadir</p>
+<p>Unidades realmente recibidas</p>
 
 </div>
 
@@ -244,7 +240,7 @@ class="btn-verde">
 
 </div>
 
-<script type="module" src="JS/entrada.js?v=pcn-pvn-v1"></script>
+<script type="module" src="JS/entrada.js?v=pcn-pvn-v2"></script>
 
 </body>
 
