@@ -8,10 +8,20 @@ const norm=v=>String(v??"").trim().toLowerCase();
 function productoParaRevision(r){
  const directo=productos.get(r.productoId);
  if(directo && Number(directo.precioUnitario)>0) return directo;
- return productosConPrecio.find(p =>
-   (r.codigo && norm(p.codigo)===norm(r.codigo)) ||
-   (r.nombreProducto && norm(p.nombre)===norm(r.nombreProducto) && (!r.familia || p.familia===r.familia))
- ) || directo || {};
+
+ const textoRev=norm([r.codigo,r.referencia,r.nombreProducto,r.producto,r.nombre].filter(Boolean).join(" "));
+ const tokens=textoRev.replace(/[^a-z0-9áéíóúüñ]+/g," ").split(/\s+/).filter(t=>t.length>=3);
+ let mejor=null, mejorPuntos=0;
+
+ for(const p of productosConPrecio){
+   if(r.familia && p.familia && norm(r.familia)!==norm(p.familia)) continue;
+   const textoP=norm([p.codigo,p.nombre,p.descripcion,p.material,p.subfamilia,p.formato].filter(Boolean).join(" "));
+   let puntos=0;
+   for(const t of tokens) if(textoP.includes(t)) puntos += t.length;
+   if(Number(r.stockSistema)===Number(p.stock)) puntos += 3;
+   if(puntos>mejorPuntos){ mejorPuntos=puntos; mejor=p; }
+ }
+ return mejorPuntos>=5 ? mejor : (directo||{});
 }
 const e=s=>String(s??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 async function cargar(){
