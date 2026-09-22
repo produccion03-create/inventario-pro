@@ -1,6 +1,20 @@
 import {db,collection,getDocs} from "./firebase.js";
 
-const num=v=>Number(v)||0;
+const num=v=>{
+ const n=Number(String(v ?? "").trim().replace(",","."));
+ return Number.isFinite(n)?n:0;
+};
+const precioDe=p=>num(
+ p.precio ??
+ p.precioUnitario ??
+ p.precio_unitario ??
+ p.precioUnidad ??
+ p.coste ??
+ p.costo ??
+ p.valorUnitario ??
+ p.valor_unitario ??
+ 0
+);
 const norm=v=>String(v||"").trim().toUpperCase();
 
 async function cargarDashboard(){
@@ -12,7 +26,7 @@ async function cargarDashboard(){
  const movimientos=ms.docs.map(d=>({id:d.id,...d.data()}));
 
  const totalProductos=productos.length;
- const valorAlmacen=productos.reduce((s,p)=>s+num(p.stock)*num(p.precio),0);
+ const valorAlmacen=productos.reduce((s,p)=>s+num(p.stock)*precioDe(p),0);
 
  const stockBajo=productos.filter(p=>{
    const stock=num(p.stock), minimo=num(p.stockMinimo ?? 5);
@@ -29,7 +43,7 @@ async function cargarDashboard(){
    if(!categorias[cat]) categorias[cat]={productos:0,stock:0,valor:0};
    categorias[cat].productos++;
    categorias[cat].stock+=num(p.stock);
-   categorias[cat].valor+=num(p.stock)*num(p.precio);
+   categorias[cat].valor+=num(p.stock)*precioDe(p);
  });
 
  const entradas=movimientos.filter(m=>m.tipo==="Entrada"&&(m.pcn||m.pvn));
@@ -63,27 +77,27 @@ async function cargarDashboard(){
 
 
  const listaCategorias=document.getElementById("listaCategorias");
- listaCategorias.innerHTML=Object.entries(categorias)
-   .sort((a,b)=>a[0].localeCompare(b[0]))
-   .map(([cat,d])=>`<div class="movimiento">
-      <h3>📂 ${cat}</h3>
-      <p>📦 Productos: <strong>${d.productos}</strong></p>
-      <p>📦 Stock total: <strong>${d.stock}</strong></p>
-      <p>💰 Valor: <strong>${d.valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}</strong></p>
-   </div>`).join("") || "No hay categorías.";
+ const catsOrdenadas=Object.entries(categorias).sort((a,b)=>b[1].valor-a[1].valor);
+ listaCategorias.innerHTML=catsOrdenadas.length
+   ? `<table class="tabla-productos"><thead><tr><th>Categoría</th><th>Productos</th><th>Stock</th><th>Valor</th></tr></thead><tbody>${
+       catsOrdenadas.map(([cat,d])=>`<tr><td><strong>${cat}</strong></td><td>${d.productos}</td><td>${d.stock}</td><td><strong>${d.valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}</strong></td></tr>`).join("")
+     }</tbody></table>`
+   : "No hay categorías.";
 
- const ctx=document.getElementById("graficoInventario");
+ const ctx=document.getElementById("graficoCategorias");
  if(ctx && window.Chart){
+   const datosCategorias=Object.entries(categorias).sort((a,b)=>b[1].valor-a[1].valor);
    new Chart(ctx,{
-     type:"doughnut",
+     type:"bar",
      data:{
-       labels:["Stock correcto","Stock bajo","Sin stock"],
-       datasets:[{data:[stockCorrecto,stockBajo,sinStock]}]
+       labels:datosCategorias.map(([cat])=>cat),
+       datasets:[{label:"Valor €",data:datosCategorias.map(([,d])=>d.valor)}]
      },
      options:{
        responsive:true,
        maintainAspectRatio:false,
-       plugins:{legend:{position:"bottom"}}
+       plugins:{legend:{display:false}},
+       scales:{y:{beginAtZero:true}}
      }
    });
  }
