@@ -1,11 +1,179 @@
-import {db,collection,getDocs,doc,updateDoc,addDoc,serverTimestamp} from "./firebase.js";
-const producto=document.getElementById("producto"), productoResultado=document.getElementById("productoResultado"), stockActual=document.getElementById("stockActual"), cantidad=document.getElementById("cantidad"), cantidadObtenida=document.getElementById("cantidadObtenida"), pcn=document.getElementById("pcn"), pvn=document.getElementById("pvn"), observaciones=document.getElementById("observaciones"), boton=document.getElementById("guardarSalida"), tabla=document.getElementById("tablaTransformaciones");
-let productos=[],movimientos=[],origen=null,resultado=null;
-const norm=v=>String(v||"").trim().toUpperCase();
-function fecha(m){try{const d=m.fecha?.toDate?m.fecha.toDate():new Date(m.fecha);return d.toLocaleDateString("es-ES")}catch(e){return ""}}
-function actualizar(){origen=productos.find(p=>p.id===producto.value)||null;resultado=productos.find(p=>p.id===productoResultado.value)||null;stockActual.textContent=origen?Number(origen.stock||0):0}
-function tablaHistorial(){const f=movimientos.filter(m=>m.tipo==="Transformación").sort((a,b)=>(b.fecha?.seconds||0)-(a.fecha?.seconds||0));tabla.innerHTML=f.length?f.map(m=>`<tr><td>${fecha(m)}</td><td><b>${m.pcn||""}</b></td><td><b>${m.pvn||""}</b></td><td>${m.productoOrigen||""}</td><td>${Number(m.cantidadUtilizada||0)}</td><td>${m.productoResultado||""}</td><td>${Number(m.cantidadObtenida||0)}</td><td>${m.observaciones||""}</td></tr>`).join(""):'<tr><td colspan="8">Todavía no hay transformaciones registradas.</td></tr>'}
-async function cargar(){const[ps,ms]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"movimientos"))]);productos=ps.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.nombre||"").localeCompare(String(b.nombre||"")));movimientos=ms.docs.map(d=>({id:d.id,...d.data()}));producto.innerHTML="";productoResultado.innerHTML='<option value="">Selecciona producto resultante</option>';for(const p of productos){producto.add(new Option(`${p.nombre} · Stock ${Number(p.stock||0)}`,p.id));productoResultado.add(new Option(`${p.nombre} · Stock ${Number(p.stock||0)}`,p.id))}actualizar();tablaHistorial()}
-producto.onchange=actualizar;productoResultado.onchange=actualizar;
-boton.onclick=async()=>{actualizar();const usada=Number(cantidad.value),obtenida=Number(cantidadObtenida.value),PCN=norm(pcn.value),PVN=norm(pvn.value);if(!origen)return alert("Selecciona producto de origen");if(!PCN)return alert("Introduce el PCN");if(!PVN)return alert("Introduce el PVN");if(!(usada>0))return alert("Introduce cantidad utilizada");if(usada>Number(origen.stock||0))return alert("No hay suficiente stock");if(!resultado)return alert("Selecciona producto resultante");if(origen.id===resultado.id)return alert("Origen y resultante deben ser distintos");if(!(obtenida>0))return alert("Introduce cantidad obtenida");if(!confirm(`Usar ${usada} de ${origen.nombre} y obtener ${obtenida} de ${resultado.nombre}. ¿Continuar?`))return;const oa=Number(origen.stock||0),ra=Number(resultado.stock||0);await updateDoc(doc(db,"productos",origen.id),{stock:oa-usada});await updateDoc(doc(db,"productos",resultado.id),{stock:ra+obtenida});await addDoc(collection(db,"movimientos"),{tipo:"Transformación",pcn:PCN,pvn:PVN,productoOrigenId:origen.id,productoOrigen:origen.nombre,codigoOrigen:origen.codigo||"",cantidadUtilizada:usada,stockOrigenAnterior:oa,stockOrigenFinal:oa-usada,productoResultadoId:resultado.id,productoResultado:resultado.nombre,codigoResultado:resultado.codigo||"",cantidadObtenida:obtenida,stockResultadoAnterior:ra,stockResultadoFinal:ra+obtenida,observaciones:observaciones.value.trim(),fecha:serverTimestamp()});alert("✅ Transformación registrada");location.reload()};
-cargar();
+import {
+    db,
+    collection,
+    getDocs,
+    doc,
+    updateDoc,
+    addDoc,
+    serverTimestamp
+} from "./firebase.js";
+
+const entradaOrigen = document.getElementById("entradaOrigen");
+const disponibleEntrada = document.getElementById("disponibleEntrada");
+const cantidad = document.getElementById("cantidad");
+const observaciones = document.getElementById("observaciones");
+const boton = document.getElementById("guardarSalida");
+const tabla = document.getElementById("tablaEntradasSalida");
+
+let productos = [];
+let movimientos = [];
+let entradas = [];
+let entradaSeleccionada = null;
+
+const norm = v => String(v || "").trim().toUpperCase();
+
+function claveEntrada(m){
+    // Each actual receipt is kept separately by its movement id.
+    return m.id;
+}
+
+function salidasDeEntrada(entradaId){
+    return movimientos
+        .filter(m => m.tipo === "Salida" && m.entradaOrigenId === entradaId)
+        .reduce((s,m) => s + Number(m.cantidad || 0), 0);
+}
+
+function disponibleDeEntrada(e){
+    return Math.max(Number(e.cantidad || 0) - salidasDeEntrada(e.id), 0);
+}
+
+function actualizarSelector(){
+    entradas = movimientos
+        .filter(m => m.tipo === "Entrada" && (m.pcn || m.pvn))
+        .sort((a,b)=>(b.fecha?.seconds || 0) - (a.fecha?.seconds || 0));
+
+    entradaOrigen.innerHTML = '<option value="">Selecciona una entrada</option>';
+
+    entradas.forEach(e => {
+        const disponible = disponibleDeEntrada(e);
+        const opt = document.createElement("option");
+        opt.value = e.id;
+        opt.textContent =
+            `${e.pcn || ""} | ${e.pvn || ""} | ${e.producto || ""} | Entraron ${Number(e.cantidad || 0)} | Disponibles ${disponible}`;
+        if(disponible <= 0) opt.disabled = true;
+        entradaOrigen.appendChild(opt);
+    });
+
+    actualizarEntrada();
+    pintarTabla();
+}
+
+function actualizarEntrada(){
+    entradaSeleccionada = entradas.find(e => e.id === entradaOrigen.value) || null;
+    disponibleEntrada.textContent = entradaSeleccionada ? disponibleDeEntrada(entradaSeleccionada) : 0;
+}
+
+function pintarTabla(){
+    if(!entradas.length){
+        tabla.innerHTML = '<tr><td colspan="7" style="padding:14px">No hay entradas PCN/PVN registradas.</td></tr>';
+        return;
+    }
+
+    tabla.innerHTML = entradas.map(e => {
+        const recibido = Number(e.cantidad || 0);
+        const salidas = salidasDeEntrada(e.id);
+        const disponible = Math.max(recibido - salidas, 0);
+        const estado = disponible <= 0 ? "Agotada" : (salidas > 0 ? "Parcial" : "Disponible");
+
+        return `<tr>
+          <td style="padding:9px;border-bottom:1px solid #eee"><strong>${e.pcn || ""}</strong></td>
+          <td style="padding:9px;border-bottom:1px solid #eee"><strong>${e.pvn || ""}</strong></td>
+          <td style="padding:9px;border-bottom:1px solid #eee">${e.producto || ""}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${recibido}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${salidas}</td>
+          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right"><strong>${disponible}</strong></td>
+          <td style="padding:9px;border-bottom:1px solid #eee">${estado}</td>
+        </tr>`;
+    }).join("");
+}
+
+async function cargar(){
+    const [ps,ms] = await Promise.all([
+        getDocs(collection(db,"productos")),
+        getDocs(collection(db,"movimientos"))
+    ]);
+
+    productos = ps.docs.map(d => ({id:d.id,...d.data()}));
+    movimientos = ms.docs.map(d => ({id:d.id,...d.data()}));
+
+    actualizarSelector();
+}
+
+entradaOrigen.addEventListener("change", actualizarEntrada);
+
+boton.addEventListener("click", async () => {
+    if(!entradaSeleccionada){
+        alert("Selecciona la entrada de la que quieres sacar material");
+        return;
+    }
+
+    const cantidadSalida = Number(cantidad.value);
+    const disponible = disponibleDeEntrada(entradaSeleccionada);
+
+    if(!(cantidadSalida > 0)){
+        alert("Introduce una cantidad válida");
+        return;
+    }
+
+    if(cantidadSalida > disponible){
+        alert(`Solo quedan ${disponible} unidades disponibles de esta entrada`);
+        return;
+    }
+
+    const producto = productos.find(p =>
+        p.id === entradaSeleccionada.productoId ||
+        (entradaSeleccionada.codigo && p.codigo === entradaSeleccionada.codigo)
+    );
+
+    if(!producto){
+        alert("No se encuentra el producto de esta entrada en el inventario");
+        return;
+    }
+
+    const stockAnterior = Number(producto.stock || 0);
+
+    if(cantidadSalida > stockAnterior){
+        alert(`El stock general del producto es ${stockAnterior}. No se puede sacar más.`);
+        return;
+    }
+
+    const stockFinal = stockAnterior - cantidadSalida;
+    const disponibleFinal = disponible - cantidadSalida;
+
+    if(!confirm(
+        `${entradaSeleccionada.pcn || ""} ↔ ${entradaSeleccionada.pvn || ""}\n` +
+        `${entradaSeleccionada.producto || ""}\n` +
+        `Sacar: ${cantidadSalida}\n` +
+        `Quedarán de esta entrada: ${disponibleFinal}\n\n¿Continuar?`
+    )) return;
+
+    await updateDoc(doc(db,"productos",producto.id),{
+        stock: stockFinal
+    });
+
+    await addDoc(collection(db,"movimientos"),{
+        tipo:"Salida",
+        entradaOrigenId:entradaSeleccionada.id,
+        pcn:norm(entradaSeleccionada.pcn),
+        pvn:norm(entradaSeleccionada.pvn),
+        productoId:producto.id,
+        codigo:producto.codigo || entradaSeleccionada.codigo || "",
+        producto:producto.nombre || entradaSeleccionada.producto || "",
+        categoria:producto.categoria || producto.familia || "",
+        cantidad:cantidadSalida,
+        stockAnterior,
+        stockFinal,
+        disponibleEntradaAnterior:disponible,
+        disponibleEntradaFinal:disponibleFinal,
+        observaciones:observaciones.value.trim(),
+        fecha:serverTimestamp()
+    });
+
+    alert(`✅ Salida registrada\nQuedan ${disponibleFinal} unidades de esa entrada.`);
+    location.reload();
+});
+
+cargar().catch(error=>{
+    console.error(error);
+    alert("Error al cargar las entradas");
+});
