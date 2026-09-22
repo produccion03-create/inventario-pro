@@ -49,7 +49,7 @@ function pintar(){
  tabla.innerHTML=ens.length?ens.map(m=>{
    const ped=Number(m.cantidadPedida||0),rec=Number(m.recibidoAcumulado||m.cantidad||0),pen=Math.max(ped-rec,0);
    const est=ped?rec<ped?"Parcial":rec===ped?"Completo":"Exceso":"";
-   return `<tr><td style="padding:9px;border-bottom:1px solid #eee">${fecha(m)}</td><td style="padding:9px;border-bottom:1px solid #eee"><b>${m.pcn||""}</b></td><td style="padding:9px;border-bottom:1px solid #eee"><b>${m.pvn||""}</b></td><td style="padding:9px;border-bottom:1px solid #eee">${m.producto||""}</td><td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${ped}</td><td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${rec}</td><td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${pen}</td><td style="padding:9px;border-bottom:1px solid #eee">${est}</td></tr>`;
+   return `<tr><td style="padding:9px;border-bottom:1px solid #eee">${fecha(m)}</td><td style="padding:9px;border-bottom:1px solid #eee"><b>${m.pcn||""}</b></td><td style="padding:9px;border-bottom:1px solid #eee"><b>${m.pvn||""}</b></td><td style="padding:9px;border-bottom:1px solid #eee">${m.codigo||m.referencia||m.producto||""}</td><td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${ped}</td><td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${rec}</td><td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${pen}</td><td style="padding:9px;border-bottom:1px solid #eee">${est}</td></tr>`;
  }).join(""):'<tr><td colspan="8" style="padding:14px">Todavía no hay entradas.</td></tr>';
 }
 async function cargar(){
@@ -57,7 +57,7 @@ async function cargar(){
  productos=ps.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.nombre||"").localeCompare(String(b.nombre||"")));
  movimientos=ms.docs.map(d=>({id:d.id,...d.data()}));
  producto.innerHTML="";
- productos.forEach(x=>producto.add(new Option(`${x.nombre} · Stock ${Number(x.stock||0)}`,x.id)));
+ productos.forEach(x=>{const codigo=x.codigo||x.referencia||x.nombre||"";producto.add(new Option(`${codigo} · Stock ${Number(x.stock||0)}`,x.id));});
  actualizarProducto();pintar();
 }
 producto.onchange=actualizarProducto;
