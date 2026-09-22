@@ -118,26 +118,11 @@
 
         <div class="app">
 
-<div class="dashboard">
-<div class="card card-productos"><h3>📦 Productos</h3><span id="totalProductos">0</span><p>Referencias registradas</p></div>
-<div class="card card-valor"><h3>💰 Valor almacén</h3><span id="valorAlmacen">0 €</span><p>Valor actual del stock</p></div>
-<div class="card card-stock"><h3>⏳ Pendiente de recibir</h3><span id="pendienteRecibir">0</span><p>Unidades pendientes</p></div>
-<div class="card card-alerta"><h3>📤 Disponible en entradas</h3><span id="disponibleEntradas">0</span><p>Unidades aún no retiradas</p></div>
-</div>
-
-
-
-<div class="panel">
-<h2>📊 Estado del inventario</h2>
-<div style="height:320px">
-<canvas id="graficoInventario"></canvas>
-</div>
-</div>
-
-
-<div class="panel">
-<h2>📂 Valor por categoría</h2>
-<div id="listaCategorias">Cargando...</div>
+<div class="dashboard" style="grid-template-columns:repeat(4,minmax(150px,1fr));gap:12px">
+<div class="card card-productos" style="padding:14px;min-height:auto"><h3>📦 Productos</h3><span id="totalProductos">0</span><p>Referencias registradas</p></div>
+<div class="card card-valor" style="padding:14px;min-height:auto"><h3>💰 Valor almacén</h3><span id="valorAlmacen">0 €</span><p>Valor actual del stock</p></div>
+<div class="card card-stock" style="padding:14px;min-height:auto"><h3>⏳ Pendiente de recibir</h3><span id="pendienteRecibir">0</span><p>Unidades pendientes</p></div>
+<div class="card card-alerta" style="padding:14px;min-height:auto"><h3>📤 Disponible en entradas</h3><span id="disponibleEntradas">0</span><p>Unidades aún no retiradas</p></div>
 </div>
 
 <div class="panel">
@@ -156,13 +141,19 @@
 </div>
 </div>
 
+<div class="panel">
+<h2>📊 Valor por categoría</h2>
+<div style="height:260px"><canvas id="graficoCategorias"></canvas></div>
+<div id="listaCategorias" style="margin-top:14px">Cargando...</div>
+</div>
+
 </div>
 </main>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="JS/dashboard.js?v=control-v3"></script>
+<script type="module" src="JS/dashboard.js?v=dashboard-v4"></script>
 
 </body>
 
