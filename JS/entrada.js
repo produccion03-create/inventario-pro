@@ -1,245 +1,83 @@
-import {
-    db,
-    collection,
-    getDocs,
-    doc,
-    updateDoc,
-    addDoc,
-    serverTimestamp
-} from "./firebase.js";
+import {db,collection,getDocs,doc,updateDoc,addDoc,serverTimestamp} from "./firebase.js";
 
-const selectorProducto = document.getElementById("producto");
-const stockActual = document.getElementById("stockActual");
-const stockActual2 = document.getElementById("stockActual2");
-const cantidad = document.getElementById("cantidad");
-const cantidadVista = document.getElementById("cantidadVista");
-const observaciones = document.getElementById("observaciones");
-const boton = document.getElementById("guardarEntrada");
+const producto=document.getElementById("producto");
+const pcn=document.getElementById("pcn");
+const pvn=document.getElementById("pvn");
+const cantidadPedida=document.getElementById("cantidadPedida");
+const cantidad=document.getElementById("cantidad");
+const observaciones=document.getElementById("observaciones");
+const boton=document.getElementById("guardarEntrada");
+const resumen=document.getElementById("resumenEntrada");
+const tabla=document.getElementById("tablaEntradas");
 
-const pcn = document.getElementById("pcn");
-const pvn = document.getElementById("pvn");
-const cantidadPedida = document.getElementById("cantidadPedida");
-const recibidoAnterior = document.getElementById("recibidoAnterior");
-const pedidoVista = document.getElementById("pedidoVista");
-const recibidoTotalVista = document.getElementById("recibidoTotalVista");
-const pendienteVista = document.getElementById("pendienteVista");
-const estadoPedido = document.getElementById("estadoPedido");
+let productos=[],movimientos=[],seleccionado=null;
+const norm=v=>String(v||"").trim().toUpperCase();
 
-let productos = [];
-let productoSeleccionado = null;
-let movimientos = [];
-
-const normalizar = v => String(v || "").trim().toUpperCase();
-
-
-function fechaMovimiento(m){
-    if(!m.fecha) return "";
-    try{
-        const d = m.fecha.toDate ? m.fecha.toDate() : new Date(m.fecha);
-        return d.toLocaleDateString("es-ES");
-    }catch(e){ return ""; }
+function entradasMismoPedido(){
+ const P=norm(pcn.value),V=norm(pvn.value);
+ if(!seleccionado||(!P&&!V)) return [];
+ return movimientos.filter(m=>m.tipo==="Entrada" &&
+   (m.productoId===seleccionado.id || (m.codigo&&m.codigo===seleccionado.codigo)) &&
+   (!P||norm(m.pcn)===P) && (!V||norm(m.pvn)===V));
 }
-
-function mostrarEntradas(){
-    const cuerpo=document.getElementById("tablaEntradas");
-    if(!cuerpo) return;
-
-    const entradas=movimientos
-        .filter(m=>m.tipo==="Entrada" && (m.pcn || m.pvn))
-        .sort((a,b)=>{
-            const fa=a.fecha?.seconds || 0;
-            const fb=b.fecha?.seconds || 0;
-            return fb-fa;
-        });
-
-    if(!entradas.length){
-        cuerpo.innerHTML='<tr><td colspan="10" style="padding:14px;">Todavía no hay entradas PCN / PVN registradas.</td></tr>';
-        return;
-    }
-
-    cuerpo.innerHTML=entradas.map(m=>{
-        const diferencia = Number(m.diferencia ?? (Number(m.recibidoAcumulado||m.cantidad||0)-Number(m.cantidadPedida||0)));
-        const pendiente = Number(m.pendiente ?? Math.max(-diferencia,0));
-        return `<tr>
-          <td style="padding:9px;border-bottom:1px solid #eee;">${fechaMovimiento(m)}</td>
-          <td style="padding:9px;border-bottom:1px solid #eee;"><strong>${m.pcn||""}</strong></td>
-          <td style="padding:9px;border-bottom:1px solid #eee;"><strong>${m.pvn||""}</strong></td>
-          <td style="padding:9px;border-bottom:1px solid #eee;">${m.producto||""}</td>
-          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${Number(m.cantidadPedida||0)}</td>
-          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${Number(m.cantidad||0)}</td>
-          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${Number(m.recibidoAcumulado||m.cantidad||0)}</td>
-          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${pendiente}</td>
-          <td style="padding:9px;border-bottom:1px solid #eee;text-align:right;">${diferencia}</td>
-          <td style="padding:9px;border-bottom:1px solid #eee;">${m.estadoPedido||""}</td>
-        </tr>`;
-    }).join("");
+function recibidoAnterior(){return entradasMismoPedido().reduce((s,m)=>s+Number(m.cantidad||0),0)}
+function recuperarPedido(){
+ const prev=entradasMismoPedido();
+ if(prev.length){
+   const ped=Number(prev[0].cantidadPedida||0);
+   if(ped>0) cantidadPedida.value=ped;
+ }
+ actualizarResumen();
 }
-
-async function cargarDatos(){
-    const [datosProductos, datosMovimientos] = await Promise.all([
-        getDocs(collection(db,"productos")),
-        getDocs(collection(db,"movimientos"))
-    ]);
-
-    productos = [];
-    selectorProducto.innerHTML = "";
-
-    datosProductos.forEach(documento => {
-        productos.push({ id: documento.id, ...documento.data() });
-    });
-
-    movimientos = [];
-    datosMovimientos.forEach(documento => {
-        movimientos.push({ id: documento.id, ...documento.data() });
-    });
-
-    productos.sort((a,b) => String(a.nombre || "").localeCompare(String(b.nombre || "")));
-
-    productos.forEach(p => {
-        const opcion = document.createElement("option");
-        opcion.value = p.id;
-        opcion.textContent = `${p.nombre} · Stock ${p.stock}`;
-        selectorProducto.appendChild(opcion);
-    });
-
-    actualizarStock();
-    actualizarPedido();
-    mostrarEntradas();
+function actualizarResumen(){
+ const ped=Number(cantidadPedida.value||0);
+ const ant=recibidoAnterior();
+ const ahora=Number(cantidad.value||0);
+ const total=ant+ahora;
+ if(!ped){resumen.textContent=ant?`Recibido anteriormente: ${ant}`:"";return}
+ const pend=ped-total;
+ resumen.textContent=pend>0?`Recibido anteriormente: ${ant} · Con esta entrada: ${total} · Pendiente: ${pend}`:
+ pend===0?`Pedido completo · Total recibido: ${total}`:`Exceso: ${Math.abs(pend)} · Total recibido: ${total}`;
 }
-
-function actualizarStock(){
-    productoSeleccionado = productos.find(p => p.id === selectorProducto.value);
-    if(!productoSeleccionado) return;
-
-    stockActual.textContent = productoSeleccionado.stock;
-    if(stockActual2) stockActual2.textContent = productoSeleccionado.stock;
-    actualizarPedido();
+function actualizarProducto(){
+ seleccionado=productos.find(x=>x.id===producto.value)||null;
+ recuperarPedido();
 }
-
-function recepcionesPrevias(){
-    if(!productoSeleccionado) return 0;
-
-    const clavePCN = normalizar(pcn.value);
-    const clavePVN = normalizar(pvn.value);
-    if(!clavePCN && !clavePVN) return 0;
-
-    return movimientos
-        .filter(m =>
-            m.tipo === "Entrada" &&
-            m.productoId === productoSeleccionado.id &&
-            (!clavePCN || normalizar(m.pcn) === clavePCN) &&
-            (!clavePVN || normalizar(m.pvn) === clavePVN)
-        )
-        .reduce((s,m) => s + Number(m.cantidad || 0), 0);
+function fecha(m){try{return (m.fecha?.toDate?m.fecha.toDate():new Date(m.fecha)).toLocaleDateString("es-ES")}catch{return""}}
+function pintar(){
+ const ens=movimientos.filter(m=>m.tipo==="Entrada"&&(m.pcn||m.pvn)).sort((a,b)=>(b.fecha?.seconds||0)-(a.fecha?.seconds||0));
+ tabla.innerHTML=ens.length?ens.map(m=>{
+   const ped=Number(m.cantidadPedida||0),rec=Number(m.recibidoAcumulado||m.cantidad||0),pen=Math.max(ped-rec,0);
+   const est=ped?rec<ped?"Parcial":rec===ped?"Completo":"Exceso":"";
+   return `<tr><td style="padding:9px;border-bottom:1px solid #eee">${fecha(m)}</td><td style="padding:9px;border-bottom:1px solid #eee"><b>${m.pcn||""}</b></td><td style="padding:9px;border-bottom:1px solid #eee"><b>${m.pvn||""}</b></td><td style="padding:9px;border-bottom:1px solid #eee">${m.producto||""}</td><td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${ped}</td><td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${rec}</td><td style="padding:9px;border-bottom:1px solid #eee;text-align:right">${pen}</td><td style="padding:9px;border-bottom:1px solid #eee">${est}</td></tr>`;
+ }).join(""):'<tr><td colspan="8" style="padding:14px">Todavía no hay entradas.</td></tr>';
 }
-
-function actualizarPedido(){
-    const pedida = Number(cantidadPedida.value || 0);
-    const anterior = recepcionesPrevias();
-    const entradaAhora = Number(cantidad.value || 0);
-    const total = anterior + entradaAhora;
-    const pendiente = pedida - total;
-
-    recibidoAnterior.textContent = anterior;
-    pedidoVista.textContent = pedida;
-    recibidoTotalVista.textContent = total;
-    pendienteVista.textContent = pendiente;
-
-    if(pedida <= 0){
-        estadoPedido.textContent = "Introduce la cantidad pedida";
-    } else if(total === 0){
-        estadoPedido.textContent = "Pendiente";
-    } else if(total < pedida){
-        estadoPedido.textContent = "Parcial";
-    } else if(total === pedida){
-        estadoPedido.textContent = "Completo";
-    } else {
-        estadoPedido.textContent = `Exceso: ${total - pedida}`;
-    }
-    const resumen=document.getElementById("resumenEntrada");
-    if(resumen){
-      if(pedida<=0) resumen.textContent="";
-      else if(total<pedida) resumen.textContent=`Pedido: ${pedida} · Recibido: ${total} · Faltan: ${pedida-total}`;
-      else if(total===pedida) resumen.textContent=`Pedido completo · Recibido: ${total}`;
-      else resumen.textContent=`Recibido de más: ${total-pedida} · Total recibido: ${total}`;
-    }
+async function cargar(){
+ const[ps,ms]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"movimientos"))]);
+ productos=ps.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.nombre||"").localeCompare(String(b.nombre||"")));
+ movimientos=ms.docs.map(d=>({id:d.id,...d.data()}));
+ producto.innerHTML="";
+ productos.forEach(x=>producto.add(new Option(`${x.nombre} · Stock ${Number(x.stock||0)}`,x.id)));
+ actualizarProducto();pintar();
 }
+producto.onchange=actualizarProducto;
+pcn.oninput=recuperarPedido;pvn.oninput=recuperarPedido;
+cantidadPedida.oninput=actualizarResumen;cantidad.oninput=actualizarResumen;
 
-selectorProducto.addEventListener("change", actualizarStock);
-cantidad.addEventListener("input", () => {
-    if(cantidadVista) cantidadVista.textContent = cantidad.value || 0;
-    actualizarPedido();
-});
-pcn.addEventListener("input", actualizarPedido);
-pvn.addEventListener("input", actualizarPedido);
-cantidadPedida.addEventListener("input", actualizarPedido);
-
-boton.addEventListener("click", async () => {
-    const cantidadAñadir = Number(cantidad.value);
-    const pedida = Number(cantidadPedida.value);
-    const codigoPCN = normalizar(pcn.value);
-    const codigoPVN = normalizar(pvn.value);
-
-    if(!productoSeleccionado){
-        alert("Selecciona un producto");
-        return;
-    }
-    if(!codigoPCN){
-        alert("Introduce el PCN");
-        return;
-    }
-    if(!codigoPVN){
-        alert("Introduce el PVN relacionado");
-        return;
-    }
-    if(pedida <= 0){
-        alert("Introduce la cantidad pedida");
-        return;
-    }
-    if(cantidadAñadir <= 0){
-        alert("Introduce una cantidad recibida válida");
-        return;
-    }
-
-    const anterior = recepcionesPrevias();
-    const recibidoAcumulado = anterior + cantidadAñadir;
-    const diferencia = recibidoAcumulado - pedida;
-    const pendiente = Math.max(pedida - recibidoAcumulado, 0);
-    const estado = recibidoAcumulado < pedida ? "Parcial" :
-                   recibidoAcumulado === pedida ? "Completo" : "Exceso";
-
-    const nuevoStock = Number(productoSeleccionado.stock) + cantidadAñadir;
-
-    await updateDoc(
-        doc(db,"productos",productoSeleccionado.id),
-        { stock: nuevoStock }
-    );
-
-    await addDoc(collection(db,"movimientos"), {
-        tipo: "Entrada",
-        productoId: productoSeleccionado.id,
-        codigo: productoSeleccionado.codigo,
-        producto: productoSeleccionado.nombre,
-        categoria: productoSeleccionado.categoria || productoSeleccionado.familia || "",
-        cantidad: cantidadAñadir,
-        stockAnterior: Number(productoSeleccionado.stock),
-        stockFinal: nuevoStock,
-
-        pcn: codigoPCN,
-        pvn: codigoPVN,
-        cantidadPedida: pedida,
-        recibidoAnterior: anterior,
-        recibidoAcumulado,
-        diferencia,
-        pendiente,
-        estadoPedido: estado,
-
-        observaciones: observaciones.value.trim(),
-        fecha: serverTimestamp()
-    });
-
-    alert(`✅ Entrada registrada\n${codigoPCN} ↔ ${codigoPVN}\nPedido: ${pedida}\nRecibido acumulado: ${recibidoAcumulado}\nPendiente: ${pendiente}\nEstado: ${estado}`);
-    location.reload();
-});
-
-cargarDatos();
+boton.onclick=async()=>{
+ actualizarProducto();
+ const P=norm(pcn.value),V=norm(pvn.value),ped=Number(cantidadPedida.value),rec=Number(cantidad.value);
+ if(!seleccionado)return alert("Selecciona un producto");
+ if(!P)return alert("Introduce el PCN");
+ if(!V)return alert("Introduce el PVN");
+ if(!(ped>0))return alert("Introduce la cantidad pedida");
+ if(!(rec>0))return alert("Introduce la cantidad recibida");
+ const ant=recibidoAnterior(),acu=ant+rec,pend=Math.max(ped-acu,0),dif=acu-ped;
+ const estado=acu<ped?"Parcial":acu===ped?"Completo":"Exceso";
+ const stockAnterior=Number(seleccionado.stock||0),stockFinal=stockAnterior+rec;
+ await updateDoc(doc(db,"productos",seleccionado.id),{stock:stockFinal});
+ await addDoc(collection(db,"movimientos"),{tipo:"Entrada",productoId:seleccionado.id,codigo:seleccionado.codigo||"",producto:seleccionado.nombre||"",categoria:seleccionado.categoria||seleccionado.familia||"",pcn:P,pvn:V,cantidadPedida:ped,cantidad:rec,recibidoAnterior:ant,recibidoAcumulado:acu,pendiente:pend,diferencia:dif,estadoPedido:estado,stockAnterior,stockFinal,observaciones:observaciones.value.trim(),fecha:serverTimestamp()});
+ alert(`✅ Entrada registrada · Pendiente: ${pend}`);
+ location.reload();
+};
+cargar();
