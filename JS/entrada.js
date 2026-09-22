@@ -112,7 +112,7 @@ function actualizarStock(){
     if(!productoSeleccionado) return;
 
     stockActual.textContent = productoSeleccionado.stock;
-    stockActual2.textContent = productoSeleccionado.stock;
+    if(stockActual2) stockActual2.textContent = productoSeleccionado.stock;
     actualizarPedido();
 }
 
@@ -156,11 +156,18 @@ function actualizarPedido(){
     } else {
         estadoPedido.textContent = `Exceso: ${total - pedida}`;
     }
+    const resumen=document.getElementById("resumenEntrada");
+    if(resumen){
+      if(pedida<=0) resumen.textContent="";
+      else if(total<pedida) resumen.textContent=`Pedido: ${pedida} · Recibido: ${total} · Faltan: ${pedida-total}`;
+      else if(total===pedida) resumen.textContent=`Pedido completo · Recibido: ${total}`;
+      else resumen.textContent=`Recibido de más: ${total-pedida} · Total recibido: ${total}`;
+    }
 }
 
 selectorProducto.addEventListener("change", actualizarStock);
 cantidad.addEventListener("input", () => {
-    cantidadVista.textContent = cantidad.value || 0;
+    if(cantidadVista) cantidadVista.textContent = cantidad.value || 0;
     actualizarPedido();
 });
 pcn.addEventListener("input", actualizarPedido);
