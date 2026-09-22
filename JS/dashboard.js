@@ -1,251 +1,49 @@
-import {
-    db,
-    collection,
-    getDocs
-} from "./firebase.js";
+import {db,collection,getDocs} from "./firebase.js";
 
-async function cargarDashboard() {
+const num=v=>Number(v)||0;
+const norm=v=>String(v||"").trim().toUpperCase();
 
-    const productos = await getDocs(
-        collection(db, "productos")
-    );
+async function cargarDashboard(){
+ const [ps,ms]=await Promise.all([
+   getDocs(collection(db,"productos")),
+   getDocs(collection(db,"movimientos"))
+ ]);
+ const productos=ps.docs.map(d=>({id:d.id,...d.data()}));
+ const movimientos=ms.docs.map(d=>({id:d.id,...d.data()}));
 
-    let totalProductos = 0;
-    let valorAlmacen = 0;
-    let stockBajo = 0;
-    let sinStock = 0;
+ const totalProductos=productos.length;
+ const valorAlmacen=productos.reduce((s,p)=>s+num(p.stock)*num(p.precio),0);
 
-    const categorias = {};
+ const entradas=movimientos.filter(m=>m.tipo==="Entrada"&&(m.pcn||m.pvn));
+ const salidas=movimientos.filter(m=>m.tipo==="Salida");
 
-    productos.forEach((documento) => {
+ const salidaEntrada=id=>salidas.filter(s=>s.entradaOrigenId===id).reduce((a,s)=>a+num(s.cantidad),0);
 
-        const p = documento.data();
+ // Group order receipts by product + PCN + PVN to avoid counting the same ordered qty several times.
+ const pedidos={};
+ entradas.forEach(e=>{
+   const k=`${e.productoId||e.codigo}|${norm(e.pcn)}|${norm(e.pvn)}`;
+   if(!pedidos[k]) pedidos[k]={codigo:e.codigo||e.referencia||"",pcn:e.pcn||"",pvn:e.pvn||"",pedido:num(e.cantidadPedida),recibido:0};
+   pedidos[k].pedido=Math.max(pedidos[k].pedido,num(e.cantidadPedida));
+   pedidos[k].recibido+=num(e.cantidad);
+ });
+ const listaPedidos=Object.values(pedidos).map(p=>({...p,pendiente:Math.max(p.pedido-p.recibido,0)}));
+ const pendientes=listaPedidos.filter(p=>p.pendiente>0);
+ const pendienteRecibir=pendientes.reduce((s,p)=>s+p.pendiente,0);
 
-        const stock = Number(p.stock) || 0;
-        const precio = Number(p.precio) || 0;
-        const minimo = Number(p.stockMinimo ?? 5);
+ const disponibles=entradas.map(e=>{
+   const entro=num(e.cantidad),salio=salidaEntrada(e.id);
+   return {codigo:e.codigo||e.referencia||"",pcn:e.pcn||"",pvn:e.pvn||"",entro,salio,disponible:Math.max(entro-salio,0)};
+ }).filter(x=>x.disponible>0);
+ const disponibleEntradas=disponibles.reduce((s,x)=>s+x.disponible,0);
 
-        totalProductos++;
+ document.getElementById("totalProductos").textContent=totalProductos;
+ document.getElementById("valorAlmacen").textContent=valorAlmacen.toLocaleString("es-ES",{style:"currency",currency:"EUR"});
+ document.getElementById("pendienteRecibir").textContent=pendienteRecibir;
+ document.getElementById("disponibleEntradas").textContent=disponibleEntradas;
 
-        valorAlmacen += stock * precio;
+ document.getElementById("tablaPendientes").innerHTML=pendientes.length?pendientes.map(p=>`<tr><td><b>${p.codigo}</b></td><td>${p.pcn}</td><td>${p.pvn}</td><td>${p.pedido}</td><td>${p.recibido}</td><td><b>${p.pendiente}</b></td></tr>`).join(""):'<tr><td colspan="6">✅ No hay pedidos pendientes.</td></tr>';
 
-        // Las Planchas de EVA no generan avisos
-        if (
-            p.categoria !== "Planchas de EVA" &&
-            stock > 0 &&
-            stock <= minimo
-        ) {
-
-            stockBajo++;
-
-        }
-
-        if (stock === 0) {
-
-            sinStock++;
-
-        }
-
-        const categoria =
-            p.categoria || "Sin categoría";
-
-        if (!categorias[categoria]) {
-
-            categorias[categoria] = {
-
-                productos: 0,
-                cantidad: 0,
-                valor: 0
-
-            };
-
-        }
-
-        categorias[categoria].productos++;
-
-        categorias[categoria].cantidad += stock;
-
-        categorias[categoria].valor += stock * precio;
-
-    });
-
-    // ==========================
-    // TARJETAS
-    // ==========================
-
-    document.getElementById("totalProductos").textContent =
-        totalProductos;
-
-    document.getElementById("valorAlmacen").textContent =
-        valorAlmacen.toLocaleString(
-            "es-ES",
-            {
-                style: "currency",
-                currency: "EUR"
-            }
-        );
-
-    document.getElementById("stockBajo").textContent =
-        stockBajo;
-
-    document.getElementById("sinStock").textContent =
-        sinStock;
-
-    // ==========================
-    // AVISOS
-    // ==========================
-
-    document.getElementById("contadorPendientes").textContent =
-        stockBajo;
-
-    // ==========================
-    // RESTO
-    // ==========================
-
-    mostrarCategorias(categorias);
-
-    crearGrafico(
-        totalProductos,
-        stockBajo,
-        sinStock
-    );
-
+ document.getElementById("tablaDisponibles").innerHTML=disponibles.length?disponibles.map(x=>`<tr><td><b>${x.codigo}</b></td><td>${x.pcn}</td><td>${x.pvn}</td><td>${x.entro}</td><td>${x.salio}</td><td><b>${x.disponible}</b></td></tr>`).join(""):'<tr><td colspan="6">No hay material disponible de entradas.</td></tr>';
 }
-
-// ==========================
-// LISTADO CATEGORÍAS
-// ==========================
-
-function mostrarCategorias(categorias) {
-
-    let lista = "";
-
-    Object.keys(categorias)
-        .sort()
-        .forEach((cat) => {
-
-            lista += `
-
-            <div class="movimiento">
-
-                <h3>📂 ${cat}</h3>
-
-                <p>
-                    📦 Productos:
-                    <strong>
-                        ${categorias[cat].productos}
-                    </strong>
-                </p>
-
-                <p>
-                    📦 Stock total:
-                    <strong>
-                        ${categorias[cat].cantidad}
-                    </strong>
-                </p>
-
-                <p>
-                    💰 Valor:
-                    <strong>
-                        ${categorias[cat].valor.toLocaleString("es-ES", {
-                            style: "currency",
-                            currency: "EUR"
-                        })}
-                    </strong>
-                </p>
-
-            </div>
-
-            `;
-
-        });
-
-    document.getElementById("listaCategorias").innerHTML =
-        lista || "No hay categorías.";
-
-}
-
-// ==========================
-// GRÁFICO
-// ==========================
-
-function crearGrafico(productos, bajo, sinStock) {
-
-    const ctx =
-        document.getElementById("graficoInventario");
-
-    new Chart(ctx, {
-
-        type: "doughnut",
-
-        data: {
-
-            labels: [
-
-                "Productos",
-
-                "Stock bajo",
-
-                "Sin stock"
-
-            ],
-
-            datasets: [
-
-                {
-
-                    data: [
-
-                        productos,
-
-                        bajo,
-
-                        sinStock
-
-                    ],
-
-                    backgroundColor: [
-
-                        "#2563eb",
-
-                        "#f59e0b",
-
-                        "#dc2626"
-
-                    ],
-
-                    borderWidth: 2
-
-                }
-
-            ]
-
-        },
-
-        options: {
-
-            responsive: true,
-
-            maintainAspectRatio: false,
-
-            plugins: {
-
-                legend: {
-
-                    position: "bottom"
-
-                }
-
-            }
-
-        }
-
-    });
-
-}
-
-// ==========================
-// INICIO
-// ==========================
-
-cargarDashboard();
+cargarDashboard().catch(e=>{console.error(e);alert("Error al cargar el Dashboard");});
