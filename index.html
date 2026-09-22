@@ -125,6 +125,21 @@
 <div class="card card-alerta"><h3>📤 Disponible en entradas</h3><span id="disponibleEntradas">0</span><p>Unidades aún no retiradas</p></div>
 </div>
 
+
+
+<div class="panel">
+<h2>📊 Estado del inventario</h2>
+<div style="height:320px">
+<canvas id="graficoInventario"></canvas>
+</div>
+</div>
+
+
+<div class="panel">
+<h2>📂 Valor por categoría</h2>
+<div id="listaCategorias">Cargando...</div>
+</div>
+
 <div class="panel">
 <h2>📋 Pedidos pendientes de recibir</h2>
 <div style="overflow-x:auto;margin-top:12px">
@@ -146,7 +161,8 @@
 
 </div>
 
-<script type="module" src="JS/dashboard.js?v=control-v1"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="JS/dashboard.js?v=control-v3"></script>
 
 </body>
 
