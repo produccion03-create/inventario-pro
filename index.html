@@ -118,115 +118,35 @@
 
         <div class="app">
 
-            <!-- TARJETAS -->
+<div class="dashboard">
+<div class="card card-productos"><h3>📦 Productos</h3><span id="totalProductos">0</span><p>Referencias registradas</p></div>
+<div class="card card-valor"><h3>💰 Valor almacén</h3><span id="valorAlmacen">0 €</span><p>Valor actual del stock</p></div>
+<div class="card card-stock"><h3>⏳ Pendiente de recibir</h3><span id="pendienteRecibir">0</span><p>Unidades pendientes</p></div>
+<div class="card card-alerta"><h3>📤 Disponible en entradas</h3><span id="disponibleEntradas">0</span><p>Unidades aún no retiradas</p></div>
+</div>
 
-            <div class="dashboard">
+<div class="panel">
+<h2>📋 Pedidos pendientes de recibir</h2>
+<div style="overflow-x:auto;margin-top:12px">
+<table class="tabla-productos"><thead><tr><th>Código</th><th>PCN</th><th>PVN</th><th>Pedido</th><th>Recibido</th><th>Pendiente</th></tr></thead>
+<tbody id="tablaPendientes"><tr><td colspan="6">Cargando...</td></tr></tbody></table>
+</div>
+</div>
 
-                <div class="card card-productos">
+<div class="panel">
+<h2>📦 Material disponible por entrada</h2>
+<div style="overflow-x:auto;margin-top:12px">
+<table class="tabla-productos"><thead><tr><th>Código</th><th>PCN</th><th>PVN</th><th>Entró</th><th>Salió</th><th>Disponible</th></tr></thead>
+<tbody id="tablaDisponibles"><tr><td colspan="6">Cargando...</td></tr></tbody></table>
+</div>
+</div>
 
-                    <h3>📦 Productos</h3>
-
-                    <span id="totalProductos">0</span>
-
-                    <p>Total registrados</p>
-
-                </div>
-
-                <div class="card card-valor">
-
-                    <h3>💰 Valor almacén</h3>
-
-                    <span id="valorAlmacen">0 €</span>
-
-                    <p>Valor actual inventario</p>
-
-                </div>
-
-                <div class="card card-stock">
-
-                    <h3>⚠️ Stock bajo</h3>
-
-                    <span id="stockBajo">0</span>
-
-                    <p>Necesitan revisión</p>
-
-                </div>
-
-                <div class="card card-alerta">
-
-                    <h3>🔴 Sin stock</h3>
-
-                    <span id="sinStock">0</span>
-
-                    <p>Productos agotados</p>
-
-                </div>
-
-            </div>
-
-            <!-- PANEL AVISOS -->
-
-            <div class="panel">
-
-                <h2>🔔 Avisos</h2>
-
-                <p class="resumen">
-
-                    Actualmente hay
-
-                    <strong id="contadorPendientes">0</strong>
-
-                    productos que necesitan revisión.
-
-                </p>
-
-                <br>
-
-                <button onclick="location.href='pendientes.html'">
-
-                    Ver productos pendientes
-
-                </button>
-
-            </div>
-
-            <!-- GRÁFICO -->
-
-            <div class="panel">
-
-                <h2>📊 Estado del inventario</h2>
-
-                <div style="height:320px">
-
-                    <canvas id="graficoInventario"></canvas>
-
-                </div>
-
-            </div>
-
-            <!-- CATEGORÍAS -->
-
-            <div class="panel">
-
-                <h2>📂 Inventario por categorías</h2>
-
-                <div id="listaCategorias">
-
-                    Cargando...
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
+</div>
+</main>
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script type="module" src="JS/dashboard.js"></script>
+<script type="module" src="JS/dashboard.js?v=control-v1"></script>
 
 </body>
 
