@@ -74,137 +74,23 @@
 </div>
 
 <div class="app">
-
-<!-- PRODUCTO -->
-
-<div class="panel">
-
-<h2>📦 Seleccionar producto</h2>
-
+<div class="panel"><h2>🔄 Registrar transformación / salida</h2>
 <div class="grid-form">
-
-<div>
-
-<label>Producto</label>
-
-<select id="producto"></select>
-
+<div><label>Producto de origen</label><select id="producto"></select></div>
+<div><label>Stock disponible</label><div class="info-stock"><span id="stockActual">0</span><span> unidades</span></div></div>
+<div><label>PCN de origen</label><input id="pcn" placeholder="PCNxxxx"></div>
+<div><label>PVN relacionado</label><input id="pvn" placeholder="PVNxxxx"></div>
+<div><label>Cantidad utilizada</label><input type="number" id="cantidad" min="0" step="any" placeholder="Cantidad consumida"></div>
+<div><label>Producto resultante</label><select id="productoResultado"></select></div>
+<div><label>Cantidad obtenida</label><input type="number" id="cantidadObtenida" min="0" step="any" placeholder="Cantidad obtenida"></div>
+<div><label>Observaciones</label><input id="observaciones" placeholder="Fabricación, lote..."></div>
+</div><br><button id="guardarSalida" class="btn-rojo">💾 Registrar transformación</button></div>
+<div class="panel"><h2>📋 Transformaciones registradas</h2><div style="overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;white-space:nowrap"><thead><tr>
+<th>Fecha</th><th>PCN</th><th>PVN</th><th>Producto origen</th><th>Utilizado</th><th>Producto resultante</th><th>Obtenido</th><th>Observaciones</th>
+</tr></thead><tbody id="tablaTransformaciones"><tr><td colspan="8">Cargando...</td></tr></tbody></table></div></div>
 </div>
-
-<div>
-
-<label>Stock disponible</label>
-
-<div class="info-stock">
-
-<span id="stockActual">
-
-0
-
-</span>
-
-<span>unidades</span>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- SALIDA -->
-
-<div class="panel">
-
-<h2>➖ Registrar salida</h2>
-
-<div class="grid-form">
-
-<div>
-
-<label>Cantidad</label>
-
-<input
-type="number"
-id="cantidad"
-min="1"
-value="1">
-
-</div>
-
-<div>
-
-<label>Destino / Observaciones</label>
-
-<input
-type="text"
-id="observaciones"
-placeholder="Cliente, pedido, fabricación...">
-
-</div>
-
-</div>
-
-<br>
-
-<button
-id="guardarSalida"
-class="btn-rojo">
-
-📤 Registrar salida
-
-</button>
-
-</div>
-
-<!-- RESUMEN -->
-
-<div class="panel">
-
-<h2>Resumen</h2>
-
-<div class="dashboard">
-
-<div class="card card-alerta">
-
-<h3>📦 Stock actual</h3>
-
-<span id="stockActual2">
-
-0
-
-</span>
-
-<p>Unidades disponibles</p>
-
-</div>
-
-<div class="card card-stock">
-
-<h3>➖ Salida</h3>
-
-<span id="cantidadVista">
-
-1
-
-</span>
-
-<p>Unidades a retirar</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<script type="module" src="JS/salida.js"></script>
+<script type="module" src="JS/salida.js?v=transformacion-simple-v1"></script>
 
 </body>
 
