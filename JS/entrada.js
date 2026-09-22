@@ -1,6 +1,9 @@
 import {db,collection,getDocs,doc,updateDoc,addDoc,serverTimestamp} from "./firebase.js";
 
 const producto=document.getElementById("producto");
+const buscadorProducto=document.getElementById("buscadorProducto");
+const resultadosProducto=document.getElementById("resultadosProducto");
+const datosProducto=document.getElementById("datosProducto");
 const pcn=document.getElementById("pcn");
 const pvn=document.getElementById("pvn");
 const cantidadPedida=document.getElementById("cantidadPedida");
@@ -41,7 +44,40 @@ function actualizarResumen(){
 }
 function actualizarProducto(){
  seleccionado=productos.find(x=>x.id===producto.value)||null;
+ if(seleccionado){
+   const codigo=seleccionado.codigo||seleccionado.referencia||"";
+   const descripcion=seleccionado.nombre||seleccionado.descripcion||"";
+   datosProducto.innerHTML=`<strong>${codigo}</strong>${descripcion?` · ${descripcion}`:""} · Stock: ${Number(seleccionado.stock||0)}`;
+ }else{
+   datosProducto.innerHTML="";
+ }
  recuperarPedido();
+}
+
+function mostrarResultadosProducto(){
+ const q=String(buscadorProducto.value||"").trim().toLowerCase();
+ if(!q){resultadosProducto.style.display="none";resultadosProducto.innerHTML="";return;}
+ const lista=productos.filter(x=>{
+   const codigo=String(x.codigo||x.referencia||"").toLowerCase();
+   return codigo.includes(q);
+ }).slice(0,30);
+
+ resultadosProducto.innerHTML=lista.length?lista.map(x=>{
+   const codigo=x.codigo||x.referencia||"";
+   const desc=x.nombre||x.descripcion||"";
+   return `<div data-id="${x.id}" style="padding:9px 10px;border-bottom:1px solid #eee;cursor:pointer"><strong>${codigo}</strong>${desc?` · ${desc}`:""} · Stock ${Number(x.stock||0)}</div>`;
+ }).join(""):'<div style="padding:10px">No se encontró ningún TA/PF.</div>';
+ resultadosProducto.style.display="block";
+
+ resultadosProducto.querySelectorAll("[data-id]").forEach(el=>{
+   el.onclick=()=>{
+     producto.value=el.dataset.id;
+     seleccionado=productos.find(x=>x.id===producto.value)||null;
+     buscadorProducto.value=seleccionado?(seleccionado.codigo||seleccionado.referencia||""):"";
+     resultadosProducto.style.display="none";
+     actualizarProducto();
+   };
+ });
 }
 function fecha(m){try{return (m.fecha?.toDate?m.fecha.toDate():new Date(m.fecha)).toLocaleDateString("es-ES")}catch{return""}}
 function pintar(){
@@ -56,11 +92,9 @@ async function cargar(){
  const[ps,ms]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"movimientos"))]);
  productos=ps.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.nombre||"").localeCompare(String(b.nombre||"")));
  movimientos=ms.docs.map(d=>({id:d.id,...d.data()}));
- producto.innerHTML="";
- productos.forEach(x=>{const codigo=x.codigo||x.referencia||x.nombre||"";producto.add(new Option(`${codigo} · Stock ${Number(x.stock||0)}`,x.id));});
- actualizarProducto();pintar();
+ producto.value=""; seleccionado=null; datosProducto.innerHTML=""; pintar();
 }
-producto.onchange=actualizarProducto;
+buscadorProducto.oninput=mostrarResultadosProducto;
 pcn.oninput=recuperarPedido;pvn.oninput=recuperarPedido;
 cantidadPedida.oninput=actualizarResumen;cantidad.oninput=actualizarResumen;
 
