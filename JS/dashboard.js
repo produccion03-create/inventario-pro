@@ -14,6 +14,24 @@ async function cargarDashboard(){
  const totalProductos=productos.length;
  const valorAlmacen=productos.reduce((s,p)=>s+num(p.stock)*num(p.precio),0);
 
+ const stockBajo=productos.filter(p=>{
+   const stock=num(p.stock), minimo=num(p.stockMinimo ?? 5);
+   return p.categoria!=="Planchas de EVA" && stock>0 && stock<=minimo;
+ }).length;
+ const sinStock=productos.filter(p=>num(p.stock)===0).length;
+ const stockCorrecto=Math.max(totalProductos-stockBajo-sinStock,0);
+
+
+
+ const categorias={};
+ productos.forEach(p=>{
+   const cat=p.categoria||p.familia||"Sin categoría";
+   if(!categorias[cat]) categorias[cat]={productos:0,stock:0,valor:0};
+   categorias[cat].productos++;
+   categorias[cat].stock+=num(p.stock);
+   categorias[cat].valor+=num(p.stock)*num(p.precio);
+ });
+
  const entradas=movimientos.filter(m=>m.tipo==="Entrada"&&(m.pcn||m.pvn));
  const salidas=movimientos.filter(m=>m.tipo==="Salida");
 
@@ -41,6 +59,34 @@ async function cargarDashboard(){
  document.getElementById("valorAlmacen").textContent=valorAlmacen.toLocaleString("es-ES",{style:"currency",currency:"EUR"});
  document.getElementById("pendienteRecibir").textContent=pendienteRecibir;
  document.getElementById("disponibleEntradas").textContent=disponibleEntradas;
+
+
+
+ const listaCategorias=document.getElementById("listaCategorias");
+ listaCategorias.innerHTML=Object.entries(categorias)
+   .sort((a,b)=>a[0].localeCompare(b[0]))
+   .map(([cat,d])=>`<div class="movimiento">
+      <h3>📂 ${cat}</h3>
+      <p>📦 Productos: <strong>${d.productos}</strong></p>
+      <p>📦 Stock total: <strong>${d.stock}</strong></p>
+      <p>💰 Valor: <strong>${d.valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}</strong></p>
+   </div>`).join("") || "No hay categorías.";
+
+ const ctx=document.getElementById("graficoInventario");
+ if(ctx && window.Chart){
+   new Chart(ctx,{
+     type:"doughnut",
+     data:{
+       labels:["Stock correcto","Stock bajo","Sin stock"],
+       datasets:[{data:[stockCorrecto,stockBajo,sinStock]}]
+     },
+     options:{
+       responsive:true,
+       maintainAspectRatio:false,
+       plugins:{legend:{position:"bottom"}}
+     }
+   });
+ }
 
  document.getElementById("tablaPendientes").innerHTML=pendientes.length?pendientes.map(p=>`<tr><td><b>${p.codigo}</b></td><td>${p.pcn}</td><td>${p.pvn}</td><td>${p.pedido}</td><td>${p.recibido}</td><td><b>${p.pendiente}</b></td></tr>`).join(""):'<tr><td colspan="6">✅ No hay pedidos pendientes.</td></tr>';
 
