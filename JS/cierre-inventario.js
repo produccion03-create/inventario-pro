@@ -28,7 +28,18 @@ async function cargar(){
  const [ps,rs,cs]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"revisionesStock")),getDocs(collection(db,"cierresInventario"))]);
  productos=new Map(ps.docs.map(d=>[d.id,{id:d.id,...d.data()}]));
  productosConPrecio=[...productos.values()].filter(p=>Number(p.precioUnitario)>0);
- revs=rs.docs.map(d=>d.data()).filter(r=>r.mes===mes.value&&(!familia.value||r.familia===familia.value));
+ revs=rs.docs.map(d=>({id:d.id,...d.data()})).filter(r=>{
+   // Solo revisiones creadas por la pantalla actual y pertenecientes
+   // a las cuatro familias válidas del inventario.
+   if(r.mes!==mes.value) return false;
+   if(!F.includes(r.familia)) return false;
+   if(familia.value && r.familia!==familia.value) return false;
+
+   // Las revisiones actuales guardan productoId. Los registros antiguos
+   // que provocaban los 81 falsos revisados no se usan en el cierre.
+   if(!r.productoId || !productos.has(r.productoId)) return false;
+   return true;
+  });
  const cierre=cs.docs.map(d=>d.data()).find(c=>c.mes===mes.value);
  estado.innerHTML=cierre?`<div class="chip">🔒 Inventario cerrado: ${e(cierre.mes)}</div>`:"";
  render();
