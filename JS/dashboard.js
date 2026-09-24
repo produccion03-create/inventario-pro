@@ -5,8 +5,8 @@ const num=v=>{
  return Number.isFinite(n)?n:0;
 };
 const precioDe=p=>num(
- p.precioUnitario ??
  p.precio ??
+ p.precioUnitario ??
  p.precio_unitario ??
  p.precioUnidad ??
  p.coste ??
@@ -46,7 +46,34 @@ async function cargarDashboard(){
    if(raw.includes("producto terminado")||raw.includes("productos terminados")) return "Stock de productos terminados";
    return p.familia||p.categoria||"Sin categoría";
  };
- productos.forEach(p=>{
+ // Evitar sumar registros antiguos cuando ya existe el registro válido
+ // importado con su familia canónica.
+ const canonicas=[
+   "Stock de planchas",
+   "Envases y embalaje",
+   "Materias primas auxiliares",
+   "Stock de productos terminados"
+ ];
+ const limpio=s=>String(s??"").trim().toLowerCase()
+   .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+   .replace(/[^a-z0-9]/g,"");
+ const esCanonico=p=>canonicas.includes(String(p.familia||"").trim());
+ const claveProducto=p=>{
+   const codigo=limpio(p.codigo||p.referencia||p.ref||"");
+   if(codigo) return "c:"+codigo;
+   const nombre=limpio(p.nombre||p.descripcion||"");
+   if(nombre) return "n:"+nombre;
+   return "f:"+limpio((p.origenExcel||"")+"|"+(p.excelFila||""));
+ };
+
+ const validos=productos.filter(esCanonico);
+ const clavesValidas=new Set(validos.map(claveProducto));
+ const depurados=[
+   ...validos,
+   ...productos.filter(p=>!esCanonico(p) && !clavesValidas.has(claveProducto(p)))
+ ];
+
+ depurados.forEach(p=>{
    const cat=familiaCorrecta(p);
    if(!categorias[cat]) categorias[cat]={productos:0,stock:0,valor:0};
    categorias[cat].productos++;
