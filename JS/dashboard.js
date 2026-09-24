@@ -38,8 +38,16 @@ async function cargarDashboard(){
 
 
  const categorias={};
+ const familiaCorrecta=p=>{
+   const raw=String(p.familia||p.categoria||"").trim().toLowerCase();
+   if(raw.includes("plancha")||raw.includes("eva")||raw.includes("taco")) return "Stock de planchas";
+   if(raw.includes("envase")||raw.includes("embalaje")) return "Envases y embalaje";
+   if(raw.includes("materia")||raw.includes("auxiliar")) return "Materias primas auxiliares";
+   if(raw.includes("producto terminado")||raw.includes("productos terminados")) return "Stock de productos terminados";
+   return p.familia||p.categoria||"Sin categoría";
+ };
  productos.forEach(p=>{
-   const cat=p.categoria||p.familia||"Sin categoría";
+   const cat=familiaCorrecta(p);
    if(!categorias[cat]) categorias[cat]={productos:0,stock:0,valor:0};
    categorias[cat].productos++;
    categorias[cat].stock+=num(p.stock);
