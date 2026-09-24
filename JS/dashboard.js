@@ -5,8 +5,8 @@ const num=v=>{
  return Number.isFinite(n)?n:0;
 };
 const precioDe=p=>num(
- p.precio ??
  p.precioUnitario ??
+ p.precio ??
  p.precio_unitario ??
  p.precioUnidad ??
  p.coste ??

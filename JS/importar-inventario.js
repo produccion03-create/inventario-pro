@@ -7,7 +7,7 @@ import {
     setDoc
 } from "./firebase.js";
 
-import { INVENTARIO_AGOSTO_2026 } from "./inventario-agosto-2026.js?v=precio-real-20260921-4";
+import { INVENTARIO_AGOSTO_2026 } from "./inventario-agosto-2026.js?v=precios-20260921-2";
 
 const btn = document.getElementById("btnImportar");
 const resumen = document.getElementById("resumenImportacion");
@@ -51,6 +51,7 @@ async function importar() {
             const datos = {
                 ...p,
                 categoria: p.familia,
+        precio: Number(p.precioUnitario) || 0,
                 actualizadoDesdeExcel: new Date().toISOString()
             };
 
