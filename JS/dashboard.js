@@ -66,12 +66,21 @@ async function cargarDashboard(){
    return "f:"+limpio((p.origenExcel||"")+"|"+(p.excelFila||""));
  };
 
- const validos=productos.filter(esCanonico);
- const clavesValidas=new Set(validos.map(claveProducto));
- const depurados=[
-   ...validos,
-   ...productos.filter(p=>!esCanonico(p) && !clavesValidas.has(claveProducto(p)))
- ];
+ const esAgosto=p=>{
+   const o=String(p.origenExcel||p.origen||p.importacion||"").toUpperCase();
+   return o.includes("AGOSTO_2026") || o.includes("AGOSTO 2026");
+ };
+
+ // Para las cuatro familias del cierre, si existen registros de la
+ // importación AGOSTO 2026, esos son la única fuente válida.
+ const agosto=productos.filter(p=>esAgosto(p) && esCanonico(p));
+ const familiasAgosto=new Set(agosto.map(p=>familiaCorrecta(p)));
+
+ const depurados=productos.filter(p=>{
+   const fam=familiaCorrecta(p);
+   if(familiasAgosto.has(fam)) return esAgosto(p) && esCanonico(p);
+   return true;
+ });
 
  depurados.forEach(p=>{
    const cat=familiaCorrecta(p);
