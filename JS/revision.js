@@ -7,7 +7,7 @@ const t=v=>String(v??"").trim(), n=v=>Number.isFinite(Number(v))?Number(v):0;
 function esc(v){return t(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
 async function cargarDatos(){
  const [ps,rs]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"revisionesStock"))]);
- productos=ps.docs.map(d=>({id:d.id,...d.data()})).filter(p=>p.revisionStock===true&&FAMILIAS.includes(p.familia||p.categoria));
+ productos=ps.docs.map(d=>({id:d.id,...d.data()})).filter(p=>FAMILIAS.includes(p.familia||p.categoria));
  revisiones.clear();rs.forEach(d=>{const r=d.data();if(r.mes===mesActual&&r.productoId)revisiones.set(r.productoId,r)});
  familiaSelect.innerHTML='<option value="">Selecciona una familia...</option>';
  FAMILIAS.forEach(f=>{const c=productos.filter(p=>(p.familia||p.categoria)===f).length;if(c){const o=document.createElement("option");o.value=f;o.textContent=`${f} (${c})`;familiaSelect.appendChild(o)}});
