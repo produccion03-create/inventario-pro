@@ -10,6 +10,31 @@ import {
     deleteDoc
 } from "./firebase.js";
 
+const FAMILIAS=[
+    "Stock de planchas",
+    "Envases y embalaje",
+    "Materias primas auxiliares",
+    "Stock de productos terminados"
+];
+
+function familiaCanonica(valor){
+    const v=String(valor||"").trim();
+    if(v==="Planchas de EVA") return "Stock de planchas";
+    if(v==="Stock envases embalajes") return "Envases y embalaje";
+    return v;
+}
+
+function cargarFamilias(){
+    ["categoria","editarCategoria"].forEach(id=>{
+        const sel=document.getElementById(id);
+        if(!sel) return;
+        const actual=familiaCanonica(sel.value);
+        sel.innerHTML='<option value="">Seleccionar categoría</option>'+
+            FAMILIAS.map(f=>`<option value="${f}">${f}</option>`).join("");
+        if(FAMILIAS.includes(actual)) sel.value=actual;
+    });
+}
+
 // ==========================
 // GUARDAR PRODUCTO
 // ==========================
@@ -18,7 +43,7 @@ async function guardarProducto() {
 
     const codigo = document.getElementById("codigo").value.trim();
     const nombre = document.getElementById("nombre").value.trim();
-    const categoria = document.getElementById("categoria").value;
+    const categoria = familiaCanonica(document.getElementById("categoria").value);
     const stock = Number(document.getElementById("stock").value);
     const precio = Number(document.getElementById("precio").value);
     const stockMinimo = Number(document.getElementById("stockMinimo").value) || 5;
@@ -44,6 +69,7 @@ async function guardarProducto() {
             codigo,
             nombre,
             categoria,
+            familia: categoria,
             stock,
             precio,
             stockMinimo,
@@ -60,7 +86,8 @@ async function guardarProducto() {
         document.getElementById("precio").value = "";
         document.getElementById("stockMinimo").value = 5;
 
-        mostrarProductos();
+        cargarFamilias();
+mostrarProductos();
 
     } catch (error) {
 
@@ -241,7 +268,7 @@ async function editarProducto(id) {
             document.getElementById("editarId").value = id;
             document.getElementById("editarCodigo").value = p.codigo;
             document.getElementById("editarNombre").value = p.nombre;
-            document.getElementById("editarCategoria").value = p.categoria || "";
+            document.getElementById("editarCategoria").value = familiaCanonica(p.familia || p.categoria || "");
             document.getElementById("editarStock").value = p.stock;
             document.getElementById("editarPrecio").value = p.precio;
             document.getElementById("editarStockMinimo").value = p.stockMinimo ?? 5;
@@ -272,7 +299,8 @@ async function guardarEdicion() {
 
                 codigo: document.getElementById("editarCodigo").value,
                 nombre: document.getElementById("editarNombre").value,
-                categoria: document.getElementById("editarCategoria").value,
+                categoria: familiaCanonica(document.getElementById("editarCategoria").value),
+                familia: familiaCanonica(document.getElementById("editarCategoria").value),
                 stock: Number(document.getElementById("editarStock").value),
                 precio: Number(document.getElementById("editarPrecio").value),
                 stockMinimo: Number(document.getElementById("editarStockMinimo").value) || 5
