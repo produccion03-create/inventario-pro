@@ -47,6 +47,8 @@ async function guardarProducto() {
     const stock = Number(document.getElementById("stock").value);
     const precio = Number(document.getElementById("precio").value);
     const stockMinimo = Number(document.getElementById("stockMinimo").value) || 5;
+    const proveedor = document.getElementById("proveedor").value.trim();
+    const formato = document.getElementById("formato").value.trim();
 
     if (codigo === "" || nombre === "") {
 
@@ -73,6 +75,9 @@ async function guardarProducto() {
             stock,
             precio,
             stockMinimo,
+            proveedor,
+            ubicacion: proveedor,
+            formato,
             revisado: false
 
         });
@@ -85,6 +90,8 @@ async function guardarProducto() {
         document.getElementById("stock").value = "";
         document.getElementById("precio").value = "";
         document.getElementById("stockMinimo").value = 5;
+        document.getElementById("proveedor").value = "";
+        document.getElementById("formato").value = "";
 
         cargarFamilias();
 mostrarProductos();
@@ -272,6 +279,8 @@ async function editarProducto(id) {
             document.getElementById("editarStock").value = p.stock;
             document.getElementById("editarPrecio").value = p.precio;
             document.getElementById("editarStockMinimo").value = p.stockMinimo ?? 5;
+            document.getElementById("editarProveedor").value = p.proveedor || p.ubicacion || "";
+            document.getElementById("editarFormato").value = p.formato || "";
 
             document.getElementById("modalEditar").style.display = "flex";
 
@@ -303,7 +312,10 @@ async function guardarEdicion() {
                 familia: familiaCanonica(document.getElementById("editarCategoria").value),
                 stock: Number(document.getElementById("editarStock").value),
                 precio: Number(document.getElementById("editarPrecio").value),
-                stockMinimo: Number(document.getElementById("editarStockMinimo").value) || 5
+                stockMinimo: Number(document.getElementById("editarStockMinimo").value) || 5,
+                proveedor: document.getElementById("editarProveedor").value.trim(),
+                ubicacion: document.getElementById("editarProveedor").value.trim(),
+                formato: document.getElementById("editarFormato").value.trim()
 
             }
 
