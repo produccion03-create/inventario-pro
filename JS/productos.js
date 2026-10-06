@@ -515,75 +515,107 @@ document
     .getElementById("buscar")
     .addEventListener("input", mostrarProductos);
 
-// ==========================
-// LIMPIEZA DEFINITIVA: ENVASES Y EMBALAJE
-// Fuente: "envases y embalaje.xlsx" del usuario.
-// Solo afecta a esta familia.
-// ==========================
-const ENVASES_DEFINITIVOS=[{"nombre": "8x12", "aliases": ["8x12", "BOLSAS"]}, {"nombre": "6x8", "aliases": ["6x8"]}, {"nombre": "12x18", "aliases": ["12x18"]}, {"nombre": "18x27", "aliases": ["18x27"]}, {"nombre": "22x32", "aliases": ["22x32"]}, {"nombre": "30x40", "aliases": ["30x40"]}, {"nombre": "35x45", "aliases": ["35x45"]}, {"nombre": "25x35", "aliases": ["25x35"]}, {"nombre": "15x22", "aliases": ["15x22"]}, {"nombre": "sacos pequeños", "aliases": ["sacos pequeños"]}, {"nombre": "Sacos aspirador grandes", "aliases": ["Sacos aspirador grandes"]}, {"nombre": "16X22", "aliases": ["16X22"]}, {"nombre": "Sacos grandes 160x69 (polipropileno)", "aliases": ["Sacos grandes 160x69 (polipropileno)"]}, {"nombre": "Bolsas basket 600 (61x48)", "aliases": ["Bolsas basket 600 (61x48)"]}, {"nombre": "Bolsas 30x30", "aliases": ["Bolsas 30x30"]}, {"nombre": "Sobre Kraft 37x24", "aliases": ["Sobre Kraft 37x24"]}, {"nombre": "Sobre Kraft 33x26", "aliases": ["Sobre Kraft 33x26"]}, {"nombre": "Tubo LDPE (envasado esterillas)", "aliases": ["Tubo LDPE (envasado esterillas)"]}, {"nombre": "45 CM retractil", "aliases": ["45 CM retractil", "RETRACTIL"]}, {"nombre": "FILM MANO", "aliases": ["FILM MANO"]}, {"nombre": "FILM GRANDE TRANPARENTE", "aliases": ["FILM GRANDE TRANPARENTE", "GRANDE TRANPARNTE", "GRANDE TRANSPARENTE"]}, {"nombre": "FILM GRANDE NEGRO", "aliases": ["FILM GRANDE NEGRO", "GRANDE NEGRO"]}, {"nombre": "FLEJE PALETIZAR", "aliases": ["FLEJE PALETIZAR", "PALETIZAR"]}, {"nombre": "GRAPA FLEJE", "aliases": ["GRAPA FLEJE"]}, {"nombre": "PALET 120X80 CM", "aliases": ["PALET 120X80 CM", "PALETS"]}, {"nombre": "PAPEL ENVASADO", "aliases": ["PAPEL ENVASADO", "VARIOS"]}, {"nombre": "Barras de silicona pequeña", "aliases": ["Barras de silicona pequeña"]}, {"nombre": "Barras de silicona grandes", "aliases": ["Barras de silicona grandes"]}, {"nombre": "Spray SIL-130 S LUMASER (lubricante)", "aliases": ["Spray SIL-130 S LUMASER (lubricante)"]}, {"nombre": "Desengrasante AUT-360 LUMASER", "aliases": ["Desengrasante AUT-360 LUMASER"]}, {"nombre": "Gomas elásticas", "aliases": ["Gomas elásticas"]}, {"nombre": "Cinta adhesiva SCOTECH", "aliases": ["Cinta adhesiva SCOTECH"]}, {"nombre": "AGUA DESTILADA", "aliases": ["AGUA DESTILADA"]}, {"nombre": "AGUA REFRIGERANTE DE 25L A 10%", "aliases": ["AGUA REFRIGERANTE DE 25L A 10%"]}, {"nombre": "Arandelas Bouchones", "aliases": ["Arandelas Bouchones"]}, {"nombre": "105MM MUESTRARIO TORNILLOS", "aliases": ["105MM MUESTRARIO TORNILLOS", "105MM"]}, {"nombre": "100M MUESTRARIO TORNILLOS", "aliases": ["100M MUESTRARIO TORNILLOS", "100M"]}, {"nombre": "30M MUESTRARIO TORNILLOS", "aliases": ["30M MUESTRARIO TORNILLOS", "30MM MUESTRARIO TORNILLOS"]}, {"nombre": "TAPÓN METÁLICO MUESTRARIO", "aliases": ["TAPÓN METÁLICO MUESTRARIO", "TAPÓN METÁLICO"]}, {"nombre": "20MM METAL PROLONGADOR", "aliases": ["20MM METAL PROLONGADOR", "20MM METAL", "20MM"]}, {"nombre": "10MM PROLONGADOR METAL", "aliases": ["10MM PROLONGADOR METAL"]}, {"nombre": "30MM PROLONGADOR METAL", "aliases": ["30MM PROLONGADOR METAL", "PROLONGADORES METÁLICOS"]}, {"nombre": "TORNILLOS PLASTICOS 70MM", "aliases": ["TORNILLOS PLASTICOS 70MM", "TORNILLOS PLASTICOS"]}, {"nombre": "90MM", "aliases": ["90MM"]}, {"nombre": "40MM", "aliases": ["40MM"]}, {"nombre": "TAPÓN PLÁSTICO", "aliases": ["TAPÓN PLÁSTICO"]}];
+// ======================================================
+// ENVASES Y EMBALAJE: LISTA DEFINITIVA + PRECIOS DEL EXCEL
+// - Solo afecta a "Envases y embalaje"
+// - Conserva el stock actual del registro que se queda
+// - Actualiza SOLO precio
+// - Elimina duplicados y artículos que no están en el Excel
+// ======================================================
+const ENVASES_EXCEL=[{"nombre": "8x12", "grupo": "BOLSAS", "tipo": "POLIPROPILENO", "precio": 0.03, "orden": 0}, {"nombre": "6x8", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.03, "orden": 1}, {"nombre": "12x18", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.04, "orden": 2}, {"nombre": "18x27", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.05, "orden": 3}, {"nombre": "22x32", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.05, "orden": 4}, {"nombre": "30x40", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.06, "orden": 5}, {"nombre": "35x45", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.06, "orden": 6}, {"nombre": "25x35", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.05, "orden": 7}, {"nombre": "15x22", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.05, "orden": 8}, {"nombre": "sacos pequeños", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.3, "orden": 9}, {"nombre": "Sacos aspirador grandes", "grupo": "", "tipo": "POLIPROPILENO", "precio": 2, "orden": 10}, {"nombre": "16X22", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.05, "orden": 11}, {"nombre": "Sacos grandes 160x69 (polipropileno)", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.3, "orden": 12}, {"nombre": "Bolsas basket 600 (61x48)", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.1, "orden": 13}, {"nombre": "Bolsas 30x30", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.109, "orden": 14}, {"nombre": "Sobre Kraft 37x24", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.15, "orden": 15}, {"nombre": "Sobre Kraft 33x26", "grupo": "", "tipo": "POLIPROPILENO", "precio": 0.15, "orden": 16}, {"nombre": "Tubo LDPE (envasado esterillas)", "grupo": "", "tipo": "POLIPROPILENO", "precio": 45, "orden": 17}, {"nombre": "45 CM", "grupo": "RETRACTIL", "tipo": "BOBINA", "precio": 50, "orden": 18}, {"nombre": "MANO", "grupo": "FILM", "tipo": "PLASTICO ROLLO", "precio": 0.95, "orden": 19}, {"nombre": "GRANDE TRANPARNTE", "grupo": "", "tipo": "PLASTICO ROLLO", "precio": 3.86, "orden": 20}, {"nombre": "GRANDE NEGRO", "grupo": "", "tipo": "PLASTICO ROLLO", "precio": 3.86, "orden": 21}, {"nombre": "FLEJE PALETIZAR", "grupo": "PALETIZAR", "tipo": "ROLLO", "precio": 60, "orden": 22}, {"nombre": "GRAPA FLEJE", "grupo": "", "tipo": "UNIDAD", "precio": 0.05, "orden": 23}, {"nombre": "PALET 120X80 CM", "grupo": "PALETS", "tipo": "", "precio": 5.5, "orden": 24}, {"nombre": "PAPEL ENVASADO", "grupo": "VARIOS", "tipo": "", "precio": 0.32, "orden": 25}, {"nombre": "Barras de silicona pequeña", "grupo": "", "tipo": "", "precio": 0.08, "orden": 26}, {"nombre": "Barras de silicona grandes", "grupo": "", "tipo": "", "precio": 0.08, "orden": 27}, {"nombre": "Spray SIL-130 S LUMASER (lubricante)", "grupo": "", "tipo": "BOTES", "precio": 5, "orden": 28}, {"nombre": "Desengrasante AUT-360 LUMASER", "grupo": "", "tipo": "GARRAFA 25L", "precio": 93.75, "orden": 29}, {"nombre": "Gomas elásticas", "grupo": "", "tipo": "", "precio": 0.0107142857142857, "orden": 30}, {"nombre": "Cinta adhesiva SCOTECH", "grupo": "", "tipo": "ROLLOS", "precio": 1.69875, "orden": 31}, {"nombre": "AGUA DESTILADA", "grupo": "", "tipo": "", "precio": 0, "orden": 32}, {"nombre": "AGUA REFRIGERANTE DE 25L A 10%", "grupo": "", "tipo": "", "precio": 0, "orden": 33}, {"nombre": "Arandelas Bouchones", "grupo": "", "tipo": "UD", "precio": 0.03041, "orden": 34}, {"nombre": "105MM", "grupo": "MUESTRARIO TORNILLOS METÁLICOS", "tipo": "METAL", "precio": 0.00671, "orden": 35}, {"nombre": "100M", "grupo": "", "tipo": "METAL", "precio": 0.016059999999999998, "orden": 36}, {"nombre": "30MM", "grupo": "", "tipo": "METAL", "precio": 0.016059999999999998, "orden": 37}, {"nombre": "TAPÓN METÁLICO", "grupo": "", "tipo": "METAL", "precio": 0.02, "orden": 38}, {"nombre": "20MM", "grupo": "PROLONGADORES METÁLICOS", "tipo": "METAL", "precio": 0.016059999999999998, "orden": 39}, {"nombre": "10MM", "grupo": "", "tipo": "METAL", "precio": 0.00671, "orden": 40}, {"nombre": "30MM", "grupo": "", "tipo": "METAL", "precio": 0.016059999999999998, "orden": 41}, {"nombre": "70MM", "grupo": "TORNILLOS PLASTICOS", "tipo": "PLÁSTICO", "precio": 0.00671, "orden": 42}, {"nombre": "90MM", "grupo": "", "tipo": "PLÁSTICO", "precio": 0.016059999999999998, "orden": 43}, {"nombre": "40MM", "grupo": "", "tipo": "PLÁSTICO", "precio": 0.016059999999999998, "orden": 44}, {"nombre": "TAPÓN PLÁSTICO", "grupo": "", "tipo": "PLÁSTICO", "precio": 0.001, "orden": 45}];
 
-function normalizarEnvases(v){
+function normEnv(v){
  return String(v??"").trim().toUpperCase().normalize("NFD")
    .replace(/[\u0300-\u036f]/g,"").replace(/[^A-Z0-9]+/g," ").trim().replace(/\s+/g," ");
 }
-function textoProductoEnvases(p){
- return normalizarEnvases([
-   p.codigo,p.referencia,p.ref,p.nombre,p.descripcion,p.formato,p.proveedor,p.ubicacion
- ].filter(Boolean).join(" "));
+function camposEnv(p){
+ return [p.codigo,p.referencia,p.ref,p.nombre,p.descripcion,p.formato,p.proveedor,p.ubicacion]
+   .filter(Boolean).map(normEnv);
 }
-function coincideEnvase(p,item){
- const t=textoProductoEnvases(p);
- return item.aliases.some(a=>{
-   const x=normalizarEnvases(a);
-   return x && (t===x || t.includes(x));
- });
-}
-function calidadEnvase(p,item){
- const t=textoProductoEnvases(p), objetivo=normalizarEnvases(item.nombre);
+function scoreEnv(p,it){
+ const objetivo=normEnv(it.nombre), grupo=normEnv(it.grupo), tipo=normEnv(it.tipo);
+ const campos=camposEnv(p);
  let s=0;
- if(t===objetivo) s+=100;
- if(normalizarEnvases(p.nombre)===objetivo) s+=80;
- if(normalizarEnvases(p.codigo||p.referencia||p.ref)===objetivo) s+=60;
- if(p.stock!==undefined && p.stock!==null && p.stock!=="") s+=5;
- if(p.precio!==undefined && p.precio!==null && p.precio!=="") s+=5;
+ // Prioridad: coincidencia exacta con el nombre de la fila del Excel.
+ for(const c of campos){
+   if(c===objetivo) s=Math.max(s,1000);
+   else if(c.includes(objetivo) || objetivo.includes(c)) s=Math.max(s,500);
+ }
+ const todo=campos.join(" ");
+ if(grupo && todo.includes(grupo)) s+=80;
+ if(tipo && todo.includes(tipo)) s+=40;
+
+ // Casos jerárquicos del Excel que en Firebase aparecen con el contexto del grupo.
+ if(grupo==="RETRACTIL" && objetivo==="45 CM" && todo.includes("RETRACTIL")) s+=500;
+ if(grupo==="FILM" && objetivo==="MANO" && todo.includes("FILM") && todo.includes("MANO")) s+=500;
+ if(grupo==="FILM" && objetivo==="GRANDE TRANPARNTE" && todo.includes("GRANDE") && (todo.includes("TRANPARNTE")||todo.includes("TRANPARENTE"))) s+=500;
+ if(grupo==="FILM" && objetivo==="GRANDE NEGRO" && todo.includes("GRANDE NEGRO")) s+=500;
+ if(grupo==="PALETIZAR" && objetivo==="FLEJE PALETIZAR" && todo.includes("PALETIZAR")) s+=500;
+ if(grupo==="PALETS" && objetivo==="PALET 120X80 CM" && todo.includes("PALET")) s+=500;
+ if(grupo==="MUESTRARIO TORNILLOS METALICOS" && ["105MM","100M","30MM","TAPON METALICO"].includes(objetivo) && todo.includes(objetivo)) s+=500;
+ if(grupo==="PROLONGADORES METALICOS" && ["20MM","10MM","30MM"].includes(objetivo) && todo.includes(objetivo)) s+=500;
+ if(grupo==="TORNILLOS PLASTICOS" && ["70MM","90MM","40MM","TAPON PLASTICO"].includes(objetivo) && todo.includes(objetivo)) s+=500;
  return s;
 }
 
-async function limpiarEnvasesDirecto(){
- const out=document.getElementById("resultadoLimpiezaEnvases");
- if(!confirm("Se limpiará SOLO la categoría Envases y embalaje. Quedará una sola ficha por cada artículo del Excel definitivo y se borrarán duplicados/sobrantes. ¿Continuar?")) return;
- out.innerHTML="Limpiando Envases y embalaje...";
+async function aplicarEnvasesExcel(){
+ const out=document.getElementById("resultadoEnvasesExcel");
+ if(!confirm("Se modificará SOLO Envases y embalaje: se conservará el stock actual, se pondrán los precios del Excel y se eliminarán duplicados/sobrantes. ¿Continuar?")) return;
+ out.innerHTML="Aplicando el Excel de Envases y embalaje...";
  try{
    const snap=await getDocs(collection(db,"productos"));
-   const envases=snap.docs.map(d=>({id:d.id,...d.data()}))
-     .filter(p=>familiaDe(p)==="Envases y embalaje");
+   const actuales=snap.docs.map(d=>({id:d.id,...d.data()}))
+      .filter(p=>familiaDe(p)==="Envases y embalaje");
 
-   const usados=new Set(), conservar=new Set(), faltan=[];
-   // Asignación en el mismo orden del Excel. Cada ficha actual solo puede conservarse una vez.
-   for(const item of ENVASES_DEFINITIVOS){
-     const candidatos=envases.filter(p=>!usados.has(p.id) && coincideEnvase(p,item))
-       .sort((a,b)=>calidadEnvase(b,item)-calidadEnvase(a,item));
-     if(candidatos.length){
-       conservar.add(candidatos[0].id);
-       usados.add(candidatos[0].id);
-     } else {
-       faltan.push(item.nombre);
-     }
+   const usados=new Set();
+   const conservar=[];
+   const faltan=[];
+
+   for(const it of ENVASES_EXCEL){
+      const candidatos=actuales
+        .filter(p=>!usados.has(p.id))
+        .map(p=>({p,s:scoreEnv(p,it)}))
+        .filter(x=>x.s>=500)
+        .sort((a,b)=>b.s-a.s);
+
+      if(!candidatos.length){
+        faltan.push(it.nombre);
+        continue;
+      }
+      const elegido=candidatos[0].p;
+      usados.add(elegido.id);
+      conservar.push({p:elegido,it});
    }
 
-   const eliminar=envases.filter(p=>!conservar.has(p.id));
-   await Promise.all(eliminar.map(p=>deleteDoc(doc(db,"productos",p.id))));
-   await normalizarProductosGuardados();
+   // Seguridad: no ejecutar una limpieza destructiva si no se reconocen todos los artículos.
+   if(faltan.length){
+      out.innerHTML=`<strong>⚠️ No se ha borrado ni modificado nada.</strong><br>
+        No he podido identificar ${faltan.length} artículo(s) del Excel en Firebase:<br>${faltan.join("<br>")}`;
+      return;
+   }
+
+   const idsConservar=new Set(conservar.map(x=>x.p.id));
+   const borrar=actuales.filter(p=>!idsConservar.has(p.id));
+
+   // Actualiza ÚNICAMENTE precio en los 46 registros conservados.
+   await Promise.all(conservar.map(x=>
+      updateDoc(doc(db,"productos",x.p.id),{precio:Number(x.it.precio)||0})
+   ));
+   // Elimina duplicados y sobrantes SOLO de esta familia.
+   await Promise.all(borrar.map(p=>deleteDoc(doc(db,"productos",p.id))));
+
    await mostrarProductos();
 
-   out.innerHTML=`<strong>✅ Limpieza terminada.</strong><br>
-     Registros de Envases antes: ${envases.length}<br>
-     Artículos conservados: ${conservar.size}<br>
-     Duplicados/sobrantes eliminados: ${eliminar.length}<br>
-     ${faltan.length?`<br><strong>⚠️ Artículos del Excel que no existían en Firebase (${faltan.length}):</strong><br>${faltan.join("<br>")}`:"<br><strong>Los 46 artículos del Excel están representados.</strong>"}`;
+   const valor=conservar.reduce((s,x)=>s+(Number(x.p.stock)||0)*(Number(x.it.precio)||0),0);
+   out.innerHTML=`<strong>✅ Envases y embalaje corregido.</strong><br>
+      Artículos definitivos: 46<br>
+      Duplicados/sobrantes eliminados: ${borrar.length}<br>
+      Stocks modificados: 0<br>
+      Precios actualizados desde el Excel: 46<br>
+      Valor recalculado con stock actual × precio nuevo: ${valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}`;
  }catch(e){
    console.error(e);
-   out.innerHTML="❌ Error durante la limpieza. No se ha tocado ninguna otra categoría.";
+   out.innerHTML="❌ Error al aplicar la corrección. No se ha tocado ninguna otra categoría.";
  }
 }
-document.getElementById("limpiarEnvasesDirecto")?.addEventListener("click",limpiarEnvasesDirecto);
+document.getElementById("aplicarEnvasesExcel")?.addEventListener("click",aplicarEnvasesExcel);
