@@ -55,6 +55,18 @@ async function guardarProducto() {
 
     try {
 
+        // Impedir crear una referencia que ya exista en cualquier categoría.
+        const existentes = await getDocs(collection(db, "productos"));
+        const claveNueva = claveCodigo(codigo);
+        const yaExiste = existentes.docs.some(d => {
+            const p=d.data();
+            return claveCodigo(p.codigo || p.referencia || p.ref || "") === claveNueva;
+        });
+        if (yaExiste) {
+            alert("⚠️ Ya existe un producto con la referencia " + codigo + ". No se ha creado un duplicado.");
+            return;
+        }
+
         await addDoc(collection(db, "productos"), {
 
             codigo,
@@ -377,75 +389,134 @@ async function eliminarProducto(id) {
 
 
 // ==========================
-// ANALIZAR DUPLICADOS
+// DUPLICADOS - TODAS LAS CATEGORÍAS
 // ==========================
 
 function claveCodigo(v){
-    return String(v ?? "")
-        .trim()
-        .toUpperCase()
-        .replace(/\s+/g,"");
+    return String(v ?? "").trim().toUpperCase().replace(/\s+/g,"");
 }
+
+function puntuacionRegistro(p){
+    let n=0;
+    // Preferimos datos completos y familia canónica.
+    if(FAMILIAS.includes(familiaDe(p))) n+=20;
+    if(p.nombre) n+=5;
+    if(p.codigo) n+=5;
+    if(p.familia) n+=3;
+    if(p.categoria) n+=2;
+    if(p.proveedor || p.ubicacion) n+=2;
+    if(p.formato) n+=2;
+    if(p.precio !== undefined && p.precio !== null && p.precio !== "") n+=3;
+    if(p.stock !== undefined && p.stock !== null && p.stock !== "") n+=3;
+    // Los productos creados desde la aplicación no dependen de la importación antigua.
+    if(!p.origenExcel && !p.importacion) n+=4;
+    return n;
+}
+
+let duplicadosDetectados=[];
 
 async function analizarDuplicados(){
     const salida=document.getElementById("resultadoDuplicados");
-    salida.innerHTML="Analizando...";
+    const boton=document.getElementById("eliminarDuplicados");
+    salida.innerHTML="Analizando todas las categorías...";
+    boton.disabled=true;
+    duplicadosDetectados=[];
 
     try{
-        const datos=await getDocs(collection(db,"productos"));
+        const snap=await getDocs(collection(db,"productos"));
         const grupos=new Map();
 
-        datos.forEach(d=>{
+        snap.forEach(d=>{
             const p={id:d.id,...d.data()};
             const clave=claveCodigo(p.codigo || p.referencia || p.ref || "");
-            if(!clave) return;
+            if(!clave) return; // Nunca borramos registros sin referencia.
             if(!grupos.has(clave)) grupos.set(clave,[]);
             grupos.get(clave).push(p);
         });
 
-        const repetidos=[...grupos.entries()]
-            .filter(([,items])=>items.length>1)
-            .sort((a,b)=>a[0].localeCompare(b[0],"es"));
+        for(const [codigo,items] of grupos){
+            if(items.length<2) continue;
 
-        const totalDocs=datos.size;
-        const copiasExtra=repetidos.reduce((s,[,items])=>s+(items.length-1),0);
+            const ordenados=[...items].sort((a,b)=>{
+                const dif=puntuacionRegistro(b)-puntuacionRegistro(a);
+                if(dif) return dif;
+                // En empate, preferimos el registro que ya usa campos canónicos.
+                const bc=(FAMILIAS.includes(String(b.familia||"").trim())?1:0);
+                const ac=(FAMILIAS.includes(String(a.familia||"").trim())?1:0);
+                return bc-ac;
+            });
 
-        if(!repetidos.length){
-            salida.innerHTML=`<strong>✅ ${totalDocs} productos revisados. No hay referencias duplicadas.</strong>`;
+            duplicadosDetectados.push({
+                codigo,
+                conservar:ordenados[0],
+                eliminar:ordenados.slice(1)
+            });
+        }
+
+        duplicadosDetectados.sort((a,b)=>a.codigo.localeCompare(b.codigo,"es"));
+        const copias=duplicadosDetectados.reduce((s,g)=>s+g.eliminar.length,0);
+
+        if(!duplicadosDetectados.length){
+            salida.innerHTML=`<strong>✅ ${snap.size} productos revisados. No hay referencias duplicadas en ninguna categoría.</strong>`;
             return;
         }
 
-        const filas=repetidos.map(([codigo,items])=>{
-            const detalle=items.map(p=>{
-                const fam=familiaDe(p)||"Sin categoría";
-                const stock=Number(p.stock)||0;
-                const precio=Number(p.precio)||0;
-                return `${p.nombre||"(sin nombre)"} · ${fam} · Stock ${stock} · ${precio.toFixed(2)} €`;
-            }).join("<br>");
-
+        const filas=duplicadosDetectados.map(g=>{
+            const k=g.conservar;
+            const borrados=g.eliminar.map(p =>
+                `${p.nombre||"(sin nombre)"} · ${familiaDe(p)||p.categoria||"Sin categoría"} · Stock ${Number(p.stock)||0}`
+            ).join("<br>");
             return `<tr>
-                <td><strong>${codigo}</strong></td>
-                <td>${items.length}</td>
-                <td>${detalle}</td>
+                <td><strong>${g.codigo}</strong></td>
+                <td>${k.nombre||"(sin nombre)"}<br><small>${familiaDe(k)||k.categoria||"Sin categoría"} · Stock ${Number(k.stock)||0}</small></td>
+                <td>${borrados}</td>
             </tr>`;
         }).join("");
 
         salida.innerHTML=`
-            <div style="margin-bottom:12px">
-                <strong>Productos revisados:</strong> ${totalDocs}<br>
-                <strong>Referencias repetidas:</strong> ${repetidos.length}<br>
-                <strong>Copias extra detectadas:</strong> ${copiasExtra}
-            </div>
-            <p><strong>⚠️ No se ha eliminado nada.</strong></p>
-            <div style="overflow-x:auto">
-                <table class="tabla-productos">
-                    <thead><tr><th>Referencia</th><th>Registros</th><th>Detalles</th></tr></thead>
-                    <tbody>${filas}</tbody>
-                </table>
-            </div>`;
+          <div style="margin-bottom:12px">
+            <strong>Productos revisados:</strong> ${snap.size}<br>
+            <strong>Referencias duplicadas:</strong> ${duplicadosDetectados.length}<br>
+            <strong>Copias que se eliminarán:</strong> ${copias}
+          </div>
+          <div style="overflow-x:auto">
+            <table class="tabla-productos">
+              <thead><tr><th>Referencia</th><th>Se conserva</th><th>Copias a eliminar</th></tr></thead>
+              <tbody>${filas}</tbody>
+            </table>
+          </div>`;
+        boton.disabled=false;
     }catch(error){
         console.error(error);
         salida.innerHTML="❌ Error al analizar duplicados.";
+    }
+}
+
+async function eliminarDuplicadosSeguros(){
+    if(!duplicadosDetectados.length) return;
+    const total=duplicadosDetectados.reduce((s,g)=>s+g.eliminar.length,0);
+    if(!confirm(`Se eliminarán ${total} copias duplicadas. Se conservará un producto por referencia. ¿Continuar?`)) return;
+
+    const boton=document.getElementById("eliminarDuplicados");
+    boton.disabled=true;
+
+    try{
+        const tareas=[];
+        duplicadosDetectados.forEach(g=>{
+            g.eliminar.forEach(p=>{
+                tareas.push(deleteDoc(doc(db,"productos",p.id)));
+            });
+        });
+        await Promise.all(tareas);
+        alert(`✅ Limpieza terminada. Se han eliminado ${total} copias duplicadas.`);
+        duplicadosDetectados=[];
+        await normalizarProductosGuardados();
+        await mostrarProductos();
+        await analizarDuplicados();
+    }catch(error){
+        console.error(error);
+        alert("❌ No se pudo completar la limpieza.");
+        boton.disabled=false;
     }
 }
 
@@ -471,3 +542,5 @@ document
     .addEventListener("input", mostrarProductos);
 document.getElementById("analizarDuplicados")
     ?.addEventListener("click", analizarDuplicados);
+document.getElementById("eliminarDuplicados")
+    ?.addEventListener("click", eliminarDuplicadosSeguros);
