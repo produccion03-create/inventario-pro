@@ -528,6 +528,15 @@ function mostrarListados(categorias){
 
 
 
+function productosExportacion(){
+ const f=document.getElementById("familiaExportar")?.value||"";
+ return f?productos.filter(p=>familiaDe(p)===f):productos;
+}
+function nombreExportacion(prefijo){
+ const f=document.getElementById("familiaExportar")?.value||"Todas";
+ return prefijo+"_"+f.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,"_").replace(/^_|_$/g,"");
+}
+
 // ==========================
 // EXPORTAR EXCEL
 // ==========================
@@ -537,7 +546,14 @@ document.getElementById("exportarCSV")
 ?.addEventListener("click",()=>{
 
 
-const hoja=XLSX.utils.json_to_sheet(productos);
+const seleccion=productosExportacion();
+if(!seleccion.length){alert("No hay productos en la familia seleccionada.");return;}
+const hoja=XLSX.utils.json_to_sheet(seleccion.map(p=>({
+ Referencia:p.codigo||"",Producto:p.nombre||"",Familia:familiaDe(p)||"",
+ "Proveedor / Ubicación":p.proveedor||p.ubicacion||"",Formato:p.formato||"",
+ Stock:Number(p.stock)||0,Precio:Number(p.precio)||0,
+ Valor:(Number(p.stock)||0)*(Number(p.precio)||0)
+})));
 
 const libro=XLSX.utils.book_new();
 
@@ -550,7 +566,7 @@ XLSX.utils.book_append_sheet(
 
 XLSX.writeFile(
     libro,
-    "Inventario_Pro.xlsx"
+    nombreExportacion("Inventario_Pro")+".xlsx"
 );
 
 
@@ -569,14 +585,16 @@ document.getElementById("exportarPDF")
 ?.addEventListener("click",()=>{
 
 
+const seleccion=productosExportacion();
+if(!seleccion.length){alert("No hay productos en la familia seleccionada.");return;}
 const {jsPDF}=window.jspdf;
 
 
-const pdf=new jsPDF();
+const pdf=new jsPDF({orientation:"landscape"});
 
 
 pdf.text(
-"Inventario Pro - Informe",
+`Inventario Pro - ${document.getElementById("familiaExportar")?.value || "Todas las familias"}`,
 15,
 15
 );
@@ -586,21 +604,18 @@ pdf.autoTable({
 
 startY:25,
 
-head:[["Producto","Stock","Precio"]],
-
-body:
-
-productos.map(p=>[
-p.nombre,
-p.stock,
-p.precio
+head:[["Referencia","Producto","Familia","Proveedor / Ubicación","Formato","Stock","Precio","Valor"]],
+body: seleccion.map(p=>[
+ p.codigo||"",p.nombre||"",familiaDe(p)||"",p.proveedor||p.ubicacion||"",p.formato||"",
+ Number(p.stock)||0,(Number(p.precio)||0).toFixed(2)+" €",
+ ((Number(p.stock)||0)*(Number(p.precio)||0)).toFixed(2)+" €"
 ])
 
 });
 
 
 pdf.save(
-"Informe_Inventario.pdf"
+nombreExportacion("Informe_Inventario")+".pdf"
 );
 
 
