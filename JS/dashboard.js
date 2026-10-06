@@ -80,7 +80,8 @@ async function cargarDashboard(){
 
 
  const listaCategorias=document.getElementById("listaCategorias");
- const catsOrdenadas=Object.entries(categorias).sort((a,b)=>b[1].valor-a[1].valor);
+ const ordenFamilias=["Stock de planchas","Envases y embalaje","Materias primas auxiliares","Stock de productos terminados"];
+ const catsOrdenadas=Object.entries(categorias).sort((a,b)=>ordenFamilias.indexOf(a[0])-ordenFamilias.indexOf(b[0]));
  listaCategorias.innerHTML=catsOrdenadas.length
    ? `<table class="tabla-productos"><thead><tr><th>Categoría</th><th>Productos</th><th>Stock</th><th>Valor</th></tr></thead><tbody>${
        catsOrdenadas.map(([cat,d])=>`<tr><td><strong>${cat}</strong></td><td>${d.productos}</td><td>${d.stock}</td><td><strong>${d.valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}</strong></td></tr>`).join("")
@@ -89,7 +90,7 @@ async function cargarDashboard(){
 
  const ctx=document.getElementById("graficoCategorias");
  if(ctx && window.Chart){
-   const datosCategorias=Object.entries(categorias).sort((a,b)=>b[1].valor-a[1].valor);
+   const datosCategorias=Object.entries(categorias).sort((a,b)=>ordenFamilias.indexOf(a[0])-ordenFamilias.indexOf(b[0]));
    new Chart(ctx,{
      type:"bar",
      data:{
