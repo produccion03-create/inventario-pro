@@ -545,34 +545,38 @@ function nombreExportacion(prefijo){
 document.getElementById("exportarCSV")
 ?.addEventListener("click",()=>{
 
+ const seleccion=productosExportacion();
+ if(!seleccion.length){alert("No hay productos en la familia seleccionada.");return;}
 
-const seleccion=productosExportacion();
-if(!seleccion.length){alert("No hay productos en la familia seleccionada.");return;}
-const hoja=XLSX.utils.json_to_sheet(seleccion.map(p=>({
- Referencia:p.codigo||"",Producto:p.nombre||"",Familia:familiaDe(p)||"",
- "Proveedor / Ubicación":p.proveedor||p.ubicacion||"",Formato:p.formato||"",
- Stock:Number(p.stock)||0,Precio:Number(p.precio)||0,
- Valor:(Number(p.stock)||0)*(Number(p.precio)||0)
-})));
+ const filas=seleccion.map(p=>({
+   Referencia:p.codigo||"",
+   Producto:p.nombre||"",
+   Familia:familiaDe(p)||"",
+   "Proveedor / Ubicación":p.proveedor||p.ubicacion||"",
+   Formato:p.formato||"",
+   Stock:Number(p.stock)||0,
+   Precio:Number(p.precio)||0,
+   Valor:(Number(p.stock)||0)*(Number(p.precio)||0)
+ }));
 
-const libro=XLSX.utils.book_new();
+ const totalPrecio=seleccion.reduce((s,p)=>s+(Number(p.precio)||0),0);
+ const totalValor=seleccion.reduce((s,p)=>s+((Number(p.stock)||0)*(Number(p.precio)||0)),0);
 
-XLSX.utils.book_append_sheet(
-    libro,
-    hoja,
-    "Inventario"
-);
+ filas.push({});
+ filas.push({
+   Producto:"TOTAL SUMA DE PRECIOS",
+   Precio:totalPrecio
+ });
+ filas.push({
+   Producto:"TOTAL VALOR STOCK (STOCK × PRECIO)",
+   Valor:totalValor
+ });
 
-
-XLSX.writeFile(
-    libro,
-    nombreExportacion("Inventario_Pro")+".xlsx"
-);
-
-
+ const hoja=XLSX.utils.json_to_sheet(filas);
+ const libro=XLSX.utils.book_new();
+ XLSX.utils.book_append_sheet(libro,hoja,"Inventario");
+ XLSX.writeFile(libro,nombreExportacion("Inventario_Pro")+".xlsx");
 });
-
-
 
 
 
@@ -584,45 +588,35 @@ XLSX.writeFile(
 document.getElementById("exportarPDF")
 ?.addEventListener("click",()=>{
 
+ const seleccion=productosExportacion();
+ if(!seleccion.length){alert("No hay productos en la familia seleccionada.");return;}
 
-const seleccion=productosExportacion();
-if(!seleccion.length){alert("No hay productos en la familia seleccionada.");return;}
-const {jsPDF}=window.jspdf;
+ const totalPrecio=seleccion.reduce((s,p)=>s+(Number(p.precio)||0),0);
+ const totalValor=seleccion.reduce((s,p)=>s+((Number(p.stock)||0)*(Number(p.precio)||0)),0);
 
+ const {jsPDF}=window.jspdf;
+ const pdf=new jsPDF({orientation:"landscape"});
 
-const pdf=new jsPDF({orientation:"landscape"});
+ pdf.text(`Inventario Pro - ${document.getElementById("familiaExportar")?.value || "Todas las familias"}`,15,15);
 
+ pdf.autoTable({
+   startY:25,
+   head:[["Referencia","Producto","Familia","Proveedor / Ubicación","Formato","Stock","Precio","Valor"]],
+   body:seleccion.map(p=>[
+     p.codigo||"",p.nombre||"",familiaDe(p)||"",p.proveedor||p.ubicacion||"",p.formato||"",
+     Number(p.stock)||0,
+     (Number(p.precio)||0).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €",
+     ((Number(p.stock)||0)*(Number(p.precio)||0)).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"
+   ])
+ });
 
-pdf.text(
-`Inventario Pro - ${document.getElementById("familiaExportar")?.value || "Todas las familias"}`,
-15,
-15
-);
+ const y=pdf.lastAutoTable.finalY+10;
+ pdf.setFont(undefined,"bold");
+ pdf.text("TOTAL SUMA DE PRECIOS: "+totalPrecio.toLocaleString("es-ES",{style:"currency",currency:"EUR"}),15,y);
+ pdf.text("TOTAL VALOR STOCK (STOCK x PRECIO): "+totalValor.toLocaleString("es-ES",{style:"currency",currency:"EUR"}),15,y+8);
 
-
-pdf.autoTable({
-
-startY:25,
-
-head:[["Referencia","Producto","Familia","Proveedor / Ubicación","Formato","Stock","Precio","Valor"]],
-body: seleccion.map(p=>[
- p.codigo||"",p.nombre||"",familiaDe(p)||"",p.proveedor||p.ubicacion||"",p.formato||"",
- Number(p.stock)||0,(Number(p.precio)||0).toFixed(2)+" €",
- ((Number(p.stock)||0)*(Number(p.precio)||0)).toFixed(2)+" €"
-])
-
+ pdf.save(nombreExportacion("Informe_Inventario")+".pdf");
 });
-
-
-pdf.save(
-nombreExportacion("Informe_Inventario")+".pdf"
-);
-
-
-});
-
-
-
 
 
 cargarDatos();
