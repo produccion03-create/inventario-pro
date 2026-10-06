@@ -7,6 +7,7 @@ import {
     addDoc,
     serverTimestamp
 } from "./firebase.js";
+import {familiaDe} from "./familias.js";
 
 const entradaOrigen = document.getElementById("entradaOrigen");
 const disponibleEntrada = document.getElementById("disponibleEntrada");
@@ -159,7 +160,7 @@ boton.addEventListener("click", async () => {
         productoId:producto.id,
         codigo:producto.codigo || entradaSeleccionada.codigo || "",
         producto:producto.nombre || entradaSeleccionada.producto || "",
-        categoria:producto.categoria || producto.familia || "",
+        categoria:familiaDe(producto),
         cantidad:cantidadSalida,
         stockAnterior,
         stockFinal,

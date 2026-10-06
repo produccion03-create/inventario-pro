@@ -1,5 +1,5 @@
 import {db,collection,getDocs,doc,setDoc,serverTimestamp} from "./firebase.js";
-const FAMILIAS=["Stock de planchas","Envases y embalaje","Materias primas auxiliares","Stock de productos terminados"];
+import {FAMILIAS,familiaDe,normalizarFamilia} from "./familias.js";
 const familiaSelect=document.getElementById("familia"),mesSelect=document.getElementById("mesRevision"),tbody=document.getElementById("tablaRevision"),resumen=document.getElementById("resumen");
 let productos=[],revisiones=new Map();
 const ahora=new Date(),mesActual=`${ahora.getFullYear()}-${String(ahora.getMonth()+1).padStart(2,"0")}`;
@@ -9,13 +9,13 @@ const t=v=>String(v??"").trim(), n=v=>Number.isFinite(Number(v))?Number(v):0;
 function esc(v){return t(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
 async function cargarDatos(){
  const [ps,rs]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"revisionesStock"))]);
- productos=ps.docs.map(d=>({id:d.id,...d.data()})).filter(p=>FAMILIAS.includes(p.familia||p.categoria));
+ productos=ps.docs.map(d=>({id:d.id,...d.data()})).filter(p=>FAMILIAS.includes(familiaDe(p)));
  revisiones.clear();rs.forEach(d=>{const r=d.data();if(r.mes===mesElegido()&&r.productoId)revisiones.set(r.productoId,r)});
  familiaSelect.innerHTML='<option value="">Selecciona una familia...</option>';
- FAMILIAS.forEach(f=>{const c=productos.filter(p=>(p.familia||p.categoria)===f).length;if(c){const o=document.createElement("option");o.value=f;o.textContent=`${f} (${c})`;familiaSelect.appendChild(o)}});
+ FAMILIAS.forEach(f=>{const c=productos.filter(p=>familiaDe(p)===f).length;if(c){const o=document.createElement("option");o.value=f;o.textContent=`${f} (${c})`;familiaSelect.appendChild(o)}});
  tbody.innerHTML='<tr><td colspan="12">Selecciona una familia para empezar la revisión.</td></tr>';
 }
-function lista(){return productos.filter(p=>(p.familia||p.categoria)===familiaSelect.value).sort((a,b)=>{const oa=t(a.origenExcel),ob=t(b.origenExcel);return oa!==ob?oa.localeCompare(ob,"es"):n(a.excelFila)-n(b.excelFila)})}
+function lista(){return productos.filter(p=>familiaDe(p)===familiaSelect.value).sort((a,b)=>{const oa=t(a.origenExcel),ob=t(b.origenExcel);return oa!==ob?oa.localeCompare(ob,"es"):n(a.excelFila)-n(b.excelFila)})}
 function resumenUI(l){if(!l.length){resumen.innerHTML="";return}const r=l.filter(p=>revisiones.get(p.id)?.revisado).length;resumen.innerHTML=`<span class="chip">Total: ${l.length}</span><span class="chip">Revisados: ${r}</span><span class="chip">Pendientes: ${l.length-r}</span><span class="chip">Mes: ${mesElegido()}</span>`}
 function render(){
  const l=lista();if(!familiaSelect.value){tbody.innerHTML='<tr><td colspan="12">Selecciona una familia.</td></tr>';resumenUI([]);return}
@@ -27,7 +27,7 @@ async function guardar(tr,ok=true){
  if(input.value===""){if(ok){alert("Introduce el stock físico.");check.checked=false;input.focus()}return}
  const fisico=Number(input.value);if(!Number.isFinite(fisico)){alert("Stock físico no válido.");check.checked=false;return}
  tr.classList.add("guardando");estado.textContent="Guardando...";
- const datos={productoId:p.id,codigo:p.codigo||"",nombreProducto:p.nombre||"",familia:p.familia||p.categoria||"",subfamilia:p.subfamilia||"",material:p.material||"",descripcion:p.descripcion||"",formato:p.formato||"",stockSistema:n(p.stock),stockFisico:fisico,diferencia:fisico-n(p.stock),mes:mesElegido(),revisado:ok,fechaRevision:serverTimestamp()};
+ const datos={productoId:p.id,codigo:p.codigo||"",nombreProducto:p.nombre||"",familia:familiaDe(p),subfamilia:p.subfamilia||"",material:p.material||"",descripcion:p.descripcion||"",formato:p.formato||"",stockSistema:n(p.stock),stockFisico:fisico,diferencia:fisico-n(p.stock),mes:mesElegido(),revisado:ok,fechaRevision:serverTimestamp()};
  try{await setDoc(doc(db,"revisionesStock",`${mesElegido()}_${p.id}`),datos,{merge:true});revisiones.set(p.id,{...datos});dif.textContent=datos.diferencia;check.checked=ok;tr.classList.toggle("revisado",ok);estado.textContent=ok?"✓ Revisado":"Pendiente";resumenUI(lista())}catch(e){console.error(e);estado.textContent="Error";alert(`No se pudo guardar: ${e.message}`)}finally{tr.classList.remove("guardando")}
 }
 mesSelect.addEventListener("change",async()=>{

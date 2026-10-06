@@ -9,20 +9,9 @@ import {
     updateDoc,
     deleteDoc
 } from "./firebase.js";
+import {FAMILIAS, normalizarFamilia, familiaDe} from "./familias.js";
 
-const FAMILIAS=[
-    "Stock de planchas",
-    "Envases y embalaje",
-    "Materias primas auxiliares",
-    "Stock de productos terminados"
-];
-
-function familiaCanonica(valor){
-    const v=String(valor||"").trim();
-    if(v==="Planchas de EVA") return "Stock de planchas";
-    if(v==="Stock envases embalajes") return "Envases y embalaje";
-    return v;
-}
+function familiaCanonica(valor){ return normalizarFamilia(valor); }
 
 function cargarFamilias(){
     ["categoria","editarCategoria"].forEach(id=>{
@@ -105,6 +94,19 @@ mostrarProductos();
 
 }
 
+async function normalizarProductosGuardados(){
+    const datos=await getDocs(collection(db,"productos"));
+    const tareas=[];
+    datos.forEach(d=>{
+        const p=d.data();
+        const f=familiaDe(p);
+        if(FAMILIAS.includes(f) && (p.familia!==f || p.categoria!==f)){
+            tareas.push(updateDoc(doc(db,"productos",d.id),{familia:f,categoria:f}));
+        }
+    });
+    if(tareas.length) await Promise.all(tareas);
+}
+
 // ==========================
 // MOSTRAR PRODUCTOS
 // ==========================
@@ -162,7 +164,7 @@ async function mostrarProductos() {
 
         const nombre = (p.nombre || "").toLowerCase();
         const codigo = (p.codigo || "").toLowerCase();
-        const categoria = (p.categoria || "").toLowerCase();
+        const categoria = familiaDe(p).toLowerCase();
 
         if (
 
@@ -197,7 +199,7 @@ async function mostrarProductos() {
 
         }
 
-        if (p.categoria === "Planchas de EVA") {
+        if (familiaDe(p) === "Stock de planchas") {
 
             clase = "ok";
             estado = "—";
@@ -212,11 +214,11 @@ async function mostrarProductos() {
 
 <td>${p.nombre}</td>
 
-<td>${p.categoria}</td>
+<td>${familiaDe(p)}</td>
 
 <td>${stock}</td>
 
-<td>${p.categoria === "Planchas de EVA" ? "-" : minimo}</td>
+<td>${familiaDe(p) === "Stock de planchas" ? "-" : minimo}</td>
 
 <td>${precio.toFixed(2)} €</td>
 
@@ -387,7 +389,8 @@ window.eliminarProducto = eliminarProducto;
 // INICIO
 // ==========================
 
-mostrarProductos();
+cargarFamilias();
+normalizarProductosGuardados().then(mostrarProductos).catch(e=>{console.error(e);mostrarProductos();});
 
 document
     .getElementById("buscar")

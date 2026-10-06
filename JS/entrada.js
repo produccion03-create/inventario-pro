@@ -1,4 +1,5 @@
 import {db,collection,getDocs,doc,updateDoc,addDoc,serverTimestamp} from "./firebase.js";
+import {familiaDe} from "./familias.js";
 
 const producto=document.getElementById("producto");
 const buscadorProducto=document.getElementById("buscadorProducto");
@@ -110,7 +111,7 @@ boton.onclick=async()=>{
  const estado=acu<ped?"Parcial":acu===ped?"Completo":"Exceso";
  const stockAnterior=Number(seleccionado.stock||0),stockFinal=stockAnterior+rec;
  await updateDoc(doc(db,"productos",seleccionado.id),{stock:stockFinal});
- await addDoc(collection(db,"movimientos"),{tipo:"Entrada",productoId:seleccionado.id,codigo:seleccionado.codigo||"",producto:seleccionado.nombre||"",categoria:seleccionado.categoria||seleccionado.familia||"",pcn:P,pvn:V,cantidadPedida:ped,cantidad:rec,recibidoAnterior:ant,recibidoAcumulado:acu,pendiente:pend,diferencia:dif,estadoPedido:estado,stockAnterior,stockFinal,observaciones:observaciones.value.trim(),fecha:serverTimestamp()});
+ await addDoc(collection(db,"movimientos"),{tipo:"Entrada",productoId:seleccionado.id,codigo:seleccionado.codigo||"",producto:seleccionado.nombre||"",categoria:familiaDe(seleccionado),pcn:P,pvn:V,cantidadPedida:ped,cantidad:rec,recibidoAnterior:ant,recibidoAcumulado:acu,pendiente:pend,diferencia:dif,estadoPedido:estado,stockAnterior,stockFinal,observaciones:observaciones.value.trim(),fecha:serverTimestamp()});
  alert(`✅ Entrada registrada · Pendiente: ${pend}`);
  location.reload();
 };

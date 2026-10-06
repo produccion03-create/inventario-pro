@@ -9,6 +9,7 @@ import {
     updateDoc,
     serverTimestamp
 } from "./firebase.js";
+import {familiaDe} from "./familias.js";
 
 let productoActual = null;
 let documentoActual = null;
@@ -79,7 +80,7 @@ function mostrarProducto() {
 
         <p><b>🏷 Código:</b> ${productoActual.codigo}</p>
 
-        <p><b>📂 Categoría:</b> ${productoActual.categoria}</p>
+        <p><b>📂 Categoría:</b> ${familiaDe(productoActual)}</p>
 
         <p>
 
@@ -180,7 +181,7 @@ async function registrarMovimiento(tipo) {
 
             producto: productoActual.nombre,
 
-            categoria: productoActual.categoria,
+            categoria: familiaDe(productoActual),
 
             cantidad: cantidad,
 

@@ -7,6 +7,7 @@ import {
     addDoc,
     serverTimestamp
 } from "./firebase.js";
+import {familiaDe} from "./familias.js";
 
 let productoActual = null;
 
@@ -48,7 +49,7 @@ async function encontrado(decodedText) {
 
         <p><b>Código:</b> ${productoActual.codigo}</p>
 
-        <p><b>Categoría:</b> ${productoActual.categoria}</p>
+        <p><b>Categoría:</b> ${familiaDe(productoActual)}</p>
 
     `;
 
@@ -94,7 +95,7 @@ async function guardarConteo(){
 
             producto: productoActual.nombre,
 
-            categoria: productoActual.categoria,
+            categoria: familiaDe(productoActual),
 
             stockSistema: Number(productoActual.stock),
 

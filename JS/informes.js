@@ -3,6 +3,7 @@ import {
     collection,
     getDocs
 } from "./firebase.js";
+import {familiaDe} from "./familias.js";
 
 
 let productos = [];
@@ -115,7 +116,7 @@ function generarInforme(){
         }
 
 
-        const cat=p.categoria || "Sin categoría";
+        const cat=familiaDe(p) || "Sin categoría";
 
 
         if(!categorias[cat]){

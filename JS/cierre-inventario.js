@@ -1,5 +1,6 @@
 import {db,collection,getDocs,doc,setDoc,updateDoc,serverTimestamp} from "./firebase.js";
-const F=["Stock de planchas","Envases y embalaje","Materias primas auxiliares","Stock de productos terminados"];
+import {FAMILIAS,normalizarFamilia,familiaDe} from "./familias.js";
+const F=FAMILIAS;
 const mes=document.getElementById("mes"),familia=document.getElementById("familia"),tabla=document.getElementById("tabla"),resumen=document.getElementById("resumen"),estado=document.getElementById("estadoCierre");
 const hoy=new Date();mes.value=`${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,"0")}`;
 F.forEach(x=>familia.insertAdjacentHTML("beforeend",`<option>${x}</option>`));
@@ -32,6 +33,7 @@ async function cargar(){
    // Solo revisiones creadas por la pantalla actual y pertenecientes
    // a las cuatro familias válidas del inventario.
    if(r.mes!==mes.value) return false;
+   r.familia=normalizarFamilia(r.familia);
    if(!F.includes(r.familia)) return false;
    if(familia.value && r.familia!==familia.value) return false;
 
