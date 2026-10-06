@@ -1,4 +1,5 @@
 import {db,collection,getDocs} from "./firebase.js";
+import {familiaDe} from "./familias.js";
 
 const num=v=>{
  const n=Number(String(v ?? "").trim().replace(",","."));
@@ -37,53 +38,11 @@ async function cargarDashboard(){
 
 
 
+ // Mismo criterio que Informes: todos los productos actuales.
+ // Valor de cada familia = suma de (stock × precio).
  const categorias={};
- const familiaCorrecta=p=>{
-   const raw=String(p.familia||p.categoria||"").trim().toLowerCase();
-   if(raw.includes("plancha")||raw.includes("eva")||raw.includes("taco")) return "Stock de planchas";
-   if(raw.includes("envase")||raw.includes("embalaje")) return "Envases y embalaje";
-   if(raw.includes("materia")||raw.includes("auxiliar")) return "Materias primas auxiliares";
-   if(raw.includes("producto terminado")||raw.includes("productos terminados")) return "Stock de productos terminados";
-   return p.familia||p.categoria||"Sin categoría";
- };
- // Evitar sumar registros antiguos cuando ya existe el registro válido
- // importado con su familia canónica.
- const canonicas=[
-   "Stock de planchas",
-   "Envases y embalaje",
-   "Materias primas auxiliares",
-   "Stock de productos terminados"
- ];
- const limpio=s=>String(s??"").trim().toLowerCase()
-   .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-   .replace(/[^a-z0-9]/g,"");
- const esCanonico=p=>canonicas.includes(String(p.familia||"").trim());
- const claveProducto=p=>{
-   const codigo=limpio(p.codigo||p.referencia||p.ref||"");
-   if(codigo) return "c:"+codigo;
-   const nombre=limpio(p.nombre||p.descripcion||"");
-   if(nombre) return "n:"+nombre;
-   return "f:"+limpio((p.origenExcel||"")+"|"+(p.excelFila||""));
- };
-
- const esAgosto=p=>{
-   const o=String(p.origenExcel||p.origen||p.importacion||"").toUpperCase();
-   return o.includes("AGOSTO_2026") || o.includes("AGOSTO 2026");
- };
-
- // Para las cuatro familias del cierre, si existen registros de la
- // importación AGOSTO 2026, esos son la única fuente válida.
- const agosto=productos.filter(p=>esAgosto(p) && esCanonico(p));
- const familiasAgosto=new Set(agosto.map(p=>familiaCorrecta(p)));
-
- const depurados=productos.filter(p=>{
-   const fam=familiaCorrecta(p);
-   if(familiasAgosto.has(fam)) return esAgosto(p) && esCanonico(p);
-   return true;
- });
-
- depurados.forEach(p=>{
-   const cat=familiaCorrecta(p);
+ productos.forEach(p=>{
+   const cat=familiaDe(p) || "Sin categoría";
    if(!categorias[cat]) categorias[cat]={productos:0,stock:0,valor:0};
    categorias[cat].productos++;
    categorias[cat].stock+=num(p.stock);

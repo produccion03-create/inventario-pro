@@ -6,6 +6,15 @@ import {
 import {familiaDe} from "./familias.js";
 
 
+const num=v=>{
+ const n=Number(String(v ?? "").trim().replace(",","."));
+ return Number.isFinite(n)?n:0;
+};
+const precioDe=p=>num(
+ p.precio ?? p.precioUnitario ?? p.precio_unitario ?? p.precioUnidad ??
+ p.coste ?? p.costo ?? p.valorUnitario ?? p.valor_unitario ?? 0
+);
+
 let productos = [];
 let movimientos = [];
 
@@ -90,9 +99,9 @@ function generarInforme(){
     productos.forEach(p=>{
 
 
-        const stock=Number(p.stock)||0;
+        const stock=num(p.stock);
 
-        const precio=Number(p.precio)||0;
+        const precio=precioDe(p);
 
         const minimo=Number(p.stockMinimo ?? 5);
 
@@ -548,24 +557,29 @@ document.getElementById("exportarCSV")
  const seleccion=productosExportacion();
  if(!seleccion.length){alert("No hay productos en la familia seleccionada.");return;}
 
- const totalPrecio=seleccion.reduce((s,p)=>s+(Number(p.precio)||0),0);
- const totalValor=seleccion.reduce((s,p)=>s+((Number(p.stock)||0)*(Number(p.precio)||0)),0);
+ const filas=seleccion.map(p=>({
+   Referencia:p.codigo||"",
+   Producto:p.nombre||"",
+   Familia:familiaDe(p)||"",
+   "Proveedor / Ubicación":p.proveedor||p.ubicacion||"",
+   Formato:p.formato||"",
+   Stock:Number(p.stock)||0,
+   Precio:precioDe(p),
+   Valor:num(p.stock)*precioDe(p)
+ }));
 
- const filas=[
-   {Producto:"TOTAL SUMA DE PRECIOS",Precio:totalPrecio},
-   {Producto:"TOTAL VALOR STOCK (STOCK × PRECIO)",Valor:totalValor},
-   {},
-   ...seleccion.map(p=>({
-     Referencia:p.codigo||"",
-     Producto:p.nombre||"",
-     Familia:familiaDe(p)||"",
-     "Proveedor / Ubicación":p.proveedor||p.ubicacion||"",
-     Formato:p.formato||"",
-     Stock:Number(p.stock)||0,
-     Precio:Number(p.precio)||0,
-     Valor:(Number(p.stock)||0)*(Number(p.precio)||0)
-   }))
- ];
+ const totalPrecio=seleccion.reduce((s,p)=>s+precioDe(p),0);
+ const totalValor=seleccion.reduce((s,p)=>s+(num(p.stock)*precioDe(p)),0);
+
+ filas.push({});
+ filas.push({
+   Producto:"TOTAL SUMA DE PRECIOS",
+   Precio:totalPrecio
+ });
+ filas.push({
+   Producto:"TOTAL VALOR STOCK (STOCK × PRECIO)",
+   Valor:totalValor
+ });
 
  const hoja=XLSX.utils.json_to_sheet(filas);
  const libro=XLSX.utils.book_new();
@@ -586,30 +600,29 @@ document.getElementById("exportarPDF")
  const seleccion=productosExportacion();
  if(!seleccion.length){alert("No hay productos en la familia seleccionada.");return;}
 
- const totalPrecio=seleccion.reduce((s,p)=>s+(Number(p.precio)||0),0);
- const totalValor=seleccion.reduce((s,p)=>s+((Number(p.stock)||0)*(Number(p.precio)||0)),0);
+ const totalPrecio=seleccion.reduce((s,p)=>s+precioDe(p),0);
+ const totalValor=seleccion.reduce((s,p)=>s+(num(p.stock)*precioDe(p)),0);
 
  const {jsPDF}=window.jspdf;
  const pdf=new jsPDF({orientation:"landscape"});
 
  pdf.text(`Inventario Pro - ${document.getElementById("familiaExportar")?.value || "Todas las familias"}`,15,15);
- pdf.setFont(undefined,"bold");
- pdf.setFontSize(13);
- pdf.text("TOTAL SUMA DE PRECIOS: "+totalPrecio.toLocaleString("es-ES",{style:"currency",currency:"EUR"}),15,25);
- pdf.text("TOTAL VALOR STOCK (STOCK x PRECIO): "+totalValor.toLocaleString("es-ES",{style:"currency",currency:"EUR"}),15,33);
- pdf.setFont(undefined,"normal");
- pdf.setFontSize(10);
 
  pdf.autoTable({
-   startY:42,
+   startY:25,
    head:[["Referencia","Producto","Familia","Proveedor / Ubicación","Formato","Stock","Precio","Valor"]],
    body:seleccion.map(p=>[
      p.codigo||"",p.nombre||"",familiaDe(p)||"",p.proveedor||p.ubicacion||"",p.formato||"",
-     Number(p.stock)||0,
-     (Number(p.precio)||0).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €",
-     ((Number(p.stock)||0)*(Number(p.precio)||0)).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"
+     num(p.stock),
+     precioDe(p).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €",
+     (num(p.stock)*precioDe(p)).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"
    ])
  });
+
+ const y=pdf.lastAutoTable.finalY+10;
+ pdf.setFont(undefined,"bold");
+ pdf.text("TOTAL SUMA DE PRECIOS: "+totalPrecio.toLocaleString("es-ES",{style:"currency",currency:"EUR"}),15,y);
+ pdf.text("TOTAL VALOR STOCK (STOCK x PRECIO): "+totalValor.toLocaleString("es-ES",{style:"currency",currency:"EUR"}),15,y+8);
 
  pdf.save(nombreExportacion("Informe_Inventario")+".pdf");
 });
