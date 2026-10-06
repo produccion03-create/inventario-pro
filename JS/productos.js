@@ -107,37 +107,6 @@ async function normalizarProductosGuardados(){
     if(tareas.length) await Promise.all(tareas);
 }
 
-
-// ==========================
-// ORDEN ORIGINAL DE AGOSTO
-// ==========================
-const ORDEN_AGOSTO={"Stock de planchas": {"TA003166": 0, "N:EVA BLANCO 13": 1, "TA000728": 2, "TA001300": 3, "TA000539": 4, "TA001301": 5, "TA001302": 6, "TA001303": 7, "TA001304": 8, "TA001305": 9, "TA001306": 10, "TA001307": 11, "TA001308": 12, "TA001309": 13, "TA000473": 14, "TA000524": 15, "TA000475": 16, "TA004628": 17, "TA000275": 18, "TA000639": 19, "TA002503": 20, "TA002965": 21, "TA002964": 22, "TA002504": 23, "TA003941": 24, "TA004252": 25, "TA004161": 26, "TA003942": 27, "TA003943": 28, "TA003944": 29, "TA004225": 30, "TA004226": 31, "TA002942": 32, "TA003113": 33, "TA002572": 34, "N:": 35, "TA003080": 36, "TA003192": 37, "TA001558": 38, "PF004933": 39, "PF005602": 40, "PF005613": 41, "PF004750": 42, "PF006118": 43, "PF005864": 44, "PF005499": 45, "TA002440": 46, "TA002439": 47, "VARIOS": 48, "PF010122": 49, "TA004108": 50, "N:NEGRO": 51, "TA000712": 52, "TA001329": 53, "TA001330": 54, "TA001331": 55, "TA001332": 56, "TA001333": 57, "TA001313": 58, "TA001311": 59, "TA001312": 60, "TA001310": 61, "TA001315": 62, "TA001314": 63, "PF000100": 64, "TA000430": 65, "TA000415": 66, "TA000434": 67, "TA000420": 68, "TA000433": 69, "TA000432": 70, "TA000439": 71, "TA000428": 72, "TA000429": 73, "TA000153": 74, "TA000416": 75, "TA000649": 76, "TA000427": 77, "TA000651": 78, "TA000431": 79, "TA000137": 80, "TA000421": 81, "TA000648": 82, "TA000647": 83, "TA000422": 84, "TA000650": 85, "TA001280": 86, "TA000495": 87, "TA000441": 88, "TA000418": 89, "TA000453": 90, "TA000384": 91, "TA000128": 92, "TA000383": 93, "TA000542": 94, "TA000543": 95, "TA000541": 96, "TA002299": 97, "TA002300": 98, "TA002301": 99, "TA000594": 100, "PF000148": 101, "PF000154": 102, "PF000151": 103, "PF000140": 104, "PF000143": 105, "PF000142": 106, "PF000150": 107, "PF000141": 108, "PF000147": 109, "PF000146": 110, "PF001409": 111, "PF002313": 112, "PF000152": 113, "PF001407": 114, "PF000149": 115, "PF000144": 116, "PF000145": 117, "PF000138": 118, "PF000133": 119, "PF000132": 120, "PF002623": 121, "PF000135": 122, "PF000136": 123, "PF000134": 124, "PF000139": 125, "PF001393": 126, "PF008695": 127, "PF000126": 128, "PF000111": 129, "PF000113": 130, "PF001619": 131, "PF000116": 132, "PF000117": 133, "PF000115": 134, "PF000109": 135, "PF000122": 136, "PF002710": 137, "PF000103": 138, "PF000123": 139, "PF000112": 140, "PF000101": 141, "PF000106": 142, "PF000107": 143, "PF000118": 144, "PF000108": 145, "PF000415": 146, "PF001553": 147, "PF000114": 148, "PF000121": 149, "PF0000415": 150, "PF007245": 151, "PF001385": 152, "PF001381": 153, "PF001386": 154, "PF005333": 155, "PF001814": 156, "PF005104": 157, "PF003168": 158, "PF007114": 159, "PF002205": 160, "PF007861": 161, "PF008819": 162, "PF007860": 163, "PF008460": 164, "PF002800": 165, "PF001391": 166, "PF001388": 167, "PF002798": 168, "TA000103": 169, "PF009021": 170, "PF002396": 171, "PF001387": 172, "PF002390": 173, "PF002386": 174, "PF009541": 175, "PF004220": 176, "PF009542": 177}, "Envases y embalaje": {"EMBALAJE": 0}, "Materias primas auxiliares": {"MATERIAPRIMAAUX.": 0}, "Stock de productos terminados": {"N:BANDELETAS STOCK SEGURIDAD": 0, "N:ROJO TIEMPO": 1, "N:VERDE ANIMALES": 2, "N:AZUL FRUTA": 3, "N:AMARILLO VEHICULOS": 4, "N:NARANJA DEPORTE": 5, "N:VIOLETA TIERRA": 6, "N:MARMOL AMARILLO": 7, "N:MARMOL ROJO": 8, "N:MARMOL FUXIA": 9, "N:MARMOL VIOLETA": 10, "N:MARMOL AZUL8": 11, "N:CAMUFLAJE CONFUSIUS": 12, "N:CAMUFLAJE NEWTON": 13, "N:CAMUFLAJE RUBENS": 14, "N:MARMOL VERDE": 15, "N:CAMUFLAJE WATT": 16, "N:CAMUFLAJE DA VINCI": 17, "N:CAMUFLAJE MARCO POLO": 18, "N:SIN SERIGRAFIA AZUL": 19, "N:SIN SERIGRAFIA ROJO": 20, "N:SIN SERIGRAFIA VIOLETA": 21, "N:SIN SERIGRAFIA AMARILLO": 22, "N:SIN SERIGRAFIA VERDE": 23, "N:SIN SERIGRAFIA NARANJA3": 24, "N:PACK CUBOS 4 COLORES": 25, "TA003942": 26, "TA003943": 27, "TA003941": 28, "TA004252": 29, "TA001558": 30, "N:NEGRO 120X60 HEXAGONO VENTOSA 10MM": 31, "PF00719": 32, "N:GRIS 7MM 140X60 S M": 33, "N:AZUL 7MM 140X60 S M": 34, "N:NEGRO 15MM 140X60 S M": 35, "N:GRIS 15MM 140X60 S M": 36, "N:NEGRO 10 MM 100X60 HEX VENTOSA": 37, "N:HIELO 10 MM 100X60 HEX VENTOSA": 38, "N:CAMEL 10MM 120X50 HEXAGONO VENTOSA": 39, "N:GRIS 15MM 140X60 S M DEFECTUASAS": 40, "N:NEGRO 10MM 160X60 YOGA": 41, "N:YOGA ONE KAKI": 42, "PF001037": 43, "PF004645": 44, "PF000996": 45, "PF000999": 46, "N:PALA EVA HERCULES TALLA 39 PAR AZUL": 47, "N:PALA EVA HERCULES TALLA 40 PAR AZUL": 48, "N:PALA EVA HERCULES TALLA 41 PAR AZUL": 49, "N:PALA EVA HERCULES TALLA 42 PAR AZUL": 50, "N:PALA EVA HERCULES TALLA 43 PAR AZUL": 51, "N:PALA EVA HERCULES TALLA 44 PAR NEGRO": 52, "N:PALA EVA HERCULES TALLA 45 PAR NEGRO": 53, "N:PALA EVA HERCULES TALLA 47 PAR NEGRO": 54, "N:PALA EVA HERCULES TALLA 39 PAR NEGRO": 55, "N:PALA EVA HERCULES TALLA 41 PAR NEGRO": 56, "N:ALMOHADILLLA TRABAJO PLEGABLE 50X120 CM LASER WHALEN 20MM NEG ROJ NEG": 57}};
-const ORDEN_FAMILIAS=["Stock de planchas","Envases y embalaje","Materias primas auxiliares","Stock de productos terminados"];
-
-function claveOrdenProducto(p){
-    const c=claveCodigo(p.codigo||p.referencia||p.ref||"");
-    return c || "N:"+claveNombre(p.nombre||p.descripcion||"");
-}
-function posicionAgosto(p){
-    // La importación original conserva excelFila: es la posición real del Excel de agosto.
-    const fila=Number(p.excelFila);
-    const origen=String(p.origenExcel||p.origen||p.importacion||"").toUpperCase();
-    if(Number.isFinite(fila) && fila>0 && origen.includes("AGOSTO")) return fila;
-    const f=familiaDe(p)||"";
-    const mapa=ORDEN_AGOSTO[f]||{};
-    const k=claveOrdenProducto(p);
-    return Object.prototype.hasOwnProperty.call(mapa,k) ? mapa[k] : Number.MAX_SAFE_INTEGER;
-}
-function compararOrdenInventario(a,b){
-    const fa=familiaDe(a)||"", fb=familiaDe(b)||"";
-    const ia=ORDEN_FAMILIAS.indexOf(fa), ib=ORDEN_FAMILIAS.indexOf(fb);
-    if(ia!==ib) return (ia<0?999:ia)-(ib<0?999:ib);
-    const pa=posicionAgosto(a), pb=posicionAgosto(b);
-    if(pa!==pb) return pa-pb;
-    // Los productos nuevos quedan al final de su familia, sin mezclarse con agosto.
-    return String(a.nombre||"").localeCompare(String(b.nombre||""),"es",{numeric:true,sensitivity:"base"});
-}
-
 // ==========================
 // MOSTRAR PRODUCTOS
 // ==========================
@@ -189,11 +158,9 @@ async function mostrarProductos() {
 
 `;
 
-    const documentosOrdenados = datos.docs
-        .map(documento=>({documento,p:{id:documento.id,...documento.data()}}))
-        .sort((a,b)=>compararOrdenInventario(a.p,b.p));
+    datos.forEach((documento) => {
 
-    documentosOrdenados.forEach(({documento,p}) => {
+        const p = documento.data();
 
         const nombre = (p.nombre || "").toLowerCase();
         const codigo = (p.codigo || "").toLowerCase();
@@ -431,8 +398,7 @@ function etiquetaOrigen(p){
 
 async function analizarDuplicadosManual(){
     const out=document.getElementById("resultadoDuplicados");
-    const borrar=document.getElementById("eliminarSeleccionados");
-    out.innerHTML="Buscando duplicados en todas las categorías...";
+    const borrar=    out.innerHTML="Buscando duplicados en todas las categorías...";
     borrar.disabled=true;
 
     try{
@@ -548,5 +514,76 @@ normalizarProductosGuardados().then(mostrarProductos).catch(e=>{console.error(e)
 document
     .getElementById("buscar")
     .addEventListener("input", mostrarProductos);
-document.getElementById("analizarDuplicados")?.addEventListener("click",analizarDuplicadosManual);
-document.getElementById("eliminarSeleccionados")?.addEventListener("click",eliminarDuplicadosSeleccionados);
+
+// ==========================
+// LIMPIEZA DEFINITIVA: ENVASES Y EMBALAJE
+// Fuente: "envases y embalaje.xlsx" del usuario.
+// Solo afecta a esta familia.
+// ==========================
+const ENVASES_DEFINITIVOS=[{"nombre": "8x12", "aliases": ["8x12", "BOLSAS"]}, {"nombre": "6x8", "aliases": ["6x8"]}, {"nombre": "12x18", "aliases": ["12x18"]}, {"nombre": "18x27", "aliases": ["18x27"]}, {"nombre": "22x32", "aliases": ["22x32"]}, {"nombre": "30x40", "aliases": ["30x40"]}, {"nombre": "35x45", "aliases": ["35x45"]}, {"nombre": "25x35", "aliases": ["25x35"]}, {"nombre": "15x22", "aliases": ["15x22"]}, {"nombre": "sacos pequeños", "aliases": ["sacos pequeños"]}, {"nombre": "Sacos aspirador grandes", "aliases": ["Sacos aspirador grandes"]}, {"nombre": "16X22", "aliases": ["16X22"]}, {"nombre": "Sacos grandes 160x69 (polipropileno)", "aliases": ["Sacos grandes 160x69 (polipropileno)"]}, {"nombre": "Bolsas basket 600 (61x48)", "aliases": ["Bolsas basket 600 (61x48)"]}, {"nombre": "Bolsas 30x30", "aliases": ["Bolsas 30x30"]}, {"nombre": "Sobre Kraft 37x24", "aliases": ["Sobre Kraft 37x24"]}, {"nombre": "Sobre Kraft 33x26", "aliases": ["Sobre Kraft 33x26"]}, {"nombre": "Tubo LDPE (envasado esterillas)", "aliases": ["Tubo LDPE (envasado esterillas)"]}, {"nombre": "45 CM retractil", "aliases": ["45 CM retractil", "RETRACTIL"]}, {"nombre": "FILM MANO", "aliases": ["FILM MANO"]}, {"nombre": "FILM GRANDE TRANPARENTE", "aliases": ["FILM GRANDE TRANPARENTE", "GRANDE TRANPARNTE", "GRANDE TRANSPARENTE"]}, {"nombre": "FILM GRANDE NEGRO", "aliases": ["FILM GRANDE NEGRO", "GRANDE NEGRO"]}, {"nombre": "FLEJE PALETIZAR", "aliases": ["FLEJE PALETIZAR", "PALETIZAR"]}, {"nombre": "GRAPA FLEJE", "aliases": ["GRAPA FLEJE"]}, {"nombre": "PALET 120X80 CM", "aliases": ["PALET 120X80 CM", "PALETS"]}, {"nombre": "PAPEL ENVASADO", "aliases": ["PAPEL ENVASADO", "VARIOS"]}, {"nombre": "Barras de silicona pequeña", "aliases": ["Barras de silicona pequeña"]}, {"nombre": "Barras de silicona grandes", "aliases": ["Barras de silicona grandes"]}, {"nombre": "Spray SIL-130 S LUMASER (lubricante)", "aliases": ["Spray SIL-130 S LUMASER (lubricante)"]}, {"nombre": "Desengrasante AUT-360 LUMASER", "aliases": ["Desengrasante AUT-360 LUMASER"]}, {"nombre": "Gomas elásticas", "aliases": ["Gomas elásticas"]}, {"nombre": "Cinta adhesiva SCOTECH", "aliases": ["Cinta adhesiva SCOTECH"]}, {"nombre": "AGUA DESTILADA", "aliases": ["AGUA DESTILADA"]}, {"nombre": "AGUA REFRIGERANTE DE 25L A 10%", "aliases": ["AGUA REFRIGERANTE DE 25L A 10%"]}, {"nombre": "Arandelas Bouchones", "aliases": ["Arandelas Bouchones"]}, {"nombre": "105MM MUESTRARIO TORNILLOS", "aliases": ["105MM MUESTRARIO TORNILLOS", "105MM"]}, {"nombre": "100M MUESTRARIO TORNILLOS", "aliases": ["100M MUESTRARIO TORNILLOS", "100M"]}, {"nombre": "30M MUESTRARIO TORNILLOS", "aliases": ["30M MUESTRARIO TORNILLOS", "30MM MUESTRARIO TORNILLOS"]}, {"nombre": "TAPÓN METÁLICO MUESTRARIO", "aliases": ["TAPÓN METÁLICO MUESTRARIO", "TAPÓN METÁLICO"]}, {"nombre": "20MM METAL PROLONGADOR", "aliases": ["20MM METAL PROLONGADOR", "20MM METAL", "20MM"]}, {"nombre": "10MM PROLONGADOR METAL", "aliases": ["10MM PROLONGADOR METAL"]}, {"nombre": "30MM PROLONGADOR METAL", "aliases": ["30MM PROLONGADOR METAL", "PROLONGADORES METÁLICOS"]}, {"nombre": "TORNILLOS PLASTICOS 70MM", "aliases": ["TORNILLOS PLASTICOS 70MM", "TORNILLOS PLASTICOS"]}, {"nombre": "90MM", "aliases": ["90MM"]}, {"nombre": "40MM", "aliases": ["40MM"]}, {"nombre": "TAPÓN PLÁSTICO", "aliases": ["TAPÓN PLÁSTICO"]}];
+
+function normalizarEnvases(v){
+ return String(v??"").trim().toUpperCase().normalize("NFD")
+   .replace(/[\u0300-\u036f]/g,"").replace(/[^A-Z0-9]+/g," ").trim().replace(/\s+/g," ");
+}
+function textoProductoEnvases(p){
+ return normalizarEnvases([
+   p.codigo,p.referencia,p.ref,p.nombre,p.descripcion,p.formato,p.proveedor,p.ubicacion
+ ].filter(Boolean).join(" "));
+}
+function coincideEnvase(p,item){
+ const t=textoProductoEnvases(p);
+ return item.aliases.some(a=>{
+   const x=normalizarEnvases(a);
+   return x && (t===x || t.includes(x));
+ });
+}
+function calidadEnvase(p,item){
+ const t=textoProductoEnvases(p), objetivo=normalizarEnvases(item.nombre);
+ let s=0;
+ if(t===objetivo) s+=100;
+ if(normalizarEnvases(p.nombre)===objetivo) s+=80;
+ if(normalizarEnvases(p.codigo||p.referencia||p.ref)===objetivo) s+=60;
+ if(p.stock!==undefined && p.stock!==null && p.stock!=="") s+=5;
+ if(p.precio!==undefined && p.precio!==null && p.precio!=="") s+=5;
+ return s;
+}
+
+async function limpiarEnvasesDirecto(){
+ const out=document.getElementById("resultadoLimpiezaEnvases");
+ if(!confirm("Se limpiará SOLO la categoría Envases y embalaje. Quedará una sola ficha por cada artículo del Excel definitivo y se borrarán duplicados/sobrantes. ¿Continuar?")) return;
+ out.innerHTML="Limpiando Envases y embalaje...";
+ try{
+   const snap=await getDocs(collection(db,"productos"));
+   const envases=snap.docs.map(d=>({id:d.id,...d.data()}))
+     .filter(p=>familiaDe(p)==="Envases y embalaje");
+
+   const usados=new Set(), conservar=new Set(), faltan=[];
+   // Asignación en el mismo orden del Excel. Cada ficha actual solo puede conservarse una vez.
+   for(const item of ENVASES_DEFINITIVOS){
+     const candidatos=envases.filter(p=>!usados.has(p.id) && coincideEnvase(p,item))
+       .sort((a,b)=>calidadEnvase(b,item)-calidadEnvase(a,item));
+     if(candidatos.length){
+       conservar.add(candidatos[0].id);
+       usados.add(candidatos[0].id);
+     } else {
+       faltan.push(item.nombre);
+     }
+   }
+
+   const eliminar=envases.filter(p=>!conservar.has(p.id));
+   await Promise.all(eliminar.map(p=>deleteDoc(doc(db,"productos",p.id))));
+   await normalizarProductosGuardados();
+   await mostrarProductos();
+
+   out.innerHTML=`<strong>✅ Limpieza terminada.</strong><br>
+     Registros de Envases antes: ${envases.length}<br>
+     Artículos conservados: ${conservar.size}<br>
+     Duplicados/sobrantes eliminados: ${eliminar.length}<br>
+     ${faltan.length?`<br><strong>⚠️ Artículos del Excel que no existían en Firebase (${faltan.length}):</strong><br>${faltan.join("<br>")}`:"<br><strong>Los 46 artículos del Excel están representados.</strong>"}`;
+ }catch(e){
+   console.error(e);
+   out.innerHTML="❌ Error durante la limpieza. No se ha tocado ninguna otra categoría.";
+ }
+}
+document.getElementById("limpiarEnvasesDirecto")?.addEventListener("click",limpiarEnvasesDirecto);
