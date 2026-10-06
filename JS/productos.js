@@ -375,6 +375,80 @@ async function eliminarProducto(id) {
 
 }
 
+
+// ==========================
+// ANALIZAR DUPLICADOS
+// ==========================
+
+function claveCodigo(v){
+    return String(v ?? "")
+        .trim()
+        .toUpperCase()
+        .replace(/\s+/g,"");
+}
+
+async function analizarDuplicados(){
+    const salida=document.getElementById("resultadoDuplicados");
+    salida.innerHTML="Analizando...";
+
+    try{
+        const datos=await getDocs(collection(db,"productos"));
+        const grupos=new Map();
+
+        datos.forEach(d=>{
+            const p={id:d.id,...d.data()};
+            const clave=claveCodigo(p.codigo || p.referencia || p.ref || "");
+            if(!clave) return;
+            if(!grupos.has(clave)) grupos.set(clave,[]);
+            grupos.get(clave).push(p);
+        });
+
+        const repetidos=[...grupos.entries()]
+            .filter(([,items])=>items.length>1)
+            .sort((a,b)=>a[0].localeCompare(b[0],"es"));
+
+        const totalDocs=datos.size;
+        const copiasExtra=repetidos.reduce((s,[,items])=>s+(items.length-1),0);
+
+        if(!repetidos.length){
+            salida.innerHTML=`<strong>✅ ${totalDocs} productos revisados. No hay referencias duplicadas.</strong>`;
+            return;
+        }
+
+        const filas=repetidos.map(([codigo,items])=>{
+            const detalle=items.map(p=>{
+                const fam=familiaDe(p)||"Sin categoría";
+                const stock=Number(p.stock)||0;
+                const precio=Number(p.precio)||0;
+                return `${p.nombre||"(sin nombre)"} · ${fam} · Stock ${stock} · ${precio.toFixed(2)} €`;
+            }).join("<br>");
+
+            return `<tr>
+                <td><strong>${codigo}</strong></td>
+                <td>${items.length}</td>
+                <td>${detalle}</td>
+            </tr>`;
+        }).join("");
+
+        salida.innerHTML=`
+            <div style="margin-bottom:12px">
+                <strong>Productos revisados:</strong> ${totalDocs}<br>
+                <strong>Referencias repetidas:</strong> ${repetidos.length}<br>
+                <strong>Copias extra detectadas:</strong> ${copiasExtra}
+            </div>
+            <p><strong>⚠️ No se ha eliminado nada.</strong></p>
+            <div style="overflow-x:auto">
+                <table class="tabla-productos">
+                    <thead><tr><th>Referencia</th><th>Registros</th><th>Detalles</th></tr></thead>
+                    <tbody>${filas}</tbody>
+                </table>
+            </div>`;
+    }catch(error){
+        console.error(error);
+        salida.innerHTML="❌ Error al analizar duplicados.";
+    }
+}
+
 // ==========================
 // EXPORTAR FUNCIONES
 // ==========================
@@ -395,3 +469,5 @@ normalizarProductosGuardados().then(mostrarProductos).catch(e=>{console.error(e)
 document
     .getElementById("buscar")
     .addEventListener("input", mostrarProductos);
+document.getElementById("analizarDuplicados")
+    ?.addEventListener("click", analizarDuplicados);
