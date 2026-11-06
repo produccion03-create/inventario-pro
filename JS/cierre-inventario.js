@@ -107,6 +107,54 @@ document.getElementById("aplicar").onclick=async()=>{
  }catch(err){console.error(err);alert(`No se ha completado la operación: ${err.message}`)}
 };
 
+// Conciliación histórica: guarda una foto verificable del cierre SIN escribir en productos.
+const btnConciliar=document.getElementById("conciliarHistorico");
+const avisoConciliar=document.getElementById("avisoConciliacion");
+const fechaConciliacion="2026-10";
+function idConciliacion(m,f){return `${m}__${f.replace(/[^a-z0-9]+/gi,"_").toLowerCase()}`;}
+async function estadoConciliacion(){
+ const visible=mes.value===fechaConciliacion&&!!familia.value;
+ btnConciliar.hidden=!visible;
+ avisoConciliar.textContent=visible?"Conciliación histórica: guarda las diferencias de octubre; no modifica Productos ni movimientos.":"";
+}
+mes.addEventListener("change",estadoConciliacion);
+familia.addEventListener("change",estadoConciliacion);
+btnConciliar.onclick=async()=>{
+ try{
+  if(mes.value!==fechaConciliacion||!familia.value)return alert("Selecciona octubre de 2026 y una familia concreta.");
+  const m=mes.value,f=familia.value;
+  await cargar();
+  if(mes.value!==m||familia.value!==f)return alert("La selección ha cambiado. Repite la operación.");
+  const cierres=await getDocs(collection(db,"cierresInventario"));
+  if(!cierres.docs.some(d=>d.id===m&&d.data().cerrado))return alert("El mes no figura cerrado. No se ha guardado nada.");
+  const filas=filasAuditoria();
+  if(!filas.length)return alert("No hay recuentos revisados para esta familia.");
+  const ids=new Set();
+  if(filas.some(x=>!x.r.productoId||ids.has(x.r.productoId)||(ids.add(x.r.productoId),false)))return alert("Hay identificadores ausentes o duplicados. No se ha guardado nada.");
+  const invalidas=filas.filter(x=>!x.p||!Number.isFinite(x.fisico)||x.fisico<0||!Number.isFinite(x.anterior)||!Number.isFinite(x.actual));
+  if(invalidas.length)return alert(`${invalidas.length} registros sin datos válidos. No se ha guardado nada.`);
+  const registros=filas.map(({r,anterior,fisico,actual,estado})=>({
+   revisionId:r.id,productoId:r.productoId,referencia:r.codigo||"",producto:r.nombreProducto||"",
+   stockSistemaOctubre:anterior,stockFisicoOctubre:fisico,diferenciaOctubre:fisico-anterior,
+   stockActualAlConciliar:actual,estadoAuditoria:estado,
+   situacion:actual===fisico?"COINCIDE_ACTUAL":actual===anterior?"PENDIENTE_DE_JUSTIFICAR":"CAMBIO_POSTERIOR_REVISAR"
+  }));
+  const diferencias=registros.filter(x=>x.diferenciaOctubre!==0);
+  const pendientes=registros.filter(x=>x.situacion!=="COINCIDE_ACTUAL");
+  const texto=`Octubre ${m} · ${f}\nRevisados: ${registros.length}\nDiferencias históricas: ${diferencias.length}\nNo coinciden actualmente: ${pendientes.length}\n\nSe guardará la conciliación documental en Firestore. NO se modificará el stock actual, movimientos ni el cierre original.\n\n¿Guardar conciliación?`;
+  if(!confirm(texto))return;
+  const destino=doc(db,"conciliacionesInventario",idConciliacion(m,f));
+  await setDoc(destino,{
+   mes:m,familia:f,tipo:"CONCILIACION_HISTORICA",estado:pendientes.length?"CON_INCIDENCIAS":"CONCILIADO",
+   fechaRegistro:serverTimestamp(),totalRevisados:registros.length,totalDiferenciasOctubre:diferencias.length,
+   totalIncidencias:pendientes.length,nota:"Registro documental; no cambia productos, movimientos ni cierresInventario.",
+   registros
+  });
+  alert(`Conciliación histórica guardada: ${f}.\n${diferencias.length} diferencias de octubre; ${pendientes.length} incidencias para justificar.\nNo se ha modificado ningún stock.`);
+ }catch(err){console.error(err);alert("No se pudo guardar la conciliación: "+err.message)}
+};
+estadoConciliacion();
+
 document.getElementById("pdf").onclick=()=>{
  if(!revs.length)return alert("No hay revisiones para generar el informe.");
  const {jsPDF}=window.jspdf;
