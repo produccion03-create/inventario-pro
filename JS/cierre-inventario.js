@@ -53,13 +53,58 @@ function render(){
  tabla.innerHTML=revs.sort((a,b)=>(a.familia||"").localeCompare(b.familia||"")||(a.codigo||"").localeCompare(b.codigo||"")).map(r=>{const p=productoParaRevision(r);const precio=Number(p.precioUnitario)||0;const valor=(Number(r.stockFisico)||0)*precio;return `<tr><td>${e(r.codigo)}</td><td>${e(r.nombreProducto)}</td><td>${e(r.familia)}</td><td>${Number(r.stockSistema||0)}</td><td>${r.stockFisico??""}</td><td class="dif">${(Number(r.stockFisico||0)-Number(r.stockSistema||0))}</td><td>${precio?precio.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${precio?valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${r.revisado?"✓ Revisado":"Pendiente"}</td></tr>`}).join("")||'<tr><td colspan="9">No hay revisiones para este mes.</td></tr>';
 }
 document.getElementById("cargar").onclick=cargar;
+// Auditoría previa: nunca se sobrescriben existencias desde un cierre histórico.
+function filasAuditoria(){
+ return revs.filter(r=>r.revisado).map(r=>{
+  const p=productos.get(r.productoId);
+  const fisico=r.stockFisico===""||r.stockFisico===null||r.stockFisico===undefined?NaN:Number(r.stockFisico);
+  const actual=p?Number(p.stock):NaN;
+  const anterior=Number(r.stockSistema);
+  let estado="LISTO";
+  if(!p) estado="PRODUCTO NO ENCONTRADO";
+  else if(!Number.isFinite(fisico)||fisico<0) estado="RECUENTO NO VÁLIDO";
+  else if(!Number.isFinite(actual)) estado="STOCK ACTUAL NO VÁLIDO";
+  else if(actual===fisico) estado="YA COINCIDE";
+  else if(actual!==anterior) estado="CAMBIÓ DESDE EL RECUENTO";
+  return {r,p,fisico,actual,anterior,estado};
+ });
+}
+function descargarAuditoria(filas){
+ const cols=["Mes","Familia","ID producto","Referencia","Producto","Stock al revisar","Stock físico","Stock actual","Estado"];
+ const escCsv=v=>'"'+String(v??"").replaceAll('"','""')+'"';
+ const rows=filas.map(({r,p,fisico,actual,anterior,estado})=>[r.mes,r.familia,r.productoId,r.codigo,r.nombreProducto,anterior,Number.isFinite(fisico)?fisico:"",Number.isFinite(actual)?actual:"",estado]);
+ const csv='\uFEFF'+[cols,...rows].map(row=>row.map(escCsv).join(';')).join('\r\n');
+ const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+ const a=document.createElement('a');a.href=url;a.download=`auditoria_inventario_${mes.value}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
 document.getElementById("aplicar").onclick=async()=>{
- const validas=revs.filter(r=>r.revisado&&r.productoId&&Number.isFinite(Number(r.stockFisico)));
- if(!validas.length)return alert("No hay revisiones válidas para actualizar.");
- if(!confirm(`Se actualizarán ${validas.length} productos con el stock físico. ¿Continuar?`))return;
- for(const r of validas)await updateDoc(doc(db,"productos",r.productoId),{stock:Number(r.stockFisico),stockAnteriorRevision:Number(r.stockSistema||0),ultimaRevisionStock:serverTimestamp()});
- alert("Stock del sistema actualizado.");
- await cargar();
+ try{
+  await cargar(); // Obtener los stocks actuales antes de comparar.
+  const filas=filasAuditoria();
+  if(!filas.length)return alert("No hay recuentos revisados para auditar.");
+  descargarAuditoria(filas);
+  const conteo=estado=>filas.filter(f=>f.estado===estado).length;
+  const resumen=`Auditoría descargada (${filas.length} revisiones).\nYa coincide: ${conteo("YA COINCIDE")}\nCambió desde el recuento: ${conteo("CAMBIÓ DESDE EL RECUENTO")}\nProducto no encontrado: ${conteo("PRODUCTO NO ENCONTRADO")}\nListos para ajustar: ${conteo("LISTO")}.`;
+  const cs=await getDocs(collection(db,"cierresInventario"));
+  const cerrado=cs.docs.some(d=>d.id===mes.value&&d.data().cerrado);
+  if(cerrado)return alert(resumen+"\n\nMES CERRADO: por seguridad NO se ha modificado ningún stock.");
+  const listos=filas.filter(f=>f.estado==="LISTO");
+  if(!listos.length)return alert(resumen+"\nNo hay productos seguros para actualizar.");
+  if(!confirm(resumen+`\n\n¿Aplicar SOLO los ${listos.length} ajustes sin conflictos del mes abierto? Los demás no se modificarán.`))return;
+  let correctos=0;const errores=[];
+  for(const f of listos){
+   try{
+    // Volver a leer el producto antes de modificarlo; evitar datos obsoletos.
+    const {getDoc}=await import('./firebase.js');
+    const snap=await getDoc(doc(db,"productos",f.r.productoId));
+    if(!snap.exists()||Number(snap.data().stock)!==f.anterior){errores.push(`${f.r.productoId}: stock cambió, omitido`);continue;}
+    await updateDoc(doc(db,"productos",f.r.productoId),{stock:f.fisico,stockAnteriorRevision:f.anterior,ultimaRevisionStock:serverTimestamp()});
+    correctos++;
+   }catch(err){errores.push(`${f.r.productoId}: ${err.message}`);}
+  }
+  alert(`Actualizados: ${correctos}. Omitidos/errores: ${errores.length}.\n${errores.slice(0,10).join('\n')}`);
+  await cargar();
+ }catch(err){console.error(err);alert(`No se ha completado la operación: ${err.message}`)}
 };
 
 document.getElementById("pdf").onclick=()=>{
