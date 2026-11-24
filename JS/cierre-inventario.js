@@ -1,3 +1,4 @@
+import {precioDe} from "./datos-stock.js";
 import {db,collection,getDocs,doc,setDoc,updateDoc,serverTimestamp} from "./firebase.js";
 import {FAMILIAS,normalizarFamilia,familiaDe} from "./familias.js";
 const F=FAMILIAS;
@@ -6,24 +7,7 @@ const hoy=new Date();mes.value=`${hoy.getFullYear()}-${String(hoy.getMonth()+1).
 F.forEach(x=>familia.insertAdjacentHTML("beforeend",`<option>${x}</option>`));
 let productos=new Map(),productosConPrecio=[],revs=[];
 const norm=v=>String(v??"").trim().toLowerCase();
-function productoParaRevision(r){
- const directo=productos.get(r.productoId);
- if(directo && Number(directo.precioUnitario)>0) return directo;
-
- const textoRev=norm([r.codigo,r.referencia,r.nombreProducto,r.producto,r.nombre].filter(Boolean).join(" "));
- const tokens=textoRev.replace(/[^a-z0-9áéíóúüñ]+/g," ").split(/\s+/).filter(t=>t.length>=3);
- let mejor=null, mejorPuntos=0;
-
- for(const p of productosConPrecio){
-   if(r.familia && p.familia && norm(r.familia)!==norm(p.familia)) continue;
-   const textoP=norm([p.codigo,p.nombre,p.descripcion,p.material,p.subfamilia,p.formato].filter(Boolean).join(" "));
-   let puntos=0;
-   for(const t of tokens) if(textoP.includes(t)) puntos += t.length;
-   if(Number(r.stockSistema)===Number(p.stock)) puntos += 3;
-   if(puntos>mejorPuntos){ mejorPuntos=puntos; mejor=p; }
- }
- return mejorPuntos>=5 ? mejor : (directo||{});
-}
+function productoParaRevision(r){const p=productos.get(r.productoId)||{};return {...p,precioUnitario:r.precioRevision??precioDe(p)};}
 const e=s=>String(s??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 async function cargar(){
  const [ps,rs,cs]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"revisionesStock")),getDocs(collection(db,"cierresInventario"))]);

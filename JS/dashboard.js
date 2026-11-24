@@ -1,21 +1,7 @@
 import {db,collection,getDocs} from "./firebase.js";
 import {familiaDe} from "./familias.js";
 
-const num=v=>{
- const n=Number(String(v ?? "").trim().replace(",","."));
- return Number.isFinite(n)?n:0;
-};
-const precioDe=p=>num(
- p.precio ??
- p.precioUnitario ??
- p.precio_unitario ??
- p.precioUnidad ??
- p.coste ??
- p.costo ??
- p.valorUnitario ??
- p.valor_unitario ??
- 0
-);
+import {numero as num,precioDe} from "./datos-stock.js";
 const norm=v=>String(v||"").trim().toUpperCase();
 
 async function cargarDashboard(){
@@ -91,6 +77,7 @@ async function cargarDashboard(){
  const ctx=document.getElementById("graficoCategorias");
  if(ctx && window.Chart){
    const datosCategorias=Object.entries(categorias).sort((a,b)=>ordenFamilias.indexOf(a[0])-ordenFamilias.indexOf(b[0]));
+   Chart.getChart(ctx)?.destroy();
    new Chart(ctx,{
      type:"bar",
      data:{
@@ -110,4 +97,5 @@ async function cargarDashboard(){
 
  document.getElementById("tablaDisponibles").innerHTML=disponibles.length?disponibles.map(x=>`<tr><td><b>${x.codigo}</b></td><td>${x.pcn}</td><td>${x.pvn}</td><td>${x.entro}</td><td>${x.salio}</td><td><b>${x.disponible}</b></td></tr>`).join(""):'<tr><td colspan="6">No hay material disponible de entradas.</td></tr>';
 }
-cargarDashboard().catch(e=>{console.error(e);alert("Error al cargar el Dashboard");});
+const refrescar=()=>cargarDashboard().catch(e=>{console.error(e);alert("Error al cargar el Dashboard");});
+refrescar(); window.addEventListener("focus",refrescar);

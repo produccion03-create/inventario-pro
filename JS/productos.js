@@ -1,3 +1,4 @@
+import {precioDe,numero} from "./datos-stock.js";
 console.log("PRODUCTOS.JS CARGADO");
 
 import {
@@ -178,9 +179,9 @@ async function mostrarProductos() {
 
         }
 
-        const stock = Number(p.stock) || 0;
+        const stock = numero(p.stock);
         const minimo = Number(p.stockMinimo ?? 5);
-        const precio = Number(p.precio) || 0;
+        const precio = precioDe(p);
 
         let clase = "ok";
         let estado = "🟢 Correcto";
@@ -279,7 +280,7 @@ async function editarProducto(id) {
             document.getElementById("editarNombre").value = p.nombre;
             document.getElementById("editarCategoria").value = familiaCanonica(p.familia || p.categoria || "");
             document.getElementById("editarStock").value = p.stock;
-            document.getElementById("editarPrecio").value = p.precio;
+            document.getElementById("editarPrecio").value = precioDe(p);
             document.getElementById("editarStockMinimo").value = p.stockMinimo ?? 5;
             document.getElementById("editarProveedor").value = p.proveedor || p.ubicacion || "";
             document.getElementById("editarFormato").value = p.formato || "";
@@ -440,8 +441,8 @@ async function analizarDuplicadosManual(){
                     <td><strong>${p.codigo||p.referencia||p.ref||""}</strong></td>
                     <td>${p.nombre||p.descripcion||""}</td>
                     <td>${familiaDe(p)||p.categoria||""}</td>
-                    <td>${Number(p.stock)||0}</td>
-                    <td>${(Number(p.precio)||0).toFixed(2)} €</td>
+                    <td>${numero(p.stock)}</td>
+                    <td>${(precioDe(p)).toFixed(2)} €</td>
                     <td>${p.proveedor||p.ubicacion||""}</td>
                     <td>${p.formato||""}</td>
                   </tr>`).join("")}
@@ -509,7 +510,8 @@ window.eliminarProducto = eliminarProducto;
 // ==========================
 
 cargarFamilias();
-normalizarProductosGuardados().then(mostrarProductos).catch(e=>{console.error(e);mostrarProductos();});
+mostrarProductos();
+window.addEventListener("focus",mostrarProductos);
 
 document
     .getElementById("buscar")

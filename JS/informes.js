@@ -1,3 +1,4 @@
+import {productoActual} from "./datos-stock.js";
 import {
     db,
     collection,
@@ -34,10 +35,7 @@ async function cargarDatos(){
 
         productosDB.forEach(doc=>{
 
-            productos.push({
-                id:doc.id,
-                ...doc.data()
-            });
+            productos.push(productoActual({ ...doc.data(), id:doc.id }));
 
         });
 
@@ -620,3 +618,4 @@ document.getElementById("exportarPDF")
 
 
 cargarDatos();
+window.addEventListener("focus",cargarDatos);
