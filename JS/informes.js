@@ -1,3 +1,4 @@
+import {compararOrden,proveedorOrden} from "./orden-stock.js";
 import {productoActual} from "./datos-stock.js";
 import {
     db,
@@ -50,6 +51,7 @@ async function cargarDatos(){
         });
 
 
+        productos.sort(compararOrden);
         generarInforme();
 
 

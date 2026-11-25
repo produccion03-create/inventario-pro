@@ -1,3 +1,4 @@
+import {compararOrden,proveedorOrden} from "./orden-stock.js";
 import {precioDe,numero} from "./datos-stock.js";
 console.log("PRODUCTOS.JS CARGADO");
 
@@ -138,6 +139,7 @@ async function mostrarProductos() {
 <th>Producto</th>
 
 <th>Categoría</th>
+<th>Proveedor / ubicación (orden Excel)</th>
 
 <th>Stock</th>
 
@@ -159,7 +161,7 @@ async function mostrarProductos() {
 
 `;
 
-    datos.forEach((documento) => {
+    [...datos.docs].sort((a,b)=>compararOrden({...a.data(),id:a.id},{...b.data(),id:b.id})).forEach((documento) => {
 
         const p = documento.data();
 
@@ -216,6 +218,7 @@ async function mostrarProductos() {
 <td>${p.nombre}</td>
 
 <td>${familiaDe(p)}</td>
+<td>${String(proveedorOrden(p)).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")}</td>
 
 <td>${stock}</td>
 

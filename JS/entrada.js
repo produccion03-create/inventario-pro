@@ -1,3 +1,4 @@
+import {compararOrden,proveedorOrden} from "./orden-stock.js";
 import {db,collection,getDocs,doc,updateDoc,addDoc,serverTimestamp} from "./firebase.js";
 import {familiaDe} from "./familias.js";
 
@@ -91,7 +92,7 @@ function pintar(){
 }
 async function cargar(){
  const[ps,ms]=await Promise.all([getDocs(collection(db,"productos")),getDocs(collection(db,"movimientos"))]);
- productos=ps.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.nombre||"").localeCompare(String(b.nombre||"")));
+ productos=ps.docs.map(d=>({id:d.id,...d.data()})).sort(compararOrden);
  movimientos=ms.docs.map(d=>({id:d.id,...d.data()}));
  producto.value=""; seleccionado=null; datosProducto.innerHTML=""; pintar();
 }

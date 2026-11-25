@@ -1,3 +1,4 @@
+import {compararOrden,proveedorOrden} from "./orden-stock.js";
 import {
     db,
     collection,
@@ -31,7 +32,7 @@ async function encontrado(decodedText) {
 
     }
 
-    datos.forEach((documento)=>{
+    [...datos.docs].sort((a,b)=>compararOrden({...a.data(),id:a.id},{...b.data(),id:b.id})).forEach((documento)=>{
 
         productoActual = {
 

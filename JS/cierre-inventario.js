@@ -1,3 +1,4 @@
+import {compararOrden,proveedorOrden} from "./orden-stock.js";
 import {precioDe} from "./datos-stock.js";
 import {db,collection,getDocs,doc,setDoc,updateDoc,serverTimestamp} from "./firebase.js";
 import {FAMILIAS,normalizarFamilia,familiaDe} from "./familias.js";
@@ -34,7 +35,7 @@ function render(){
  const total=revs.length,revisados=revs.filter(r=>r.revisado).length,difs=revs.filter(r=>r.revisado&&Number(r.diferencia)!==0).length;
  const valorFisico=revs.filter(r=>r.revisado).reduce((s,r)=>{const p=productoParaRevision(r);return s+(Number(r.stockFisico)||0)*(Number(p.precioUnitario)||0)},0);
  resumen.innerHTML=`<span class="chip">Revisados: ${revisados}</span><span class="chip">Con diferencias: ${difs}</span><span class="chip">Registros: ${total}</span><span class="chip">Valor stock físico: ${valorFisico.toLocaleString("es-ES",{style:"currency",currency:"EUR"})}</span>`;
- tabla.innerHTML=revs.sort((a,b)=>(a.familia||"").localeCompare(b.familia||"")||(a.codigo||"").localeCompare(b.codigo||"")).map(r=>{const p=productoParaRevision(r);const precio=Number(p.precioUnitario)||0;const valor=(Number(r.stockFisico)||0)*precio;return `<tr><td>${e(r.codigo)}</td><td>${e(r.nombreProducto)}</td><td>${e(r.familia)}</td><td>${Number(r.stockSistema||0)}</td><td>${r.stockFisico??""}</td><td class="dif">${(Number(r.stockFisico||0)-Number(r.stockSistema||0))}</td><td>${precio?precio.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${precio?valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${r.revisado?"✓ Revisado":"Pendiente"}</td></tr>`}).join("")||'<tr><td colspan="9">No hay revisiones para este mes.</td></tr>';
+ tabla.innerHTML=revs.sort((a,b)=>compararOrden(productos.get(a.productoId)||a,productos.get(b.productoId)||b)).map(r=>{const p=productoParaRevision(r);const precio=Number(p.precioUnitario)||0;const valor=(Number(r.stockFisico)||0)*precio;return `<tr><td>${e(r.codigo)}</td><td>${e(r.nombreProducto)}</td><td>${e(r.familia)}</td><td>${Number(r.stockSistema||0)}</td><td>${r.stockFisico??""}</td><td class="dif">${(Number(r.stockFisico||0)-Number(r.stockSistema||0))}</td><td>${precio?precio.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${precio?valor.toLocaleString("es-ES",{style:"currency",currency:"EUR"}):"—"}</td><td>${r.revisado?"✓ Revisado":"Pendiente"}</td></tr>`}).join("")||'<tr><td colspan="9">No hay revisiones para este mes.</td></tr>';
 }
 document.getElementById("cargar").onclick=cargar;
 // Auditoría previa: nunca se sobrescriben existencias desde un cierre histórico.
