@@ -1,4 +1,4 @@
-import {compararOrden,proveedorOrden} from "./orden-stock.js";
+import {compararOrden,proveedorOrden,camposArticulo,cabeceraArticulo,celdasArticulo} from "./orden-stock.js";
 import {productoActual} from "./datos-stock.js";
 import {
     db,
@@ -549,11 +549,8 @@ document.getElementById("exportarCSV")
  if(!seleccion.length){alert("No hay productos en la familia seleccionada.");return;}
 
  const filas=seleccion.map(p=>({
-   Referencia:p.codigo||"",
-   Producto:p.nombre||"",
-   Familia:familiaDe(p)||"",
-   "Proveedor / Ubicación":p.proveedor||p.ubicacion||"",
-   Formato:p.formato||"",
+   ...Object.fromEntries(cabeceraArticulo.map((h,i)=>[h,camposArticulo(p)[i]])),
+ Familia:familiaDe(p)||"",
    Stock:Number(p.stock)||0,
    Precio:Number(p.precio)||0,
    Valor:(Number(p.stock)||0)*(Number(p.precio)||0)
@@ -600,10 +597,10 @@ document.getElementById("exportarPDF")
  pdf.text(`Inventario Pro - ${document.getElementById("familiaExportar")?.value || "Todas las familias"}`,15,15);
 
  pdf.autoTable({
-   startY:25,
-   head:[["Referencia","Producto","Familia","Proveedor / Ubicación","Formato","Stock","Precio","Valor"]],
+   startY:25,styles:{fontSize:6,cellPadding:1.5},
+   head:[[...cabeceraArticulo,"Familia","Stock","Precio","Valor"]],
    body:seleccion.map(p=>[
-     p.codigo||"",p.nombre||"",familiaDe(p)||"",p.proveedor||p.ubicacion||"",p.formato||"",
+     ...camposArticulo(p),familiaDe(p)||"",
      Number(p.stock)||0,
      (Number(p.precio)||0).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €",
      ((Number(p.stock)||0)*(Number(p.precio)||0)).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"

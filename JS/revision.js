@@ -1,4 +1,4 @@
-import {compararOrden,proveedorOrden} from "./orden-stock.js";
+import {compararOrden,proveedorOrden,camposArticulo,cabeceraArticulo,celdasArticulo} from "./orden-stock.js";
 import {precioDe,numero} from "./datos-stock.js";
 import {db,collection,getDocs,getDoc,doc,setDoc,serverTimestamp} from "./firebase.js";
 import {FAMILIAS,familiaDe,normalizarFamilia} from "./familias.js";
@@ -22,7 +22,7 @@ function lista(){return productos.filter(p=>familiaDe(p)===familiaSelect.value).
 function resumenUI(l){if(!l.length){resumen.innerHTML="";return}const r=l.filter(p=>revisiones.get(p.id)?.revisado).length;resumen.innerHTML=`<span class="chip">Total: ${l.length}</span><span class="chip">Revisados: ${r}</span><span class="chip">Pendientes: ${l.length-r}</span><span class="chip">Mes: ${mesElegido()}</span>`}
 function render(){
  const l=lista();if(!familiaSelect.value){tbody.innerHTML='<tr><td colspan="12">Selecciona una familia.</td></tr>';resumenUI([]);return}
- tbody.innerHTML=l.map(p=>{const r=revisiones.get(p.id),f=r?.stockFisico??"",d=f===""?"":n(f)-n(p.stock),ok=!!r?.revisado;return `<tr data-id="${p.id}" class="${ok?"revisado":""}"><td>${esc(p.codigo)}</td><td>${esc(p.nombre)}</td><td>${esc(p.material||p.subfamilia)}</td><td>${esc(p.descripcion)}</td><td>${esc(p.color)}</td><td>${esc(proveedorOrden(p))}</td><td><strong>${esc(p.formato)}</strong></td><td>${n(p.stock)}</td><td><input class="stock-fisico" type="number" step="any" inputmode="decimal" value="${f}"></td><td class="diferencia">${d===""?"—":d}</td><td><input class="check-revisado" type="checkbox" ${ok?"checked":""}></td><td class="estado">${ok?"✓ Revisado":"Pendiente"}</td></tr>`}).join("");
+ tbody.innerHTML=l.map(p=>{const r=revisiones.get(p.id),f=r?.stockFisico??"",d=f===""?"":n(f)-n(p.stock),ok=!!r?.revisado;return `<tr data-id="${p.id}" class="${ok?"revisado":""}">${celdasArticulo(p)}<td>${n(p.stock)}</td><td><input class="stock-fisico" type="number" step="any" inputmode="decimal" value="${f}"></td><td class="diferencia">${d===""?"—":d}</td><td><input class="check-revisado" type="checkbox" ${ok?"checked":""}></td><td class="estado">${ok?"✓ Revisado":"Pendiente"}</td></tr>`}).join("");
  resumenUI(l);
 }
 async function guardar(tr,ok=true){
@@ -32,7 +32,7 @@ async function guardar(tr,ok=true){
  if(input.value===""){if(ok){alert("Introduce el stock físico.");check.checked=false;input.focus()}return}
  const fisico=Number(input.value);if(!Number.isFinite(fisico)||fisico<0){alert("Stock físico no válido.");check.checked=false;return}
  tr.classList.add("guardando");estado.textContent="Guardando...";
- const datos={productoId:p.id,codigo:p.codigo||"",nombreProducto:p.nombre||"",familia:familiaDe(p),subfamilia:p.subfamilia||"",material:p.material||"",descripcion:p.descripcion||"",formato:p.formato||"",precioRevision:precioDe(p),stockSistema:n(p.stock),stockFisico:fisico,diferencia:fisico-n(p.stock),mes:mesElegido(),revisado:ok,fechaRevision:serverTimestamp()};
+ const datos={fichaArticulo:camposArticulo(p),productoId:p.id,codigo:p.codigo||"",nombreProducto:p.nombre||"",familia:familiaDe(p),subfamilia:p.subfamilia||"",material:p.material||"",descripcion:p.descripcion||"",formato:p.formato||"",precioRevision:precioDe(p),stockSistema:n(p.stock),stockFisico:fisico,diferencia:fisico-n(p.stock),mes:mesElegido(),revisado:ok,fechaRevision:serverTimestamp()};
  try{await setDoc(doc(db,"revisionesStock",`${mesElegido()}_${p.id}`),datos,{merge:true});revisiones.set(p.id,{...datos});dif.textContent=datos.diferencia;check.checked=ok;tr.classList.toggle("revisado",ok);estado.textContent=ok?"✓ Revisado":"Pendiente";resumenUI(lista())}catch(e){console.error(e);estado.textContent="Error";alert(`No se pudo guardar: ${e.message}`)}finally{tr.classList.remove("guardando")}
 }
 mesSelect.addEventListener("change",async()=>{

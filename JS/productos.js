@@ -1,4 +1,4 @@
-import {compararOrden,proveedorOrden} from "./orden-stock.js";
+import {compararOrden,proveedorOrden,camposArticulo,cabeceraArticulo,celdasArticulo} from "./orden-stock.js";
 import {precioDe,numero} from "./datos-stock.js";
 console.log("PRODUCTOS.JS CARGADO");
 
@@ -41,9 +41,9 @@ async function guardarProducto() {
     const proveedor = document.getElementById("proveedor").value.trim();
     const formato = document.getElementById("formato").value.trim();
 
-    if (codigo === "" || nombre === "") {
+    if (nombre === "" && !document.getElementById("descripcion").value.trim()) {
 
-        alert("Introduce el código y el nombre.");
+        alert("Introduce el nombre del material o la descripción.");
         return;
 
     }
@@ -60,7 +60,12 @@ async function guardarProducto() {
         await addDoc(collection(db, "productos"), {
 
             codigo,
-            nombre,
+            nombre: nombre || document.getElementById("descripcion").value.trim(),
+            nombreMaterial:nombre, fichaExcelCompleta:true,
+            material:document.getElementById("material").value.trim(),
+            descripcion:document.getElementById("descripcion").value.trim(),
+            color:document.getElementById("color").value.trim(),
+
             categoria,
             familia: categoria,
             stock,
@@ -77,6 +82,10 @@ async function guardarProducto() {
 
         document.getElementById("codigo").value = "";
         document.getElementById("nombre").value = "";
+document.getElementById("material").value="";
+document.getElementById("descripcion").value="";
+document.getElementById("color").value="";
+
         document.getElementById("categoria").value = "";
         document.getElementById("stock").value = "";
         document.getElementById("precio").value = "";
@@ -134,12 +143,7 @@ async function mostrarProductos() {
 
 <tr>
 
-<th>Código</th>
-
-<th>Producto</th>
-
-<th>Categoría</th>
-<th>Proveedor / ubicación (orden Excel)</th>
+<th>Referencia</th><th>Nombre del Material</th><th>Material</th><th>Descripción</th><th>COLOR</th><th>PROVEEDOR UBICACIÓN</th><th>Formato</th><th>Categoría</th>
 
 <th>Stock</th>
 
@@ -213,12 +217,7 @@ async function mostrarProductos() {
 
 <tr class="${clase}">
 
-<td>${p.codigo}</td>
-
-<td>${p.nombre}</td>
-
-<td>${familiaDe(p)}</td>
-<td>${String(proveedorOrden(p)).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")}</td>
+${celdasArticulo(p)}<td>${familiaDe(p)}</td>
 
 <td>${stock}</td>
 
@@ -280,13 +279,21 @@ async function editarProducto(id) {
 
             document.getElementById("editarId").value = id;
             document.getElementById("editarCodigo").value = p.codigo;
-            document.getElementById("editarNombre").value = p.nombre;
+            const ficha=camposArticulo(p);
+document.getElementById("editarCodigo").value=ficha[0];
+document.getElementById("editarNombre").value=ficha[1];
+document.getElementById("editarMaterial").value=ficha[2];
+document.getElementById("editarDescripcion").value=ficha[3];
+document.getElementById("editarColor").value=ficha[4];
+document.getElementById("editarProveedor").value=ficha[5];
+document.getElementById("editarFormato").value=ficha[6];
+
             document.getElementById("editarCategoria").value = familiaCanonica(p.familia || p.categoria || "");
             document.getElementById("editarStock").value = p.stock;
             document.getElementById("editarPrecio").value = precioDe(p);
             document.getElementById("editarStockMinimo").value = p.stockMinimo ?? 5;
-            document.getElementById("editarProveedor").value = p.proveedor || p.ubicacion || "";
-            document.getElementById("editarFormato").value = p.formato || "";
+            
+            
 
             document.getElementById("modalEditar").style.display = "flex";
 
@@ -313,7 +320,12 @@ async function guardarEdicion() {
             {
 
                 codigo: document.getElementById("editarCodigo").value,
-                nombre: document.getElementById("editarNombre").value,
+                nombre: document.getElementById("editarNombre").value || document.getElementById("editarDescripcion").value,
+ nombreMaterial:document.getElementById("editarNombre").value, fichaExcelCompleta:true,
+material:document.getElementById("editarMaterial").value.trim(),
+descripcion:document.getElementById("editarDescripcion").value.trim(),
+color:document.getElementById("editarColor").value.trim(),
+
                 categoria: familiaCanonica(document.getElementById("editarCategoria").value),
                 familia: familiaCanonica(document.getElementById("editarCategoria").value),
                 stock: Number(document.getElementById("editarStock").value),
